@@ -35,7 +35,7 @@ class Report
 		);
 		
 		if ($key !== false) {
-			$data['bans']['today'] = count($this->lists['date']['list'][$key]);
+			$data['bans']['today'] = count($this->lists['date']['list'][$key]['ipList']);
 		}
 
 		$key = array_search(
@@ -44,7 +44,7 @@ class Report
 		);
 		
 		if ($key !== false) {
-			$data['bans']['yesterday'] = count($this->lists['date']['list'][$key]);
+			$data['bans']['yesterday'] = count($this->lists['date']['list'][$key]['ipList']);
 		}
 
 		$dayCount = count($this->lists['date']['list']);
