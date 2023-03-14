@@ -1,7 +1,6 @@
 <?php
 
 require 'vendor/autoload.php';
-require '../config.php';
 
 if (php_sapi_name() !== 'cli') {
 	echo('Intruder Alert script must be run via the command-line.');

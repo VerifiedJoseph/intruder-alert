@@ -7,6 +7,12 @@ class Configuration
      */
     public static function checkConfig(): void
     {
+        if (file_exists('../config.php') === false) {
+            throw new Exception('config file not found (../config.php)');
+        }
+
+        require '../config.php';
+
         if (defined('LOG_FOLDER') === false || constant('LOG_FOLDER') === '') {
             throw new Exception('fail2ban log folder must be set [LOG_FOLDER]');
         }
