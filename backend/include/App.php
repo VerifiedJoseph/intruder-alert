@@ -19,7 +19,7 @@ class App
 	{
 		$sinceTimeStamp = '';
 
-		$logs = new Logs('../');
+		$logs = new Logs(constant('LOG_FOLDER'));
 		foreach ($logs->process() as $line) {
 			if ($sinceTimeStamp != null) {
 				$sinceTimeStamp = $line['timestamp'];
