@@ -18,6 +18,8 @@ class Logs
 		$rows = [];
 
 		foreach($this->files as $file) {
+			echo $file->getPathname() . "\n";
+
 			$contents = file_get_contents($file->getPathname());
 		
 			if (preg_match($this->gzRegex, $file->getFilename())) {
