@@ -1,5 +1,8 @@
 {
     "require": {
         "geoip2/geoip2": "^2.13"
+    },
+    "autoload": {
+        "classmap": ["include/"]
     }
 }
