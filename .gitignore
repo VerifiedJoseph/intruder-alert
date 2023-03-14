@@ -1,3 +1,4 @@
 frontend/data.json
 backend/vendor/*
 logs/*
+config.php
