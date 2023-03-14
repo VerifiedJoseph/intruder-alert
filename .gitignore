@@ -1,0 +1,3 @@
+frontend/data.json
+backend/vendor/*
+backend/fail2ban.log*
