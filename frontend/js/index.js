@@ -155,6 +155,7 @@ function displayGlobalStats() {
 	document.getElementById('bans-today').innerText = formatNumber(botData.stats.bans.today);
 	document.getElementById('bans-yesterday').innerText = formatNumber(botData.stats.bans.yesterday);
 	document.getElementById('bans-per-day').innerText = formatNumber(botData.stats.bans.perDay);
+	document.getElementById('total-days').innerText = formatNumber(botData.date.list.length);
 	document.getElementById('total-ips').innerText = formatNumber(botData.ip.list.length);
 	document.getElementById('total-networks').innerText = formatNumber(botData.network.list.length);
 	document.getElementById('total-countries').innerText = formatNumber(botData.country.list.length);
