@@ -1,6 +1,10 @@
 <?php
 
-class DateList {
+namespace Lists;
+
+use stdClass;
+
+class Date {
 	private array $data = [
 		'list' => []
 	];

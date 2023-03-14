@@ -3,11 +3,11 @@
 require 'vendor/autoload.php';
 
 require 'include/App.php';
-require 'include/IpList.php';
-require 'include/NetworkList.php';
-require 'include/DateList.php';
-require 'include/JailList.php';
-require 'include/CountryList.php';
+require 'include/Lists/Ip.php';
+require 'include/Lists/Network.php';
+require 'include/Lists/Date.php';
+require 'include/Lists/Jail.php';
+require 'include/Lists/Country.php';
 require 'include/Ip.php';
 require 'include/Lists.php';
 require 'include/Logs.php';

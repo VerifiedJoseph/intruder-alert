@@ -1,19 +1,19 @@
 <?php 
 
 class Lists {
-	private IpList $ipList;
-	private DateList $dateList;
-	private JailList $jailList;
-	private NetworkList $networkList;
-	private CountryList $countryList;
+	private Lists\Ip $ipList;
+	private Lists\Date $dateList;
+	private Lists\Jail $jailList;
+	private Lists\Network $networkList;
+	private Lists\Country $countryList;
 
 	public function __construct()
 	{
-		$this->ipList = new IpList();
-		$this->dateList = new DateList();
-		$this->jailList = new JailList();
-		$this->networkList = new NetworkList();
-		$this->countryList = new CountryList();
+		$this->ipList = new Lists\Ip();
+		$this->dateList = new Lists\Date();
+		$this->jailList = new Lists\Jail();
+		$this->networkList = new Lists\Network();
+		$this->countryList = new Lists\Country();
 	}
 
 	public function addIp(Ip $ip) {

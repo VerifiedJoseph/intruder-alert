@@ -1,6 +1,10 @@
 <?php
 
-class NetworkList {
+namespace Lists;
+
+use stdClass;
+
+class Network {
 	private array $data = [
 		'mostBanned' => '',
 		'list' => []

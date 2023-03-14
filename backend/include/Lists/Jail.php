@@ -1,6 +1,10 @@
 <?php
 
-class CountryList {
+namespace Lists;
+
+use stdClass;
+
+class Jail {
 	private array $data = [
 		'mostBanned' => '',
 		'list' => []
@@ -14,15 +18,14 @@ class CountryList {
 
 	public function addIp(stdClass $ip)
 	{
-		$key = array_search($ip->country->code, array_column($this->data['list'], 'code'));
-	
+		$key = array_search($ip->jail, array_column($this->data['list'], 'name'));
+
 		if ($key === false) {
 			$this->data['list'][] = [
-				'code' => $ip->country->code,
-				'name' => $ip->country->name,
-				'bans' => 1,
+				'name' => $ip->jail,
+				'ipList' => [$ip->address],
 				'ipCount' => 1,
-				'ipList' => [$ip->address]
+				'bans' => 1
 			];
 		} else {
 			$this->data['list'][$key]['bans']++;
@@ -38,10 +41,10 @@ class CountryList {
 	{
 		$highest = 0;
 
-		foreach ($this->data['list'] as $item) {
-			if ($item['bans'] > $highest) {
-				$highest = $item['bans'];
-				$this->data['mostBanned'] = $item['code'];
+		foreach ($this->data['list'] as $jail => $item) {
+			if (count($item['ipList']) > $highest) {
+				$highest = count($item['ipList']);
+				$this->data['mostBanned'] = $jail;
 			}
 		}
 	}

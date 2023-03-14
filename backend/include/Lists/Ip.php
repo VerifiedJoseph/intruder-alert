@@ -1,6 +1,10 @@
 <?php
 
-class IpList {
+namespace Lists;
+
+use stdClass;
+
+class Ip {
 	private array $data = [
 		'mostBanned' => '',
 		'totalBans' => 0,
