@@ -2,6 +2,11 @@
 
 require 'vendor/autoload.php';
 
+if (php_sapi_name() !== 'cli') {
+	echo('Intruder Alert script must be run via the command-line.');
+	die();
+}
+
 Lookup::setCountryDB('db/GeoLite2-Country.mmdb');
 Lookup::setAsnDB('db/GeoLite2-ASN.mmdb');
 
