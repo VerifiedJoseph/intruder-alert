@@ -15,7 +15,10 @@ class Report
 		$data['updated'] = date('Y-m-d G:i:s');
 		$data['stats'] =  $this->createGlobalStats();
 
-		echo json_encode($data);
+		file_put_contents(
+			'../frontend/data.json', 
+			json_encode($data)
+		);
 	}
 
 	private function createGlobalStats(): array
