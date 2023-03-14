@@ -1,0 +1,26 @@
+.stats {
+	display: flex;
+	/*grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+	grid-gap: 10px;*/
+}
+
+.stat {
+	width: 100%;
+	background-color: white;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.stat.small-text {
+	padding-top: 5px;
+}
+
+.stat > div.big {
+	font-size: 19px;
+	font-weight: bold;
+	margin: 0px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	max-width: 280px;
+}

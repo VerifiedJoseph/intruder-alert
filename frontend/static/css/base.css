@@ -1,0 +1,205 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+	text-rendering: optimizeSpeed;
+	line-height: 1.5;
+
+	background-color: #F3F4F6;
+	font-family: sans-serif;
+	font-size: 13px;
+	margin: 0px;
+	padding: 0px;
+}
+
+p {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+h2 {
+	margin: 0px;
+}
+
+h3 {
+	margin: 0px;
+}
+
+.clear {
+	clear: both;
+}
+
+.header {
+	padding: 10px;
+	margin: 0 auto 0;
+	width: 900px;
+	text-align: center;
+}
+
+.box, #data > div {
+	background-color: white;
+	margin: 10px;
+	padding: 10px;
+
+	margin: 0 auto 10px;
+	width: 900px;
+}
+
+input {
+	margin-bottom: 6px;
+}
+
+.filter {
+	width: 250px;
+}
+
+.hide {
+	display: none;
+}
+
+table {
+	background-color: white;
+	margin: 0 auto 10px;
+	width: 900px;
+
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+table.modal {
+	width: 838px;
+}
+
+table.modal-ip {
+	width: 300px;
+	margin: 0;
+}
+
+table.modal-network-ip {
+	width: 100%;
+	margin: 0;
+	display: block;
+	overflow-y: auto;
+	max-height: calc(100vh - 200px);
+}
+
+table.modal-network-ip thead, table.modal-network-ip thead {
+	position: sticky;
+	top: 0;
+}
+
+table th {
+	text-align: left;
+}
+
+table th, table th:hover {
+	background: #000000;
+	color: #f1f1f1;
+}
+
+table tr:hover{
+	background: #f1f1f1;
+}
+
+table th, table td {
+	padding: 4px;
+	border-bottom: 1px solid #8f8f9d;
+	padding-right: 10px;
+}
+
+#year-filter {
+	width: 70px;
+}
+
+#show-filter {
+	width: 300px;
+}
+
+table th.number, table td.number {
+	width: 40px !important;
+	text-align: center;
+}
+
+table td.ip {
+	width: 120px !important;
+}
+
+table td.ban {
+	width: 50px !important;
+}
+
+table td.country {
+	min-width: 190px !important;
+}
+
+table th.date, table td.date {
+	width: 135px !important;
+}
+
+table td.asn {
+	width: 400px;
+}
+
+table td.button {
+	width: 100px;
+}
+
+.input-text {
+	display: inline-block;
+	width: 85px;
+}
+
+#modal {
+	position: fixed;
+	background-color: rgba(0, 0, 0, .65);
+	width: 100%;
+	height: 100%;
+	z-index: 999999;
+	top: 0;
+	left: 0;
+}
+
+#modal > .inner {
+	position: fixed; 
+	top: 40px; 
+	left: 50%;
+	transform: translateX(-50%);
+	width: 850px;
+	background-color: #fff;
+}
+
+#modal-header {
+	margin: 0 auto 0;
+	background-color: #000;
+	color: #fff;
+	border-bottom: 1px solid #8f8f9d;
+	font-weight: bold;
+}
+
+#modal-title {
+	float: left;
+	padding: 6px;
+}
+
+#modal-close {
+	float: right;
+	margin: 5px;
+}
+
+#modal-body {
+	padding: 6px;
+	max-height: calc(100vh - 100px);
+}
+
+.info {
+	display: flex;
+}
+
+.info > .box {
+	width: 100%;
+	padding: 4px;
+	margin: 0 auto 4px;
+}
