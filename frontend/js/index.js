@@ -311,6 +311,21 @@ function createCountryModal(code) {
 	modalTitle.innerText = 'Country Details'
 }
 
+function createCellWithFilter(dataType, dataValue, text) {
+	var span = document.createElement('span')
+	span.innerText = text
+
+	var button = document.createElement('button')
+	button.innerText = 'Filter'
+	button.classList.add('row-filter')
+	button.setAttribute('data-type' , dataType)
+	button.setAttribute('data-value' , dataValue)
+
+	span.append(button)
+
+	return span;
+}
+
 function createDetailsButton(dataType, dataValue){
 	var button = document.createElement('button')
 	button.innerText = 'View details'
@@ -319,6 +334,45 @@ function createDetailsButton(dataType, dataValue){
 	button.setAttribute('data-value' , dataValue);
 
 	return button;
+}
+
+function createDetailButtonEvents() {
+	var buttons = document.getElementsByClassName('details')
+
+	for (var i = 0; i < buttons.length; i++) {
+		buttons[i].addEventListener('click', function (e) {
+			var dataType = e.target.getAttribute('data-type')
+
+			if (dataType === 'ip') {
+				createIpModal(e.target.getAttribute('data-value'))
+			}
+
+			if (dataType === 'network') {
+				createNetworkModal(e.target.getAttribute('data-value'))
+			}
+
+			if (dataType === 'country') {
+				createCountryModal(e.target.getAttribute('data-value'))
+			}
+
+			document.getElementById('modal').classList.toggle('hide')
+		})
+	}
+}
+
+function createFilerButtonEvents() {
+	var buttons = document.getElementsByClassName('row-filter')
+
+	for (var i = 0; i < buttons.length; i++) {
+		buttons[i].addEventListener('click', function (e) {
+			var type = e.target.getAttribute('data-type')
+			var value = e.target.getAttribute('data-value')
+
+			document.querySelector(`#${type}-filter [value="${value}"]`).selected = true;
+			
+			filter(document.getElementById('data-filter').value)
+		})
+	}
 }
 
 function updatePageButton(id, chunk) {
@@ -410,8 +464,16 @@ function createTable(data, type, chunk) {
 
 			row.addCell(new Cell(item.address))
 			row.addCell(new Cell(formatNumber(item.bans)))
-			row.addCell(new Cell(network.name, 'asn'))
-			row.addCell(new Cell(country.name))
+			row.addCell(new Cell(
+				createCellWithFilter('network', network.number, network.name),
+				'asn',
+				true
+			))
+			row.addCell(new Cell(
+				createCellWithFilter('country', country.code, country.name),
+				'country',
+				true
+			))
 			row.addCell(new Cell(
 				createDetailsButton(type, item.address),
 				'button',
@@ -456,8 +518,17 @@ function createTable(data, type, chunk) {
 			row.addCell(new Cell(item.timestamp))
 			row.addCell(new Cell(item.jail))
 			row.addCell(new Cell(item.address))
-			row.addCell(new Cell(network.name, 'asn'))
-			row.addCell(new Cell(country.name))
+
+			row.addCell(new Cell(
+				createCellWithFilter('network', network.number, network.name),
+				'asn',
+				true
+			))
+			row.addCell(new Cell(
+				createCellWithFilter('country', country.code, country.name),
+				'country',
+				true
+			))
 		}
 	
 		if (type === 'date') {
@@ -479,27 +550,8 @@ function createTable(data, type, chunk) {
 
 	createPageButtons(chunkCount, chunk);
 
-	var buttons = document.getElementsByClassName('details')
-
-	for (var i = 0; i < buttons.length; i++) {
-		buttons[i].addEventListener('click', function (e) {
-			var dataType = e.target.getAttribute('data-type')
-
-			if (dataType === 'ip') {
-				createIpModal(e.target.getAttribute('data-value'))
-			}
-
-			if (dataType === 'network') {
-				createNetworkModal(e.target.getAttribute('data-value'))
-			}
-
-			if (dataType === 'country') {
-				createCountryModal(e.target.getAttribute('data-value'))
-			}
-
-			document.getElementById('modal').classList.toggle('hide')
-		})
-	}
+	createDetailButtonEvents()
+	createFilerButtonEvents();
 }
 
 document.getElementById('data-filter').addEventListener('change', function(e) {
