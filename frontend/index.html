@@ -102,7 +102,14 @@
 				<button id="country-filter-reset" disabled>Reset</button>
 			</div>
 			<div id="data">
-				<div>Select a data type from the box above.</div>
+				<div id="data-note">Select a data type from the box above.</div>
+				<div id="data-table"></div>
+				<div class="box"  id="data-table-pagination">
+					<button class="page-button" id="load-first-page" data-chunk="0" disabled>First</button>
+					<button class="page-button middle" id="load-prev-page" disabled>Prev</button>
+					<button class="page-button middle" id="load-next-page" disabled>Next</button>
+					<button class="page-button" id="load-last-page" disabled>Last</button>
+				</div>
 			</div>
 		</div>
 		<script type="module" src="js/table.js"></script>

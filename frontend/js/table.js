@@ -15,8 +15,6 @@ export class Table
 	}
 
 	get() {
-		console.log(this.body);
-
 		this.html.appendChild(this.header)
 		this.html.appendChild(this.body)
 

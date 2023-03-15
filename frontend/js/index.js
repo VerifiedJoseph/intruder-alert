@@ -74,7 +74,7 @@ function enableFilterOption(name) {
 	document.getElementById(`${name}-filter-reset`).disabled = false;
 }
 
-function filter (type) {
+function filter (type, chunk = 0) {
 	const network = document.getElementById('network-filter').value
     const country = document.getElementById('country-filter').value
 
@@ -99,7 +99,7 @@ function filter (type) {
 		return true
 	})
 
-	createTable(filtered, type);
+	createTable(filtered, type, chunk);
 }
 
 function getIpDetails(address) {
@@ -311,7 +311,7 @@ function createCountryModal(code) {
 	modalTitle.innerText = 'Country Details'
 }
 
-function createDetailsButton(dataType, dataValue) {
+function createDetailsButton(dataType, dataValue){
 	var button = document.createElement('button')
 	button.innerText = 'View details'
 	button.classList.add('details');
@@ -321,8 +321,58 @@ function createDetailsButton(dataType, dataValue) {
 	return button;
 }
 
-function createTable(data, type) {
-	var box = document.getElementById('data');
+function updatePageButton(id, chunk) {
+	var button = document.getElementById(id)
+	button.setAttribute('data-chunk', chunk);
+}
+
+function enablePageButton(id) {
+	document.getElementById(id).disabled = false
+}
+
+function disablePageButton(id) {
+	document.getElementById(id).disabled = true
+}
+
+function createPageButtons(chunkCount, current) {
+	var prev = null;
+	var next = null;
+	var last = chunkCount;
+
+	if (chunkCount > 1) {
+		updatePageButton('load-last-page', last)
+
+		prev = current - 1;
+		next = current + 1;
+
+		if (prev >= 0) {
+			updatePageButton('load-prev-page', prev)
+			enablePageButton('load-first-page')
+			enablePageButton('load-prev-page')
+		} else {
+			disablePageButton('load-first-page')
+			disablePageButton('load-prev-page')
+		}
+
+		if (next < last || next === last) {
+			updatePageButton('load-next-page', next)
+			updatePageButton('load-last-page', last)
+			enablePageButton('load-next-page')
+			enablePageButton('load-last-page')
+		} else {
+			disablePageButton('load-next-page')
+			disablePageButton('load-last-page')
+		}
+	} else {
+		disablePageButton('load-first-page')
+		disablePageButton('load-prev-page')
+		disablePageButton('load-next-page')
+		disablePageButton('load-last-page')
+	}
+}
+
+function createTable(data, type, chunk) {
+	var div = document.getElementById('data-table');
 	
 	var table = new Table();
 	var header = new Row()
@@ -334,9 +384,25 @@ function createTable(data, type) {
 
 	table.addHeader(header)
 
-	data.forEach(function (item, index) {
+	let chunkSize = 30;
+	var dataChunks = [];
+	for (let i = 0; i < data.length; i += chunkSize) {
+		dataChunks.push(data.slice(i, i + chunkSize));
+	}
+
+	var chunkCount = dataChunks.length - 1
+
+	dataChunks[chunk].forEach(function (item, index) {
 		var row = new Row()
-		row.addCell(new Cell(formatNumber(index + 1), 'number'))
+
+		console.log('chunk:' + chunk)
+
+		var itemNumber = index + 1;
+		if (chunk >= 1) {
+			itemNumber = (chunk * chunkSize) + index + 1;
+		}
+
+		row.addCell(new Cell(formatNumber(itemNumber), 'number'))
 
 		if (type === 'ip') {
 			var network = getNetworkDetails(item.network)
@@ -408,8 +474,10 @@ function createTable(data, type) {
 		table.addRow(row);
 	});
 
-	box.innerText = '';
-	box.append(table.get());
+	div.innerText = '';
+	div.append(table.get());
+
+	createPageButtons(chunkCount, chunk);
 
 	var buttons = document.getElementsByClassName('details')
 
@@ -472,6 +540,16 @@ document.getElementById('country-filter-reset').addEventListener('click', functi
 	resetFilterOption('country')
 	filter(document.getElementById('data-filter').value)
 })
+
+var pageButtons = document.getElementsByClassName('page-button')
+for (var i = 0; i < pageButtons.length; i++) {
+	pageButtons[i].addEventListener('click', function (e) {
+		filter(
+			document.getElementById('data-filter').value,
+			Number(e.target.getAttribute('data-chunk'))
+		)
+	})
+}
 
 fetchData()
 .then(response => {
