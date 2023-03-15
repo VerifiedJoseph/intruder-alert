@@ -1,7 +1,34 @@
+.row-wrap {
+	margin: 0 auto 0px;
+	width: 900px;
+}
+
+.row {
+	display: grid;
+	grid-template-columns: repeat( auto-fit, minmax(80px, 1fr) );
+	grid-gap: 10px;
+}
+
+.cell {
+	background-color: white;
+	padding: 10px;
+	width: 100%;
+	margin: 0px 10px 10px 0px;
+	border-bottom: 1px solid #8f8f9d;
+}
+
+.cell > .big {
+	font-size: 19px;
+	font-weight: bold;
+	margin: 0px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	max-width: 280px;	
+}
+
 .stats {
 	display: flex;
-	/*grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-	grid-gap: 10px;*/
 }
 
 .stat {
