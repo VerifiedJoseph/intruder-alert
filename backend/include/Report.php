@@ -13,7 +13,7 @@ class Report
 	{
 		$data = $this->lists;
 		$data['updated'] = date('Y-m-d G:i:s');
-		$data['stats'] =  $this->createGlobalStats();
+		$data['stats'] =  $this->createStats();
 
 		file_put_contents(
 			'../frontend/data.json', 
@@ -21,9 +21,15 @@ class Report
 		);
 	}
 
-	private function createGlobalStats(): array
+	private function createStats(): array
 	{
 		$data = [];
+		$data['totals']['ip'] = count($this->lists['ip']['list']);
+		$data['totals']['network'] = count($this->lists['network']['list']);
+		$data['totals']['country'] = count($this->lists['country']['list']);
+		$data['totals']['date'] = count($this->lists['date']['list']);
+		$data['totals']['jail'] = count($this->lists['jail']['list']);
+
 		$data['bans']['total'] = $this->lists['ip']['totalBans'];
 		$data['bans']['today'] = 0;
 		$data['bans']['yesterday'] = 0;
