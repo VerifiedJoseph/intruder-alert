@@ -180,13 +180,14 @@ function displayMostBanned() {
 function createModalInfoBox(label, value) {
 	var box = document.createElement('box')
 	var span = document.createElement('span')
-	var h3 = document.createElement('h3')
+	var div = document.createElement('div')
 
-	span.innerText = label;
-	h3.innerText = value;
+	span.innerText = label
+	div.innerText = value
+	div.classList.add(['big'])
 
 	box.appendChild(span)
-	box.appendChild(h3)
+	box.appendChild(div)
 	box.classList.add('box')
 
 	return box;

@@ -203,3 +203,9 @@ table td.button {
 	padding: 4px;
 	margin: 0 auto 4px;
 }
+
+.info > .box > .big {
+	font-weight: bold;
+	font-size: 15px;
+}
+
