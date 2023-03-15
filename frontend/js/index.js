@@ -49,7 +49,6 @@ function resetFilterOption(name) {
 	document.getElementById(`${name}-filter`).value = 'all'
 }
 
-
 function disableFilterOption(name) {
 	document.getElementById(`${name}-filter`).disabled = true;
 	document.getElementById(`${name}-filter-reset`).disabled = true;
