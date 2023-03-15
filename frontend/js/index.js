@@ -423,7 +423,7 @@ function createTable(data, type, chunk) {
 
 	table.addHeader(header)
 
-	let chunkSize = 30;
+	let chunkSize = 20;
 	var dataChunks = [];
 	for (let i = 0; i < data.length; i += chunkSize) {
 		dataChunks.push(data.slice(i, i + chunkSize));
