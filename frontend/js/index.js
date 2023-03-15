@@ -411,7 +411,7 @@ function createTable(data, type, chunk) {
 			row.addCell(new Cell(item.address))
 			row.addCell(new Cell(formatNumber(item.bans)))
 			row.addCell(new Cell(network.name, 'asn'))
-			row.addCell(new Cell(`${country.name} (${country.code})`))
+			row.addCell(new Cell(country.name))
 			row.addCell(new Cell(
 				createDetailsButton(type, item.address),
 				'button',
