@@ -11,7 +11,8 @@ var tableHeaders = {
 	'network': ['Network', 'IPs', 'Bans', ''],
 	'country': ['Country', 'IPs', 'Bans', ''],
 	'events': ['Date', 'Jail'],
-	'recentBans': ['Date', 'Jail', 'Address', 'Network', 'Country']
+	'recentBans': ['Date', 'Jail', 'Address', 'Network', 'Country'],
+	'date': ['Date', 'IPs', 'Bans', '']
 }
 
 function formatNumber (number) {
@@ -392,6 +393,17 @@ function createTable(data, type) {
 			row.addCell(new Cell(country.name))
 		}
 	
+		if (type === 'date') {
+			row.addCell(new Cell(item.date))
+			row.addCell(new Cell(formatNumber(item.ipCount)))
+			row.addCell(new Cell(formatNumber(item.bans)))
+			row.addCell(new Cell(
+				createDetailsButton(type, item.date),
+				'button',
+				true
+			))
+		}
+
 		table.addRow(row);
 	});
 

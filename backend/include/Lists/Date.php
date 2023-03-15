@@ -20,10 +20,17 @@ class Date {
 		if ($key === false) {
 			$this->data['list'][] = [
 				'date' => $date,
+				'bans' => 1,
+				'ipCount' => 1,
 				'ipList' => [$ip->address]
 			];
 		} else {
-			$this->data['list'][$key]['ipList'][] = $ip->address;
+			$this->data['list'][$key]['bans']++;
+
+			if (in_array($ip->address, $this->data['list'][$key]['ipList']) === false) {
+				$this->data['list'][$key]['ipList'][] = $ip->address;
+				$this->data['list'][$key]['ipCount']++;
+			}
 		}
 	}
 }
