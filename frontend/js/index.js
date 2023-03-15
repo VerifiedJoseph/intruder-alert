@@ -23,36 +23,24 @@ function fetchData() {
 	return fetch('data.json');
 }
 
-function createNetworkFilterOptions() {
-	const select = document.getElementById('network-filter')
+function setFilterOptions(type) {
+	const select = document.getElementById(`${type}-filter`)
 	select.innerText = ''
 
 	const option = document.createElement('option')
 	option.value = 'all'
-	option.innerText = 'All networks'
+
+	if (type == 'network') {
+		option.innerText = 'All networks'
+	} else {
+		option.innerText = 'All countries'
+	}
+
 	select.appendChild(option)
 
-	botData.network.list.forEach(function (item) {
-		const option = document.createElement('option');
-		option.value = item.number
-		option.innerText = item.name
-
-		select.appendChild(option)
-	})
-}
-
-function createCountryFilterOptions() {
-	const select = document.getElementById('country-filter')
-	select.innerText = ''
-
-	const option = document.createElement('option')
-	option.value = 'all'
-	option.innerText = 'All countries'
-	select.appendChild(option)
-
-	botData.country.list.forEach(function (item) {
-		const option = document.createElement('option');
-		option.value = item.code
+	botData[type].list.forEach(function (item) {
+		const option = document.createElement('option')
+		option.value = item.number || item.code
 		option.innerText = item.name
 
 		select.appendChild(option)
@@ -614,8 +602,8 @@ fetchData()
 	displayGlobalStats()
 	displayMostBanned()
 
-	createNetworkFilterOptions()
-	createCountryFilterOptions()
+	setFilterOptions('network')
+	setFilterOptions('country')
 }).catch(error => {
 	console.log(error);
 })
