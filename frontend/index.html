@@ -19,13 +19,15 @@
 		</div>
 		<div id="main">
 			<div class="header">
-				<h2>Intruder Alert</h2>
-				<p><strong>Fail2ban incident report</strong></p>
+				<div>
+					<h2>Intruder Alert</h2>
+					<p><strong>Fail2ban incident report</strong></p>
+				</div>
+				<div class="last-updated">
+					Last updated: <strong><span id="last-updated">Unknown</span></strong>
+				</div>
 			</div>
-			<div class="box">
-				Last updated: <strong><span id="last-updated">Unknown</span></strong>
-			</div>
-			<div id="global-stats" class="box hide">
+			<div id="global-stats" class="box margin hide">
 				<div class="stats">
 					<div class="stat">
 						<div id="total-bans" class="big"></div>
@@ -61,7 +63,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="most-banned" class="box hide">
+			<div id="most-banned" class="box margin hide">
 				<div class="stats">
 					<div class="stat">
 						<div id="most-banned-ip" class="big"></div>
@@ -112,7 +114,7 @@
 				</div>-->
 			</div>
 			<div id="data">
-				<div id="data-note">Select a data type from the box above.</div>
+				<!--<div id="data-note">Select a data type from the box above.</div>-->
 				<div id="data-table"></div>
 				<div class="box" id="data-table-pagination">
 					<div>

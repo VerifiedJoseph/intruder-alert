@@ -32,20 +32,35 @@ h3 {
 	clear: both;
 }
 
+#main {
+	margin: 10px;
+}
+
 .header {
-	padding: 10px;
+	padding: 0px 10px 5px;
 	margin: 0 auto 0;
 	width: 900px;
-	text-align: center;
+	position: relative;
+}
+
+.header > .last-updated {
+	position: absolute;
+	top: 0px;
+	right: 10px;
+	padding: 20px;
 }
 
 .box, #data-note {
 	background-color: white;
-	margin: 10px;
 	padding: 10px;
 
-	margin: 0 auto 10px;
+	border-bottom: 1px solid #8f8f9d;
+	margin: 0 auto 0px;
 	width: 900px;
+}
+
+.box.margin {
+	margin-bottom: 10px;
 }
 
 input {
@@ -237,6 +252,10 @@ table td.button {
 .page-button.middle {
 	width: 60px;
 	padding: 2px 10px;
+}
+
+#data-table > table {
+	margin-bottom: 0px;
 }
 
 #data-table-pagination > div {
