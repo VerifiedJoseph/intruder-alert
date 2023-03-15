@@ -156,8 +156,10 @@ function displayMostBanned() {
 	document.getElementById('most-banned-ip').innerText = ip.address;
 	document.getElementById('most-banned-ip-count').innerText = formatNumber(ip.bans);
 	document.getElementById('most-banned-network').innerText = network.name;
+	document.getElementById('most-banned-network').setAttribute('title', network.name);
 	document.getElementById('most-banned-network-count').innerText = formatNumber(network.bans);
 	document.getElementById('most-banned-country').innerText = country.name;
+	document.getElementById('most-banned-country').setAttribute('title', country.name);
 	document.getElementById('most-banned-country-count').innerText = formatNumber(country.bans);
 	document.getElementById('most-banned').classList.remove('hide')
 }
