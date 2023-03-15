@@ -239,6 +239,14 @@ table td.button {
 	padding: 2px 10px;
 }
 
+#data-table-pagination > div {
+	display: inline-block;
+}
+
+#pagination-count {
+	padding-left: 5px;
+}
+
 .input {
 	margin-bottom: 5px;
 }

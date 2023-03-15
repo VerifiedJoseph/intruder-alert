@@ -408,6 +408,9 @@ function createPageButtons(chunkCount, current) {
 		disablePageButton('load-next-page')
 		disablePageButton('load-last-page')
 	}
+
+	var paginationCount = document.getElementById('pagination-count');
+	paginationCount.innerText = `Page ${current + 1} of ${chunkCount + 1}`
 }
 
 function createTable(data, type, chunk) {
