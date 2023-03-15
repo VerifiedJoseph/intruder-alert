@@ -236,7 +236,7 @@ function createNetworkModalTable(network, view) {
 			var row = new Row()
 			row.addCell(new Cell(index + 1, 'number'))
 			row.addCell(new Cell(address, 'ip'))
-			row.addCell(new Cell(ip.bans, 'ban'))
+			row.addCell(new Cell(formatNumber(ip.bans), 'ban'))
 			row.addCell(new Cell(country.name, 'country'))
 			row.addCell(new Cell(
 				createDetailsButton('ip', address),
@@ -265,7 +265,7 @@ function createIpModal(address) {
 	info.appendChild(createModalInfoBox('IP Address', address))
 	info.appendChild(createModalInfoBox('Network', network.name))
 	info.appendChild(createModalInfoBox('Country', country.name))
-	info.appendChild(createModalInfoBox('Bans', ip.bans))
+	info.appendChild(createModalInfoBox('Bans', formatNumber(ip.bans)))
 
 	modalBody.appendChild(info);
 	modalTitle.innerText = 'IP Address Details'
@@ -283,8 +283,8 @@ function createNetworkModal(number) {
 	info.classList.add('info')
 
 	info.appendChild(createModalInfoBox('Network', network.name))
-	info.appendChild(createModalInfoBox('IPs', network.ipCount))
-	info.appendChild(createModalInfoBox('Bans', network.bans))
+	info.appendChild(createModalInfoBox('IPs', formatNumber(network.ipCount)))
+	info.appendChild(createModalInfoBox('Bans', formatNumber(network.bans)))
 
 	modalBody.appendChild(info);
 	modalTitle.innerText = 'Network Details'
@@ -302,8 +302,8 @@ function createCountryModal(code) {
 	info.classList.add('info')
 
 	info.appendChild(createModalInfoBox('Country', country.name))
-	info.appendChild(createModalInfoBox('IPs', country.ipCount))
-	info.appendChild(createModalInfoBox('Bans', country.bans))
+	info.appendChild(createModalInfoBox('IPs', formatNumber(country.ipCount)))
+	info.appendChild(createModalInfoBox('Bans', formatNumber(country.bans)))
 
 	modalBody.appendChild(info);
 	modalTitle.innerText = 'Country Details'
@@ -341,7 +341,7 @@ function createTable(data, type) {
 			var country = getCountryDetails(item.country)
 
 			row.addCell(new Cell(item.address))
-			row.addCell(new Cell(item.bans))
+			row.addCell(new Cell(formatNumber(item.bans)))
 			row.addCell(new Cell(network.name, 'asn'))
 			row.addCell(new Cell(`${country.name} (${country.code})`))
 			row.addCell(new Cell(
@@ -361,8 +361,8 @@ function createTable(data, type) {
 			}
 
 			row.addCell(new Cell(item.name, cssClass))
-			row.addCell(new Cell(item.ipCount))
-			row.addCell(new Cell(item.bans))
+			row.addCell(new Cell(formatNumber(item.ipCount)))
+			row.addCell(new Cell(formatNumber(item.bans)))
 			row.addCell(new Cell(
 				createDetailsButton(type, item.number),
 				'button',
@@ -372,8 +372,8 @@ function createTable(data, type) {
 
 		if (type === 'country') {
 			row.addCell(new Cell(item.name, 'asn'))
-			row.addCell(new Cell(item.ipCount))
-			row.addCell(new Cell(item.bans))
+			row.addCell(new Cell(formatNumber(item.ipCount)))
+			row.addCell(new Cell(formatNumber(item.bans)))
 			row.addCell(new Cell(
 				createDetailsButton(type, item.code),
 				'button',
