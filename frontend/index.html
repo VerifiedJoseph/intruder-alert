@@ -78,28 +78,39 @@
 				</div>
 			</div>
 			<div class="box">
-				<span class="input-text">View:</span>
-				<select id="data-filter">
-					<option hidden disabled selected value="none">Select data type</option>
-					<option value="recentBans">Recent Bans</option>
-					<option value="ip">IP addresses</option>
-					<option value="network">Networks</option>
-					<option value="country">Countries</option>
-					<option value="jail">Jails</option>
-					<option value="date">Days</option>
-				</select>
-				<p></p>
-				<span class="input-text">Filter network:</span>
-				<select class="filter" id="network-filter" disabled>
-					<option selected value="all">All networks</option>
-				</select>
-				<button id="network-filter-reset" disabled>Reset</button>
-				<p></p>
-				<span class="input-text">Filter country:</span>
-				<select class="filter" id="country-filter" disabled>
-					<option selected value="all">All countries</option>
-				</select>
-				<button id="country-filter-reset" disabled>Reset</button>
+				<div class="input">
+					<span class="input-text">View:</span>
+					<select id="data-filter">
+						<option hidden disabled selected value="none">Select data type</option>
+						<option value="recentBans">Recent Bans</option>
+						<option value="ip">IP addresses</option>
+						<option value="network">Networks</option>
+						<option value="country">Countries</option>
+						<option value="jail">Jails</option>
+						<option value="date">Days</option>
+					</select>
+				</div>
+				<div class="input">
+					<span class="input-text">Filter network:</span>
+					<select class="filter" id="network-filter" disabled>
+						<option selected value="all">All networks</option>
+					</select>
+					<button id="network-filter-reset" disabled>Reset</button>					
+				</div>
+				<div class="input">
+					<span class="input-text">Filter country:</span>
+					<select class="filter" id="country-filter" disabled>
+						<option selected value="all">All countries</option>
+					</select>
+					<button id="country-filter-reset" disabled>Reset</button>
+				</div>
+				<!--<div>
+					<span class="input-text">Order by:</span>
+					<select class="filter" id="country-filter" disabled>
+						<option selected value="default">Default</option>
+					</select>
+					<button id="country-filter-reset" disabled>Reset</button>
+				</div>-->
 			</div>
 			<div id="data">
 				<div id="data-note">Select a data type from the box above.</div>
