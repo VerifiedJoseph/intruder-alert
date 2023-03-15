@@ -1,6 +1,4 @@
-import { Table } from './table.js'
-import { Row } from './table.js'
-import { Cell } from './table.js'
+import { Table, Row, Cell } from './table.js'
 
 "use strict";
 
