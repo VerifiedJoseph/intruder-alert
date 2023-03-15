@@ -148,7 +148,7 @@ function getRecentBans() {
 		return da < db ? -1 : da > db ? 1 : 0
 	});
 
-	return events.slice(0, 500).reverse();
+	return events.reverse().slice(0, 500);
 }
 
 function displayGlobalStats() {
@@ -206,7 +206,7 @@ function createBanEventTable(events) {
 
 	events.forEach(function (item, index) {
 		var row = new Row()
-		row.addCell(new Cell(index + 1, 'number'))
+		row.addCell(new Cell(formatNumber(index + 1), 'number'))
 
 		for (var [key, value] of Object.entries(item)) {
 			row.addCell(new Cell(value))
@@ -235,7 +235,7 @@ function createNetworkModalTable(network, view) {
 			var country = getCountryDetails(ip.country)
 
 			var row = new Row()
-			row.addCell(new Cell(index + 1, 'number'))
+			row.addCell(new Cell(formatNumber(index + 1), 'number'))
 			row.addCell(new Cell(address, 'ip'))
 			row.addCell(new Cell(formatNumber(ip.bans), 'ban'))
 			row.addCell(new Cell(country.name, 'country'))
@@ -335,7 +335,7 @@ function createTable(data, type) {
 
 	data.forEach(function (item, index) {
 		var row = new Row()
-		row.addCell(new Cell(index + 1, 'number'))
+		row.addCell(new Cell(formatNumber(index + 1), 'number'))
 
 		if (type === 'ip') {
 			var network = getNetworkDetails(item.network)
@@ -444,7 +444,7 @@ document.getElementById('data-filter').addEventListener('change', function(e) {
 		enableFilterOption('country')
 	} else {
 		disableFilterOption('network')
-		disableFilterOption('country')	
+		disableFilterOption('country')
 	}
 });
 
