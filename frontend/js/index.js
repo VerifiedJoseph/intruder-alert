@@ -442,8 +442,6 @@ function createTable(data, type, chunk) {
 	dataChunks[chunk].forEach(function (item, index) {
 		var row = new Row()
 
-		console.log('chunk:' + chunk)
-
 		var itemNumber = index + 1;
 		if (chunk >= 1) {
 			itemNumber = (chunk * chunkSize) + index + 1;
@@ -475,8 +473,6 @@ function createTable(data, type, chunk) {
 		}
 
 		if (type === 'network' || type === 'jail') {
-			var country = getCountryDetails(item.country)
-
 			var cssClass = null;
 
 			if (type === 'network') {
