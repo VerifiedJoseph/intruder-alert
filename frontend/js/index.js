@@ -26,44 +26,6 @@ function fetchData() {
 	return fetch('data.json');
 }
 
-function setFilterOptions(type) {
-	const select = document.getElementById(`${type}-filter`)
-	select.innerText = ''
-
-	const option = document.createElement('option')
-	option.value = 'all'
-
-	if (type == 'network') {
-		option.innerText = 'All networks'
-	} else {
-		option.innerText = 'All countries'
-	}
-
-	select.appendChild(option)
-
-	botData[type].list.forEach(function (item) {
-		const option = document.createElement('option')
-		option.value = item.number || item.code
-		option.innerText = item.name
-
-		select.appendChild(option)
-	})
-}
-
-function resetFilterOption(name) {
-	document.getElementById(`${name}-filter`).value = 'all'
-}
-
-function disableFilterOption(name) {
-	document.getElementById(`${name}-filter`).disabled = true;
-	document.getElementById(`${name}-filter-reset`).disabled = true;
-}
-
-function enableFilterOption(name) {
-	document.getElementById(`${name}-filter`).disabled = false;
-	document.getElementById(`${name}-filter-reset`).disabled = false;
-}
-
 function displayData(data, type, page = 0) {
 	var totalItems = data.length;
 
@@ -486,18 +448,18 @@ function createTable(data, type, indexStart = 0) {
 }
 
 document.getElementById('data-filter').addEventListener('change', function(e) {
-	resetFilterOption('network')
-	resetFilterOption('country')
+	filter.resetOption('network')
+	filter.resetOption('country')
 
 	var type = e.target.value
 	var data = filter.getData(type)
 
 	if (type === 'ip' || type === 'recentBans') {
-		enableFilterOption('network')
-		enableFilterOption('country')
+		filter.enableOption('network')
+		filter.enableOption('country')
 	} else {
-		disableFilterOption('network')
-		disableFilterOption('country')
+		filter.disableOption('network')
+		filter.disableOption('country')
 	}
 
 	displayData(data, type)
@@ -524,7 +486,7 @@ document.getElementById('country-filter').addEventListener('change', function(e)
 });
 
 document.getElementById('network-filter-reset').addEventListener('click', function (e) {	
-	resetFilterOption('network')
+	filter.resetOption('network')
 	
 	var type = document.getElementById('data-filter').value
 	var data = filter.getData(type)
@@ -533,7 +495,7 @@ document.getElementById('network-filter-reset').addEventListener('click', functi
 })
 
 document.getElementById('country-filter-reset').addEventListener('click', function (e) {
-	resetFilterOption('country')
+	filter.resetOption('country')
 
 	var type = document.getElementById('data-filter').value
 	var data = filter.getData(type)
@@ -575,16 +537,16 @@ fetchData()
 	displayGlobalStats()
 	displayMostBanned()
 
-	setFilterOptions('network')
-	setFilterOptions('country')
+	filter.setOptions('network')
+	filter.setOptions('country')
 
 	displayData(
 		filter.getData('recentBans'),
 		'recentBans'
 	)
 
-	enableFilterOption('network')
-	enableFilterOption('country')
+	filter.enableOption('network')
+	filter.enableOption('country')
 }).catch(error => {
 	displayError(error.message)
 	console.log(error);

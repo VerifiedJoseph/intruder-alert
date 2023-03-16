@@ -32,6 +32,44 @@ export class Filter
 		return filtered;
 	}
 
+	setOptions(type) {
+		const select = document.getElementById(`${type}-filter`)
+		select.innerText = ''
+	
+		const option = document.createElement('option')
+		option.value = 'all'
+	
+		if (type == 'network') {
+			option.innerText = 'All networks'
+		} else {
+			option.innerText = 'All countries'
+		}
+	
+		select.appendChild(option)
+	
+		this.data[type].list.forEach(function (item) {
+			const option = document.createElement('option')
+			option.value = item.number || item.code
+			option.innerText = item.name
+	
+			select.appendChild(option)
+		})
+	}
+
+	resetOption(name) {
+		document.getElementById(`${name}-filter`).value = 'all'
+	}
+
+	disableOption(name) {
+		document.getElementById(`${name}-filter`).disabled = true;
+		document.getElementById(`${name}-filter-reset`).disabled = true;
+	}
+	
+	enableOption(name) {
+		document.getElementById(`${name}-filter`).disabled = false;
+		document.getElementById(`${name}-filter-reset`).disabled = false;
+	}
+
 	#getRecentBans() {
 		var events = []
 
