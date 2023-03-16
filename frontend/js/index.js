@@ -381,7 +381,9 @@ function createPageButtons(chunkCount, current) {
 	var next = null;
 	var last = chunkCount;
 
-	if (chunkCount > 1) {
+	console.log(chunkCount)
+
+	if (chunkCount > 0) {
 		updatePageButton('load-last-page', last)
 
 		prev = current - 1;
@@ -429,7 +431,7 @@ function createTable(data, type, chunk) {
 
 	table.addHeader(header)
 
-	let chunkSize = 20;
+	let chunkSize = 25;
 	var dataChunks = [];
 	for (let i = 0; i < data.length; i += chunkSize) {
 		dataChunks.push(data.slice(i, i + chunkSize));
