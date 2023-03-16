@@ -33,13 +33,12 @@ h3 {
 }
 
 #main {
-	margin: 10px;
+	margin: 10px auto 10px;
+	width: 900px;
 }
 
 .header {
 	padding: 0px 10px 5px;
-	margin: 0 auto 0;
-	width: 900px;
 	position: relative;
 }
 
@@ -55,13 +54,19 @@ h3 {
 	padding: 10px;
 
 	border-bottom: 1px solid #8f8f9d;
-	margin: 0 auto 0px;
-	width: 900px;
 }
 
 #loading {
 	background-color: unset;
 	border-bottom: unset;
+}
+
+#error {
+	color: #fff;
+	font-weight: bold;
+	text-align: center;
+	padding: 4px;
+	background-color: red;
 }
 
 .box.margin {

@@ -136,6 +136,14 @@ function getRecentBans() {
 	return events.reverse().slice(0, 500);
 }
 
+function displayError(message) {
+	document.getElementById('loading').classList.add('hide')
+
+	var error = document.getElementById('error')
+	error.classList.remove('hide')
+	error.innerText = message
+} 
+
 function displayGlobalStats() {
 	document.getElementById('total-bans').innerText = formatNumber(botData.stats.bans.total);
 	document.getElementById('bans-today').innerText = formatNumber(botData.stats.bans.today);
@@ -596,6 +604,12 @@ for (var i = 0; i < pageButtons.length; i++) {
 
 fetchData()
 .then(response => {
+	console.log(response);
+
+	if (response.status !== 200) {
+		throw new Error(`Failed to fetch data (${response.status} ${response.statusText})`);
+	}
+
 	return response.json();
 }).then(data => {
 	botData = data
@@ -615,5 +629,6 @@ fetchData()
 	enableFilterOption('network')
 	enableFilterOption('country')
 }).catch(error => {
+	displayError(error.message)
 	console.log(error);
 })
