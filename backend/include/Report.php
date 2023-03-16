@@ -12,7 +12,7 @@ class Report
 	public function generate(): void
 	{
 		$data = $this->lists;
-		$data['updated'] = date('Y-m-d G:i:s');
+		$data['updated'] = date('Y-m-d h:i:s');
 		$data['stats'] =  $this->createStats();
 
 		file_put_contents(
