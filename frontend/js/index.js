@@ -284,8 +284,8 @@ function createFilerButtonEvents() {
 			document.querySelector(`#${type}-filter [value="${value}"]`).selected = true;
 
 			displayData(
-				filter.getData(document.getElementById('data-filter').value),
-				document.getElementById('data-filter').value
+				filter.getData(document.getElementById('data-view-type').value),
+				document.getElementById('data-view-type').value
 			)
 		})
 	}
@@ -455,7 +455,7 @@ function createTable(data, type, indexStart = 0) {
 	createFilerButtonEvents();
 }
 
-document.getElementById('data-filter').addEventListener('change', function(e) {
+document.getElementById('data-view-type').addEventListener('change', function(e) {
 	filter.resetOption('network')
 	filter.resetOption('country')
 
@@ -480,14 +480,14 @@ document.getElementById('modal-close').addEventListener('click', function (e) {
 })
 
 document.getElementById('network-filter').addEventListener('change', function(e) {
-	var type = document.getElementById('data-filter').value
+	var type = document.getElementById('data-view-type').value
 	var data = filter.getData(type)
 
 	displayData(data, type)
 });
 
 document.getElementById('country-filter').addEventListener('change', function(e) {
-	var type = document.getElementById('data-filter').value
+	var type = document.getElementById('data-view-type').value
 	var data = filter.getData(type)
 
 	displayData(data, type)
@@ -496,7 +496,7 @@ document.getElementById('country-filter').addEventListener('change', function(e)
 document.getElementById('network-filter-reset').addEventListener('click', function (e) {
 	filter.resetOption('network')
 	
-	var type = document.getElementById('data-filter').value
+	var type = document.getElementById('data-view-type').value
 	var data = filter.getData(type)
 
 	displayData(data, type)
@@ -505,7 +505,7 @@ document.getElementById('network-filter-reset').addEventListener('click', functi
 document.getElementById('country-filter-reset').addEventListener('click', function (e) {
 	filter.resetOption('country')
 
-	var type = document.getElementById('data-filter').value
+	var type = document.getElementById('data-view-type').value
 	var data = filter.getData(type)
 
 	displayData(data, type)
@@ -514,7 +514,7 @@ document.getElementById('country-filter-reset').addEventListener('click', functi
 var pageButtons = document.getElementsByClassName('page-button')
 for (var i = 0; i < pageButtons.length; i++) {
 	pageButtons[i].addEventListener('click', function (e) {
-		var type = document.getElementById('data-filter').value
+		var type = document.getElementById('data-view-type').value
 		var data = filter.getData(type)
 		var page = Number(e.target.getAttribute('data-chunk'))
 
