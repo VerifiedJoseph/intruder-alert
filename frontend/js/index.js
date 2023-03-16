@@ -1,9 +1,11 @@
 import { Table, Row, Cell } from './table.js'
 import { Filter } from './Filter.js'
+import { Details } from './Details.js'
 
 "use strict";
 
 var filter
+var details
 
 var botData = {}
 var tableHeaders = {
@@ -82,30 +84,6 @@ function displayData(data, type, page = 0) {
 	createPageButtons(pageCount, totalItems, page);
 }
 
-function getIpDetails(address) {
-	for (var i = 0; i < botData.ip.list.length; i++) {
-		if (botData.ip.list[i].address === address) {
-			return botData.ip.list[i];
-		}
-	}
-}
-
-function getNetworkDetails(number) {
-	for (var i = 0; i < botData.network.list.length; i++) {
-		if (botData.network.list[i].number.toString() === number.toString()) {
-			return botData.network.list[i];
-		}
-	}
-}
-
-function getCountryDetails(code) {
-	for (var i = 0; i < botData.country.list.length; i++) {
-		if (botData.country.list[i].code === code) {
-			return botData.country.list[i];
-		}
-	}
-}
-
 function displayError(message) {
 	document.getElementById('loading').classList.add('hide')
 
@@ -127,9 +105,9 @@ function displayGlobalStats() {
 }
 
 function displayMostBanned() {
-	var ip = getIpDetails(botData.ip.mostBanned)
-	var network = getNetworkDetails(botData.network.mostBanned)
-	var country = getCountryDetails(botData.country.mostBanned)
+	var ip = details.getIp(botData.ip.mostBanned)
+	var network = details.getNetwork(botData.network.mostBanned)
+	var country = details.getCountry(botData.country.mostBanned)
 
 	document.getElementById('most-banned-ip').innerText = ip.address;
 	document.getElementById('most-banned-ip-count').innerText = formatNumber(ip.bans);
@@ -199,8 +177,8 @@ function createNetworkModalTable(network, view) {
 
 	if (view === 'ips') {
 		network.ipList.forEach(function(address, index) {
-			var ip = getIpDetails(address)
-			var country = getCountryDetails(ip.country)
+			var ip = details.getIp(address)
+			var country = details.getCountry(ip.country)
 
 			var row = new Row()
 			row.addCell(new Cell(formatNumber(index + 1), 'number'))
@@ -221,9 +199,9 @@ function createNetworkModalTable(network, view) {
 }
 
 function createIpModal(address) {
-	var ip = getIpDetails(address)
-	var country = getCountryDetails(ip.country)
-	var network = getNetworkDetails(ip.network)
+	var ip = details.getIp(address)
+	var country = details.getCountry(ip.country)
+	var network = details.getNetwork(ip.network)
 
 	var modalBody = document.getElementById('modal-body')
 	var modalTitle = document.getElementById('modal-title')
@@ -243,7 +221,7 @@ function createIpModal(address) {
 }
 
 function createNetworkModal(number) {
-	var network = getNetworkDetails(number)
+	var network = details.getNetwork(number)
 
 	var modalBody = document.getElementById('modal-body')
 	var modalTitle = document.getElementById('modal-title')
@@ -262,7 +240,7 @@ function createNetworkModal(number) {
 }
 
 function createCountryModal(code) {
-	var country = getCountryDetails(code)
+	var country = details.getCountry(code)
 
 	var modalBody = document.getElementById('modal-body')
 	var modalTitle = document.getElementById('modal-title')
@@ -416,8 +394,8 @@ function createTable(data, type, indexStart = 0) {
 		row.addCell(new Cell(formatNumber(itemNumber), 'number'))
 
 		if (type === 'ip') {
-			var network = getNetworkDetails(item.network)
-			var country = getCountryDetails(item.country)
+			var network = details.getNetwork(item.network)
+			var country = details.getCountry(item.country)
 
 			row.addCell(new Cell(item.address))
 			row.addCell(new Cell(formatNumber(item.bans)))
@@ -467,8 +445,8 @@ function createTable(data, type, indexStart = 0) {
 		}
 
 		if (type === 'recentBans') {
-			var network = getNetworkDetails(item.network)
-			var country = getCountryDetails(item.country)
+			var network = details.getNetwork(item.network)
+			var country = details.getCountry(item.country)
 
 			row.addCell(new Cell(item.timestamp))
 			row.addCell(new Cell(item.jail))
@@ -587,6 +565,7 @@ fetchData()
 	botData = data
 
 	filter = new Filter(data)
+	details = new Details(data)
 
 	document.getElementById('last-updated').innerText = botData.updated
 	document.getElementById('loading').classList.add('hide')
