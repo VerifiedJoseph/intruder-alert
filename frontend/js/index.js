@@ -282,8 +282,11 @@ function createFilerButtonEvents() {
 			var value = e.target.getAttribute('data-value')
 
 			document.querySelector(`#${type}-filter [value="${value}"]`).selected = true;
-			
-			filter.getData(document.getElementById('data-filter').value)
+
+			displayData(
+				filter.getData(document.getElementById('data-filter').value),
+				document.getElementById('data-filter').value
+			)
 		})
 	}
 }
@@ -490,7 +493,7 @@ document.getElementById('country-filter').addEventListener('change', function(e)
 	displayData(data, type)
 });
 
-document.getElementById('network-filter-reset').addEventListener('click', function (e) {	
+document.getElementById('network-filter-reset').addEventListener('click', function (e) {
 	filter.resetOption('network')
 	
 	var type = document.getElementById('data-filter').value
