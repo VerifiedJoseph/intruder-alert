@@ -26,6 +26,12 @@ function fetchData() {
 	return fetch('data.json');
 }
 
+function displayHeaderDates() {
+	document.getElementById('last-updated').innerText = botData.updated
+	document.getElementById('data-since').innerText = ` ${botData.dataSince} (${formatNumber(botData.stats.totals.date)} days)`
+	document.getElementById('dates').classList.remove('hide')
+}
+
 function displayData(data, type, page = 0) {
 	var totalItems = data.length;
 
@@ -529,11 +535,11 @@ fetchData()
 	filter = new Filter(data)
 	details = new Details(data)
 
-	document.getElementById('last-updated').innerText = botData.updated
 	document.getElementById('loading').classList.add('hide')
 	document.getElementById('options').classList.remove('hide')
 	document.getElementById('data').classList.remove('hide')
 
+	displayHeaderDates()
 	displayGlobalStats()
 	displayMostBanned()
 
