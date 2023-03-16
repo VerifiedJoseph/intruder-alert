@@ -1,6 +1,9 @@
 import { Table, Row, Cell } from './table.js'
+import { Filter } from './Filter.js'
 
 "use strict";
+
+var filter
 
 var botData = {}
 var tableHeaders = {
@@ -79,34 +82,6 @@ function displayData(data, type, page = 0) {
 	createPageButtons(pageCount, totalItems, page);
 }
 
-function filter (type) {
-	const network = document.getElementById('network-filter').value
-    const country = document.getElementById('country-filter').value
-
-	if (type === 'recentBans') {
-		var data = getRecentBans()
-
-	} else {
-		var data = botData[type]['list'];
-	}
-
-	var filtered = data.filter(function (item) {
-		if (type === 'ip' || type === 'recentBans') {
-			if (network !== 'all' && network != item.network) {
-				return false
-			}
-
-			if (country !== 'all' && country != item.country) {
-				return false
-			}
-		}
-	
-		return true
-	})
-
-	return filtered;
-}
-
 function getIpDetails(address) {
 	for (var i = 0; i < botData.ip.list.length; i++) {
 		if (botData.ip.list[i].address === address) {
@@ -129,31 +104,6 @@ function getCountryDetails(code) {
 			return botData.country.list[i];
 		}
 	}
-}
-
-function getRecentBans() {
-	var events = []
-
-	botData.ip.list.forEach(ip => {
-		ip.events.forEach(event => {
-			events.push({
-				'address': ip.address,
-				'jail': event.jail,
-				'network': ip.network,
-				'country': ip.country,
-				'timestamp': event.timestamp
-			})
-		})
-	})
-
-	events.sort(function(a, b){
-		var da = new Date(a.timestamp).getTime();
-		var db = new Date(b.timestamp).getTime();
-		
-		return da < db ? -1 : da > db ? 1 : 0
-	});
-
-	return events.reverse().slice(0, 500);
 }
 
 function displayError(message) {
@@ -388,7 +338,7 @@ function createFilerButtonEvents() {
 
 			document.querySelector(`#${type}-filter [value="${value}"]`).selected = true;
 			
-			filter(document.getElementById('data-filter').value)
+			filter.getData(document.getElementById('data-filter').value)
 		})
 	}
 }
@@ -562,7 +512,7 @@ document.getElementById('data-filter').addEventListener('change', function(e) {
 	resetFilterOption('country')
 
 	var type = e.target.value
-	var data = filter(type)
+	var data = filter.getData(type)
 
 	if (type === 'ip' || type === 'recentBans') {
 		enableFilterOption('network')
@@ -583,14 +533,14 @@ document.getElementById('modal-close').addEventListener('click', function (e) {
 
 document.getElementById('network-filter').addEventListener('change', function(e) {
 	var type = document.getElementById('data-filter').value
-	var data = filter(type)
+	var data = filter.getData(type)
 
 	displayData(data, type)
 });
 
 document.getElementById('country-filter').addEventListener('change', function(e) {
 	var type = document.getElementById('data-filter').value
-	var data = filter(type)
+	var data = filter.getData(type)
 
 	displayData(data, type)
 });
@@ -599,7 +549,7 @@ document.getElementById('network-filter-reset').addEventListener('click', functi
 	resetFilterOption('network')
 	
 	var type = document.getElementById('data-filter').value
-	var data = filter(type)
+	var data = filter.getData(type)
 
 	displayData(data, type)
 })
@@ -608,7 +558,7 @@ document.getElementById('country-filter-reset').addEventListener('click', functi
 	resetFilterOption('country')
 
 	var type = document.getElementById('data-filter').value
-	var data = filter(type)
+	var data = filter.getData(type)
 
 	displayData(data, type)
 })
@@ -617,7 +567,7 @@ var pageButtons = document.getElementsByClassName('page-button')
 for (var i = 0; i < pageButtons.length; i++) {
 	pageButtons[i].addEventListener('click', function (e) {
 		var type = document.getElementById('data-filter').value
-		var data = filter(type)
+		var data = filter.getData(type)
 		var page = Number(e.target.getAttribute('data-chunk'))
 
 		displayData(data, type, page)
@@ -636,6 +586,8 @@ fetchData()
 }).then(data => {
 	botData = data
 
+	filter = new Filter(data)
+
 	document.getElementById('last-updated').innerText = botData.updated
 	document.getElementById('loading').classList.add('hide')
 	document.getElementById('options').classList.remove('hide')
@@ -648,7 +600,7 @@ fetchData()
 	setFilterOptions('country')
 
 	displayData(
-		filter('recentBans'),
+		filter.getData('recentBans'),
 		'recentBans'
 	)
 
