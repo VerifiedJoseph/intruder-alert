@@ -4,7 +4,7 @@ class Logs
 {
 	private $filenameRegex = '/fail2ban\.log/';
 	private $gzRegex = '/.gz$/';
-	private $lineRegex = '/([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}),[0-9]+ fail2ban\.(?:filter|actions)[\s]+\[[0-9]+]: [A-Z]+[\s]+\[([\w]+)] Ban ([0-9.]+)/';
+	private $lineRegex = '/([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}),[0-9]+ fail2ban\.(?:filter|actions)[\s]+\[[0-9]+]: [A-Z]+[\s]+\[([\w]+)] Ban ([0-9a-z.:]+|[0-9.]+)/';
 
 	private $files;
 
