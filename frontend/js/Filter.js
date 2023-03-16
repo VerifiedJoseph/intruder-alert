@@ -92,6 +92,6 @@ export class Filter
 			return da < db ? -1 : da > db ? 1 : 0
 		});
 	
-		return events.reverse().slice(0, 500);
+		return events.reverse();
 	}
 }
