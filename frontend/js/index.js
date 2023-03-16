@@ -59,7 +59,27 @@ function enableFilterOption(name) {
 	document.getElementById(`${name}-filter-reset`).disabled = false;
 }
 
-function filter (type, chunk = 0) {
+function displayData(data, type, page = 0) {
+	var totalItems = data.length;
+
+	let pageSize = 25;
+	var dataPages = [];
+	for (let i = 0; i < data.length; i += pageSize) {
+		dataPages.push(data.slice(i, i + pageSize));
+	}
+
+	var pageCount = dataPages.length - 1
+
+	var indexStart = 1;
+	if (page >= 1) {
+		indexStart = (page * pageSize) + 1;
+	}
+
+	createTable(dataPages[page], type, indexStart);
+	createPageButtons(pageCount, totalItems, page);
+}
+
+function filter (type) {
 	const network = document.getElementById('network-filter').value
     const country = document.getElementById('country-filter').value
 
@@ -84,7 +104,7 @@ function filter (type, chunk = 0) {
 		return true
 	})
 
-	createTable(filtered, type, chunk);
+	return filtered;
 }
 
 function getIpDetails(address) {
@@ -386,18 +406,16 @@ function disablePageButton(id) {
 	document.getElementById(id).disabled = true
 }
 
-function createPageButtons(chunkCount, current) {
+function createPageButtons(pageCount, totalItems, currentPage) {
 	var prev = null;
 	var next = null;
-	var last = chunkCount;
+	var last = pageCount;
 
-	console.log(chunkCount)
-
-	if (chunkCount > 0) {
+	if (pageCount > 0) {
 		updatePageButton('load-last-page', last)
 
-		prev = current - 1;
-		next = current + 1;
+		prev = currentPage - 1;
+		next = currentPage + 1;
 
 		if (prev >= 0) {
 			updatePageButton('load-prev-page', prev)
@@ -424,11 +442,11 @@ function createPageButtons(chunkCount, current) {
 		disablePageButton('load-last-page')
 	}
 
-	var paginationCount = document.getElementById('pagination-count');
-	paginationCount.innerText = `Page ${current + 1} of ${chunkCount + 1}`
+	var paginationCount = document.getElementById('pagination-count');	
+	paginationCount.innerText = `Page ${currentPage + 1} of ${pageCount + 1} (${formatNumber(totalItems)} total items)`
 }
 
-function createTable(data, type, chunk) {
+function createTable(data, type, indexStart = 0) {
 	var div = document.getElementById('data-table');
 	
 	var table = new Table();
@@ -441,21 +459,9 @@ function createTable(data, type, chunk) {
 
 	table.addHeader(header)
 
-	let chunkSize = 25;
-	var dataChunks = [];
-	for (let i = 0; i < data.length; i += chunkSize) {
-		dataChunks.push(data.slice(i, i + chunkSize));
-	}
-
-	var chunkCount = dataChunks.length - 1
-
-	dataChunks[chunk].forEach(function (item, index) {
+	data.forEach(function (item, index) {
 		var row = new Row()
-
-		var itemNumber = index + 1;
-		if (chunk >= 1) {
-			itemNumber = (chunk * chunkSize) + index + 1;
-		}
+		var itemNumber = index + indexStart;
 
 		row.addCell(new Cell(formatNumber(itemNumber), 'number'))
 
@@ -547,8 +553,6 @@ function createTable(data, type, chunk) {
 	div.innerText = '';
 	div.append(table.get());
 
-	createPageButtons(chunkCount, chunk);
-
 	createDetailButtonEvents()
 	createFilerButtonEvents();
 }
@@ -557,15 +561,18 @@ document.getElementById('data-filter').addEventListener('change', function(e) {
 	resetFilterOption('network')
 	resetFilterOption('country')
 
-	filter(e.target.value)
+	var type = e.target.value
+	var data = filter(type)
 
-	if (e.target.value === 'ip' || e.target.value === 'recentBans') {
+	if (type === 'ip' || type === 'recentBans') {
 		enableFilterOption('network')
 		enableFilterOption('country')
 	} else {
 		disableFilterOption('network')
 		disableFilterOption('country')
 	}
+
+	displayData(data, type)
 });
 
 document.getElementById('modal-close').addEventListener('click', function (e) {
@@ -575,30 +582,45 @@ document.getElementById('modal-close').addEventListener('click', function (e) {
 })
 
 document.getElementById('network-filter').addEventListener('change', function(e) {
-	filter(document.getElementById('data-filter').value)
+	var type = document.getElementById('data-filter').value
+	var data = filter(type)
+
+	displayData(data, type)
 });
 
 document.getElementById('country-filter').addEventListener('change', function(e) {
-	filter(document.getElementById('data-filter').value)
+	var type = document.getElementById('data-filter').value
+	var data = filter(type)
+
+	displayData(data, type)
 });
 
-document.getElementById('network-filter-reset').addEventListener('click', function (e) {
+document.getElementById('network-filter-reset').addEventListener('click', function (e) {	
 	resetFilterOption('network')
-	filter(document.getElementById('data-filter').value)
+	
+	var type = document.getElementById('data-filter').value
+	var data = filter(type)
+
+	displayData(data, type)
 })
 
 document.getElementById('country-filter-reset').addEventListener('click', function (e) {
 	resetFilterOption('country')
-	filter(document.getElementById('data-filter').value)
+
+	var type = document.getElementById('data-filter').value
+	var data = filter(type)
+
+	displayData(data, type)
 })
 
 var pageButtons = document.getElementsByClassName('page-button')
 for (var i = 0; i < pageButtons.length; i++) {
 	pageButtons[i].addEventListener('click', function (e) {
-		filter(
-			document.getElementById('data-filter').value,
-			Number(e.target.getAttribute('data-chunk'))
-		)
+		var type = document.getElementById('data-filter').value
+		var data = filter(type)
+		var page = Number(e.target.getAttribute('data-chunk'))
+
+		displayData(data, type, page)
 	})
 }
 
@@ -625,7 +647,11 @@ fetchData()
 	setFilterOptions('network')
 	setFilterOptions('country')
 
-	filter('recentBans')
+	displayData(
+		filter('recentBans'),
+		'recentBans'
+	)
+
 	enableFilterOption('network')
 	enableFilterOption('country')
 }).catch(error => {
