@@ -14,7 +14,7 @@ class Ip {
 	public function get(): array
 	{
 		$this->calculateMostBanned();
-		//$this->orderByDate();
+		$this->orderByDate();
 
 		return $this->data;
 	}
@@ -59,13 +59,23 @@ class Ip {
 	}
 
 	private function orderByDate()
-    {
-        $sort = [];
+	{
+		$list = $this->data['list'];
 
-        foreach ($this->data['list'] as $key => $item) {
-            $sort[$key] = $item['timestamp'];
-        }
+		foreach ($list as $itemKey => $item) {
+			usort($this->data['list'][$itemKey]['events'], function($a1, $a2) {
+				$v1 = strtotime($a1['timestamp']);
+				$v2 = strtotime($a2['timestamp']);
+				return $v2 - $v1;
+			});
 
-        array_multisort($sort, SORT_DESC, $this->data['list']);
-    }
+			$this->data['list'][$itemKey]['firstSeen'] = $this->data['list'][$itemKey]['events'][0]['timestamp'];
+		}
+
+		usort($this->data['list'], function($a1, $a2) {
+			$v1 = strtotime($a1['firstSeen']);
+			$v2 = strtotime($a2['firstSeen']);
+			return $v2 - $v1;
+		});
+	}
 }
