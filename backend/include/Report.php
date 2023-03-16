@@ -12,8 +12,9 @@ class Report
 	public function generate(): void
 	{
 		$data = $this->lists;
-		$data['updated'] = date('Y-m-d h:i:s');
 		$data['stats'] =  $this->createStats();
+		$data['updated'] = date('Y-m-d H:i:s');
+		$data['dataSince'] = $this->getDataSinceDate();
 
 		file_put_contents(
 			'../frontend/data.json', 
@@ -57,5 +58,11 @@ class Report
 		$data['bans']['perDay'] = floor($this->lists['ip']['totalBans'] / $dayCount);
 
 		return $data;
+	}
+
+	private function getDataSinceDate()
+	{
+		$key = array_key_last($this->lists['ip']['list']);
+		return date('Y-m-d', strtotime($this->lists['ip']['list'][$key]['firstSeen']));
 	}
 }
