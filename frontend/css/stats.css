@@ -20,10 +20,6 @@
 .cell > .big, .cell > .small {
 	font-weight: bold;
 	margin: 0px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-	max-width: 280px;	
 }
 
 .cell > .big {
@@ -32,4 +28,11 @@
 
 .cell > .small {
 	font-size: 15px;
+}
+
+.ellipsis-text {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	max-width: 280px;
 }
