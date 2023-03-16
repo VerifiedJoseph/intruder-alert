@@ -25,12 +25,6 @@ function fetchData() {
 	return fetch('data.json');
 }
 
-function displayHeaderDates() {
-	document.getElementById('last-updated').innerText = botData.updated
-	document.getElementById('data-since').innerText = ` ${botData.dataSince} (${Format.Number(botData.stats.totals.date)} days)`
-	document.getElementById('dates').classList.remove('hide')
-}
-
 function displayData(data, type, page = 0) {
 	var totalItems = data.length;
 
@@ -49,41 +43,6 @@ function displayData(data, type, page = 0) {
 
 	createTable(dataPages[page], type, indexStart);
 	createPageButtons(pageCount, totalItems, page);
-}
-
-function displayError(message) {
-	document.getElementById('loading').classList.add('hide')
-
-	var error = document.getElementById('error')
-	error.classList.remove('hide')
-	error.innerText = message
-} 
-
-function displayGlobalStats() {
-	document.getElementById('total-bans').innerText = Format.Number(botData.stats.bans.total);
-	document.getElementById('bans-today').innerText = Format.Number(botData.stats.bans.today);
-	document.getElementById('bans-yesterday').innerText = Format.Number(botData.stats.bans.yesterday);
-	document.getElementById('bans-per-day').innerText = Format.Number(botData.stats.bans.perDay);
-	document.getElementById('total-ips').innerText = Format.Number(botData.stats.totals.ip);
-	document.getElementById('total-networks').innerText = Format.Number(botData.stats.totals.network);
-	document.getElementById('total-countries').innerText = Format.Number(botData.stats.totals.country);
-	document.getElementById('global-stats').classList.remove('hide')
-}
-
-function displayMostBanned() {
-	var ip = details.getIp(botData.ip.mostBanned)
-	var network = details.getNetwork(botData.network.mostBanned)
-	var country = details.getCountry(botData.country.mostBanned)
-
-	document.getElementById('most-banned-ip').innerText = ip.address;
-	document.getElementById('most-banned-ip-count').innerText = Format.Number(ip.bans);
-	document.getElementById('most-banned-network').innerText = network.name;
-	document.getElementById('most-banned-network').setAttribute('title', network.name);
-	document.getElementById('most-banned-network-count').innerText = Format.Number(network.bans);
-	document.getElementById('most-banned-country').innerText = country.name;
-	document.getElementById('most-banned-country').setAttribute('title', country.name);
-	document.getElementById('most-banned-country-count').innerText = Format.Number(country.bans);
-	document.getElementById('most-banned').classList.remove('hide')
 }
 
 function createModalInfoBox(label, value) {
@@ -541,11 +500,9 @@ fetchData()
 	document.getElementById('options').classList.remove('hide')
 	document.getElementById('data').classList.remove('hide')
 
+	display.headerDates()
+	display.globalStats()
 	display.mostBanned()
-
-	displayHeaderDates()
-	//displayGlobalStats()
-	//displayMostBanned()
 
 	filter.setOptions('network')
 	filter.setOptions('country')
@@ -558,6 +515,6 @@ fetchData()
 	filter.enableOption('network')
 	filter.enableOption('country')
 }).catch(error => {
-	displayError(error.message)
+	display.error(error.message)
 	console.log(error);
 })
