@@ -1,11 +1,14 @@
 import { Table, Row, Cell } from './table.js'
 import { Filter } from './Filter.js'
 import { Details } from './Details.js'
+import { Display } from './Display.js'
+import { Format } from './Format.js'
 
 "use strict";
 
 var filter
 var details
+var display
 
 var botData = {}
 var tableHeaders = {
@@ -18,17 +21,13 @@ var tableHeaders = {
 	'date': ['Date', 'IPs', 'Bans', '']
 }
 
-function formatNumber (number) {
-	return new Intl.NumberFormat().format(number)
-}
-
 function fetchData() {
 	return fetch('data.json');
 }
 
 function displayHeaderDates() {
 	document.getElementById('last-updated').innerText = botData.updated
-	document.getElementById('data-since').innerText = ` ${botData.dataSince} (${formatNumber(botData.stats.totals.date)} days)`
+	document.getElementById('data-since').innerText = ` ${botData.dataSince} (${Format.Number(botData.stats.totals.date)} days)`
 	document.getElementById('dates').classList.remove('hide')
 }
 
@@ -61,13 +60,13 @@ function displayError(message) {
 } 
 
 function displayGlobalStats() {
-	document.getElementById('total-bans').innerText = formatNumber(botData.stats.bans.total);
-	document.getElementById('bans-today').innerText = formatNumber(botData.stats.bans.today);
-	document.getElementById('bans-yesterday').innerText = formatNumber(botData.stats.bans.yesterday);
-	document.getElementById('bans-per-day').innerText = formatNumber(botData.stats.bans.perDay);
-	document.getElementById('total-ips').innerText = formatNumber(botData.stats.totals.ip);
-	document.getElementById('total-networks').innerText = formatNumber(botData.stats.totals.network);
-	document.getElementById('total-countries').innerText = formatNumber(botData.stats.totals.country);
+	document.getElementById('total-bans').innerText = Format.Number(botData.stats.bans.total);
+	document.getElementById('bans-today').innerText = Format.Number(botData.stats.bans.today);
+	document.getElementById('bans-yesterday').innerText = Format.Number(botData.stats.bans.yesterday);
+	document.getElementById('bans-per-day').innerText = Format.Number(botData.stats.bans.perDay);
+	document.getElementById('total-ips').innerText = Format.Number(botData.stats.totals.ip);
+	document.getElementById('total-networks').innerText = Format.Number(botData.stats.totals.network);
+	document.getElementById('total-countries').innerText = Format.Number(botData.stats.totals.country);
 	document.getElementById('global-stats').classList.remove('hide')
 }
 
@@ -77,13 +76,13 @@ function displayMostBanned() {
 	var country = details.getCountry(botData.country.mostBanned)
 
 	document.getElementById('most-banned-ip').innerText = ip.address;
-	document.getElementById('most-banned-ip-count').innerText = formatNumber(ip.bans);
+	document.getElementById('most-banned-ip-count').innerText = Format.Number(ip.bans);
 	document.getElementById('most-banned-network').innerText = network.name;
 	document.getElementById('most-banned-network').setAttribute('title', network.name);
-	document.getElementById('most-banned-network-count').innerText = formatNumber(network.bans);
+	document.getElementById('most-banned-network-count').innerText = Format.Number(network.bans);
 	document.getElementById('most-banned-country').innerText = country.name;
 	document.getElementById('most-banned-country').setAttribute('title', country.name);
-	document.getElementById('most-banned-country-count').innerText = formatNumber(country.bans);
+	document.getElementById('most-banned-country-count').innerText = Format.Number(country.bans);
 	document.getElementById('most-banned').classList.remove('hide')
 }
 
@@ -119,7 +118,7 @@ function createBanEventTable(events) {
 
 	events.forEach(function (item, index) {
 		var row = new Row()
-		row.addCell(new Cell(formatNumber(index + 1), 'number'))
+		row.addCell(new Cell(Format.Number(index + 1), 'number'))
 
 		for (var [key, value] of Object.entries(item)) {
 			row.addCell(new Cell(value))
@@ -148,9 +147,9 @@ function createNetworkModalTable(network, view) {
 			var country = details.getCountry(ip.country)
 
 			var row = new Row()
-			row.addCell(new Cell(formatNumber(index + 1), 'number'))
+			row.addCell(new Cell(Format.Number(index + 1), 'number'))
 			row.addCell(new Cell(address, 'ip'))
-			row.addCell(new Cell(formatNumber(ip.bans), 'ban'))
+			row.addCell(new Cell(Format.Number(ip.bans), 'ban'))
 			row.addCell(new Cell(country.name, 'country'))
 			row.addCell(new Cell(
 				createDetailsButton('ip', address),
@@ -179,7 +178,7 @@ function createIpModal(address) {
 	info.appendChild(createModalInfoBox('IP Address', address))
 	info.appendChild(createModalInfoBox('Network', network.name))
 	info.appendChild(createModalInfoBox('Country', country.name))
-	info.appendChild(createModalInfoBox('Bans', formatNumber(ip.bans)))
+	info.appendChild(createModalInfoBox('Bans', Format.Number(ip.bans)))
 
 	modalBody.appendChild(info);
 	modalTitle.innerText = 'IP Address Details'
@@ -197,8 +196,8 @@ function createNetworkModal(number) {
 	info.classList.add('row')
 
 	info.appendChild(createModalInfoBox('Network', network.name))
-	info.appendChild(createModalInfoBox('IPs', formatNumber(network.ipCount)))
-	info.appendChild(createModalInfoBox('Bans', formatNumber(network.bans)))
+	info.appendChild(createModalInfoBox('IPs', Format.Number(network.ipCount)))
+	info.appendChild(createModalInfoBox('Bans', Format.Number(network.bans)))
 
 	modalBody.appendChild(info);
 	modalTitle.innerText = 'Network Details'
@@ -216,8 +215,8 @@ function createCountryModal(code) {
 	info.classList.add('row')
 
 	info.appendChild(createModalInfoBox('Country', country.name))
-	info.appendChild(createModalInfoBox('IPs', formatNumber(country.ipCount)))
-	info.appendChild(createModalInfoBox('Bans', formatNumber(country.bans)))
+	info.appendChild(createModalInfoBox('IPs', Format.Number(country.ipCount)))
+	info.appendChild(createModalInfoBox('Bans', Format.Number(country.bans)))
 
 	modalBody.appendChild(info);
 	modalTitle.innerText = 'Country Details'
@@ -341,7 +340,7 @@ function createPageButtons(pageCount, totalItems, currentPage) {
 	}
 
 	var paginationCount = document.getElementById('pagination-count');	
-	paginationCount.innerText = `Page ${currentPage + 1} of ${pageCount + 1} (${formatNumber(totalItems)} total items)`
+	paginationCount.innerText = `Page ${currentPage + 1} of ${pageCount + 1} (${Format.Number(totalItems)} total items)`
 }
 
 function createTable(data, type, indexStart = 0) {
@@ -361,14 +360,14 @@ function createTable(data, type, indexStart = 0) {
 		var row = new Row()
 		var itemNumber = index + indexStart;
 
-		row.addCell(new Cell(formatNumber(itemNumber), 'number'))
+		row.addCell(new Cell(Format.Number(itemNumber), 'number'))
 
 		if (type === 'ip') {
 			var network = details.getNetwork(item.network)
 			var country = details.getCountry(item.country)
 
 			row.addCell(new Cell(item.address))
-			row.addCell(new Cell(formatNumber(item.bans)))
+			row.addCell(new Cell(Format.Number(item.bans)))
 			row.addCell(new Cell(
 				createCellWithFilter('network', network.number, network.name),
 				'asn',
@@ -394,8 +393,8 @@ function createTable(data, type, indexStart = 0) {
 			}
 
 			row.addCell(new Cell(item.name, cssClass))
-			row.addCell(new Cell(formatNumber(item.ipCount)))
-			row.addCell(new Cell(formatNumber(item.bans)))
+			row.addCell(new Cell(Format.Number(item.ipCount)))
+			row.addCell(new Cell(Format.Number(item.bans)))
 			row.addCell(new Cell(
 				createDetailsButton(type, item.number),
 				'button',
@@ -405,8 +404,8 @@ function createTable(data, type, indexStart = 0) {
 
 		if (type === 'country') {
 			row.addCell(new Cell(item.name, 'asn'))
-			row.addCell(new Cell(formatNumber(item.ipCount)))
-			row.addCell(new Cell(formatNumber(item.bans)))
+			row.addCell(new Cell(Format.Number(item.ipCount)))
+			row.addCell(new Cell(Format.Number(item.bans)))
 			row.addCell(new Cell(
 				createDetailsButton(type, item.code),
 				'button',
@@ -436,8 +435,8 @@ function createTable(data, type, indexStart = 0) {
 	
 		if (type === 'date') {
 			row.addCell(new Cell(item.date))
-			row.addCell(new Cell(formatNumber(item.ipCount)))
-			row.addCell(new Cell(formatNumber(item.bans)))
+			row.addCell(new Cell(Format.Number(item.ipCount)))
+			row.addCell(new Cell(Format.Number(item.bans)))
 			row.addCell(new Cell(
 				createDetailsButton(type, item.date),
 				'button',
@@ -536,14 +535,17 @@ fetchData()
 
 	filter = new Filter(data)
 	details = new Details(data)
+	display = new Display(data, details)
 
 	document.getElementById('loading').classList.add('hide')
 	document.getElementById('options').classList.remove('hide')
 	document.getElementById('data').classList.remove('hide')
 
+	display.mostBanned()
+
 	displayHeaderDates()
-	displayGlobalStats()
-	displayMostBanned()
+	//displayGlobalStats()
+	//displayMostBanned()
 
 	filter.setOptions('network')
 	filter.setOptions('country')
