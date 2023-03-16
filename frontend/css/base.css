@@ -171,6 +171,14 @@ table td:hover > span > .row-filter {
 	display: unset;
 }
 
+td.asn > span {
+	display: inherit;
+	max-width: 340px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
 td > span > .row-filter {
 	position: absolute;
 	top: 4px;

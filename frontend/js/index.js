@@ -301,6 +301,7 @@ function createCountryModal(code) {
 function createCellWithFilter(dataType, dataValue, text) {
 	var span = document.createElement('span')
 	span.innerText = text
+	span.setAttribute('title', text);
 
 	var button = document.createElement('button')
 	button.innerText = 'Filter'
