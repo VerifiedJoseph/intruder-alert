@@ -10,6 +10,8 @@ class Date {
 	];
 
 	public function get() {
+		$this->orderByDate();
+
 		return $this->data;
 	}
 
@@ -33,4 +35,13 @@ class Date {
 			}
 		}
 	}
+
+	private function orderByDate()
+	{
+		usort($this->data['list'], function($a1, $a2) {
+			$v1 = strtotime($a1['date']);
+			$v2 = strtotime($a2['date']);
+			return $v2 - $v1;
+		});
+    }
 }
