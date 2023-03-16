@@ -61,6 +61,7 @@ h3 {
 
 #loading {
 	background-color: unset;
+	border-bottom: unset;
 }
 
 .box.margin {
