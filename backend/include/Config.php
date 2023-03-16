@@ -1,11 +1,11 @@
 <?php
 
-class Configuration
+class Config
 {
     /**
      * Check config
      */
-    public static function checkConfig(): void
+    public static function check(): void
     {
         if (file_exists('config.php') === false) {
             throw new Exception('config file not found (../config.php)');
