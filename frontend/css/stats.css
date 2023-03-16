@@ -13,12 +13,11 @@
 	background-color: white;
 	padding: 10px;
 	width: 100%;
-	margin: 0px 10px 10px 0px;
+	margin-bottom: 10px;
 	border-bottom: 1px solid #8f8f9d;
 }
 
-.cell > .big {
-	font-size: 19px;
+.cell > .big, .cell > .small {
 	font-weight: bold;
 	margin: 0px;
 	text-overflow: ellipsis;
@@ -27,27 +26,10 @@
 	max-width: 280px;	
 }
 
-.stats {
-	display: flex;
-}
-
-.stat {
-	width: 100%;
-	background-color: white;
-	padding-left: 10px;
-	padding-right: 10px;
-}
-
-.stat.small-text {
-	padding-top: 5px;
-}
-
-.stat > div.big {
+.cell > .big {
 	font-size: 19px;
-	font-weight: bold;
-	margin: 0px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-	max-width: 280px;
+}
+
+.cell > .small {
+	font-size: 15px;
 }

@@ -165,19 +165,21 @@ function displayMostBanned() {
 }
 
 function createModalInfoBox(label, value) {
-	var box = document.createElement('box')
+	var cell = document.createElement('div')
 	var span = document.createElement('span')
 	var div = document.createElement('div')
 
+	div.classList.add('small')
+	cell.classList.add('cell')
+
 	span.innerText = label
 	div.innerText = value
-	div.classList.add(['big'])
+	div.setAttribute('title', value)
 
-	box.appendChild(span)
-	box.appendChild(div)
-	box.classList.add('box')
+	cell.appendChild(span)
+	cell.appendChild(div)
 
-	return box;
+	return cell;
 }
 
 function createBanEventTable(events) {
@@ -249,7 +251,7 @@ function createIpModal(address) {
 	var modalTitle = document.getElementById('modal-title')
 
 	var info = document.createElement('div')
-	info.classList.add('info')
+	info.classList.add('row')
 
 	info.appendChild(createModalInfoBox('IP Address', address))
 	info.appendChild(createModalInfoBox('Network', network.name))
@@ -269,7 +271,7 @@ function createNetworkModal(number) {
 	var modalTitle = document.getElementById('modal-title')
 
 	var info = document.createElement('div')
-	info.classList.add('info')
+	info.classList.add('row')
 
 	info.appendChild(createModalInfoBox('Network', network.name))
 	info.appendChild(createModalInfoBox('IPs', formatNumber(network.ipCount)))
@@ -288,7 +290,7 @@ function createCountryModal(code) {
 	var modalTitle = document.getElementById('modal-title')
 
 	var info = document.createElement('div')
-	info.classList.add('info')
+	info.classList.add('row')
 
 	info.appendChild(createModalInfoBox('Country', country.name))
 	info.appendChild(createModalInfoBox('IPs', formatNumber(country.ipCount)))
