@@ -50,13 +50,17 @@ h3 {
 	padding: 20px;
 }
 
-.box, #data-note {
+.box, #data-note, #loading {
 	background-color: white;
 	padding: 10px;
 
 	border-bottom: 1px solid #8f8f9d;
 	margin: 0 auto 0px;
 	width: 900px;
+}
+
+#loading {
+	background-color: unset;
 }
 
 .box.margin {

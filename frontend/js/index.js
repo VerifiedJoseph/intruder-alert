@@ -601,6 +601,9 @@ fetchData()
 	botData = data
 
 	document.getElementById('last-updated').innerText = botData.updated
+	document.getElementById('loading').classList.add('hide')
+	document.getElementById('options').classList.remove('hide')
+	document.getElementById('data').classList.remove('hide')
 
 	displayGlobalStats()
 	displayMostBanned()

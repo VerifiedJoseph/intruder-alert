@@ -27,6 +27,9 @@
 					Last updated: <strong><span id="last-updated">Unknown</span></strong>
 				</div>
 			</div>
+			<div id="loading">
+				<strong>Loading...</strong>
+			</div>
 			<div id="global-stats" class="row-wrap hide">
 				<div class="row">
 					<div class="cell">
@@ -83,7 +86,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box">
+			<div id="options" class="box hide">
 				<div class="input">
 					<span class="input-text">View:</span>
 					<select id="data-filter">
@@ -117,7 +120,7 @@
 					<button id="country-filter-reset" disabled>Reset</button>
 				</div>-->
 			</div>
-			<div id="data">
+			<div id="data" class="hide">
 				<!--<div id="data-note">Select a data type from the box above.</div>-->
 				<div id="data-table"></div>
 				<div class="box" id="data-table-pagination">
