@@ -609,6 +609,8 @@ fetchData()
 	setFilterOptions('country')
 
 	filter('recentBans')
+	enableFilterOption('network')
+	enableFilterOption('country')
 }).catch(error => {
 	console.log(error);
 })
