@@ -106,7 +106,7 @@ table.modal-network-ip {
 	margin: 0;
 	display: block;
 	overflow-y: auto;
-	max-height: calc(100vh - 200px);
+	max-height: calc(100vh - 206px);
 }
 
 table.modal-network-ip thead, table.modal-network-ip thead {
