@@ -182,17 +182,22 @@ function createCountryModal(code) {
 }
 
 function createCellWithFilter(dataType, dataValue, text) {
+	var currentFilterValue = document.getElementById(`${dataType}-filter`).value
 	var span = document.createElement('span')
+
 	span.innerText = text
 	span.setAttribute('title', text);
 
-	var button = document.createElement('button')
-	button.innerText = 'Filter'
-	button.classList.add('row-filter')
-	button.setAttribute('data-type' , dataType)
-	button.setAttribute('data-value' , dataValue)
-
-	span.append(button)
+	if (currentFilterValue.toString() !== dataValue.toString()) {
+		var button = document.createElement('button')
+		
+		button.innerText = 'Filter'
+		button.classList.add('row-filter')
+		button.setAttribute('title' , `Filter ${dataType} to ${text}`)
+		button.setAttribute('data-type' , dataType)
+		button.setAttribute('data-value' , dataValue)
+		span.append(button)
+	}
 
 	return span;
 }
