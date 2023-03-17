@@ -376,7 +376,7 @@ function createTable(data, type, indexStart = 0) {
 			var network = details.getNetwork(item.network)
 			var country = details.getCountry(item.country)
 
-			row.addCell(new Cell(item.timestamp))
+			row.addCell(new Cell(item.timestamp, 'date'))
 			row.addCell(new Cell(
 				createCellWithFilter('jail', item.jail, item.jail),
 				'jail',
@@ -421,6 +421,7 @@ function createTable(data, type, indexStart = 0) {
 document.getElementById('data-view-type').addEventListener('change', function(e) {
 	filter.resetOption('network')
 	filter.resetOption('country')
+	filter.resetOption('jail')
 
 	var type = e.target.value
 	var data = filter.getData(type)
@@ -428,9 +429,17 @@ document.getElementById('data-view-type').addEventListener('change', function(e)
 	if (type === 'ip' || type === 'recentBans') {
 		filter.enableOption('network')
 		filter.enableOption('country')
+		filter.enableOption('jail')
+
+		if (type === 'ip') {
+			filter.disableOption('jail')
+		} else {
+			filter.enableOption('jail')
+		}
 	} else {
 		filter.disableOption('network')
 		filter.disableOption('country')
+		filter.disableOption('jail')
 	}
 
 	displayData(data, type)
