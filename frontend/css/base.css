@@ -34,7 +34,7 @@ h3 {
 
 #main {
 	margin: 10px auto 10px;
-	width: 900px;
+	width: 1000px;
 }
 
 .header {
@@ -86,10 +86,8 @@ input {
 }
 
 table {
+	width: 1000px;
 	background-color: white;
-	margin: 0 auto 10px;
-	width: 900px;
-
 	border-spacing: 0;
 	border-collapse: collapse;
 }
@@ -165,7 +163,7 @@ table td.country {
 }
 
 table th.date, table td.date {
-	width: 135px !important;
+	width: 140px !important;
 }
 
 table td.asn, table td.country, table td.jail {
@@ -173,11 +171,11 @@ table td.asn, table td.country, table td.jail {
 }
 
 table td.asn {
-	width: 280px;
+	width: 300px;
 }
 
 table td.jail {
-	width: 100px;
+	width: 110px;
 }
 
 table td:hover > span > .row-filter {
@@ -186,7 +184,7 @@ table td:hover > span > .row-filter {
 
 td.asn > span {
 	display: inherit;
-	max-width: 340px;
+	max-width: 285px;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
