@@ -377,7 +377,12 @@ function createTable(data, type, indexStart = 0) {
 			var country = details.getCountry(item.country)
 
 			row.addCell(new Cell(item.timestamp))
-			row.addCell(new Cell(item.jail))
+			row.addCell(new Cell(
+				createCellWithFilter('jail', item.jail, item.jail),
+				'jail',
+				true
+			))
+
 			row.addCell(new Cell(item.address))
 
 			row.addCell(new Cell(
@@ -451,6 +456,13 @@ document.getElementById('country-filter').addEventListener('change', function(e)
 	displayData(data, type)
 });
 
+document.getElementById('jail-filter').addEventListener('change', function(e) {
+	var type = document.getElementById('data-view-type').value
+	var data = filter.getData(type)
+
+	displayData(data, type)
+});
+
 document.getElementById('network-filter-reset').addEventListener('click', function (e) {
 	filter.resetOption('network')
 	
@@ -462,6 +474,15 @@ document.getElementById('network-filter-reset').addEventListener('click', functi
 
 document.getElementById('country-filter-reset').addEventListener('click', function (e) {
 	filter.resetOption('country')
+
+	var type = document.getElementById('data-view-type').value
+	var data = filter.getData(type)
+
+	displayData(data, type)
+})
+
+document.getElementById('jail-filter-reset').addEventListener('click', function (e) {
+	filter.resetOption('jail')
 
 	var type = document.getElementById('data-view-type').value
 	var data = filter.getData(type)
@@ -506,6 +527,7 @@ fetchData()
 
 	filter.setOptions('network')
 	filter.setOptions('country')
+	filter.setOptions('jail')
 
 	displayData(
 		filter.getData('recentBans'),
@@ -514,6 +536,7 @@ fetchData()
 
 	filter.enableOption('network')
 	filter.enableOption('country')
+	filter.enableOption('jail')
 }).catch(error => {
 	display.error(error.message)
 	console.log(error);

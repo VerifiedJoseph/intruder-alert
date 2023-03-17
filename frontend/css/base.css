@@ -168,13 +168,16 @@ table th.date, table td.date {
 	width: 135px !important;
 }
 
-table td.asn {
-	width: 360px;
+table td.asn, table td.country, table td.jail {
 	position: relative;
 }
 
-table td.country {
-	position: relative;
+table td.asn {
+	width: 280px;
+}
+
+table td.jail {
+	width: 100px;
 }
 
 table td:hover > span > .row-filter {

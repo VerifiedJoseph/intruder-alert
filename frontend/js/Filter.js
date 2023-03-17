@@ -7,6 +7,7 @@ export class Filter
 	getData(type) {
 		const network = document.getElementById('network-filter').value
 		const country = document.getElementById('country-filter').value
+		const jail = document.getElementById('jail-filter').value
 	
 		if (type === 'recentBans') {
 			var data = this.#getRecentBans()
@@ -24,6 +25,10 @@ export class Filter
 				if (country !== 'all' && country != item.country) {
 					return false
 				}
+
+				if (jail !== 'all' && jail != item.jail) {
+					return false
+				}
 			}
 		
 			return true
@@ -39,17 +44,32 @@ export class Filter
 		const option = document.createElement('option')
 		option.value = 'all'
 	
-		if (type == 'network') {
-			option.innerText = 'All networks'
-		} else {
-			option.innerText = 'All countries'
+		var text = ''
+		var valueName = ''
+		switch (type) {
+			case 'network':
+				text = 	'All networks'
+				valueName = 'number'
+
+				break;
+			case 'country':
+				text = 	'All countries'
+				valueName = 'code'
+			
+				break;
+			case 'jail':
+				text = 	'All jails'
+				valueName = 'name'
+			
+				break;
 		}
-	
+
+		option.innerText = text
 		select.appendChild(option)
 	
 		this.data[type].list.forEach(function (item) {
 			const option = document.createElement('option')
-			option.value = item.number || item.code
+			option.value = item[valueName]
 			option.innerText = item.name
 	
 			select.appendChild(option)
