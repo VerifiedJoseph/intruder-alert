@@ -17,7 +17,7 @@ var tableHeaders = {
 	'network': ['Network', 'IPs', 'Bans', ''],
 	'country': ['Country', 'IPs', 'Bans', ''],
 	'events': ['Date', 'Jail'],
-	'recentBans': ['Date', 'Jail', 'Address', 'Network', 'Country'],
+	'recentBans': ['Date', 'Address', 'Jail', 'Network', 'Country'],
 	'date': ['Date', 'IPs', 'Bans', '']
 }
 
@@ -345,13 +345,14 @@ function createTable(data, type, indexStart = 0) {
 		}
 
 		if (type === 'network' || type === 'jail') {
-			var cssClass = null;
-
-			if (type === 'network') {
-				cssClass = 'asn';
-			}
-
-			row.addCell(new Cell(item.name, cssClass))
+			var span = document.createElement('span')
+			span.innerText = item.name
+			span.setAttribute('title', item.name)
+			row.addCell(new Cell(
+				span,
+				'long',
+				true
+			))
 			row.addCell(new Cell(Format.Number(item.ipCount)))
 			row.addCell(new Cell(Format.Number(item.bans)))
 			row.addCell(new Cell(
@@ -362,7 +363,7 @@ function createTable(data, type, indexStart = 0) {
 		}
 
 		if (type === 'country') {
-			row.addCell(new Cell(item.name, 'asn'))
+			row.addCell(new Cell(item.name, 'long'))
 			row.addCell(new Cell(Format.Number(item.ipCount)))
 			row.addCell(new Cell(Format.Number(item.bans)))
 			row.addCell(new Cell(
@@ -377,14 +378,12 @@ function createTable(data, type, indexStart = 0) {
 			var country = details.getCountry(item.country)
 
 			row.addCell(new Cell(item.timestamp, 'date'))
+			row.addCell(new Cell(item.address))
 			row.addCell(new Cell(
 				createCellWithFilter('jail', item.jail, item.jail),
 				'jail',
 				true
 			))
-
-			row.addCell(new Cell(item.address))
-
 			row.addCell(new Cell(
 				createCellWithFilter('network', network.number, network.name),
 				'asn',
@@ -398,7 +397,7 @@ function createTable(data, type, indexStart = 0) {
 		}
 	
 		if (type === 'date') {
-			row.addCell(new Cell(item.date))
+			row.addCell(new Cell(item.date, 'long'))
 			row.addCell(new Cell(Format.Number(item.ipCount)))
 			row.addCell(new Cell(Format.Number(item.bans)))
 			row.addCell(new Cell(

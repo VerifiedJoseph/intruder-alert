@@ -174,6 +174,10 @@ table td.asn {
 	width: 300px;
 }
 
+table td.long {
+	width: 500px;
+}
+
 table td.jail {
 	width: 110px;
 }
@@ -182,12 +186,19 @@ table td:hover > span > .row-filter {
 	display: unset;
 }
 
-td.asn > span {
+td.asn > span, td.long > span {
 	display: inherit;
-	max-width: 285px;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+}
+
+td.asn > span {
+	max-width: 285px;
+}
+
+td.long > span {
+	max-width: 485px;
 }
 
 td > span > .row-filter {
