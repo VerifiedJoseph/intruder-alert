@@ -417,6 +417,14 @@ function createTable(data, type, indexStart = 0) {
 	createFilerButtonEvents();
 }
 
+function errorMessage(message) {
+	document.getElementById('loading').classList.add('hide')
+
+	var error = document.getElementById('error')
+	error.classList.remove('hide')
+	error.innerText = message
+} 
+
 document.getElementById('data-view-type').addEventListener('change', function(e) {
 	filter.resetOption('network')
 	filter.resetOption('country')
@@ -521,6 +529,10 @@ fetchData()
 }).then(data => {
 	botData = data
 
+	if (data.error === true) {
+		throw new Error(data.message);
+	}
+
 	filter = new Filter(data)
 	details = new Details(data)
 	display = new Display(data, details)
@@ -546,6 +558,6 @@ fetchData()
 	filter.enableOption('country')
 	filter.enableOption('jail')
 }).catch(error => {
-	display.error(error.message)
-	console.log(error);
+	errorMessage(error.message)
+	console.log(error)
 })

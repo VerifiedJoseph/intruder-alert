@@ -39,6 +39,10 @@ class Logs
 			}
 		}
 
+		if (count($rows) === 0) {
+			throw new Exception('No ban events found');
+		}
+
 		return $rows;
 	}
 

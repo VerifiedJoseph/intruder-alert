@@ -40,12 +40,4 @@ export class Display
 		document.getElementById('most-banned-country-count').innerText = Format.Number(country.bans);
 		document.getElementById('most-banned').classList.remove('hide')
 	}
-
-	error(message) {
-		document.getElementById('loading').classList.add('hide')
-	
-		var error = document.getElementById('error')
-		error.classList.remove('hide')
-		error.innerText = message
-	} 
 }
