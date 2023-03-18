@@ -28,7 +28,7 @@ export class Filter
 						continue;
 					}
 
-					if (filter.action === 'include' && filter.values > 0) {
+					if (filter.action === 'include' && filter.values.length > 0) {
 						if (filter.values.includes(item[filter.type].toString()) === true) {
 							addStatus.push(1)
 						} else {
@@ -36,7 +36,7 @@ export class Filter
 						}
 					}
 
-					if (filter.action === 'exclude' && filter.values > 0) {
+					if (filter.action === 'exclude' && filter.values.length > 0) {
 						if (filter.values.includes(item[filter.type].toString()) === true) {
 							addStatus.push(0)
 						} else {
