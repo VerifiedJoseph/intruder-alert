@@ -299,3 +299,56 @@ table td.button {
 .input {
 	margin-bottom: 5px;
 }
+
+
+#filters {
+	position: relative;
+}
+
+#filter-panel {
+	position: absolute;
+	top: 30px;
+	left: 87px;
+	z-index: 100;
+	padding: 10px;
+	width: 350px;
+	background-color: white;
+	border: 1px solid #8f8f9d;
+
+}
+
+#filter-panel > #header {
+	font-weight: bold;
+	margin-bottom: 6px;
+}
+
+#filter-panel > .selects > div {
+	display: inline-block;
+}
+
+#filter-action {
+	width: 70px;
+}
+
+#filter-value {
+	width: 159px;
+}
+
+#filter-panel > .buttons {
+	margin-top: 6px;
+	text-align: end;
+}
+
+#applied-filters > div {
+	display: inline-block;
+	background-color: #f1f1f1;
+	padding: 4px;
+	border: 1px solid #8f8f9d;
+	margin-right: 4px;
+}
+
+#applied-filters > div > button {
+	padding: 2px;
+	width: 30px;
+	margin-left: 4px;
+}

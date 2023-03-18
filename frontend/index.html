@@ -96,21 +96,51 @@
 						<option value="date">Days</option>
 					</select>
 				</div>
-				<div class="input">
+				<div id="filters" class="input">
+					<span class="input-text">Filters:</span>
+					<span id="applied-filters"></span>
+					<button id="open-filter-panel">+ Add</button>
+
+					<div id="filter-panel" class="hide">
+						<div id="header">
+							New filter
+						</div>
+						<div class="selects">
+							<select id="filter-type">
+								<option value="address">IP address</option>
+								<option value="network">Network</option>
+								<option value="country">Country</option>
+								<option value="jail">Jails</option>
+							</select>
+							<select id="filter-action">
+								<option value="include">is</option>
+								<option value="exclude">is not</option>
+							</select>
+							<select id="filter-value">
+								<option value=""></option>
+								<option value=""></option>
+							</select>
+						</div>
+						<div class="buttons">
+							<button id="filter-apply">Apply</button> <button id="close-filter-panel">Cancel</button>
+						</div>
+					</div>
+				</div>
+				<div class="input hide">
 					<span class="input-text">Filter network:</span>
 					<select class="filter" id="network-filter" disabled>
 						<option selected value="all">All networks</option>
 					</select>
 					<button id="network-filter-reset" disabled>Reset</button>					
 				</div>
-				<div class="input">
+				<div class="input hide">
 					<span class="input-text">Filter country:</span>
 					<select class="filter" id="country-filter" disabled>
 						<option selected value="all">All countries</option>
 					</select>
 					<button id="country-filter-reset" disabled>Reset</button>
 				</div>
-				<div class="input">
+				<div class="input hide">
 					<span class="input-text">Filter jail:</span>
 					<select class="filter" id="jail-filter" disabled>
 						<option selected value="all">All Jails</option>

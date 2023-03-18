@@ -431,17 +431,14 @@ function errorMessage(message) {
 } 
 
 document.getElementById('data-view-type').addEventListener('change', function(e) {
-	filter.resetOption('network')
-	filter.resetOption('country')
-	filter.resetOption('jail')
+	filter.hidePanel()
+	filter.resetPanel()
 
 	var type = e.target.value
 	var data = filter.getData(type)
 
 	if (type === 'ip' || type === 'recentBans') {
-		filter.enableOption('network')
-		filter.enableOption('country')
-		filter.enableOption('jail')
+		document.getElementById('open-filter-panel').disabled = false
 
 		if (type === 'ip') {
 			filter.disableOption('jail')
@@ -449,9 +446,7 @@ document.getElementById('data-view-type').addEventListener('change', function(e)
 			filter.enableOption('jail')
 		}
 	} else {
-		filter.disableOption('network')
-		filter.disableOption('country')
-		filter.disableOption('jail')
+		document.getElementById('open-filter-panel').disabled = true
 	}
 
 	displayData(data, type)
@@ -550,18 +545,46 @@ fetchData()
 	display.globalStats()
 	display.mostBanned()
 
-	filter.setOptions('network')
-	filter.setOptions('country')
-	filter.setOptions('jail')
+	filter.setOptions('ip')
 
 	displayData(
 		filter.getData('recentBans'),
 		'recentBans'
 	)
 
-	filter.enableOption('network')
-	filter.enableOption('country')
-	filter.enableOption('jail')
+	document.getElementById('open-filter-panel').addEventListener('click', function (e) {
+		filter.showPanel()
+		filter.resetPanel()
+	})
+	
+	document.getElementById('close-filter-panel').addEventListener('click', function (e) {
+		filter.hidePanel()
+		filter.resetPanel()
+	})
+	
+	document.getElementById('filter-type').addEventListener('change', function(e) {
+		filter.setOptions(e.target.value)
+	});
+
+	document.getElementById('filter-apply').addEventListener('click', function (e) {
+		filter.hidePanel()
+		filter.save()
+
+		var type = document.getElementById('data-view-type').value
+		var data = filter.getData(type)
+	
+		displayData(data, type)
+
+		document.querySelector(`button[data-filter-id]`).addEventListener('click', function (e) {
+			filter.remove(e.target.getAttribute('data-filter-id'))
+			e.target.parentElement.remove();
+
+			var type = document.getElementById('data-view-type').value
+			var data = filter.getData(type)
+
+			displayData(data, type)
+		})
+	})
 }).catch(error => {
 	errorMessage(error.message)
 	console.log(error)
