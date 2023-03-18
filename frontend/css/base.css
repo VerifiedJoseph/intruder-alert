@@ -303,6 +303,7 @@ table td.button {
 
 #filters {
 	position: relative;
+	height: 34px;
 }
 
 #filter-panel {
