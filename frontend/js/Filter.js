@@ -1,10 +1,14 @@
+import { Details } from './Details.js';
+
 export class Filter
 {
 	#settings = []
+	#details
 
 	constructor (data = []) {
 		this.data = data
 		this.#settings = []
+		this.#details = new Details(data)
 	}
 
 	getData(typeList) {
@@ -217,12 +221,23 @@ export class Filter
 			jail: 'Jail',
 		}
 		
+		var valueText = value
+		if (type === 'network') {
+			var network = this.#details.getNetwork(value)
+			valueText = network.name
+		}
+
+		if (type === 'country') {
+			var country = this.#details.getCountry(value)
+			valueText = country.name
+		}
+
 		var actionText = 'is'
 		if (action == 'exclude') {
 			actionText = 'is not'
 		}
 
-		span.innerText = `${typeTexts[type]} ${actionText} '${value}'`
+		span.innerText = `${typeTexts[type]} ${actionText} '${valueText}'`
 		
 		button.innerText = 'X'
 		button.setAttribute('data-filter-id', id.toString())
