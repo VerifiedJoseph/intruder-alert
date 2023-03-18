@@ -528,7 +528,11 @@ fetchData()
 		displayData(data, type)
 
 		document.querySelector(`button[data-filter-id]`).addEventListener('click', function (e) {
-			filter.remove(e.target.getAttribute('data-filter-id'))
+			filter.removeValue(
+				e.target.getAttribute('data-filter-id'),
+				e.target.getAttribute('data-filter-value')
+			)
+
 			e.target.parentElement.remove();
 
 			var type = document.getElementById('data-view-type').value

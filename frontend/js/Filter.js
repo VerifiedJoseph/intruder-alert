@@ -29,7 +29,7 @@ export class Filter
 					}
 
 					if (filter.action === 'include') {
-						if (item[filter.type].toString() === filter.value) {
+						if (filter.values.includes(item[filter.type].toString()) === true) {
 							addStatus.push(1)
 						} else {
 							addStatus.push(0)
@@ -37,7 +37,7 @@ export class Filter
 					}
 
 					if (filter.action === 'exclude') {
-						if (item[filter.type].toString() === filter.value) {
+						if (filter.values.includes(item[filter.type].toString()) === true) {
 							addStatus.push(0)
 						} else {
 							addStatus.push(1)
@@ -61,19 +61,45 @@ export class Filter
 		var action = document.getElementById(`filter-action`).value
 		var value = document.getElementById(`filter-value`).value
 
-		this.#settings.push({
-			type: type,
-			action: action,
-			value: value,
-		})
+		var filterId = this.#findFilter(type, action)
 
-		this.#createLabel(type, action, value, this.#settings.length - 1)
+		if (filterId !== false) {
+			this.#settings[filterId].values.push(value)
+			this.#createLabel(type, action, value, filterId)
+
+		} else {
+			this.#settings.push({
+				type: type,
+				action: action,
+				values: [value],
+			})
+
+			this.#createLabel(type, action, value, this.#settings.length - 1)
+		}
 
 		console.log(this.#settings)
 	}
 
-	remove(id) {
-		this.#settings.splice(id, 1);
+	removeValue(filterId, value = null) {
+		var filter = this.#settings[filterId]
+
+		if (value !== null) {
+			if (filter.values.length > 1) {
+				var values = []
+
+				filter.values.forEach(item => {
+					if (item !== value) {
+						values.push(value)
+					}
+				});
+
+				this.#settings[filterId].values = values
+			} else {
+				this.#settings.splice(filterId, 1);
+			}
+		} else {
+			this.#settings.splice(filterId, 1);
+		}
 	}
 
 	reset() {
@@ -141,12 +167,28 @@ export class Filter
 		var status = false
 
 		this.#settings.forEach(filter => {
-			if (filter.type === type && filter.value === value.toString()) {
+			if (filter.type === type && filter.values.includes(value.toString()) === true) {
 				status = true
 			}
 		});
 
 		return status
+	}
+
+	#findFilter(type, action) {
+		var key = null;
+
+		this.#settings.forEach((filter, index) => {
+			if (filter.type === type && filter.action === action) {
+				key = index
+			}
+		});
+
+		if (key !== null) {
+			return key
+		}
+
+		return false
 	}
 
 	#getRecentBans() {
@@ -181,7 +223,7 @@ export class Filter
 		var button = document.createElement('button')
 
 		var typeTexts = {
-			ip: 'IP Address',
+			address: 'IP Address',
 			network: 'Network',
 			country: 'Country',
 			jail: 'Jail',
@@ -196,6 +238,7 @@ export class Filter
 		
 		button.innerText = 'X'
 		button.setAttribute('data-filter-id', id.toString())
+		button.setAttribute('data-filter-value', value.toString())
 
 		div.appendChild(span)
 		div.appendChild(button)
