@@ -447,6 +447,7 @@ document.getElementById('data-view-type').addEventListener('change', function(e)
 		}
 	} else {
 		document.getElementById('open-filter-panel').disabled = true
+		filter.reset()
 	}
 
 	displayData(data, type)

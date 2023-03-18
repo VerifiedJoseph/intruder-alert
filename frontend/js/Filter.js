@@ -76,6 +76,11 @@ export class Filter
 		this.#settings.splice(id, 1);
 	}
 
+	reset() {
+		this.#settings = []
+		document.getElementById('applied-filters').innerText = ''
+	}
+
 	setOptions(type) {
 		const select = document.getElementById(`filter-value`)
 		select.innerText = ''
