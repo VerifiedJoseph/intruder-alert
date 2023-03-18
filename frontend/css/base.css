@@ -307,7 +307,7 @@ table td.no-data {
 
 #filters {
 	position: relative;
-	height: 34px;
+	min-height: 34px;
 }
 
 #filter-panel {
