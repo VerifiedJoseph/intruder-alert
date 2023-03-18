@@ -82,15 +82,10 @@ export class Filter
 
 	removeValue(filterId, value = null) {
 		var filter = this.#settings[filterId]
-		var values = []
 
-		filter.values.forEach(item => {
-			if (item !== value) {
-				values.push(value)
-			}
-		});
-
-		this.#settings[filterId].values = values
+		this.#settings[filterId].values = filter.values.filter(
+			item => item !== value
+		)
 	}
 
 	reset() {
