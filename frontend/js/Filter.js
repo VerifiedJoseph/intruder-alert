@@ -28,7 +28,7 @@ export class Filter
 						continue;
 					}
 
-					if (filter.action === 'include') {
+					if (filter.action === 'include' && filter.values > 0) {
 						if (filter.values.includes(item[filter.type].toString()) === true) {
 							addStatus.push(1)
 						} else {
@@ -36,7 +36,7 @@ export class Filter
 						}
 					}
 
-					if (filter.action === 'exclude') {
+					if (filter.action === 'exclude' && filter.values > 0) {
 						if (filter.values.includes(item[filter.type].toString()) === true) {
 							addStatus.push(0)
 						} else {
@@ -82,24 +82,15 @@ export class Filter
 
 	removeValue(filterId, value = null) {
 		var filter = this.#settings[filterId]
+		var values = []
 
-		if (value !== null) {
-			if (filter.values.length > 1) {
-				var values = []
-
-				filter.values.forEach(item => {
-					if (item !== value) {
-						values.push(value)
-					}
-				});
-
-				this.#settings[filterId].values = values
-			} else {
-				this.#settings.splice(filterId, 1);
+		filter.values.forEach(item => {
+			if (item !== value) {
+				values.push(value)
 			}
-		} else {
-			this.#settings.splice(filterId, 1);
-		}
+		});
+
+		this.#settings[filterId].values = values
 	}
 
 	reset() {
