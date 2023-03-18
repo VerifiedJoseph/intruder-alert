@@ -12,7 +12,7 @@ var display
 
 var botData = {}
 var tableHeaders = {
-	'ip': ['Address', 'Bans', 'Network', 'Country' , ''],
+	'address': ['Address', 'Bans', 'Network', 'Country' , ''],
 	'jail': ['Jail', 'IPs', 'Bans', ''],
 	'network': ['Network', 'IPs', 'Bans', ''],
 	'country': ['Country', 'IPs', 'Bans', ''],
@@ -218,7 +218,7 @@ function createDetailButtonEvents() {
 		buttons[i].addEventListener('click', function (e) {
 			var dataType = e.target.getAttribute('data-type')
 
-			if (dataType === 'ip') {
+			if (dataType === 'address') {
 				createIpModal(e.target.getAttribute('data-value'))
 			}
 
@@ -325,7 +325,7 @@ function createTable(data, type, indexStart = 0) {
 
 		row.addCell(new Cell(Format.Number(itemNumber), 'number'))
 
-		if (type === 'ip') {
+		if (type === 'address') {
 			var network = details.getNetwork(item.network)
 			var country = details.getCountry(item.country)
 
@@ -436,10 +436,10 @@ document.getElementById('data-view-type').addEventListener('change', function(e)
 	var type = e.target.value
 	var data = filter.getData(type)
 
-	if (type === 'ip' || type === 'recentBans') {
+	if (type === 'address' || type === 'recentBans') {
 		document.getElementById('open-filter-panel').disabled = false
 
-		if (type === 'ip') {
+		if (type === 'address') {
 			filter.disableOption('jail')
 		} else {
 			filter.enableOption('jail')
@@ -491,7 +491,7 @@ fetchData()
 	display.globalStats()
 	display.mostBanned()
 
-	filter.setOptions('ip')
+	filter.setOptions('address')
 
 	displayData(
 		filter.getData('recentBans'),

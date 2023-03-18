@@ -25,13 +25,13 @@ class Report
 	private function createStats(): array
 	{
 		$data = [];
-		$data['totals']['ip'] = count($this->lists['ip']['list']);
+		$data['totals']['ip'] = count($this->lists['address']['list']);
 		$data['totals']['network'] = count($this->lists['network']['list']);
 		$data['totals']['country'] = count($this->lists['country']['list']);
 		$data['totals']['date'] = count($this->lists['date']['list']);
 		$data['totals']['jail'] = count($this->lists['jail']['list']);
 
-		$data['bans']['total'] = $this->lists['ip']['totalBans'];
+		$data['bans']['total'] = $this->lists['address']['totalBans'];
 		$data['bans']['today'] = 0;
 		$data['bans']['yesterday'] = 0;
 		$data['bans']['perDay'] = 0;
@@ -55,14 +55,14 @@ class Report
 		}
 
 		$dayCount = count($this->lists['date']['list']);
-		$data['bans']['perDay'] = floor($this->lists['ip']['totalBans'] / $dayCount);
+		$data['bans']['perDay'] = floor($this->lists['address']['totalBans'] / $dayCount);
 
 		return $data;
 	}
 
 	private function getDataSinceDate()
 	{
-		$key = array_key_last($this->lists['ip']['list']);
-		return date('Y-m-d', strtotime($this->lists['ip']['list'][$key]['firstSeen']));
+		$key = array_key_last($this->lists['address']['list']);
+		return date('Y-m-d', strtotime($this->lists['address']['list'][$key]['firstSeen']));
 	}
 }

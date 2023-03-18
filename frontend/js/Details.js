@@ -7,9 +7,9 @@ export class Details
 
 	getIp(address)
 	{
-		for (var i = 0; i < this.data.ip.list.length; i++) {
-			if (this.data.ip.list[i].address === address) {
-				return this.data.ip.list[i];
+		for (var i = 0; i < this.data.address.list.length; i++) {
+			if (this.data.address.list[i].address === address) {
+				return this.data.address.list[i];
 			}
 		}
 	}

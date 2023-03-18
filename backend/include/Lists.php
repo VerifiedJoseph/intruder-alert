@@ -1,7 +1,7 @@
 <?php 
 
 class Lists {
-	private Lists\Ip $ipList;
+	private Lists\Address $addressList;
 	private Lists\Date $dateList;
 	private Lists\Jail $jailList;
 	private Lists\Network $networkList;
@@ -9,7 +9,7 @@ class Lists {
 
 	public function __construct()
 	{
-		$this->ipList = new Lists\Ip();
+		$this->addressList = new Lists\Address();
 		$this->dateList = new Lists\Date();
 		$this->jailList = new Lists\Jail();
 		$this->networkList = new Lists\Network();
@@ -17,7 +17,7 @@ class Lists {
 	}
 
 	public function addIp(Ip $ip) {
-		$this->ipList->addIp($ip->getDetails());
+		$this->addressList->addIp($ip->getDetails());
 		$this->dateList->addIp($ip->getDetails());
 		$this->jailList->addIp($ip->getDetails());
 		$this->networkList->addIp($ip->getDetails());
@@ -27,7 +27,7 @@ class Lists {
 	public function get(): array
 	{
 		return [
-			'ip' => $this->ipList->get(),
+			'address' => $this->addressList->get(),
 			'date' => $this->dateList->get(),
 			'jail' => $this->jailList->get(),
 			'network' => $this->networkList->get(),

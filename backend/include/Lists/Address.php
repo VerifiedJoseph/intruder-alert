@@ -4,7 +4,7 @@ namespace Lists;
 
 use stdClass;
 
-class Ip {
+class Address {
 	private array $data = [
 		'mostBanned' => '',
 		'totalBans' => 0,

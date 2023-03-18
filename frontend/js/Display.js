@@ -26,7 +26,7 @@ export class Display
 	}
 
 	mostBanned() {
-		var ip = this.details.getIp(this.data.ip.mostBanned)
+		var ip = this.details.getIp(this.data.address.mostBanned)
 		var network = this.details.getNetwork(this.data.network.mostBanned)
 		var country = this.details.getCountry(this.data.country.mostBanned)
 	

@@ -102,13 +102,9 @@ export class Filter
 		const select = document.getElementById(`filter-value`)
 		select.innerText = ''
 
-		if (type === 'address') {
-			type = 'ip';
-		}
-
 		var valueName = ''
 		switch (type) {
-			case 'ip':
+			case 'address':
 				valueName = 'address'
 				break;
 			case 'network':
@@ -151,7 +147,7 @@ export class Filter
 		document.getElementById('filter-type')[0].selected = true
 		document.getElementById('filter-action')[0].selected = true
 
-		this.setOptions('ip')
+		this.setOptions('address')
 	}
 
 	hasFilter(type, value) {
@@ -185,7 +181,7 @@ export class Filter
 	#getRecentBans() {
 		var events = []
 
-		this.data.ip.list.forEach(ip => {
+		this.data.address.list.forEach(ip => {
 			ip.events.forEach(event => {
 				events.push({
 					'address': ip.address,
