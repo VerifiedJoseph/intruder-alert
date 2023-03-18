@@ -436,6 +436,12 @@ function errorMessage(message) {
 	error.innerText = message
 } 
 
+document.getElementById('modal-close').addEventListener('click', function (e) {
+	document.getElementById('modal').classList.toggle('hide')
+	document.getElementById('modal-body').innerText = ''
+	document.getElementById('modal-title').innerText = ''
+})
+
 document.getElementById('data-view-type').addEventListener('change', function(e) {
 	filter.hidePanel()
 	filter.resetPanel()
