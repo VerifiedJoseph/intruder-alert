@@ -553,11 +553,15 @@ fetchData()
 	)
 
 	document.getElementById('open-filter-panel').addEventListener('click', function (e) {
+		document.getElementById('open-filter-panel').disabled = true
+
 		filter.showPanel()
 		filter.resetPanel()
 	})
 	
 	document.getElementById('close-filter-panel').addEventListener('click', function (e) {
+		document.getElementById('open-filter-panel').disabled = false
+
 		filter.hidePanel()
 		filter.resetPanel()
 	})
@@ -567,6 +571,8 @@ fetchData()
 	});
 
 	document.getElementById('filter-apply').addEventListener('click', function (e) {
+		document.getElementById('open-filter-panel').disabled = false
+
 		filter.hidePanel()
 		filter.save()
 
