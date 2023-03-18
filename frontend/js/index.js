@@ -182,7 +182,7 @@ function createCountryModal(code) {
 }
 
 function createCellWithFilter(dataType, dataValue, text) {
-	var currentFilterValue = document.getElementById(`${dataType}-filter`).value
+	var currentFilterValue = ''
 	var span = document.createElement('span')
 
 	span.innerText = text
@@ -452,60 +452,6 @@ document.getElementById('data-view-type').addEventListener('change', function(e)
 
 	displayData(data, type)
 });
-
-document.getElementById('modal-close').addEventListener('click', function (e) {
-	document.getElementById('modal').classList.toggle('hide')
-	document.getElementById('modal-body').innerText = ''
-	document.getElementById('modal-title').innerText = ''
-})
-
-document.getElementById('network-filter').addEventListener('change', function(e) {
-	var type = document.getElementById('data-view-type').value
-	var data = filter.getData(type)
-
-	displayData(data, type)
-});
-
-document.getElementById('country-filter').addEventListener('change', function(e) {
-	var type = document.getElementById('data-view-type').value
-	var data = filter.getData(type)
-
-	displayData(data, type)
-});
-
-document.getElementById('jail-filter').addEventListener('change', function(e) {
-	var type = document.getElementById('data-view-type').value
-	var data = filter.getData(type)
-
-	displayData(data, type)
-});
-
-document.getElementById('network-filter-reset').addEventListener('click', function (e) {
-	filter.resetOption('network')
-	
-	var type = document.getElementById('data-view-type').value
-	var data = filter.getData(type)
-
-	displayData(data, type)
-})
-
-document.getElementById('country-filter-reset').addEventListener('click', function (e) {
-	filter.resetOption('country')
-
-	var type = document.getElementById('data-view-type').value
-	var data = filter.getData(type)
-
-	displayData(data, type)
-})
-
-document.getElementById('jail-filter-reset').addEventListener('click', function (e) {
-	filter.resetOption('jail')
-
-	var type = document.getElementById('data-view-type').value
-	var data = filter.getData(type)
-
-	displayData(data, type)
-})
 
 var pageButtons = document.getElementsByClassName('page-button')
 for (var i = 0; i < pageButtons.length; i++) {
