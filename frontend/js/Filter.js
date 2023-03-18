@@ -137,6 +137,18 @@ export class Filter
 		this.setOptions('ip')
 	}
 
+	hasFilter(type, value) {
+		var status = false
+
+		this.#settings.forEach(filter => {
+			if (filter.type === type && filter.value === value.toString()) {
+				status = true
+			}
+		});
+
+		return status
+	}
+
 	#getRecentBans() {
 		var events = []
 
@@ -180,7 +192,7 @@ export class Filter
 			actionText = 'is not'
 		}
 
-		span.innerText = `${typeTexts[type]} ${actionText} ${value}`
+		span.innerText = `${typeTexts[type]} ${actionText} '${value}'`
 		
 		button.innerText = 'X'
 		button.setAttribute('data-filter-id', id.toString())
