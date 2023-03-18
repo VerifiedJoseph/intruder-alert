@@ -527,19 +527,22 @@ fetchData()
 	
 		displayData(data, type)
 
-		document.querySelector(`button[data-filter-id]`).addEventListener('click', function (e) {
-			filter.removeValue(
-				e.target.getAttribute('data-filter-id'),
-				e.target.getAttribute('data-filter-value')
-			)
-
-			e.target.parentElement.remove();
-
-			var type = document.getElementById('data-view-type').value
-			var data = filter.getData(type)
-
-			displayData(data, type)
-		})
+		var filterRemoveButtons = document.querySelectorAll(`button[data-filter-id]`);
+		for (var i = 0; i < filterRemoveButtons.length; i++) {
+			filterRemoveButtons[i].addEventListener('click', function (e) {
+				filter.removeValue(
+					e.target.getAttribute('data-filter-id'),
+					e.target.getAttribute('data-filter-value')
+				)
+	
+				e.target.parentElement.remove();
+	
+				var type = document.getElementById('data-view-type').value
+				var data = filter.getData(type)
+	
+				displayData(data, type)
+			})
+		}
 	})
 }).catch(error => {
 	errorMessage(error.message)
