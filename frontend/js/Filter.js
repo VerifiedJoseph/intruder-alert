@@ -17,7 +17,7 @@ export class Filter
 	
 		var filtered = []
 
-		if (this.#settings.length > 0 && (typeList === 'ip' || typeList === 'recentBans') ) {
+		if (this.#settings.length > 0 && (typeList === 'address' || typeList === 'recentBans') ) {
 			data.forEach(item => {
 				var addStatus = [];
 
