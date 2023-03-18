@@ -17,12 +17,13 @@ export class Filter
 	
 		var filtered = []
 
+		if (this.#settings.length > 0 && (typeList === 'ip' || typeList === 'recentBans') ) {
 			data.forEach(item => {
 				var addStatus = [];
 
-				for (let index = 0; index < _settings.length; index++) {
-					var filter = _settings[index];
-	
+				for (let index = 0; index < this.#settings.length; index++) {
+					var filter = this.#settings[index];
+
 					if (filter.type === 'jail' && typeList !== 'recentBans') {
 						continue;
 					}
@@ -79,6 +80,10 @@ export class Filter
 		const select = document.getElementById(`filter-value`)
 		select.innerText = ''
 
+		if (type === 'address') {
+			type = 'ip';
+		}
+
 		var valueName = ''
 		switch (type) {
 			case 'ip':
@@ -122,6 +127,8 @@ export class Filter
 
 	resetPanel() {
 		document.getElementById('filter-type')[0].selected = true
+		document.getElementById('filter-action')[0].selected = true
+
 		this.setOptions('ip')
 	}
 
@@ -157,7 +164,7 @@ export class Filter
 		var button = document.createElement('button')
 
 		var typeTexts = {
-			address: 'IP Address',
+			ip: 'IP Address',
 			network: 'Network',
 			country: 'Country',
 			jail: 'Jail',
