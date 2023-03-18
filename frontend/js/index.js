@@ -306,7 +306,7 @@ function createPageButtons(pageCount, totalItems, currentPage) {
 	paginationCount.innerText = `Page ${currentPage + 1} of ${pageCount + 1} (${Format.Number(totalItems)} total items)`
 }
 
-function createTable(data, type, indexStart = 0) {
+function createTable(data = [], type, indexStart = 0) {
 	var div = document.getElementById('data-table');
 	
 	var table = new Table();
@@ -319,100 +319,107 @@ function createTable(data, type, indexStart = 0) {
 
 	table.addHeader(header)
 
-	data.forEach(function (item, index) {
-		var row = new Row()
-		var itemNumber = index + indexStart;
-
-		row.addCell(new Cell(Format.Number(itemNumber), 'number'))
-
-		if (type === 'address') {
-			var network = details.getNetwork(item.network)
-			var country = details.getCountry(item.country)
-
-			row.addCell(new Cell(item.address))
-			row.addCell(new Cell(Format.Number(item.bans)))
-			row.addCell(new Cell(
-				createCellWithFilter('network', network.number, network.name),
-				'asn',
-				true
-			))
-			row.addCell(new Cell(
-				createCellWithFilter('country', country.code, country.name),
-				'country',
-				true
-			))
-			row.addCell(new Cell(
-				createDetailsButton(type, item.address),
-				'button',
-				true
-			))
-		}
-
-		if (type === 'network' || type === 'jail') {
-			var span = document.createElement('span')
-			span.innerText = item.name
-			span.setAttribute('title', item.name)
-			row.addCell(new Cell(
-				span,
-				'long',
-				true
-			))
-			row.addCell(new Cell(Format.Number(item.ipCount)))
-			row.addCell(new Cell(Format.Number(item.bans)))
-			row.addCell(new Cell(
-				createDetailsButton(type, item.number),
-				'button',
-				true
-			))
-		}
-
-		if (type === 'country') {
-			row.addCell(new Cell(item.name, 'long'))
-			row.addCell(new Cell(Format.Number(item.ipCount)))
-			row.addCell(new Cell(Format.Number(item.bans)))
-			row.addCell(new Cell(
-				createDetailsButton(type, item.code),
-				'button',
-				true
-			))
-		}
-
-		if (type === 'recentBans') {
-			var network = details.getNetwork(item.network)
-			var country = details.getCountry(item.country)
-
-			row.addCell(new Cell(item.timestamp, 'date'))
-			row.addCell(new Cell(item.address))
-			row.addCell(new Cell(
-				createCellWithFilter('jail', item.jail, item.jail),
-				'jail',
-				true
-			))
-			row.addCell(new Cell(
-				createCellWithFilter('network', network.number, network.name),
-				'asn',
-				true
-			))
-			row.addCell(new Cell(
-				createCellWithFilter('country', country.code, country.name),
-				'country',
-				true
-			))
-		}
+	if (data.length > 0) {
+		data.forEach(function (item, index) {
+			var row = new Row()
+			var itemNumber = index + indexStart;
 	
-		if (type === 'date') {
-			row.addCell(new Cell(item.date, 'long'))
-			row.addCell(new Cell(Format.Number(item.ipCount)))
-			row.addCell(new Cell(Format.Number(item.bans)))
-			row.addCell(new Cell(
-				createDetailsButton(type, item.date),
-				'button',
-				true
-			))
-		}
+			row.addCell(new Cell(Format.Number(itemNumber), 'number'))
+	
+			if (type === 'address') {
+				var network = details.getNetwork(item.network)
+				var country = details.getCountry(item.country)
+	
+				row.addCell(new Cell(item.address))
+				row.addCell(new Cell(Format.Number(item.bans)))
+				row.addCell(new Cell(
+					createCellWithFilter('network', network.number, network.name),
+					'asn',
+					true
+				))
+				row.addCell(new Cell(
+					createCellWithFilter('country', country.code, country.name),
+					'country',
+					true
+				))
+				row.addCell(new Cell(
+					createDetailsButton(type, item.address),
+					'button',
+					true
+				))
+			}
+	
+			if (type === 'network' || type === 'jail') {
+				var span = document.createElement('span')
+				span.innerText = item.name
+				span.setAttribute('title', item.name)
+				row.addCell(new Cell(
+					span,
+					'long',
+					true
+				))
+				row.addCell(new Cell(Format.Number(item.ipCount)))
+				row.addCell(new Cell(Format.Number(item.bans)))
+				row.addCell(new Cell(
+					createDetailsButton(type, item.number),
+					'button',
+					true
+				))
+			}
+	
+			if (type === 'country') {
+				row.addCell(new Cell(item.name, 'long'))
+				row.addCell(new Cell(Format.Number(item.ipCount)))
+				row.addCell(new Cell(Format.Number(item.bans)))
+				row.addCell(new Cell(
+					createDetailsButton(type, item.code),
+					'button',
+					true
+				))
+			}
+	
+			if (type === 'recentBans') {
+				var network = details.getNetwork(item.network)
+				var country = details.getCountry(item.country)
+	
+				row.addCell(new Cell(item.timestamp, 'date'))
+				row.addCell(new Cell(item.address))
+				row.addCell(new Cell(
+					createCellWithFilter('jail', item.jail, item.jail),
+					'jail',
+					true
+				))
+				row.addCell(new Cell(
+					createCellWithFilter('network', network.number, network.name),
+					'asn',
+					true
+				))
+				row.addCell(new Cell(
+					createCellWithFilter('country', country.code, country.name),
+					'country',
+					true
+				))
+			}
+		
+			if (type === 'date') {
+				row.addCell(new Cell(item.date, 'long'))
+				row.addCell(new Cell(Format.Number(item.ipCount)))
+				row.addCell(new Cell(Format.Number(item.bans)))
+				row.addCell(new Cell(
+					createDetailsButton(type, item.date),
+					'button',
+					true
+				))
+			}
+	
+			table.addRow(row);
+		});
+	} else {
+		var row = new Row()
+		row.addCell(new Cell('No data found', 'no-data', false, 6))
 
 		table.addRow(row);
-	});
+	}
 
 	div.innerText = '';
 	div.append(table.get());

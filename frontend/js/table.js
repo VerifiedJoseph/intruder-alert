@@ -55,6 +55,10 @@ export class Table
 				td.classList.add(item.cssClass)
 			}
 
+			if (item.colSpan > 0) {
+				td.setAttribute('colspan', item.colSpan)
+			}
+
 			tr.appendChild(td)
 		})
 
@@ -79,17 +83,19 @@ export class Row
 
 export class Cell
 {
-	constructor (value, cssClass = null, html = false) {
+	constructor (value, cssClass = null, html = false, colSpan = 0) {
 		this.value = value
 		this.cssClass = cssClass
 		this.html = html
+		this.colSpan = colSpan
 	}
 
 	get() {
 		return {
 			value: this.value,
 			cssClass: this.cssClass,
-			html: this.html
+			html: this.html,
+			colSpan: this.colSpan
 		}
 	}
 }

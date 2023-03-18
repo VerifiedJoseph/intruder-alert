@@ -212,6 +212,10 @@ table td.button {
 	width: 100px;
 }
 
+table td.no-data {
+	text-align: center;
+}
+
 .input-text {
 	display: inline-block;
 	width: 85px;
