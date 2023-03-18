@@ -118,13 +118,19 @@ export class Filter
 				break;
 		}
 	
-		this.data[type].list.forEach(function (item) {
+		for (let index = 0; index < this.data[type].list.length; index++) {
+			const item = this.data[type].list[index];
+			
 			const option = document.createElement('option')
 			option.value = item[valueName]
 			option.innerText = item.name || item.address
+
+			if (this.hasFilter(type, item[valueName]) === true) {
+				option.disabled = true
+			}
 	
 			select.appendChild(option)
-		})
+		}
 	}
 
 	disableOption(name) {
