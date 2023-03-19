@@ -10,7 +10,6 @@ import { Pagination } from './Pagination.js'
 var filter
 var details
 var display
-var pagination = new Pagination()
 
 var botData = {}
 var tableHeaders = {
@@ -27,24 +26,17 @@ function fetchData() {
 	return fetch('data.json');
 }
 
-function displayData(data, type, page = 0) {
-	var totalItems = data.length;
+function displayData(data, type, pageNumber = 0) {
+	var pagination = new Pagination(data)
+	pagination.setPage(pageNumber)
 
-	let pageSize = 25;
-	var dataPages = [];
-	for (let i = 0; i < data.length; i += pageSize) {
-		dataPages.push(data.slice(i, i + pageSize));
-	}
-
-	var pageCount = dataPages.length - 1
-
-	var indexStart = 1;
-	if (page >= 1) {
-		indexStart = (page * pageSize) + 1;
-	}
-
-	createTable(dataPages[page], type, indexStart);
-	pagination.setButtons(pageCount, totalItems, page);
+	createTable(
+		pagination.getData(),
+		type,
+		pagination.getIndexStart()
+	);
+	
+	pagination.setButtons()
 }
 
 function createCellWithFilter(dataType, dataValue, text) {
