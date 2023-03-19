@@ -1,4 +1,4 @@
-import { Table, Row, Cell } from './table.js'
+import { Table, Row, Cell } from './Table.js'
 import { Filter } from './Filter.js'
 import { Details } from './Details.js'
 import { Display } from './Display.js'
