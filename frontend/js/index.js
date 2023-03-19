@@ -383,7 +383,11 @@ function createTable(data = [], type, indexStart = 0) {
 				var country = details.getCountry(item.country)
 	
 				row.addCell(new Cell(item.timestamp, 'date'))
-				row.addCell(new Cell(item.address))
+				row.addCell(new Cell(
+					createCellWithFilter('address', item.address, item.address),
+					'address',
+					true
+				))
 				row.addCell(new Cell(
 					createCellWithFilter('jail', item.jail, item.jail),
 					'jail',

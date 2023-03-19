@@ -166,7 +166,7 @@ table th.date, table td.date {
 	width: 140px !important;
 }
 
-table td.asn, table td.country, table td.jail {
+table td {
 	position: relative;
 }
 
