@@ -344,7 +344,6 @@ table td.no-data {
 #filters {
 	display: flow-root;
 	position: relative;
-	min-height: 34px;
 	margin-top: 10px;
 	margin-bottom: 0px;
 }
@@ -355,6 +354,7 @@ table td.no-data {
 
 #applied-filters {
 	margin-left: 64px;
+	margin-top: 10px;
 	display: flow-root;
 	width: 890px;
 }
