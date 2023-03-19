@@ -75,7 +75,15 @@ export class Pagination
 		}
 	
 		var paginationCount = document.getElementById('pagination-count');
-		paginationCount.innerText = `Page ${this.#pageNumber + 1} of ${this.#pageCount + 1} (${Format.Number(this.#totalItems)} total items)`
+		var displayPageNumber = this.#pageNumber + 1
+		var displayPageCount = this.#pageCount + 1
+
+		if (displayPageCount === 0) {
+			displayPageNumber = 1
+			displayPageCount = 1
+		}
+
+		paginationCount.innerText = `Page ${displayPageNumber} of ${displayPageCount} (${Format.Number(this.#totalItems)} total items)`
 	}
 
 	#updateButton(id, number) {
