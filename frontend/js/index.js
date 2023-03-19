@@ -13,9 +13,9 @@ var display
 var botData = {}
 var tableHeaders = {
 	'address': ['Address', 'Bans', 'Network', 'Country' , ''],
-	'jail': ['Jail', 'IPs', '', 'Bans', ''],
-	'network': ['Network', 'IPs', '', 'Bans', ''],
-	'country': ['Country', 'IPs', '', 'Bans', ''],
+	'jail': ['Jail', 'IPs', 'Bans', ''],
+	'network': ['Network', 'IPs', 'Bans', ''],
+	'country': ['Country', 'IPs', 'Bans', ''],
 	'events': ['Date', 'Jail'],
 	'recentBans': ['Date', 'Address', 'Jail', 'Network', 'Country'],
 	'date': ['Date', 'IPs', 'Bans', '']
@@ -424,14 +424,18 @@ function createTable(data = [], type, indexStart = 0) {
 					true
 				))
 				row.addCell(new Cell(Format.Number(item.ipCount)))
-				row.addCell(new Cell(
-					createViewButton('address', type, item.number || item.code || item.name),
-					'view-btn',
-					true
-				))
 				row.addCell(new Cell(Format.Number(item.bans)))
-				row.addCell(new Cell(
+
+				var span = document.createElement('span')
+				span.appendChild(
+					createViewButton('address', type, item.number || item.code || item.name)
+				)
+				span.appendChild(
 					createViewButton('recentBans', type, item.number || item.code || item.name),
+				)
+
+				row.addCell(new Cell(
+					span,
 					'view-btn',
 					true
 				))
