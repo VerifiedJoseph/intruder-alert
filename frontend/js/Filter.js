@@ -245,6 +245,8 @@ export class Filter
 
 		div.appendChild(span)
 		div.appendChild(button)
+		div.classList.add('item')
+
 		labelCon.appendChild(div)
 	}
 }
