@@ -250,6 +250,7 @@ export class Filter
 		span.innerText = `${typeTexts[type]} ${actionText} '${valueText}'`
 		
 		button.innerText = 'X'
+		button.setAttribute('title', `Remove filter '${typeTexts[type]} ${actionText} ${valueText}'`)
 		button.setAttribute('data-filter-id', id.toString())
 		button.setAttribute('data-filter-value', value.toString())
 
