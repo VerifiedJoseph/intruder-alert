@@ -15,8 +15,8 @@ class Date {
 		return $this->data;
 	}
 
-	public function addIp(stdClass $ip) {
-		$date = date('Y-m-d', strtotime($ip->timestamp));
+	public function addIp(array $ip) {
+		$date = date('Y-m-d', strtotime($ip['timestamp']));
 		$key = array_search($date, array_column($this->data['list'], 'date'));
 
 		if ($key === false) {
@@ -24,13 +24,13 @@ class Date {
 				'date' => $date,
 				'bans' => 1,
 				'ipCount' => 1,
-				'ipList' => [$ip->address]
+				'ipList' => [$ip['address']]
 			];
 		} else {
 			$this->data['list'][$key]['bans']++;
 
-			if (in_array($ip->address, $this->data['list'][$key]['ipList']) === false) {
-				$this->data['list'][$key]['ipList'][] = $ip->address;
+			if (in_array($ip['address'], $this->data['list'][$key]['ipList']) === false) {
+				$this->data['list'][$key]['ipList'][] = $ip['address'];
 				$this->data['list'][$key]['ipCount']++;
 			}
 		}

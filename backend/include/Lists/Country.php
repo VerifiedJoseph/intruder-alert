@@ -16,23 +16,23 @@ class Country {
 		return $this->data;
 	}
 
-	public function addIp(stdClass $ip)
+	public function addIp(array $ip)
 	{
-		$key = array_search($ip->country->code, array_column($this->data['list'], 'code'));
+		$key = array_search($ip['country']['code'], array_column($this->data['list'], 'code'));
 	
 		if ($key === false) {
 			$this->data['list'][] = [
-				'code' => $ip->country->code,
-				'name' => $ip->country->name,
+				'code' => $ip['country']['code'],
+				'name' => $ip['country']['name'],
 				'bans' => 1,
 				'ipCount' => 1,
-				'ipList' => [$ip->address]
+				'ipList' => [$ip['address']]
 			];
 		} else {
 			$this->data['list'][$key]['bans']++;
 
-			if (in_array($ip->address, $this->data['list'][$key]['ipList']) === false) {
-				$this->data['list'][$key]['ipList'][] = $ip->address;
+			if (in_array($ip['address'], $this->data['list'][$key]['ipList']) === false) {
+				$this->data['list'][$key]['ipList'][] = $ip['address'];
 				$this->data['list'][$key]['ipCount']++;
 			}
 		}

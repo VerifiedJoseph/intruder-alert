@@ -24,22 +24,35 @@ class App
 
 	private function processLogs(): void
 	{
-		$sinceTimeStamp = '';
+		$cache = new Cache('./data/cache.json');
 
 		$logs = new Logs(constant('LOG_FOLDER'));
 		foreach ($logs->process() as $line) {
-			if ($sinceTimeStamp != null) {
-				$sinceTimeStamp = $line['timestamp'];
-			}
-		
-			$ip = new Ip(
-				$line['ip'],
-				$line['jail'],
-				$line['timestamp']
-			);
 
-			$this->lists->addIp($ip);
+			if ($cache->hasItem($line['ip']) === true) {
+				$cacheData = $cache->getItem($line['ip']);
+				$ip = [
+					'address' => $line['ip'],
+					'jail' => $line['jail'],
+					'timestamp' => $line['timestamp'],
+					'network' => $cacheData['network'],
+					'country' => $cacheData['country'],
+				];
+				$this->lists->addIp($ip);
+			
+			} else {
+				$ip = new Ip(
+					$line['ip'],
+					$line['jail'],
+					$line['timestamp']
+				);
+
+				$cache->addItem($ip->getDetails());
+				$this->lists->addIp($ip->getDetails());
+			}
 		}
+
+		$cache->save();
 	}
 
 	private function generateReport(): void

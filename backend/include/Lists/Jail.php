@@ -16,22 +16,22 @@ class Jail {
 		return $this->data;
 	}
 
-	public function addIp(stdClass $ip)
+	public function addIp(array $ip)
 	{
-		$key = array_search($ip->jail, array_column($this->data['list'], 'name'));
+		$key = array_search($ip['jail'], array_column($this->data['list'], 'name'));
 
 		if ($key === false) {
 			$this->data['list'][] = [
-				'name' => $ip->jail,
-				'ipList' => [$ip->address],
+				'name' => $ip['jail'],
+				'ipList' => [$ip['address']],
 				'ipCount' => 1,
 				'bans' => 1
 			];
 		} else {
 			$this->data['list'][$key]['bans']++;
 
-			if (in_array($ip->address, $this->data['list'][$key]['ipList']) === false) {
-				$this->data['list'][$key]['ipList'][] = $ip->address;
+			if (in_array($ip['address'], $this->data['list'][$key]['ipList']) === false) {
+				$this->data['list'][$key]['ipList'][] = $ip['address'];
 				$this->data['list'][$key]['ipCount']++;
 			}
 		}

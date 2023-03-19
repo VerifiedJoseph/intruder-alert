@@ -17,7 +17,7 @@ class Lookup
 		self::$asnDBPath = $path;
 	}
 
-	static public function country(string $ip): stdClass
+	static public function country(string $ip): array
 	{
 		$geo = new Reader(self::$countryDBPath);
 		$name = 'Unknown';
@@ -31,15 +31,14 @@ class Lookup
 		} catch (GeoIp2\Exception\AddressNotFoundException) {
 			// do things here
 		} finally {
-			$data = new stdClass();
-			$data->name = $name;
-			$data->code = $code;
-
-			return $data;
+			return [
+				'name' => $name,
+				'code' => $code
+			];
 		}
 	}
 
-	static public function asn(string $ip): stdClass
+	static public function asn(string $ip): array
 	{
 		$geo = new Reader(self::$asnDBPath);
 		$name = 'Unknown';
@@ -53,11 +52,10 @@ class Lookup
 		} catch (GeoIp2\Exception\AddressNotFoundException) {
 			// do things here
 		} finally {
-			$data = new stdClass();
-			$data->name = $name;
-			$data->number = $number;
-
-			return $data;
+			return [
+				'name' => $name,
+				'number' => $number
+			];
 		}
 	}
 }

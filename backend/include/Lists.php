@@ -16,12 +16,13 @@ class Lists {
 		$this->countryList = new Lists\Country();
 	}
 
-	public function addIp(Ip $ip) {
-		$this->addressList->addIp($ip->getDetails());
-		$this->dateList->addIp($ip->getDetails());
-		$this->jailList->addIp($ip->getDetails());
-		$this->networkList->addIp($ip->getDetails());
-		$this->countryList->addIp($ip->getDetails());
+	public function addIp(array $ip): void
+	{
+		$this->addressList->addIp($ip);
+		$this->dateList->addIp($ip);
+		$this->jailList->addIp($ip);
+		$this->networkList->addIp($ip);
+		$this->countryList->addIp($ip);
 	}
 
 	public function get(): array

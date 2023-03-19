@@ -19,29 +19,29 @@ class Address {
 		return $this->data;
 	}
 
-	public function addIp(stdClass $ip)
+	public function addIp(array $ip)
 	{
-		$key = array_search($ip->address, array_column($this->data['list'], 'address'));
+		$key = array_search($ip['address'], array_column($this->data['list'], 'address'));
 
 		if ($key === false) {
 			$this->data['totalBans']++;
 
 			$this->data['list'][] = [
-				'address' => $ip->address,
+				'address' => $ip['address'],
 				'bans' => 1,
-				'country' =>  $ip->country->code,
-				'network' => $ip->network->number,
+				'country' =>  $ip['country']['code'],
+				'network' => $ip['network']['number'],
 				'events' => [[
-					'timestamp' => $ip->timestamp,
-					'jail' => $ip->jail
+					'timestamp' => $ip['timestamp'],
+					'jail' => $ip['jail']
 				]]
 			];
 		} else {
 			$this->data['totalBans']++;
 			$this->data['list'][$key]['bans']++;
 			$this->data['list'][$key]['events'][] = [
-				'timestamp' => $ip->timestamp,
-				'jail' => $ip->jail
+				'timestamp' => $ip['timestamp'],
+				'jail' => $ip['jail']
 			];
 		}
 	}
