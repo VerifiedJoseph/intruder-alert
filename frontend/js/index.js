@@ -81,6 +81,15 @@ function createViewButtonEvents() {
 	var buttons = document.getElementsByClassName('view')
 
 	for (var i = 0; i < buttons.length; i++) {
+		var filterType =  buttons[i].getAttribute('data-filter-type')
+		var filterValue = buttons[i].getAttribute('data-filter-value')
+
+		if (filter.hasFilter(filterType, filterValue) === true) {
+			buttons[i].disabled = true;
+		} else {
+			buttons[i].disabled = false;
+		}
+
 		if (buttons[i].getAttribute('data-event') !== 'true') {
 			buttons[i].addEventListener('click', function (e) {
 				document.getElementById('data-view-type').value = e.target.getAttribute('data-view-type')
@@ -89,13 +98,10 @@ function createViewButtonEvents() {
 				var filterValue = e.target.getAttribute('data-filter-value')
 	
 				if (filter.hasFilter(filterType, filterValue) === false) {
-					filter.add(
-						e.target.getAttribute('data-filter-type'),
-						'include',
-						e.target.getAttribute('data-filter-value')
-					)
+					filter.add(filterType, 'include', filterValue)
 		
 					document.getElementById('applied-filters').classList.remove('hide')
+					document.getElementById('open-filter-panel').disabled = false
 		
 					var viewType = document.getElementById('data-view-type').value
 					var data = filter.getData(viewType)
@@ -302,7 +308,6 @@ document.getElementById('data-view-type').addEventListener('change', function(e)
 	filter.resetPanel()
 
 	var type = e.target.value
-	var data = filter.getData(type)
 
 	if (type === 'address' || type === 'recentBans') {
 		document.getElementById('open-filter-panel').disabled = false
@@ -310,6 +315,7 @@ document.getElementById('data-view-type').addEventListener('change', function(e)
 		if (type === 'address') {
 			filter.disableOption('jail')
 			filter.disableOption('date')
+			filter.remove('date')
 		} else {
 			filter.enableOption('jail')
 			filter.enableOption('date')
@@ -319,7 +325,10 @@ document.getElementById('data-view-type').addEventListener('change', function(e)
 		filter.reset()
 	}
 
-	displayData(data, type)
+	displayData(
+		filter.getData(type),
+		type
+	)
 });
 
 var pageButtons = document.getElementsByClassName('page-button')

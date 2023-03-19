@@ -75,25 +75,52 @@ export class Filter
 
 		if (filterId !== false) {
 			this.#settings[filterId].values.push(value)
-			this.#createLabel(type, action, value, filterId)
+			this.#createLabel(type, action, value, this.#settings[filterId].id)
 
 		} else {
+			var id = crypto.randomUUID();
+
 			this.#settings.push({
+				id: id,
 				type: type,
 				action: action,
 				values: [value],
 			})
 
-			this.#createLabel(type, action, value, this.#settings.length - 1)
+			this.#createLabel(type, action, value, id)
 		}
 
 		console.log(this.#settings)
 	}
 
-	removeValue(filterId, value = null) {
-		var filter = this.#settings[filterId]
+	remove(type)
+	{
+		var id = null;
 
-		this.#settings[filterId].values = filter.values.filter(
+		this.#settings = this.#settings.filter(function (filter, index) {
+			if (filter.type === type) {
+				id = filter.id
+				return false;
+			}
+
+			return true;
+		})
+
+		if (id !== null) {
+			this.#removeLabel(id)
+		}
+	}
+
+	removeValue(filterId, value = null) {
+		console.log(this.#settings)
+
+		var index = this.#findFilterById(filterId)
+
+		console.log(index);
+
+		var filter = this.#settings[index]
+
+		this.#settings[index].values = filter.values.filter(
 			item => item !== value
 		)
 	}
@@ -176,17 +203,33 @@ export class Filter
 		return status
 	}
 
-	#findFilter(type, action) {
+	#findFilterById(id) {
 		var key = null;
 
 		this.#settings.forEach((filter, index) => {
-			if (filter.type === type && filter.action === action) {
+			if (filter.id === id) {
 				key = index
 			}
 		});
 
 		if (key !== null) {
 			return key
+		}
+
+		return false
+	}
+
+	#findFilter(type, action) {
+		var id = null;
+
+		this.#settings.forEach((filter, index) => {
+			if (filter.type === type && filter.action === action) {
+				id = index
+			}
+		});
+
+		if (id !== null) {
+			return id
 		}
 
 		return false
@@ -257,7 +300,12 @@ export class Filter
 		div.appendChild(span)
 		div.appendChild(button)
 		div.classList.add('item')
+		div.setAttribute('data-label-id', id.toString())
 
 		labelCon.appendChild(div)
+	}
+
+	#removeLabel(id) {
+		document.querySelector(`div[data-label-id="${id}"]`).remove()
 	}
 }
