@@ -97,10 +97,12 @@
 					</select>
 				</div>
 				<div id="filters" class="input">
-					<span class="input-text" style="margin: 9px 0px 0px;" >Filters:</span>
-					<span id="applied-filters"></span>
-					<button id="open-filter-panel">+ Add</button>
-
+					<div class="text">
+						<span class="input-text">Filters:</span>
+					</div>
+					<div class="labels">
+						<button id="open-filter-panel">+ Add</button>
+					</div>
 					<div id="filter-panel" class="hide">
 						<div id="header">
 							New filter
@@ -126,6 +128,7 @@
 						</div>
 					</div>
 				</div>
+				<div id="applied-filters"></div>
 				<!--<div>
 					<span class="input-text">Order by:</span>
 					<select class="filter" id="country-filter" disabled>
