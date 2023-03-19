@@ -60,11 +60,7 @@ export class Filter
 		return data
 	}
 
-	save() {
-		var type = document.getElementById(`filter-type`).value
-		var action = document.getElementById(`filter-action`).value
-		var value = document.getElementById(`filter-value`).value
-
+	add(type, action, value) {
 		var filterId = this.#findFilter(type, action)
 
 		if (filterId !== false) {

@@ -240,15 +240,39 @@ function createFilerButtonEvents() {
 
 	for (var i = 0; i < buttons.length; i++) {
 		buttons[i].addEventListener('click', function (e) {
-			var type = e.target.getAttribute('data-type')
-			var value = e.target.getAttribute('data-value')
-
-			document.querySelector(`#${type}-filter [value="${value}"]`).selected = true;
-
-			displayData(
-				filter.getData(document.getElementById('data-view-type').value),
-				document.getElementById('data-view-type').value
+			filter.hidePanel()
+			filter.add(
+				e.target.getAttribute('data-type'),
+				'include',
+				e.target.getAttribute('data-value')
 			)
+
+			document.getElementById('applied-filters').classList.remove('hide')
+
+			var viewType = document.getElementById('data-view-type').value
+			var data = filter.getData(viewType)
+		
+			displayData(data, viewType)
+			createFilerRemoveEvents()
+		})
+	}
+}
+
+function createFilerRemoveEvents() {
+	var filterRemoveButtons = document.querySelectorAll(`button[data-filter-id]`);
+	for (var i = 0; i < filterRemoveButtons.length; i++) {
+		filterRemoveButtons[i].addEventListener('click', function (e) {
+			filter.removeValue(
+				e.target.getAttribute('data-filter-id'),
+				e.target.getAttribute('data-filter-value')
+			)
+
+			e.target.parentElement.remove();
+
+			var viewType = document.getElementById('data-view-type').value
+			var data = filter.getData(viewType)
+
+			displayData(data, viewType)
 		})
 	}
 }
@@ -538,29 +562,17 @@ fetchData()
 		document.getElementById('applied-filters').classList.remove('hide')
 
 		filter.hidePanel()
-		filter.save()
+		filter.add(
+			document.getElementById(`filter-type`).value,
+			document.getElementById(`filter-action`).value,
+			document.getElementById(`filter-value`).value
+		)
 
-		var type = document.getElementById('data-view-type').value
-		var data = filter.getData(type)
+		var viewType = document.getElementById('data-view-type').value
+		var data = filter.getData(viewType)
 	
-		displayData(data, type)
-
-		var filterRemoveButtons = document.querySelectorAll(`button[data-filter-id]`);
-		for (var i = 0; i < filterRemoveButtons.length; i++) {
-			filterRemoveButtons[i].addEventListener('click', function (e) {
-				filter.removeValue(
-					e.target.getAttribute('data-filter-id'),
-					e.target.getAttribute('data-filter-value')
-				)
-	
-				e.target.parentElement.remove();
-	
-				var type = document.getElementById('data-view-type').value
-				var data = filter.getData(type)
-	
-				displayData(data, type)
-			})
-		}
+		displayData(data, viewType)
+		createFilerRemoveEvents()
 	})
 }).catch(error => {
 	errorMessage(error.message)
