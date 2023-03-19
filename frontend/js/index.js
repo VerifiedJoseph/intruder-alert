@@ -89,40 +89,6 @@ function createBanEventTable(events) {
 	return table.get()
 }
 
-function createNetworkModalTable(network, view) {
-	var table = new Table('modal-network-ip');
-
-	var header = new Row()
-	header.addCell(new Cell('#', 'number'))
-	header.addCell(new Cell('IP address'))
-	header.addCell(new Cell('Bans'))
-	header.addCell(new Cell('Country'))
-	header.addCell(new Cell(''))
-	table.addHeader(header)
-
-	if (view === 'ips') {
-		network.ipList.forEach(function(address, index) {
-			var ip = details.getIp(address)
-			var country = details.getCountry(ip.country)
-
-			var row = new Row()
-			row.addCell(new Cell(Format.Number(index + 1), 'number'))
-			row.addCell(new Cell(address, 'ip'))
-			row.addCell(new Cell(Format.Number(ip.bans), 'ban'))
-			row.addCell(new Cell(country.name, 'country'))
-			row.addCell(new Cell(
-				createDetailsButton('ip', address),
-				'',
-				true
-			))
-
-			table.addRow(row);
-		})
-	} 
-
-	return table.get()
-}
-
 function createIpModal(address) {
 	var ip = details.getIp(address)
 	var country = details.getCountry(ip.country)
@@ -143,42 +109,6 @@ function createIpModal(address) {
 	modalTitle.innerText = 'IP Address Details'
 
 	modalBody.appendChild(createBanEventTable(ip.events))
-}
-
-function createNetworkModal(number) {
-	var network = details.getNetwork(number)
-
-	var modalBody = document.getElementById('modal-body')
-	var modalTitle = document.getElementById('modal-title')
-
-	var info = document.createElement('div')
-	info.classList.add('row')
-
-	info.appendChild(createModalInfoBox('Network', network.name))
-	info.appendChild(createModalInfoBox('IPs', Format.Number(network.ipCount)))
-	info.appendChild(createModalInfoBox('Bans', Format.Number(network.bans)))
-
-	modalBody.appendChild(info);
-	modalTitle.innerText = 'Network Details'
-
-	modalBody.appendChild(createNetworkModalTable(network, 'ips'))
-}
-
-function createCountryModal(code) {
-	var country = details.getCountry(code)
-
-	var modalBody = document.getElementById('modal-body')
-	var modalTitle = document.getElementById('modal-title')
-
-	var info = document.createElement('div')
-	info.classList.add('row')
-
-	info.appendChild(createModalInfoBox('Country', country.name))
-	info.appendChild(createModalInfoBox('IPs', Format.Number(country.ipCount)))
-	info.appendChild(createModalInfoBox('Bans', Format.Number(country.bans)))
-
-	modalBody.appendChild(info);
-	modalTitle.innerText = 'Country Details'
 }
 
 function createCellWithFilter(dataType, dataValue, text) {
@@ -237,14 +167,6 @@ function createViewButtonEvents() {
 
 			if (dataType === 'address') {
 				createIpModal(e.target.getAttribute('data-value'))
-			}
-
-			if (dataType === 'network') {
-				createNetworkModal(e.target.getAttribute('data-value'))
-			}
-
-			if (dataType === 'country') {
-				createCountryModal(e.target.getAttribute('data-value'))
 			}
 
 			document.getElementById('modal').classList.toggle('hide')
