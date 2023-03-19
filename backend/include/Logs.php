@@ -20,6 +20,10 @@ class Logs
 		foreach($this->files as $file) {
 			echo $file->getPathname() . "\n";
 
+			if (is_readable($file->getPathname()) === false) {
+				throw new Exception('Backend error: Failed to read file ' . $file->getPathname());
+			}
+
 			$contents = file_get_contents($file->getPathname());
 		
 			if (preg_match($this->gzRegex, $file->getFilename())) {
