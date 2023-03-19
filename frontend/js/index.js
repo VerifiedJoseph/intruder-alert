@@ -80,25 +80,34 @@ function createViewButtonEvents() {
 	var buttons = document.getElementsByClassName('view')
 
 	for (var i = 0; i < buttons.length; i++) {
-		buttons[i].addEventListener('click', function (e) {
-			document.getElementById('data-view-type').value = e.target.getAttribute('data-view-type')
-
-			console.log(e.target)
-
-			filter.add(
-				e.target.getAttribute('data-filter-type'),
-				'include',
-				e.target.getAttribute('data-filter-value')
-			)
-
-			document.getElementById('applied-filters').classList.remove('hide')
-
-			var viewType = document.getElementById('data-view-type').value
-			var data = filter.getData(viewType)
+		if (buttons[i].getAttribute('data-event') !== 'true') {
+			buttons[i].addEventListener('click', function (e) {
+				document.getElementById('data-view-type').value = e.target.getAttribute('data-view-type')
+	
+				var filterType =  e.target.getAttribute('data-filter-type')
+				var filterValue = e.target.getAttribute('data-filter-value')
+	
+				if (filter.hasFilter(filterType, filterValue) === false) {
+					filter.add(
+						e.target.getAttribute('data-filter-type'),
+						'include',
+						e.target.getAttribute('data-filter-value')
+					)
 		
-			displayData(data, viewType)
-			createFilerRemoveEvents()
-		})
+					document.getElementById('applied-filters').classList.remove('hide')
+		
+					var viewType = document.getElementById('data-view-type').value
+					var data = filter.getData(viewType)
+				
+					displayData(data, viewType)
+					createFilerRemoveEvents()
+				} else {
+					// TODO: show message saying filter already set.
+				}
+			})
+
+			buttons[i].setAttribute('data-event', 'true')
+		}
 	}
 }
 
@@ -268,6 +277,20 @@ function createTable(data = [], type, indexStart = 0) {
 	createFilerButtonEvents();
 }
 
+function createMostBannedButtons() {
+	document.getElementById('most-banned-ip-button').appendChild(
+		createViewButton('recentBans', 'address', botData.address.mostBanned)
+	)
+
+	document.getElementById('most-banned-network-button').appendChild(
+		createViewButton('recentBans', 'network', botData.network.mostBanned)
+	)
+
+	document.getElementById('most-banned-country-button').appendChild(
+		createViewButton('recentBans', 'country', botData.country.mostBanned)
+	)
+}
+
 function errorMessage(message) {
 	document.getElementById('loading').classList.add('hide')
 
@@ -339,6 +362,7 @@ fetchData()
 	display.headerDates()
 	display.globalStats()
 	display.mostBanned()
+	createMostBannedButtons()
 
 	filter.setOptions('address')
 
