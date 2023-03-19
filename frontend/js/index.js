@@ -3,12 +3,14 @@ import { Filter } from './Filter.js'
 import { Details } from './Details.js'
 import { Display } from './Display.js'
 import { Format } from './Format.js'
+import { Pagination } from './Pagination.js'
 
 "use strict";
 
 var filter
 var details
 var display
+var pagination = new Pagination()
 
 var botData = {}
 var tableHeaders = {
@@ -42,7 +44,7 @@ function displayData(data, type, page = 0) {
 	}
 
 	createTable(dataPages[page], type, indexStart);
-	createPageButtons(pageCount, totalItems, page);
+	pagination.setButtons(pageCount, totalItems, page);
 }
 
 function createModalInfoBox(label, value) {
@@ -240,59 +242,6 @@ function createFilerRemoveEvents() {
 	}
 }
 
-function updatePageButton(id, chunk) {
-	var button = document.getElementById(id)
-	button.setAttribute('data-chunk', chunk);
-}
-
-function enablePageButton(id) {
-	document.getElementById(id).disabled = false
-}
-
-function disablePageButton(id) {
-	document.getElementById(id).disabled = true
-}
-
-function createPageButtons(pageCount, totalItems, currentPage) {
-	var prev = null;
-	var next = null;
-	var last = pageCount;
-
-	if (pageCount > 0) {
-		updatePageButton('load-last-page', last)
-
-		prev = currentPage - 1;
-		next = currentPage + 1;
-
-		if (prev >= 0) {
-			updatePageButton('load-prev-page', prev)
-			enablePageButton('load-first-page')
-			enablePageButton('load-prev-page')
-		} else {
-			disablePageButton('load-first-page')
-			disablePageButton('load-prev-page')
-		}
-
-		if (next < last || next === last) {
-			updatePageButton('load-next-page', next)
-			updatePageButton('load-last-page', last)
-			enablePageButton('load-next-page')
-			enablePageButton('load-last-page')
-		} else {
-			disablePageButton('load-next-page')
-			disablePageButton('load-last-page')
-		}
-	} else {
-		disablePageButton('load-first-page')
-		disablePageButton('load-prev-page')
-		disablePageButton('load-next-page')
-		disablePageButton('load-last-page')
-	}
-
-	var paginationCount = document.getElementById('pagination-count');	
-	paginationCount.innerText = `Page ${currentPage + 1} of ${pageCount + 1} (${Format.Number(totalItems)} total items)`
-}
-
 function createTable(data = [], type, indexStart = 0) {
 	var div = document.getElementById('data-table');
 	
@@ -461,7 +410,7 @@ for (var i = 0; i < pageButtons.length; i++) {
 	pageButtons[i].addEventListener('click', function (e) {
 		var type = document.getElementById('data-view-type').value
 		var data = filter.getData(type)
-		var page = Number(e.target.getAttribute('data-chunk'))
+		var page = Number(e.target.getAttribute('data-page'))
 
 		displayData(data, type, page)
 	})
