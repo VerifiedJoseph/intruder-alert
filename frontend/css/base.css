@@ -311,7 +311,7 @@ table td.no-data {
 #filter-panel {
 	position: absolute;
 	top: 30px;
-	left: 87px;
+	left: 64px;
 	z-index: 100;
 	padding: 10px;
 	width: 350px;
