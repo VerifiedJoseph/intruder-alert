@@ -13,9 +13,9 @@ var display
 var botData = {}
 var tableHeaders = {
 	'address': ['Address', 'Bans', 'Network', 'Country' , ''],
-	'jail': ['Jail', 'IPs', 'Bans', ''],
-	'network': ['Network', 'IPs', 'Bans', ''],
-	'country': ['Country', 'IPs', 'Bans', ''],
+	'jail': ['Jail', 'IPs', '', 'Bans', ''],
+	'network': ['Network', 'IPs', '', 'Bans', ''],
+	'country': ['Country', 'IPs', '', 'Bans', ''],
 	'events': ['Date', 'Jail'],
 	'recentBans': ['Date', 'Address', 'Jail', 'Network', 'Country'],
 	'date': ['Date', 'IPs', 'Bans', '']
@@ -211,7 +211,24 @@ function createDetailsButton(dataType, dataValue){
 	return button;
 }
 
-function createDetailButtonEvents() {
+function createViewButton(viewType, filterType, filterValue) {
+	var button = document.createElement('button')
+
+	if (viewType === 'address') {
+		button.innerText = 'View IPs'
+	} else {
+		button.innerText = 'View Bans'
+	}
+
+	button.classList.add('view');
+	button.setAttribute('data-view-type' , viewType);
+	button.setAttribute('data-filter-type' , filterType);
+	button.setAttribute('data-filter-value' , filterValue);
+
+	return button;
+}
+
+function createViewButtonEvents() {
 	var buttons = document.getElementsByClassName('details')
 
 	for (var i = 0; i < buttons.length; i++) {
@@ -231,6 +248,30 @@ function createDetailButtonEvents() {
 			}
 
 			document.getElementById('modal').classList.toggle('hide')
+		})
+	}
+
+	var buttons = document.getElementsByClassName('view')
+
+	for (var i = 0; i < buttons.length; i++) {
+		buttons[i].addEventListener('click', function (e) {
+			document.getElementById('data-view-type').value = e.target.getAttribute('data-view-type')
+
+			console.log(e.target)
+
+			filter.add(
+				e.target.getAttribute('data-filter-type'),
+				'include',
+				e.target.getAttribute('data-filter-value')
+			)
+
+			document.getElementById('applied-filters').classList.remove('hide')
+
+			var viewType = document.getElementById('data-view-type').value
+			var data = filter.getData(viewType)
+		
+			displayData(data, viewType)
+			createFilerRemoveEvents()
 		})
 	}
 }
@@ -373,7 +414,7 @@ function createTable(data = [], type, indexStart = 0) {
 				))
 			}
 	
-			if (type === 'network' || type === 'jail') {
+			if (type === 'network' || type === 'jail' || type === 'country') {
 				var span = document.createElement('span')
 				span.innerText = item.name
 				span.setAttribute('title', item.name)
@@ -383,25 +424,19 @@ function createTable(data = [], type, indexStart = 0) {
 					true
 				))
 				row.addCell(new Cell(Format.Number(item.ipCount)))
+				row.addCell(new Cell(
+					createViewButton('address', type, item.number || item.code || item.name),
+					'view-btn',
+					true
+				))
 				row.addCell(new Cell(Format.Number(item.bans)))
 				row.addCell(new Cell(
-					createDetailsButton(type, item.number),
-					'button',
+					createViewButton('recentBans', type, item.number || item.code || item.name),
+					'view-btn',
 					true
 				))
 			}
-	
-			if (type === 'country') {
-				row.addCell(new Cell(item.name, 'long'))
-				row.addCell(new Cell(Format.Number(item.ipCount)))
-				row.addCell(new Cell(Format.Number(item.bans)))
-				row.addCell(new Cell(
-					createDetailsButton(type, item.code),
-					'button',
-					true
-				))
-			}
-	
+
 			if (type === 'recentBans') {
 				var network = details.getNetwork(item.network)
 				var country = details.getCountry(item.country)
@@ -452,7 +487,7 @@ function createTable(data = [], type, indexStart = 0) {
 	div.innerText = '';
 	div.append(table.get());
 
-	createDetailButtonEvents()
+	createViewButtonEvents()
 	createFilerButtonEvents();
 }
 

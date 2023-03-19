@@ -182,6 +182,10 @@ table td.jail {
 	width: 110px;
 }
 
+table td.view {
+	width: 110px;
+}
+
 table td:hover > span > .row-filter {
 	display: unset;
 }
