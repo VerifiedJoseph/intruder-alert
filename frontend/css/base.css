@@ -182,8 +182,12 @@ table td.jail {
 	width: 110px;
 }
 
-table td.view {
-	width: 110px;
+table td.view-btn {
+	width: 155px;
+}
+
+table td.view-btn > span > button:first-child {
+	margin-right: 6px;
 }
 
 table td:hover > span > .row-filter {
