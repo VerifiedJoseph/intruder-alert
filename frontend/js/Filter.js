@@ -11,6 +11,11 @@ export class Filter
 		this.#details = new Details(data)
 	}
 
+	/**
+	 * Get filtered data
+	 * @param {string} typeList
+	 * @returns 
+	 */
 	getData(typeList) {
 		if (typeList === 'recentBans') {
 			var data = this.#getRecentBans()
@@ -70,12 +75,18 @@ export class Filter
 		return data
 	}
 
+	/**
+	 * Add filter
+	 * @param {string} type Filter type
+	 * @param {string} action Filter action (include or exclude)
+	 * @param {string} value Filter value
+	 */
 	add(type, action, value) {
-		var filterId = this.#findFilter(type, action)
+		var index = this.#findFilter(type, action)
 
-		if (filterId !== false) {
-			this.#settings[filterId].values.push(value)
-			this.#createLabel(type, action, value, this.#settings[filterId].id)
+		if (index !== false) {
+			this.#settings[index].values.push(value)
+			this.#createLabel(type, action, value, this.#settings[index].id)
 
 		} else {
 			var id = crypto.randomUUID();
@@ -93,11 +104,15 @@ export class Filter
 		console.log(this.#settings)
 	}
 
+	/**
+	 * Remove filter by its type
+	 * @param {string} type filter type 
+	 */
 	remove(type)
 	{
 		var id = null;
 
-		this.#settings = this.#settings.filter(function (filter, index) {
+		this.#settings = this.#settings.filter(filter => {
 			if (filter.type === type) {
 				id = filter.id
 				return false;
@@ -111,13 +126,13 @@ export class Filter
 		}
 	}
 
+	/**
+	 * Remove value from a filter
+	 * @param {string} filterId filter UUID
+	 * @param {value} value filter value
+	 */
 	removeValue(filterId, value = null) {
-		console.log(this.#settings)
-
-		var index = this.#findFilterById(filterId)
-
-		console.log(index);
-
+		var index = this.#findFilterByUUID(filterId)
 		var filter = this.#settings[index]
 
 		this.#settings[index].values = filter.values.filter(
@@ -125,11 +140,18 @@ export class Filter
 		)
 	}
 
+	/**
+	 * Reset filters
+	 */
 	reset() {
 		this.#settings = []
 		document.getElementById('applied-filters').innerText = ''
 	}
 
+	/**
+	 * Set filter select options
+	 * @param {string} type Filter type
+	 */
 	setOptions(type) {
 		const select = document.getElementById(`filter-value`)
 		select.innerText = ''
@@ -168,22 +190,39 @@ export class Filter
 		}
 	}
 
+	/**
+	 * Disable select option
+	 * @param {string} name
+	 */
 	disableOption(name) {
 		document.querySelector(`#filter-type [value="${name}"]`).disabled = true;
 	}
 	
+	/**
+	 * Enable select option
+	 * @param {string} name
+	 */
 	enableOption(name) {
 		document.querySelector(`#filter-type [value="${name}"]`).disabled = false;
 	}
 
+	/**
+	 * Show filter panel
+	 */
 	showPanel() {
 		document.getElementById('filter-panel').classList.remove('hide')
 	}
 
+	/**
+	 * Hide filter panel
+	 */
 	hidePanel() {
 		document.getElementById('filter-panel').classList.add('hide')
 	}
 
+	/**
+	 * Reset filter panel
+	 */
 	resetPanel() {
 		document.getElementById('filter-type')[0].selected = true
 		document.getElementById('filter-action')[0].selected = true
@@ -191,6 +230,12 @@ export class Filter
 		this.setOptions('address')
 	}
 
+	/**
+	 * Check if filter has a value
+	 * @param {string} type Filter type
+	 * @param {string} value Filter value
+	 * @returns 
+	 */
 	hasFilter(type, value) {
 		var status = false
 
@@ -203,11 +248,16 @@ export class Filter
 		return status
 	}
 
-	#findFilterById(id) {
+	/**
+	 * Find filter array index by a filter's unique identifier
+	 * @param {string} uuid Unique identifier
+	 * @returns Array index of filter
+	 */
+	#findFilterByUUID(uuid) {
 		var key = null;
 
 		this.#settings.forEach((filter, index) => {
-			if (filter.id === id) {
+			if (filter.id === uuid) {
 				key = index
 			}
 		});
@@ -220,21 +270,24 @@ export class Filter
 	}
 
 	#findFilter(type, action) {
-		var id = null;
+		var key = null;
 
 		this.#settings.forEach((filter, index) => {
 			if (filter.type === type && filter.action === action) {
-				id = index
+				key = index
 			}
 		});
 
-		if (id !== null) {
-			return id
+		if (key !== null) {
+			return key
 		}
 
 		return false
 	}
 
+	/**
+	 * Get recent bans
+	 */
 	#getRecentBans() {
 		var events = []
 
@@ -260,7 +313,14 @@ export class Filter
 		return events.reverse();
 	}
 
-	#createLabel(type, action, value, id) {
+	/**
+	 * Create filter label
+	 * @param {string} type Filter type
+	 * @param {string} action Filter action
+	 * @param {string} value Filter value
+	 * @param {string} uuid Filter UUID
+	 */
+	#createLabel(type, action, value, uuid) {
 		var labelCon = document.getElementById('applied-filters')
 		var div = document.createElement('div')
 		var span = document.createElement('span')
@@ -294,18 +354,22 @@ export class Filter
 		
 		button.innerText = 'X'
 		button.setAttribute('title', `Remove filter '${typeTexts[type]} ${actionText} ${valueText}'`)
-		button.setAttribute('data-filter-id', id.toString())
-		button.setAttribute('data-filter-value', value.toString())
+		button.setAttribute('data-filter-id', uuid)
+		button.setAttribute('data-filter-value', value)
 
 		div.appendChild(span)
 		div.appendChild(button)
 		div.classList.add('item')
-		div.setAttribute('data-label-id', id.toString())
+		div.setAttribute('data-label-id', uuid)
 
 		labelCon.appendChild(div)
 	}
 
-	#removeLabel(id) {
-		document.querySelector(`div[data-label-id="${id}"]`).remove()
+	/**
+	 * Remove filter label
+	 * @param {string} uuid Filter UUID
+	 */
+	#removeLabel(uuid) {
+		document.querySelector(`div[data-label-id="${uuid}"]`).remove()
 	}
 }
