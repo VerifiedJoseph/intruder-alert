@@ -331,6 +331,42 @@ document.getElementById('data-view-type').addEventListener('change', function(e)
 	)
 });
 
+document.getElementById('open-filter-panel').addEventListener('click', function (e) {
+	document.getElementById('open-filter-panel').disabled = true
+
+	filter.showPanel()
+	filter.resetPanel()
+})
+
+document.getElementById('close-filter-panel').addEventListener('click', function (e) {
+	document.getElementById('open-filter-panel').disabled = false
+
+	filter.hidePanel()
+	filter.resetPanel()
+})
+
+document.getElementById('filter-type').addEventListener('change', function(e) {
+	filter.setOptions(e.target.value)
+});
+
+document.getElementById('filter-apply').addEventListener('click', function (e) {
+	document.getElementById('open-filter-panel').disabled = false
+	document.getElementById('applied-filters').classList.remove('hide')
+
+	filter.hidePanel()
+	filter.add(
+		document.getElementById(`filter-type`).value,
+		document.getElementById(`filter-action`).value,
+		document.getElementById(`filter-value`).value
+	)
+
+	var viewType = document.getElementById('data-view-type').value
+	var data = filter.getData(viewType)
+
+	displayData(data, viewType)
+	createFilerRemoveEvents()
+})
+
 var pageButtons = document.getElementsByClassName('page-button')
 for (var i = 0; i < pageButtons.length; i++) {
 	pageButtons[i].addEventListener('click', function (e) {
@@ -377,42 +413,6 @@ fetchData()
 		filter.getData('recentBans'),
 		'recentBans'
 	)
-
-	document.getElementById('open-filter-panel').addEventListener('click', function (e) {
-		document.getElementById('open-filter-panel').disabled = true
-
-		filter.showPanel()
-		filter.resetPanel()
-	})
-	
-	document.getElementById('close-filter-panel').addEventListener('click', function (e) {
-		document.getElementById('open-filter-panel').disabled = false
-
-		filter.hidePanel()
-		filter.resetPanel()
-	})
-	
-	document.getElementById('filter-type').addEventListener('change', function(e) {
-		filter.setOptions(e.target.value)
-	});
-
-	document.getElementById('filter-apply').addEventListener('click', function (e) {
-		document.getElementById('open-filter-panel').disabled = false
-		document.getElementById('applied-filters').classList.remove('hide')
-
-		filter.hidePanel()
-		filter.add(
-			document.getElementById(`filter-type`).value,
-			document.getElementById(`filter-action`).value,
-			document.getElementById(`filter-value`).value
-		)
-
-		var viewType = document.getElementById('data-view-type').value
-		var data = filter.getData(viewType)
-	
-		displayData(data, viewType)
-		createFilerRemoveEvents()
-	})
 }).catch(error => {
 	document.getElementById('loading').classList.add('hide')
 
