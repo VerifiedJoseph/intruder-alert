@@ -4,6 +4,7 @@ import { Details } from './Details.js'
 import { Display } from './Display.js'
 import { Format } from './Format.js'
 import { Pagination } from './Pagination.js'
+import { Message } from './Message.js'
 
 "use strict";
 
@@ -102,7 +103,7 @@ function createViewButtonEvents() {
 					displayData(data, viewType)
 					createFilerRemoveEvents()
 				} else {
-					// TODO: show message saying filter already set.
+					Message.error('A filter already exists for this.', true)
 				}
 			})
 
@@ -296,14 +297,6 @@ function createMostBannedButtons() {
 	)
 }
 
-function errorMessage(message) {
-	document.getElementById('loading').classList.add('hide')
-
-	var error = document.getElementById('error')
-	error.classList.remove('hide')
-	error.innerText = message
-} 
-
 document.getElementById('data-view-type').addEventListener('change', function(e) {
 	filter.hidePanel()
 	filter.resetPanel()
@@ -412,6 +405,8 @@ fetchData()
 		createFilerRemoveEvents()
 	})
 }).catch(error => {
-	errorMessage(error.message)
+	document.getElementById('loading').classList.add('hide')
+
 	console.log(error)
+	Message.error(error.message)
 })
