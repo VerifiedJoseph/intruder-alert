@@ -1,5 +1,8 @@
 <?php
 
+use Helper\File;
+use Exception\AppException;
+
 class Logs
 {
 	private $filenameRegex = '/fail2ban\.log/';
@@ -21,10 +24,10 @@ class Logs
 			echo $file->getPathname() . "\n";
 
 			if (is_readable($file->getPathname()) === false) {
-				throw new Exception('Backend error: Failed to read file ' . $file->getPathname());
+				throw new AppException('Backend error: Failed to read file ' . $file->getPathname());
 			}
 
-			$contents = file_get_contents($file->getPathname());
+			$contents = File::read($file->getPathname());
 		
 			if (preg_match($this->gzRegex, $file->getFilename())) {
 				$contents = gzdecode($contents);

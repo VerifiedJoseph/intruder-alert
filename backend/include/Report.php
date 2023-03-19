@@ -1,5 +1,8 @@
 <?php
 
+use Helper\File;
+use Helper\Json;
+
 class Report
 {
 	private array $lists = [];
@@ -16,9 +19,9 @@ class Report
 		$data['updated'] = date('Y-m-d H:i:s');
 		$data['dataSince'] = $this->getDataSinceDate();
 
-		file_put_contents(
-			'../frontend/data.json', 
-			json_encode($data)
+		File::write(
+			'../frontend/data.json',
+			Json::encode($data)
 		);
 	}
 

@@ -1,5 +1,8 @@
 <?php
 
+use Helper\File;
+use Helper\Json;
+
 class App
 {
 	private Lists $lists;
@@ -53,9 +56,9 @@ class App
 			'updated' => date('Y-m-d H:i:s')
 		];
 
-		file_put_contents(
-			'../frontend/data.json', 
-			json_encode($data)
+		File::write(
+			'../frontend/data.json',
+			Json::encode($data)
 		);
 	}
 }
