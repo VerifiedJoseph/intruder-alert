@@ -135,21 +135,26 @@ function createFilerButtonEvents() {
 }
 
 function createFilerRemoveEvents() {
-	var filterRemoveButtons = document.querySelectorAll(`button[data-filter-id]`);
-	for (var i = 0; i < filterRemoveButtons.length; i++) {
-		filterRemoveButtons[i].addEventListener('click', function (e) {
-			filter.removeValue(
-				e.target.getAttribute('data-filter-id'),
-				e.target.getAttribute('data-filter-value')
-			)
+	var buttons = document.querySelectorAll(`button[data-filter-id]`);
+	
+	for (var i = 0; i < buttons.length; i++){
+		if (buttons[i].getAttribute('data-event') !== 'true') {
+			buttons[i].addEventListener('click', function (e) {
+				filter.removeValue(
+					e.target.getAttribute('data-filter-id'),
+					e.target.getAttribute('data-filter-value')
+				)
+	
+				e.target.parentElement.remove();
+	
+				var viewType = document.getElementById('data-view-type').value
+				var data = filter.getData(viewType)
+	
+				displayData(data, viewType)
+			})
 
-			e.target.parentElement.remove();
-
-			var viewType = document.getElementById('data-view-type').value
-			var data = filter.getData(viewType)
-
-			displayData(data, viewType)
-		})
+			buttons[i].setAttribute('data-event', 'true')
+		}
 	}
 }
 
