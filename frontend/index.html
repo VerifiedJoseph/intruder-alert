@@ -35,52 +35,55 @@
 			<div id="global-stats" class="row-wrap hide">
 				<div class="row">
 					<div class="cell">
-						<div id="total-bans" class="big"></div>
-						<span>Bans</span>
+						<span>Total Bans</span>
+						<div id="total-bans" title="Total number of bans." class="big"></div>
 					</div>
 					<div class="cell">
-						<div id="bans-today" class="big"></div>
 						<span>Today</span>
+						<div id="bans-today" title="Number of IP addresses banned so far today." class="big"></div>
 					</div>
 					<div class="cell">
-						<div id="bans-yesterday" class="big"></div>
 						<span>Yesterday</span>
+						<div id="bans-yesterday" title="Number of IP addresses banned yesterday" class="big"></div>
 					</div>
 					<div class="cell">
-						<div id="bans-per-day" class="big"></div>
-						<span>Per day</span>
+						<span>Per Day</span>
+						<div id="bans-per-day" title="Number of IP addresses banned per day." class="big"></div>
 					</div>
 					<div class="cell">
-						<div id="total-ips" class="big"></div>
-						<span>Addresses</span>
+						<span>IP Addresses</span>
+						<div id="total-ips" title="Total number of IP addresses banned" class="big"></div>
 					</div>
-					<!--<div class="cell">
-						<div id="" class="big">0</div>
+					<div class="cell">
 						<span>Jails</span>
-					</div>-->
-					<div class="cell">
-						<div id="total-networks" class="big"></div>
-						<span>Networks</span>
+						<div id="total-jails" class="big"></div>
 					</div>
 					<div class="cell">
-						<div id="total-countries" class="big"></div>
+						<span>Networks</span>
+						<div id="total-networks" class="big"></div>
+					</div>
+					<div class="cell">
 						<span>Countries</span>
+						<div id="total-countries" class="big"></div>
 					</div>
 				</div>
 			</div>
 			<div id="most-banned" class="row-wrap hide">
 				<div class="row">
 					<div class="cell">
+						<span>Most banned IP address</span>
 						<div id="most-banned-ip" class="big"></div>
-						<span>Most banned address (<span id="most-banned-ip-count"></span> bans)</span>
+						<strong><span id="most-banned-ip-count"></span></strong> bans
 					</div>
 					<div class="cell">
+						<span>Most banned origin network</span>
 						<div id="most-banned-network" class="big ellipsis-text"></div>
-						<span>Most banned origin network (<span id="most-banned-network-count"></span> bans)</span>
+						<strong><span id="most-banned-network-count"></span></strong> bans
 					</div>
 					<div class="cell">
+						<span>Most banned origin country</span>
 						<div id="most-banned-country" class="big ellipsis-text"></div>
-						<span>Most banned origin country (<span id="most-banned-country-count"></span> bans)</span>
+						<strong><span id="most-banned-country-count"></span></strong> bans
 					</div>
 				</div>
 			</div>

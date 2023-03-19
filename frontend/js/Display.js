@@ -20,6 +20,7 @@ export class Display
 		document.getElementById('bans-yesterday').innerText = Format.Number(this.data.stats.bans.yesterday)
 		document.getElementById('bans-per-day').innerText = Format.Number(this.data.stats.bans.perDay)
 		document.getElementById('total-ips').innerText = Format.Number(this.data.stats.totals.ip)
+		document.getElementById('total-jails').innerText = Format.Number(this.data.stats.totals.jail)
 		document.getElementById('total-networks').innerText = Format.Number(this.data.stats.totals.network)
 		document.getElementById('total-countries').innerText = Format.Number(this.data.stats.totals.country)
 		document.getElementById('global-stats').classList.remove('hide')
