@@ -473,8 +473,8 @@ function createTable(data = [], type, indexStart = 0) {
 				row.addCell(new Cell(Format.Number(item.ipCount)))
 				row.addCell(new Cell(Format.Number(item.bans)))
 				row.addCell(new Cell(
-					createDetailsButton(type, item.date),
-					'button',
+					createViewButton('recentBans', type, item.date),
+					'view-bans-btn',
 					true
 				))
 			}
@@ -521,8 +521,10 @@ document.getElementById('data-view-type').addEventListener('change', function(e)
 
 		if (type === 'address') {
 			filter.disableOption('jail')
+			filter.disableOption('date')
 		} else {
 			filter.enableOption('jail')
+			filter.enableOption('date')
 		}
 	} else {
 		document.getElementById('open-filter-panel').disabled = true

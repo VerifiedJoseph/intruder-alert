@@ -32,8 +32,18 @@ export class Filter
 						continue;
 					}
 
+					var value
+					if (filter.type === 'date') {
+						var date = new Date(item.timestamp)
+						var parts = date.toISOString().substring(0, 10).split('-')
+						
+						value = `${parts[0]}-${parts[1]}-${parts[2]}`
+					} else {
+						value = item[filter.type].toString()
+					}
+
 					if (filter.action === 'include' && filter.values.length > 0) {
-						if (filter.values.includes(item[filter.type].toString()) === true) {
+						if (filter.values.includes(value) === true) {
 							addStatus.push(1)
 						} else {
 							addStatus.push(0)
@@ -41,7 +51,7 @@ export class Filter
 					}
 
 					if (filter.action === 'exclude' && filter.values.length > 0) {
-						if (filter.values.includes(item[filter.type].toString()) === true) {
+						if (filter.values.includes(value) === true) {
 							addStatus.push(0)
 						} else {
 							addStatus.push(1)
@@ -111,6 +121,9 @@ export class Filter
 			case 'jail':
 				valueName = 'name'
 				break;
+			case 'date':
+				valueName = 'date'
+				break;
 		}
 	
 		for (let index = 0; index < this.data[type].list.length; index++) {
@@ -118,7 +131,7 @@ export class Filter
 			
 			const option = document.createElement('option')
 			option.value = item[valueName]
-			option.innerText = item.name || item.address
+			option.innerText = item.date || item.name || item.address
 
 			if (this.hasFilter(type, item[valueName]) === true) {
 				option.disabled = true
@@ -215,6 +228,7 @@ export class Filter
 			network: 'Network',
 			country: 'Country',
 			jail: 'Jail',
+			date: 'Date',
 		}
 		
 		var valueText = value

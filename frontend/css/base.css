@@ -186,6 +186,10 @@ table td.view-btn {
 	width: 155px;
 }
 
+table td.view-bans-btn {
+	width: 85px;
+}
+
 table td.view-btn > span > button:first-child {
 	margin-right: 6px;
 }
