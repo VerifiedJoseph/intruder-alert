@@ -218,7 +218,7 @@ table td.no-data {
 
 .input-text {
 	display: inline-block;
-	width: 85px;
+	width: 60px;
 }
 
 #modal {
@@ -304,10 +304,8 @@ table td.no-data {
 	margin-bottom: 5px;
 }
 
-
-#filters {
-	position: relative;
-	min-height: 34px;
+.input > select {
+	display: inline-block;
 }
 
 #filter-panel {
@@ -319,7 +317,6 @@ table td.no-data {
 	width: 350px;
 	background-color: white;
 	border: 1px solid #8f8f9d;
-
 }
 
 #filter-panel > #header {
@@ -344,15 +341,34 @@ table td.no-data {
 	text-align: end;
 }
 
-#applied-filters > div {
+#filters {
+	display: flow-root;
+	position: relative;
+	min-height: 34px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+
+#filters > .text, #filters > .labels {
 	display: inline-block;
+}
+
+#applied-filters {
+	margin-left: 64px;
+	display: flow-root;
+	width: 890px;
+}
+
+#applied-filters > .item {
+	float: left;
 	background-color: #f1f1f1;
 	padding: 4px;
 	border: 1px solid #8f8f9d;
-	margin-right: 4px;
+	margin-right: 5px;
+	margin-bottom: 5px;
 }
 
-#applied-filters > div > button {
+#applied-filters > .item > button {
 	padding: 2px;
 	width: 30px;
 	margin-left: 4px;
