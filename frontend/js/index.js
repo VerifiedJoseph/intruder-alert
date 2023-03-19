@@ -14,7 +14,7 @@ var pagination = new Pagination()
 
 var botData = {}
 var tableHeaders = {
-	'address': ['Address', 'Bans', 'Network', 'Country' , ''],
+	'address': ['Address', 'Network', 'Country', 'Bans', ''],
 	'jail': ['Jail', 'IPs', 'Bans', ''],
 	'network': ['Network', 'IPs', 'Bans', ''],
 	'country': ['Country', 'IPs', 'Bans', ''],
@@ -47,72 +47,6 @@ function displayData(data, type, page = 0) {
 	pagination.setButtons(pageCount, totalItems, page);
 }
 
-function createModalInfoBox(label, value) {
-	var cell = document.createElement('div')
-	var span = document.createElement('span')
-	var div = document.createElement('div')
-
-	div.classList.add('small')
-	cell.classList.add('cell')
-
-	span.innerText = label
-	div.innerText = value
-	div.setAttribute('title', value)
-
-	cell.appendChild(span)
-	cell.appendChild(div)
-
-	return cell;
-}
-
-function createBanEventTable(events) {
-	var table = new Table('modal-ip');
-
-	var header = new Row()
-	header.addCell(new Cell('#', 'number'))
-
-	tableHeaders.events.forEach(function (text) {
-		header.addCell(new Cell(text))
-	});
-
-	table.addHeader(header)
-
-	events.forEach(function (item, index) {
-		var row = new Row()
-		row.addCell(new Cell(Format.Number(index + 1), 'number'))
-
-		for (var [key, value] of Object.entries(item)) {
-			row.addCell(new Cell(value))
-		}
-
-		table.addRow(row)
-	})
-
-	return table.get()
-}
-
-function createIpModal(address) {
-	var ip = details.getIp(address)
-	var country = details.getCountry(ip.country)
-	var network = details.getNetwork(ip.network)
-
-	var modalBody = document.getElementById('modal-body')
-	var modalTitle = document.getElementById('modal-title')
-
-	var info = document.createElement('div')
-	info.classList.add('row')
-
-	info.appendChild(createModalInfoBox('IP Address', address))
-	info.appendChild(createModalInfoBox('Network', network.name))
-	info.appendChild(createModalInfoBox('Country', country.name))
-	info.appendChild(createModalInfoBox('Bans', Format.Number(ip.bans)))
-
-	modalBody.appendChild(info);
-	modalTitle.innerText = 'IP Address Details'
-
-	modalBody.appendChild(createBanEventTable(ip.events))
-}
-
 function createCellWithFilter(dataType, dataValue, text) {
 	var span = document.createElement('span')
 
@@ -133,16 +67,6 @@ function createCellWithFilter(dataType, dataValue, text) {
 	return span;
 }
 
-function createDetailsButton(dataType, dataValue){
-	var button = document.createElement('button')
-	button.innerText = 'View details'
-	button.classList.add('details');
-	button.setAttribute('data-type' , dataType);
-	button.setAttribute('data-value' , dataValue);
-
-	return button;
-}
-
 function createViewButton(viewType, filterType, filterValue) {
 	var button = document.createElement('button')
 
@@ -161,20 +85,6 @@ function createViewButton(viewType, filterType, filterValue) {
 }
 
 function createViewButtonEvents() {
-	var buttons = document.getElementsByClassName('details')
-
-	for (var i = 0; i < buttons.length; i++) {
-		buttons[i].addEventListener('click', function (e) {
-			var dataType = e.target.getAttribute('data-type')
-
-			if (dataType === 'address') {
-				createIpModal(e.target.getAttribute('data-value'))
-			}
-
-			document.getElementById('modal').classList.toggle('hide')
-		})
-	}
-
 	var buttons = document.getElementsByClassName('view')
 
 	for (var i = 0; i < buttons.length; i++) {
@@ -267,7 +177,6 @@ function createTable(data = [], type, indexStart = 0) {
 				var country = details.getCountry(item.country)
 	
 				row.addCell(new Cell(item.address))
-				row.addCell(new Cell(Format.Number(item.bans)))
 				row.addCell(new Cell(
 					createCellWithFilter('network', network.number, network.name),
 					'asn',
@@ -278,9 +187,10 @@ function createTable(data = [], type, indexStart = 0) {
 					'country',
 					true
 				))
+				row.addCell(new Cell(Format.Number(item.bans)))
 				row.addCell(new Cell(
-					createDetailsButton(type, item.address),
-					'button',
+					createViewButton('recentBans', type, item.address),
+					'view-bans-btn',
 					true
 				))
 			}
@@ -374,12 +284,6 @@ function errorMessage(message) {
 	error.innerText = message
 } 
 
-document.getElementById('modal-close').addEventListener('click', function (e) {
-	document.getElementById('modal').classList.toggle('hide')
-	document.getElementById('modal-body').innerText = ''
-	document.getElementById('modal-title').innerText = ''
-})
-
 document.getElementById('data-view-type').addEventListener('change', function(e) {
 	filter.hidePanel()
 	filter.resetPanel()
@@ -434,7 +338,7 @@ fetchData()
 
 	filter = new Filter(data)
 	details = new Details(data)
-	display = new Display(data, details)
+	display = new Display(data)
 
 	document.getElementById('loading').classList.add('hide')
 	document.getElementById('options').classList.remove('hide')
