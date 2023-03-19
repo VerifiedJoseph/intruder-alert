@@ -531,6 +531,7 @@ fetchData()
 
 	document.getElementById('filter-apply').addEventListener('click', function (e) {
 		document.getElementById('open-filter-panel').disabled = false
+		document.getElementById('applied-filters').classList.remove('hide')
 
 		filter.hidePanel()
 		filter.save()
