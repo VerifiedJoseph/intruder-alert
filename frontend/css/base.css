@@ -82,7 +82,7 @@ input {
 }
 
 .hide {
-	display: none;
+	display: none !important;
 }
 
 table {
@@ -355,17 +355,18 @@ table td.no-data {
 #applied-filters {
 	margin-left: 64px;
 	margin-top: 10px;
-	display: flow-root;
+	flex-direction: row;
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 5px;
 	width: 890px;
 }
 
 #applied-filters > .item {
-	float: left;
-	background-color: #f1f1f1;
 	padding: 4px;
-	border: 1px solid #8f8f9d;
 	margin-right: 5px;
-	margin-bottom: 5px;
+	background-color: #f1f1f1;
+	border: 1px solid #8f8f9d;
 }
 
 #applied-filters > .item > button {
