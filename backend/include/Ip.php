@@ -17,7 +17,7 @@ class Ip
 		$this->data['timestamp'] = $timestamp;
 
 		$this->data['country'] = Lookup::country($address);
-		$this->data['network'] = Lookup::asn($address);
+		$this->data['network'] = Lookup::network($address);
 	}
 
 	/**

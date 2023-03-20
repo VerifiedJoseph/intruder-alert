@@ -66,7 +66,7 @@ class Lookup
 	 * @param string $ip IP address
 	 * @return array<string, string|int>
 	 */
-	static public function asn(string $ip): array
+	static public function network(string $ip): array
 	{
 		$geo = new Reader(self::$asnDBPath);
 		$name = 'Unknown';
