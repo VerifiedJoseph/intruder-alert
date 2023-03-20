@@ -100,8 +100,6 @@ export class Filter
 
 			this.#createLabel(type, action, value, id)
 		}
-
-		console.log(this.#settings)
 	}
 
 	/**
