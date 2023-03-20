@@ -33,8 +33,6 @@ class App
 	 */
 	public function getJsonReport(): string
 	{
-		header('Content-type: application/json;');
-
 		if (File::exists('./data/data.json') === false) {
 			return Json::encode([
 				'error' => true,
