@@ -2,6 +2,7 @@
 
 use Helper\File;
 use Helper\Json;
+use Exception\ReportException;
 
 class App
 {
@@ -21,7 +22,7 @@ class App
 		try {
 			$this->processLogs();
 			$this->generateReport();
-		} catch (Exception $err) {
+		} catch (ReportException $err) {
 			$this->generateErrorReport($err->getMessage());
 		}
 	}

@@ -3,6 +3,7 @@
 use Helper\File;
 use Helper\Output;
 use Exception\AppException;
+use Exception\ReportException;
 
 /**
  * Class for processing Fail2ban logs
@@ -43,7 +44,7 @@ class Logs
 			Output::text($file->getPathname());
 
 			if (is_readable($file->getPathname()) === false) {
-				throw new AppException('Backend error: Failed to read file ' . $file->getPathname());
+				throw new AppException('Failed to read file ' . $file->getPathname());
 			}
 
 			$contents = File::read($file->getPathname());
@@ -66,7 +67,7 @@ class Logs
 		}
 
 		if (count($rows) === 0) {
-			throw new Exception('No ban events found');
+			throw new ReportException('No ban events found');
 		}
 
 		return $rows;
