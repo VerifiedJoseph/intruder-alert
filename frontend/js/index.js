@@ -380,8 +380,6 @@ for (var i = 0; i < pageButtons.length; i++) {
 
 fetchData()
 .then(response => {
-	console.log(response);
-
 	if (response.status !== 200) {
 		throw new Error(`Failed to fetch data (${response.status} ${response.statusText})`);
 	}
