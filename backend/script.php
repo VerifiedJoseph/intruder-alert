@@ -1,6 +1,7 @@
 <?php
 
 use Helper\Output;
+use Exception\ConfigException;
 
 require 'vendor/autoload.php';
 
@@ -16,7 +17,7 @@ try {
 
 	$app = new App();
 	$app->run();
-} catch (Exception $err) {
+} catch (ConfigException $err) {
     Output::text($err->getMessage());
 }
 
