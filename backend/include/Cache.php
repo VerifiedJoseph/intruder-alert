@@ -8,7 +8,7 @@ final class Cache
     /**
      * @var string $path Cache folder path
      */
-    private string $path = '';
+    private string $path = './data/cache.json';
 
     /**
      * @var array<string, mixed> $data Data from cache file
@@ -22,7 +22,6 @@ final class Cache
      * Constructor
      *
      * @param string $path Cache folder path
-     * @param string $filename Cache filename
      */
     public function __construct(string $path)
     {
@@ -34,6 +33,12 @@ final class Cache
         }
     }
 
+    /**
+     * Get item
+     * 
+     * @param string $ipAddress IP address
+     * @return array<mixed>
+     */
     public function getItem(string $ipAddress): array
     {
         if ($this->hasItem($ipAddress) === true) {
@@ -45,6 +50,11 @@ final class Cache
         return [];
     }
 
+    /**
+     * Check cache has item
+     * 
+     * @param string $ipAddress IP address
+     */
     public function hasItem(string $ipAddress): bool
     {
         $key = array_search($ipAddress, array_column($this->data['items'], 'address'));
@@ -56,6 +66,11 @@ final class Cache
         return false;
     }
 
+    /**
+     * Add item to cache
+     * 
+     * @param array<string, mixed> $ip IP address details
+     */
     public function addItem(array $ip): void
     {
         $this->data['items'][] = [
@@ -65,6 +80,9 @@ final class Cache
         ];
     }
 
+    /**
+     * Save cache data to disk
+     */
     public function save(): void
     {
         $this->data['expires'] = time() + 21600;
@@ -118,6 +136,6 @@ final class Cache
      */
     private function getPath(): string
     {
-        return './data/cache.json';
+        return $this->path;
     }
 }

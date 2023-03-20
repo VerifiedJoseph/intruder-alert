@@ -4,24 +4,42 @@ use Helper\File;
 use Helper\Output;
 use Exception\AppException;
 
+/**
+ * Class for processing Fail2ban logs
+ */
 class Logs
 {
+	/** @var string $filenameRegex Log filename regex */
 	private $filenameRegex = '/fail2ban\.log/';
+
+	/** @var string $gzRegex Gzip file extension regex */
 	private $gzRegex = '/.gz$/';
+
+	/** @var string $lineRegex Log line regex */
 	private $lineRegex = '/([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}),[0-9]+ fail2ban\.(?:filter|actions)[\s]+\[[0-9]+]: [A-Z]+[\s]+\[([\w]+)] Ban ([0-9a-z.:]+|[0-9.]+)/';
 
-	private $files;
+	/** @var string $path Log folder path */
+	private string $path = '';
 
+	/**
+	 * 
+	 * @param string $path Log folder path
+	 */
 	public function __construct(string $path)
 	{
-		$this->getFiles($path);
+		$this->path = $path;
 	}
 
-	public function process()
+	/**
+	 * Process logs
+	 * 
+	 * @return array<int, array<string, string>>
+	 */
+	public function process(): array
 	{
 		$rows = [];
 
-		foreach($this->files as $file) {
+		foreach($this->getFiles($this->path) as $file) {
 			Output::text($file->getPathname());
 
 			if (is_readable($file->getPathname()) === false) {
@@ -31,7 +49,7 @@ class Logs
 			$contents = File::read($file->getPathname());
 		
 			if (preg_match($this->gzRegex, $file->getFilename())) {
-				$contents = gzdecode($contents);
+				$contents = (string) gzdecode($contents);
 			}
 
 			foreach (explode("\n", $contents) as $line) {
@@ -54,11 +72,16 @@ class Logs
 		return $rows;
 	}
 
-	private function getFiles(string $path)
+	/**
+	 * Get RegexIterator of logs file
+	 * 
+	 * @param string $path Log folder path
+	 */
+	private function getFiles(string $path): RegexIterator
 	{
 		$directory = new RecursiveDirectoryIterator($path);
 		$flattened = new RecursiveIteratorIterator($directory);
 
-		$this->files = new RegexIterator($flattened, $this->filenameRegex);
+		return new RegexIterator($flattened, $this->filenameRegex);
 	}
 }

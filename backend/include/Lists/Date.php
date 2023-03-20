@@ -2,20 +2,32 @@
 
 namespace Lists;
 
-use stdClass;
-
-class Date {
+class Date
+{
+	/** @var array<string, mixed> $data */
 	private array $data = [
 		'list' => []
 	];
 
-	public function get() {
+	/**
+	 * Get list
+	 * 
+	 * @return array<string, mixed>
+	 */
+	public function get()
+	{
 		$this->orderByDate();
 
 		return $this->data;
 	}
 
-	public function addIp(array $ip) {
+	/**
+	 * Add IP address
+	 * 
+	 * @param array<string, mixed> $ip IP address details
+	 */
+	public function addIp(array $ip): void
+	{
 		$date = date('Y-m-d', strtotime($ip['timestamp']));
 		$key = array_search($date, array_column($this->data['list'], 'date'));
 
@@ -36,7 +48,10 @@ class Date {
 		}
 	}
 
-	private function orderByDate()
+	/**
+	 * Calculate most banned
+	 */
+	private function orderByDate(): void
 	{
 		usort($this->data['list'], function($a1, $a2) {
 			$v1 = strtotime($a1['date']);

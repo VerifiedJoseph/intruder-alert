@@ -2,15 +2,20 @@
 
 namespace Lists;
 
-use stdClass;
-
-class Address {
+class Address
+{
+	/** @var array<string, mixed> $data */
 	private array $data = [
 		'mostBanned' => '',
 		'totalBans' => 0,
 		'list' => []
 	];
 
+	/**
+	 * Get list
+	 * 
+	 * @return array<string, mixed>
+	 */
 	public function get(): array
 	{
 		$this->calculateMostBanned();
@@ -19,7 +24,12 @@ class Address {
 		return $this->data;
 	}
 
-	public function addIp(array $ip)
+	/**
+	 * Add IP address
+	 * 
+	 * @param array<string, mixed> $ip IP address details
+	 */
+	public function addIp(array $ip): void
 	{
 		$key = array_search($ip['address'], array_column($this->data['list'], 'address'));
 
@@ -46,6 +56,9 @@ class Address {
 		}
 	}
 
+	/**
+	 * Calculate most banned
+	 */
 	private function calculateMostBanned(): void
 	{
 		$highest = 0;
@@ -58,7 +71,10 @@ class Address {
 		}
 	}
 
-	private function orderByDate()
+	/**
+	 * Order by date
+	 */
+	private function orderByDate(): void
 	{
 		$list = $this->data['list'];
 

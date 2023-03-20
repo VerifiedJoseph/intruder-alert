@@ -16,6 +16,11 @@ class Lists {
 		$this->countryList = new Lists\Country();
 	}
 
+	/**
+	 * Add IP address
+	 * 
+	 * @param array<string, mixed> $ip IP address details
+	 */
 	public function addIp(array $ip): void
 	{
 		$this->addressList->addIp($ip);
@@ -25,6 +30,11 @@ class Lists {
 		$this->countryList->addIp($ip);
 	}
 
+	/**
+	 * Get lists
+	 * 
+	 * @return array<string, mixed>
+	 */
 	public function get(): array
 	{
 		return [

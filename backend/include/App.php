@@ -5,6 +5,7 @@ use Helper\Json;
 
 class App
 {
+	/** @var Lists $lists */
 	private Lists $lists;
 
 	public function __construct()
@@ -12,7 +13,10 @@ class App
 		$this->lists = new Lists();
 	}
 
-	public function run()
+	/**
+	 * Run app
+	 */
+	public function run(): void
 	{
 		try {
 			$this->processLogs();
@@ -22,6 +26,9 @@ class App
 		}
 	}
 
+	/**
+	 * Process logs
+	 */
 	private function processLogs(): void
 	{
 		$cache = new Cache('./data/cache.json');
@@ -55,12 +62,20 @@ class App
 		$cache->save();
 	}
 
+	/**
+	 * Generate report
+	 */
 	private function generateReport(): void
 	{
 		$report = new Report($this->lists->get());
 		$report->generate();
 	}
 
+	/**
+	 * Generate error report
+	 * 
+	 * @param string $message Error message
+	 */
 	private function generateErrorReport(string $message): void
 	{
 		$data = [

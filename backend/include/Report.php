@@ -3,15 +3,26 @@
 use Helper\File;
 use Helper\Json;
 
+/**
+ * Class for generating the report JSON
+ */
 class Report
 {
+	/** @var array<string, mixed> $lists */
 	private array $lists = [];
 
+	/**
+	 * 
+	 * @param array<string, mixed> $lists
+	 */
 	public function __construct(array $lists)
 	{
 		$this->lists = $lists;
 	}
 
+	/**
+	 * Generate JSON file
+	 */
 	public function generate(): void
 	{
 		$data = $this->lists;
@@ -25,6 +36,11 @@ class Report
 		);
 	}
 
+	/**
+	 * Create stats
+	 * 
+	 * @return array<string, mixed>
+	 */
 	private function createStats(): array
 	{
 		$data = [];
@@ -63,7 +79,10 @@ class Report
 		return $data;
 	}
 
-	private function getDataSinceDate()
+	/**
+	 * Get data since date
+	 */
+	private function getDataSinceDate(): string
 	{
 		$key = array_key_last($this->lists['address']['list']);
 		return date('Y-m-d', strtotime($this->lists['address']['list'][$key]['firstSeen']));
