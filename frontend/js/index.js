@@ -62,13 +62,13 @@ function createCellWithFilter(dataType, dataValue, text) {
 
 function createViewButton(viewType, filterType, filterValue) {
 	var button = document.createElement('button')
+	var text = 'View Bans'
 
 	if (viewType === 'address') {
-		button.innerText = 'View IPs'
-	} else {
-		button.innerText = 'View Bans'
+		text = 'View IPs'
 	}
 
+	button.innerText = text
 	button.classList.add('view');
 	button.setAttribute('data-view-type' , viewType);
 	button.setAttribute('data-filter-type' , filterType);
