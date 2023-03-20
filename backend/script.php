@@ -12,7 +12,7 @@ if (php_sapi_name() !== 'cli') {
 try {
 	Config::check();
 	Lookup::setCountryDB('db/GeoLite2-Country.mmdb');
-	Lookup::setAsnDB('db/GeoLite2-ASN.mmdb');
+	Lookup::setNetworkDB('db/GeoLite2-ASN.mmdb');
 
 	$app = new App();
 	$app->run();

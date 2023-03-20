@@ -28,7 +28,7 @@ class Lookup
 	 * 
 	 * @param string $path Database path
 	 */
-	static public function setAsnDB(string $path): void
+	static public function setNetworkDB(string $path): void
 	{
 		self::$asnDBPath = $path;
 	}
