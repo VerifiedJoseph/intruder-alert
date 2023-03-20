@@ -31,7 +31,7 @@ class Report
 		$data['dataSince'] = $this->getDataSinceDate();
 
 		File::write(
-			'../frontend/data.json',
+			'./data/data.json',
 			Json::encode($data)
 		);
 	}

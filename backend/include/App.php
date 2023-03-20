@@ -1,5 +1,6 @@
 <?php
 
+use Exception\AppException;
 use Helper\File;
 use Helper\Json;
 use Exception\ReportException;
@@ -25,6 +26,23 @@ class App
 		} catch (ReportException $err) {
 			$this->generateErrorReport($err->getMessage());
 		}
+	}
+
+	/**
+	 * Get report JSON
+	 */
+	public function getJsonReport(): string
+	{
+		header('Content-type: application/json;');
+
+		if (File::exists('./data/data.json') === false) {
+			return Json::encode([
+				'error' => true,
+				'message' => 'No data. Is the backend script setup?'
+			]);
+		}
+
+		return File::read('./data/data.json');
 	}
 
 	/**
@@ -86,7 +104,7 @@ class App
 		];
 
 		File::write(
-			'../frontend/data.json',
+			'./data/data.json',
 			Json::encode($data)
 		);
 	}

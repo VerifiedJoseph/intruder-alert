@@ -24,7 +24,7 @@ var tableHeaders = {
 }
 
 function fetchData() {
-	return fetch('data.json');
+	return fetch('../backend/data.php');
 }
 
 function displayData(data, type, pageNumber = 0) {
