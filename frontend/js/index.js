@@ -60,7 +60,7 @@ function createCellWithFilter(dataType, dataValue, text) {
 	return span;
 }
 
-function createViewButton(viewType, filterType, filterValue) {
+function createViewButton(viewType, filterType, filterValue, context = 'table') {
 	var button = document.createElement('button')
 	var text = 'View Bans'
 
@@ -73,6 +73,7 @@ function createViewButton(viewType, filterType, filterValue) {
 	button.setAttribute('data-view-type' , viewType);
 	button.setAttribute('data-filter-type' , filterType);
 	button.setAttribute('data-filter-value' , filterValue);
+	button.setAttribute('data-context' , context);
 
 	return button;
 }
@@ -81,21 +82,21 @@ function createViewButtonEvents() {
 	var buttons = document.getElementsByClassName('view')
 
 	for (var i = 0; i < buttons.length; i++) {
-		var filterType =  buttons[i].getAttribute('data-filter-type')
-		var filterValue = buttons[i].getAttribute('data-filter-value')
-
-		if (filter.hasFilter(filterType, filterValue) === true) {
-			buttons[i].disabled = true;
-		} else {
-			buttons[i].disabled = false;
-		}
-
 		if (buttons[i].getAttribute('data-event') !== 'true') {
 			buttons[i].addEventListener('click', function (e) {
-				document.getElementById('data-view-type').value = e.target.getAttribute('data-view-type')
-	
 				var filterType =  e.target.getAttribute('data-filter-type')
 				var filterValue = e.target.getAttribute('data-filter-value')
+				var context = e.target.getAttribute('data-context')
+	
+				if (context === 'most-banned') {
+					filter.reset()
+				}
+
+				if (e.target.getAttribute('data-view-type') === 'recentBans' && document.getElementById('data-view-type').value === 'address') {
+					filter.reset()
+				}
+
+				document.getElementById('data-view-type').value = e.target.getAttribute('data-view-type')
 	
 				if (filter.hasFilter(filterType, filterValue) === false) {
 					filter.add(filterType, 'include', filterValue)
@@ -291,15 +292,15 @@ function createTable(data = [], type, indexStart = 0) {
 
 function createMostBannedButtons() {
 	document.getElementById('most-banned-ip-button').appendChild(
-		createViewButton('recentBans', 'address', botData.address.mostBanned)
+		createViewButton('recentBans', 'address', botData.address.mostBanned, 'most-banned')
 	)
 
 	document.getElementById('most-banned-network-button').appendChild(
-		createViewButton('recentBans', 'network', botData.network.mostBanned)
+		createViewButton('recentBans', 'network', botData.network.mostBanned, 'most-banned')
 	)
 
 	document.getElementById('most-banned-country-button').appendChild(
-		createViewButton('recentBans', 'country', botData.country.mostBanned)
+		createViewButton('recentBans', 'country', botData.country.mostBanned, 'most-banned')
 	)
 }
 
