@@ -1,6 +1,7 @@
 <?php
 
 use Helper\File;
+use Helper\Output;
 use Exception\AppException;
 
 class Logs
@@ -21,7 +22,7 @@ class Logs
 		$rows = [];
 
 		foreach($this->files as $file) {
-			echo $file->getPathname() . "\n";
+			Output::text($file->getPathname());
 
 			if (is_readable($file->getPathname()) === false) {
 				throw new AppException('Backend error: Failed to read file ' . $file->getPathname());

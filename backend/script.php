@@ -1,9 +1,11 @@
 <?php
 
+use Helper\Output;
+
 require 'vendor/autoload.php';
 
 if (php_sapi_name() !== 'cli') {
-	echo('Intruder Alert script must be run via the command-line.');
+	Output::text('Intruder Alert script must be run via the command-line.');
 	die();
 }
 
@@ -15,6 +17,6 @@ try {
 	$app = new App();
 	$app->run();
 } catch (Exception $err) {
-    echo $err->getMessage();
+    Output::text($err->getMessage());
 }
 
