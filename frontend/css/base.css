@@ -96,24 +96,6 @@ table.modal {
 	width: 838px;
 }
 
-table.modal-ip {
-	width: 300px;
-	margin: 0;
-}
-
-table.modal-network-ip {
-	width: 100%;
-	margin: 0;
-	display: block;
-	overflow-y: auto;
-	max-height: calc(100vh - 206px);
-}
-
-table.modal-network-ip thead, table.modal-network-ip thead {
-	position: sticky;
-	top: 0;
-}
-
 table th {
 	text-align: left;
 }
@@ -131,14 +113,6 @@ table th, table td {
 	padding: 4px;
 	border-bottom: 1px solid #8f8f9d;
 	padding-right: 10px;
-}
-
-#year-filter {
-	width: 70px;
-}
-
-#show-filter {
-	width: 300px;
 }
 
 table th.number, table td.number {
