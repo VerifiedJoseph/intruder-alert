@@ -55,10 +55,10 @@ class Jail
 	{
 		$highest = 0;
 
-		foreach ($this->data['list'] as $jail => $item) {
+		foreach ($this->data['list'] as $item) {
 			if (count($item['ipList']) > $highest) {
 				$highest = count($item['ipList']);
-				$this->data['mostBanned'] = $jail;
+				$this->data['mostBanned'] = $item['name'];
 			}
 		}
 	}
