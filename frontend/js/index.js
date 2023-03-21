@@ -1,10 +1,10 @@
-import { Table, Row, Cell } from './Table.js'
-import { Filter } from './Filter.js'
-import { Details } from './Details.js'
-import { Display } from './Display.js'
-import { Format } from './Format.js'
-import { Pagination } from './Pagination.js'
-import { Message } from './Message.js'
+import { Table, Row, Cell } from './class/Table.js'
+import { Filter } from './class/Filter.js'
+import { Details } from './class/Details.js'
+import { Display } from './class/Display.js'
+import { Format } from './class/Format.js'
+import { Pagination } from './class/Pagination.js'
+import { Message } from './class/Message.js'
 
 "use strict";
 
