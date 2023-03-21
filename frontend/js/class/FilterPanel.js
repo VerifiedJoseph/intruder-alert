@@ -8,8 +8,6 @@ export class FilterPanel {
    * @param {string} type Filter type
    */
   setOptions (type, filter) {
-    console.log(filter.hasFilter())
-
     const select = document.getElementById('filter-value')
     select.innerText = ''
 
