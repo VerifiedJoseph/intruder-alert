@@ -314,7 +314,6 @@ function createMostBannedButtons () {
 
 document.getElementById('data-view-type').addEventListener('change', function (e) {
   filter.hidePanel()
-  filter.resetPanel()
 
   const type = e.target.value
 
@@ -322,12 +321,7 @@ document.getElementById('data-view-type').addEventListener('change', function (e
     document.getElementById('open-filter-panel').disabled = false
 
     if (type === 'address') {
-      filter.disableOption('jail')
-      filter.disableOption('date')
       filter.remove('date')
-    } else {
-      filter.enableOption('jail')
-      filter.enableOption('date')
     }
   } else {
     document.getElementById('open-filter-panel').disabled = true
@@ -347,15 +341,14 @@ document.getElementById('data-view-type').addEventListener('change', function (e
 document.getElementById('open-filter-panel').addEventListener('click', function (e) {
   document.getElementById('open-filter-panel').disabled = true
 
+  filter.setupPanel()
   filter.showPanel()
-  filter.resetPanel()
 })
 
 document.getElementById('close-filter-panel').addEventListener('click', function (e) {
   document.getElementById('open-filter-panel').disabled = false
 
   filter.hidePanel()
-  filter.resetPanel()
 })
 
 document.getElementById('filter-type').addEventListener('change', function (e) {

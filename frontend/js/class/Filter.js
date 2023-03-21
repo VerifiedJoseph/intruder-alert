@@ -216,14 +216,20 @@ export class Filter {
     document.getElementById('filter-panel').classList.add('hide')
   }
 
-  /**
-   * Reset filter panel
-   */
-  resetPanel () {
+  setupPanel () {
+    const viewType = document.getElementById('data-view-type').value
+
     document.getElementById('filter-type')[0].selected = true
     document.getElementById('filter-action')[0].selected = true
 
     this.setOptions('address')
+    this.enableOption('jail')
+    this.enableOption('date')
+
+    if (viewType === 'address') {
+      this.disableOption('jail')
+      this.disableOption('date')
+    }
   }
 
   /**
