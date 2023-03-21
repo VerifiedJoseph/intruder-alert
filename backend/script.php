@@ -13,8 +13,8 @@ if (php_sapi_name() !== 'cli') {
 
 try {
 	Config::check();
-	Lookup::setCountryDB('db/GeoLite2-Country.mmdb');
-	Lookup::setNetworkDB('db/GeoLite2-ASN.mmdb');
+	Lookup::setNetworkDB(constant('GEO_IP_ASN'));
+	Lookup::setCountryDB(constant('GEO_IP_COUNTRY'));
 
 	$app = new App();
 	$app->run();
