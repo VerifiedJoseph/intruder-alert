@@ -1,4 +1,4 @@
-frontend/data.json
+frontend/node_modules/*
 backend/vendor/*
 backend/data/*
 backend/config.php
