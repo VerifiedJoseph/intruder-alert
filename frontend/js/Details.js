@@ -31,4 +31,13 @@ export class Details
 			}
 		}
 	}
+
+	getJail(name)
+	{
+		for (var i = 0; i < this.data.jail.list.length; i++) {
+			if (this.data.jail.list[i].name === name) {
+				return this.data.jail.list[i];
+			}
+		}
+	}
 }
