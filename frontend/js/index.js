@@ -321,6 +321,7 @@ document.getElementById('data-view-type').addEventListener('change', function (e
 
     if (type === 'address') {
       filter.remove('date')
+      filter.remove('jail')
     }
   } else {
     document.getElementById('open-filter-panel').disabled = true
