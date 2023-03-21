@@ -1,101 +1,98 @@
-export class Table
-{
-	constructor (cssClass = null, id = null) {
-		this.id = id
-		this.cssClass = cssClass
+export class Table {
+  constructor (cssClass = null, id = null) {
+    this.id = id
+    this.cssClass = cssClass
 
-		this.html = document.createElement('table')
+    this.html = document.createElement('table')
 
-		if (cssClass !== null) {
-			this.html.classList.add(cssClass)
-		}
+    if (cssClass !== null) {
+      this.html.classList.add(cssClass)
+    }
 
-		this.header = document.createElement('thead')
-		this.body = document.createElement('tbody')
-	}
+    this.header = document.createElement('thead')
+    this.body = document.createElement('tbody')
+  }
 
-	get() {
-		this.html.appendChild(this.header)
-		this.html.appendChild(this.body)
+  get () {
+    this.html.appendChild(this.header)
+    this.html.appendChild(this.body)
 
-		return this.html;
-	}
+    return this.html
+  }
 
-	addHeader(row) {
-		var tr = document.createElement('tr')
+  addHeader (row) {
+    const tr = document.createElement('tr')
 
-		row.get().forEach(cell => {
-			var th = document.createElement('th')
+    row.get().forEach(cell => {
+      const th = document.createElement('th')
 
-			if (cell.cssClass !== null) {
-				th.classList.add(cell.cssClass)
-			}
+      if (cell.cssClass !== null) {
+        th.classList.add(cell.cssClass)
+      }
 
-			th.innerText = cell.value
+      th.innerText = cell.value
 
-			tr.appendChild(th);
-		})
+      tr.appendChild(th)
+    })
 
-		this.header.appendChild(tr)
-	}
+    this.header.appendChild(tr)
+  }
 
-	addRow(row) {
-		var tr = document.createElement('tr')
+  addRow (row) {
+    const tr = document.createElement('tr')
 
-		row.get().forEach(item => {
-			var td = document.createElement('td')
+    row.get().forEach(item => {
+      const td = document.createElement('td')
 
-			if (item.html && item.html === true) {
-				td.appendChild(item.value)
-			} else {
-				td.innerText = item.value
-			}
+      if (item.html && item.html === true) {
+        td.appendChild(item.value)
+      } else {
+        td.innerText = item.value
+      }
 
-			if (item.cssClass) {
-				td.classList.add(item.cssClass)
-			}
+      if (item.cssClass) {
+        td.classList.add(item.cssClass)
+      }
 
-			if (item.colSpan > 0) {
-				td.setAttribute('colspan', item.colSpan)
-			}
+      if (item.colSpan > 0) {
+        td.setAttribute('colspan', item.colSpan)
+      }
 
-			tr.appendChild(td)
-		})
+      tr.appendChild(td)
+    })
 
-		this.body.appendChild(tr);
-	}
+    this.body.appendChild(tr)
+  }
 }
 
-export class Row
-{
-	constructor() {
-		this.data = [];
-	}
+export class Row {
+  constructor () {
+    this.data = []
+  }
 
-	get() {
-		return this.data
-	}
+  get () {
+    return this.data
+  }
 
-	addCell(cell) {
-		this.data.push(cell.get())
-	}
+  addCell (cell) {
+    this.data.push(cell.get())
+  }
 }
 
-export class Cell
-{
-	constructor (value, cssClass = null, html = false, colSpan = 0) {
-		this.value = value
-		this.cssClass = cssClass
-		this.html = html
-		this.colSpan = colSpan
-	}
+export class Cell {
+  constructor (value, cssClass = null, html = false, colSpan = 0) {
+    this.value = value
+    this.cssClass = cssClass
+    this.html = html
+    this.colSpan = colSpan
+  }
 
-	get() {
-		return {
-			value: this.value,
-			cssClass: this.cssClass,
-			html: this.html,
-			colSpan: this.colSpan
-		}
-	}
+  get () {
+    return {
+      value: this.value,
+      cssClass: this.cssClass,
+      html: this.html,
+      colSpan: this.colSpan
+    }
+  }
 }

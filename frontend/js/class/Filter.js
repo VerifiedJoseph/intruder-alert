@@ -1,373 +1,371 @@
-import { Details } from './Details.js';
+import { Details } from './Details.js'
 
-export class Filter
-{
-	#settings = []
-	#details
+export class Filter {
+  #settings = []
+  #details
 
-	constructor (data = []) {
-		this.data = data
-		this.#settings = []
-		this.#details = new Details(data)
-	}
+  constructor (data = []) {
+    this.data = data
+    this.#settings = []
+    this.#details = new Details(data)
+  }
 
-	/**
-	 * Get filtered data
-	 * @param {string} typeList
-	 * @returns 
-	 */
-	getData(listType) {
-		if (listType === 'recentBans') {
-			var data = this.#getRecentBans()
-	
-		} else {
-			var data = this.data[listType].list;
-		}
+  /**
+   * Get filtered data
+   * @param {string} typeList
+   * @returns
+   */
+  getData (listType) {
+    let data
 
-		if (this.#settings.length > 0 && (listType === 'address' || listType === 'recentBans') ) {
-			var filtered = []
+    if (listType === 'recentBans') {
+      data = this.#getRecentBans()
+    } else {
+      data = this.data[listType].list
+    }
 
-			data.forEach(item => {
-				var addStatus = [];
+    if (this.#settings.length > 0 && (listType === 'address' || listType === 'recentBans')) {
+      const filtered = []
 
-				for (let index = 0; index < this.#settings.length; index++) {
-					var filter = this.#settings[index];
+      data.forEach(item => {
+        const addStatus = []
 
-					if (filter.type === 'jail' && listType !== 'recentBans') {
-						continue;
-					}
+        for (let index = 0; index < this.#settings.length; index++) {
+          const filter = this.#settings[index]
 
-					var value
-					if (filter.type === 'date') {
-						var date = new Date(item.timestamp)
-						var parts = date.toISOString().substring(0, 10).split('-')
-						
-						value = `${parts[0]}-${parts[1]}-${parts[2]}`
-					} else {
-						value = item[filter.type].toString()
-					}
+          if (filter.type === 'jail' && listType !== 'recentBans') {
+            continue
+          }
 
-					if (filter.action === 'include' && filter.values.length > 0) {
-						if (filter.values.includes(value) === true) {
-							addStatus.push(1)
-						} else {
-							addStatus.push(0)
-						}
-					}
+          let value
+          if (filter.type === 'date') {
+            const date = new Date(item.timestamp)
+            const parts = date.toISOString().substring(0, 10).split('-')
 
-					if (filter.action === 'exclude' && filter.values.length > 0) {
-						if (filter.values.includes(value) === true) {
-							addStatus.push(0)
-						} else {
-							addStatus.push(1)
-						}
-					}
-				}
+            value = `${parts[0]}-${parts[1]}-${parts[2]}`
+          } else {
+            value = item[filter.type].toString()
+          }
 
-				if (addStatus.includes(0) === false) {
-					filtered.push(item)
-				}
-			});
+          if (filter.action === 'include' && filter.values.length > 0) {
+            if (filter.values.includes(value) === true) {
+              addStatus.push(1)
+            } else {
+              addStatus.push(0)
+            }
+          }
 
-			return filtered
-		}
+          if (filter.action === 'exclude' && filter.values.length > 0) {
+            if (filter.values.includes(value) === true) {
+              addStatus.push(0)
+            } else {
+              addStatus.push(1)
+            }
+          }
+        }
 
-		return data
-	}
+        if (addStatus.includes(0) === false) {
+          filtered.push(item)
+        }
+      })
 
-	/**
-	 * Add filter
-	 * @param {string} type Filter type
-	 * @param {string} action Filter action (include or exclude)
-	 * @param {string} value Filter value
-	 */
-	add(type, action, value) {
-		var index = this.#findFilter(type, action)
+      return filtered
+    }
 
-		if (index !== false) {
-			this.#settings[index].values.push(value)
-			this.#createLabel(type, action, value, this.#settings[index].id)
+    return data
+  }
 
-		} else {
-			var id = crypto.randomUUID();
+  /**
+   * Add filter
+   * @param {string} type Filter type
+   * @param {string} action Filter action (include or exclude)
+   * @param {string} value Filter value
+   */
+  add (type, action, value) {
+    const index = this.#findFilter(type, action)
 
-			this.#settings.push({
-				id: id,
-				type: type,
-				action: action,
-				values: [value],
-			})
+    if (index !== false) {
+      this.#settings[index].values.push(value)
+      this.#createLabel(type, action, value, this.#settings[index].id)
+    } else {
+      const id = crypto.randomUUID()
 
-			this.#createLabel(type, action, value, id)
-		}
-	}
+      this.#settings.push({
+        id,
+        type,
+        action,
+        values: [value]
+      })
 
-	/**
-	 * Remove filter by its type
-	 * @param {string} type filter type 
-	 */
-	remove(type)
-	{
-		var id = null;
+      this.#createLabel(type, action, value, id)
+    }
+  }
 
-		this.#settings = this.#settings.filter(filter => {
-			if (filter.type === type) {
-				id = filter.id
-				return false;
-			}
+  /**
+   * Remove filter by its type
+   * @param {string} type filter type
+   */
+  remove (type) {
+    let id = null
 
-			return true;
-		})
+    this.#settings = this.#settings.filter(filter => {
+      if (filter.type === type) {
+        id = filter.id
+        return false
+      }
 
-		if (id !== null) {
-			this.#removeLabel(id)
-		}
-	}
+      return true
+    })
 
-	/**
-	 * Remove value from a filter
-	 * @param {string} filterId filter UUID
-	 * @param {value} value filter value
-	 */
-	removeValue(filterId, value = null) {
-		var index = this.#findFilterByUUID(filterId)
-		var filter = this.#settings[index]
+    if (id !== null) {
+      this.#removeLabel(id)
+    }
+  }
 
-		this.#settings[index].values = filter.values.filter(
-			item => item !== value
-		)
-	}
+  /**
+   * Remove value from a filter
+   * @param {string} filterId filter UUID
+   * @param {value} value filter value
+   */
+  removeValue (filterId, value = null) {
+    const index = this.#findFilterByUUID(filterId)
+    const filter = this.#settings[index]
 
-	/**
-	 * Reset filters
-	 */
-	reset() {
-		this.#settings = []
-		document.getElementById('applied-filters').innerText = ''
-	}
+    this.#settings[index].values = filter.values.filter(
+      item => item !== value
+    )
+  }
 
-	/**
-	 * Set filter select options
-	 * @param {string} type Filter type
-	 */
-	setOptions(type) {
-		const select = document.getElementById(`filter-value`)
-		select.innerText = ''
+  /**
+   * Reset filters
+   */
+  reset () {
+    this.#settings = []
+    document.getElementById('applied-filters').innerText = ''
+  }
 
-		var valueName = ''
-		switch (type) {
-			case 'address':
-				valueName = 'address'
-				break;
-			case 'network':
-				valueName = 'number'
-				break;
-			case 'country':
-				valueName = 'code'
-				break;
-			case 'jail':
-				valueName = 'name'
-				break;
-			case 'date':
-				valueName = 'date'
-				break;
-		}
-	
-		for (let index = 0; index < this.data[type].list.length; index++) {
-			const item = this.data[type].list[index];
-			
-			const option = document.createElement('option')
-			option.value = item[valueName]
-			option.innerText = item.date || item.name || item.address
+  /**
+   * Set filter select options
+   * @param {string} type Filter type
+   */
+  setOptions (type) {
+    const select = document.getElementById('filter-value')
+    select.innerText = ''
 
-			if (this.hasFilter(type, item[valueName]) === true) {
-				option.disabled = true
-			}
-	
-			select.appendChild(option)
-		}
-	}
+    let valueName = ''
+    switch (type) {
+      case 'address':
+        valueName = 'address'
+        break
+      case 'network':
+        valueName = 'number'
+        break
+      case 'country':
+        valueName = 'code'
+        break
+      case 'jail':
+        valueName = 'name'
+        break
+      case 'date':
+        valueName = 'date'
+        break
+    }
 
-	/**
-	 * Disable select option
-	 * @param {string} name
-	 */
-	disableOption(name) {
-		document.querySelector(`#filter-type [value="${name}"]`).disabled = true;
-	}
-	
-	/**
-	 * Enable select option
-	 * @param {string} name
-	 */
-	enableOption(name) {
-		document.querySelector(`#filter-type [value="${name}"]`).disabled = false;
-	}
+    for (let index = 0; index < this.data[type].list.length; index++) {
+      const item = this.data[type].list[index]
 
-	/**
-	 * Show filter panel
-	 */
-	showPanel() {
-		document.getElementById('filter-panel').classList.remove('hide')
-	}
+      const option = document.createElement('option')
+      option.value = item[valueName]
+      option.innerText = item.date || item.name || item.address
 
-	/**
-	 * Hide filter panel
-	 */
-	hidePanel() {
-		document.getElementById('filter-panel').classList.add('hide')
-	}
+      if (this.hasFilter(type, item[valueName]) === true) {
+        option.disabled = true
+      }
 
-	/**
-	 * Reset filter panel
-	 */
-	resetPanel() {
-		document.getElementById('filter-type')[0].selected = true
-		document.getElementById('filter-action')[0].selected = true
+      select.appendChild(option)
+    }
+  }
 
-		this.setOptions('address')
-	}
+  /**
+   * Disable select option
+   * @param {string} name
+   */
+  disableOption (name) {
+    document.querySelector(`#filter-type [value="${name}"]`).disabled = true
+  }
 
-	/**
-	 * Check if filter has a value
-	 * @param {string} type Filter type
-	 * @param {string} value Filter value
-	 * @returns 
-	 */
-	hasFilter(type, value) {
-		var status = false
+  /**
+   * Enable select option
+   * @param {string} name
+   */
+  enableOption (name) {
+    document.querySelector(`#filter-type [value="${name}"]`).disabled = false
+  }
 
-		this.#settings.forEach(filter => {
-			if (filter.type === type && filter.values.includes(value.toString()) === true) {
-				status = true
-			}
-		});
+  /**
+   * Show filter panel
+   */
+  showPanel () {
+    document.getElementById('filter-panel').classList.remove('hide')
+  }
 
-		return status
-	}
+  /**
+   * Hide filter panel
+   */
+  hidePanel () {
+    document.getElementById('filter-panel').classList.add('hide')
+  }
 
-	/**
-	 * Find filter array index by a filter's unique identifier
-	 * @param {string} uuid Unique identifier
-	 * @returns Array index of filter
-	 */
-	#findFilterByUUID(uuid) {
-		var key = null;
+  /**
+   * Reset filter panel
+   */
+  resetPanel () {
+    document.getElementById('filter-type')[0].selected = true
+    document.getElementById('filter-action')[0].selected = true
 
-		this.#settings.forEach((filter, index) => {
-			if (filter.id === uuid) {
-				key = index
-			}
-		});
+    this.setOptions('address')
+  }
 
-		if (key !== null) {
-			return key
-		}
+  /**
+   * Check if filter has a value
+   * @param {string} type Filter type
+   * @param {string} value Filter value
+   * @returns
+   */
+  hasFilter (type, value) {
+    let status = false
 
-		return false
-	}
+    this.#settings.forEach(filter => {
+      if (filter.type === type && filter.values.includes(value.toString()) === true) {
+        status = true
+      }
+    })
 
-	#findFilter(type, action) {
-		var key = null;
+    return status
+  }
 
-		this.#settings.forEach((filter, index) => {
-			if (filter.type === type && filter.action === action) {
-				key = index
-			}
-		});
+  /**
+   * Find filter array index by a filter's unique identifier
+   * @param {string} uuid Unique identifier
+   * @returns Array index of filter
+   */
+  #findFilterByUUID (uuid) {
+    let key = null
 
-		if (key !== null) {
-			return key
-		}
+    this.#settings.forEach((filter, index) => {
+      if (filter.id === uuid) {
+        key = index
+      }
+    })
 
-		return false
-	}
+    if (key !== null) {
+      return key
+    }
 
-	/**
-	 * Get recent bans
-	 */
-	#getRecentBans() {
-		var events = []
+    return false
+  }
 
-		this.data.address.list.forEach(ip => {
-			ip.events.forEach(event => {
-				events.push({
-					'address': ip.address,
-					'jail': event.jail,
-					'network': ip.network,
-					'country': ip.country,
-					'timestamp': event.timestamp
-				})
-			})
-		})
-	
-		events.sort(function(a, b){
-			var da = new Date(a.timestamp).getTime();
-			var db = new Date(b.timestamp).getTime();
-			
-			return da < db ? -1 : da > db ? 1 : 0
-		});
-	
-		return events.reverse();
-	}
+  #findFilter (type, action) {
+    let key = null
 
-	/**
-	 * Create filter label
-	 * @param {string} type Filter type
-	 * @param {string} action Filter action
-	 * @param {string} value Filter value
-	 * @param {string} uuid Filter UUID
-	 */
-	#createLabel(type, action, value, uuid) {
-		var labelCon = document.getElementById('applied-filters')
-		var div = document.createElement('div')
-		var span = document.createElement('span')
-		var button = document.createElement('button')
+    this.#settings.forEach((filter, index) => {
+      if (filter.type === type && filter.action === action) {
+        key = index
+      }
+    })
 
-		var typeTexts = {
-			address: 'IP Address',
-			network: 'Network',
-			country: 'Country',
-			jail: 'Jail',
-			date: 'Date',
-		}
-		
-		var valueText = value
-		if (type === 'network') {
-			var network = this.#details.getNetwork(value)
-			valueText = network.name
-		}
+    if (key !== null) {
+      return key
+    }
 
-		if (type === 'country') {
-			var country = this.#details.getCountry(value)
-			valueText = country.name
-		}
+    return false
+  }
 
-		var actionText = 'is'
-		if (action == 'exclude') {
-			actionText = 'is not'
-		}
+  /**
+   * Get recent bans
+   */
+  #getRecentBans () {
+    const events = []
 
-		span.innerText = `${typeTexts[type]} ${actionText} '${valueText}'`
-		
-		button.innerText = 'X'
-		button.setAttribute('title', `Remove filter '${typeTexts[type]} ${actionText} ${valueText}'`)
-		button.setAttribute('data-filter-id', uuid)
-		button.setAttribute('data-filter-value', value)
+    this.data.address.list.forEach(ip => {
+      ip.events.forEach(event => {
+        events.push({
+          address: ip.address,
+          jail: event.jail,
+          network: ip.network,
+          country: ip.country,
+          timestamp: event.timestamp
+        })
+      })
+    })
 
-		div.appendChild(span)
-		div.appendChild(button)
-		div.classList.add('item')
-		div.setAttribute('data-label-id', uuid)
+    events.sort(function (a, b) {
+      const da = new Date(a.timestamp).getTime()
+      const db = new Date(b.timestamp).getTime()
 
-		labelCon.appendChild(div)
-	}
+      return da < db ? -1 : da > db ? 1 : 0
+    })
 
-	/**
-	 * Remove filter label
-	 * @param {string} uuid Filter UUID
-	 */
-	#removeLabel(uuid) {
-		document.querySelector(`div[data-label-id="${uuid}"]`).remove()
-	}
+    return events.reverse()
+  }
+
+  /**
+   * Create filter label
+   * @param {string} type Filter type
+   * @param {string} action Filter action
+   * @param {string} value Filter value
+   * @param {string} uuid Filter UUID
+   */
+  #createLabel (type, action, value, uuid) {
+    const labelCon = document.getElementById('applied-filters')
+    const div = document.createElement('div')
+    const span = document.createElement('span')
+    const button = document.createElement('button')
+
+    const typeTexts = {
+      address: 'IP Address',
+      network: 'Network',
+      country: 'Country',
+      jail: 'Jail',
+      date: 'Date'
+    }
+
+    let valueText = value
+    if (type === 'network') {
+      const network = this.#details.getNetwork(value)
+      valueText = network.name
+    }
+
+    if (type === 'country') {
+      const country = this.#details.getCountry(value)
+      valueText = country.name
+    }
+
+    let actionText = 'is'
+    if (action === 'exclude') {
+      actionText = 'is not'
+    }
+
+    span.innerText = `${typeTexts[type]} ${actionText} '${valueText}'`
+
+    button.innerText = 'X'
+    button.setAttribute('title', `Remove filter '${typeTexts[type]} ${actionText} ${valueText}'`)
+    button.setAttribute('data-filter-id', uuid)
+    button.setAttribute('data-filter-value', value)
+
+    div.appendChild(span)
+    div.appendChild(button)
+    div.classList.add('item')
+    div.setAttribute('data-label-id', uuid)
+
+    labelCon.appendChild(div)
+  }
+
+  /**
+   * Remove filter label
+   * @param {string} uuid Filter UUID
+   */
+  #removeLabel (uuid) {
+    document.querySelector(`div[data-label-id="${uuid}"]`).remove()
+  }
 }
