@@ -107,9 +107,8 @@ function createViewButtonEvents () {
           document.getElementById('open-filter-panel').disabled = false
 
           const viewType = document.getElementById('data-view-type').value
-          const data = filter.getData(viewType)
 
-          displayData(data, viewType)
+          displayData(filter.getData(viewType), viewType)
           createFilerRemoveEvents()
         } else {
           Message.error('A filter already exists for this.', true)
@@ -126,7 +125,7 @@ function createFilerButtonEvents () {
 
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function (e) {
-      filter.hidePanel()
+      filterPanel.hide()
       filter.add(
         e.target.getAttribute('data-type'),
         'include',
@@ -136,9 +135,8 @@ function createFilerButtonEvents () {
       document.getElementById('applied-filters').classList.remove('hide')
 
       const viewType = document.getElementById('data-view-type').value
-      const data = filter.getData(viewType)
 
-      displayData(data, viewType)
+      displayData(filter.getData(viewType), viewType)
       createFilerRemoveEvents()
     })
   }
@@ -158,9 +156,8 @@ function createFilerRemoveEvents () {
         e.target.parentElement.remove()
 
         const viewType = document.getElementById('data-view-type').value
-        const data = filter.getData(viewType)
 
-        displayData(data, viewType)
+        displayData(filter.getData(viewType), viewType)
 
         if (document.getElementById('applied-filters').hasChildNodes() === false) {
           document.getElementById('applied-filters').classList.add('hide')
@@ -334,10 +331,7 @@ document.getElementById('data-view-type').addEventListener('change', function (e
     document.getElementById('applied-filters').classList.add('hide')
   }
 
-  displayData(
-    filter.getData(type),
-    type
-  )
+  displayData(filter.getData(type), type)
 })
 
 document.getElementById('open-filter-panel').addEventListener('click', function (e) {
@@ -358,6 +352,8 @@ document.getElementById('filter-type').addEventListener('change', function (e) {
 })
 
 document.getElementById('filter-apply').addEventListener('click', function (e) {
+  const viewType = document.getElementById('data-view-type').value
+
   document.getElementById('open-filter-panel').disabled = false
   document.getElementById('applied-filters').classList.remove('hide')
 
@@ -368,21 +364,17 @@ document.getElementById('filter-apply').addEventListener('click', function (e) {
     document.getElementById('filter-value').value
   )
 
-  const viewType = document.getElementById('data-view-type').value
-  const data = filter.getData(viewType)
-
-  displayData(data, viewType)
+  displayData(filter.getData(viewType), viewType)
   createFilerRemoveEvents()
 })
 
 const pageButtons = document.getElementsByClassName('page-button')
 for (let i = 0; i < pageButtons.length; i++) {
   pageButtons[i].addEventListener('click', function (e) {
-    const type = document.getElementById('data-view-type').value
-    const data = filter.getData(type)
+    const viewType = document.getElementById('data-view-type').value
     const page = Number(e.target.getAttribute('data-page'))
 
-    displayData(data, type, page)
+    displayData(filter.getData(viewType), viewType, page)
   })
 }
 
@@ -416,10 +408,7 @@ fetchData()
 
     filterPanel.setOptions('address', filter)
 
-    displayData(
-      filter.getData('recentBans'),
-      'recentBans'
-    )
+    displayData(filter.getData('recentBans'), 'recentBans')
   }).catch(error => {
     document.getElementById('loading').classList.add('hide')
 
