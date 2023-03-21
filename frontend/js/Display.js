@@ -30,15 +30,22 @@ export class Display
 		var ip = this.details.getIp(this.data.address.mostBanned)
 		var network = this.details.getNetwork(this.data.network.mostBanned)
 		var country = this.details.getCountry(this.data.country.mostBanned)
+		var jail = this.details.getJail(this.data.jail.mostBanned)
 	
 		document.getElementById('most-banned-ip').innerText = ip.address
 		document.getElementById('most-banned-ip-count').innerText = Format.Number(ip.bans)
+		
 		document.getElementById('most-banned-network').innerText = network.name
 		document.getElementById('most-banned-network').setAttribute('title', network.name)
 		document.getElementById('most-banned-network-count').innerText = Format.Number(network.bans);
+		
 		document.getElementById('most-banned-country').innerText = country.name
 		document.getElementById('most-banned-country').setAttribute('title', country.name)
 		document.getElementById('most-banned-country-count').innerText = Format.Number(country.bans);
+		
+		document.getElementById('most-activated-jail').innerText = jail.name
+		document.getElementById('most-activated-jail').setAttribute('title', jail.name)
+		document.getElementById('most-activated-jail-count').innerText = Format.Number(jail.bans);
 		document.getElementById('most-banned').classList.remove('hide')
 	}
 }

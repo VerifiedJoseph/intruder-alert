@@ -302,6 +302,10 @@ function createMostBannedButtons() {
 	document.getElementById('most-banned-country-button').appendChild(
 		createViewButton('recentBans', 'country', botData.country.mostBanned, 'most-banned')
 	)
+
+	document.getElementById('most-activated-jail-button').appendChild(
+		createViewButton('recentBans', 'jail', botData.jail.mostBanned, 'most-banned')
+	)
 }
 
 document.getElementById('data-view-type').addEventListener('change', function(e) {
