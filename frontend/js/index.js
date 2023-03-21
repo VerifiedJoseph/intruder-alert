@@ -226,10 +226,10 @@ function createTable (data = [], type, indexStart = 0) {
         row.addCell(new Cell(Format.Number(item.bans)))
 
         const viewButtons = document.createElement('span')
-        span.appendChild(
+        viewButtons.appendChild(
           createViewButton('address', type, item.number || item.code || item.name)
         )
-        span.appendChild(
+        viewButtons.appendChild(
           createViewButton('recentBans', type, item.number || item.code || item.name)
         )
 
