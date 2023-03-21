@@ -2,12 +2,14 @@
 
 import { Table, Row, Cell } from './class/Table.js'
 import { Filter } from './class/Filter.js'
+import { FilterPanel } from './class/FilterPanel.js'
 import { Details } from './class/Details.js'
 import { Display } from './class/Display.js'
 import { Format } from './class/Format.js'
 import { Pagination } from './class/Pagination.js'
 import { Message } from './class/Message.js'
 
+let filterPanel
 let filter
 let details
 let display
@@ -313,7 +315,7 @@ function createMostBannedButtons () {
 }
 
 document.getElementById('data-view-type').addEventListener('change', function (e) {
-  filter.hidePanel()
+  filterPanel.hide()
 
   const type = e.target.value
 
@@ -341,25 +343,25 @@ document.getElementById('data-view-type').addEventListener('change', function (e
 document.getElementById('open-filter-panel').addEventListener('click', function (e) {
   document.getElementById('open-filter-panel').disabled = true
 
-  filter.setupPanel()
-  filter.showPanel()
+  filterPanel.setup(filter)
+  filterPanel.show()
 })
 
 document.getElementById('close-filter-panel').addEventListener('click', function (e) {
   document.getElementById('open-filter-panel').disabled = false
 
-  filter.hidePanel()
+  filterPanel.hide()
 })
 
 document.getElementById('filter-type').addEventListener('change', function (e) {
-  filter.setOptions(e.target.value)
+  filterPanel.setOptions(e.target.value, filter)
 })
 
 document.getElementById('filter-apply').addEventListener('click', function (e) {
   document.getElementById('open-filter-panel').disabled = false
   document.getElementById('applied-filters').classList.remove('hide')
 
-  filter.hidePanel()
+  filterPanel.hide()
   filter.add(
     document.getElementById('filter-type').value,
     document.getElementById('filter-action').value,
@@ -399,6 +401,7 @@ fetchData()
     }
 
     filter = new Filter(data)
+    filterPanel = new FilterPanel(data)
     details = new Details(data)
     display = new Display(data)
 
@@ -411,7 +414,7 @@ fetchData()
     display.mostBanned()
     createMostBannedButtons()
 
-    filter.setOptions('address')
+    filterPanel.setOptions('address', filter)
 
     displayData(
       filter.getData('recentBans'),
