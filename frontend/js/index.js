@@ -159,6 +159,10 @@ function createFilerRemoveEvents() {
 				var data = filter.getData(viewType)
 	
 				displayData(data, viewType)
+
+				if (document.getElementById('applied-filters').hasChildNodes() === false) {
+					document.getElementById('applied-filters').classList.add('hide')
+				}
 			})
 
 			buttons[i].setAttribute('data-event', 'true')
@@ -328,6 +332,10 @@ document.getElementById('data-view-type').addEventListener('change', function(e)
 	} else {
 		document.getElementById('open-filter-panel').disabled = true
 		filter.reset()
+	}
+
+	if (document.getElementById('applied-filters').hasChildNodes() === false) {
+		document.getElementById('applied-filters').classList.add('hide')
 	}
 
 	displayData(
