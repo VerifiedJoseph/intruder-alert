@@ -90,6 +90,7 @@ function createViewButtonEvents () {
         const filterValue = e.target.getAttribute('data-filter-value')
         const context = e.target.getAttribute('data-context')
 
+        filterPanel.hide()
         if (context === 'most-banned') {
           filter.reset()
         }
