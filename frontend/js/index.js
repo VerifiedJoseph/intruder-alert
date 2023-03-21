@@ -215,7 +215,7 @@ function createTable (data = [], type, indexStart = 0) {
         ))
       }
 
-      if (type === 'network' || type === 'jail' || type === 'country') {
+      if (type === 'network' || type === 'country') {
         const span = document.createElement('span')
         span.innerText = item.name
         span.setAttribute('title', item.name)
@@ -269,12 +269,12 @@ function createTable (data = [], type, indexStart = 0) {
         ))
       }
 
-      if (type === 'date') {
-        row.addCell(new Cell(item.date, 'long'))
+      if (type === 'date' || type === 'jail') {
+        row.addCell(new Cell(item.date || item.name, 'long'))
         row.addCell(new Cell(Format.Number(item.ipCount)))
         row.addCell(new Cell(Format.Number(item.bans)))
         row.addCell(new Cell(
-          createViewButton('recentBans', type, item.date),
+          createViewButton('recentBans', type, item.date || item.name),
           'view-bans-btn',
           true
         ))
