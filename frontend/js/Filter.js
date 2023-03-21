@@ -16,24 +16,24 @@ export class Filter
 	 * @param {string} typeList
 	 * @returns 
 	 */
-	getData(typeList) {
-		if (typeList === 'recentBans') {
+	getData(listType) {
+		if (listType === 'recentBans') {
 			var data = this.#getRecentBans()
 	
 		} else {
-			var data = this.data[typeList].list;
+			var data = this.data[listType].list;
 		}
-	
-		var filtered = []
 
-		if (this.#settings.length > 0 && (typeList === 'address' || typeList === 'recentBans') ) {
+		if (this.#settings.length > 0 && (listType === 'address' || listType === 'recentBans') ) {
+			var filtered = []
+
 			data.forEach(item => {
 				var addStatus = [];
 
 				for (let index = 0; index < this.#settings.length; index++) {
 					var filter = this.#settings[index];
 
-					if (filter.type === 'jail' && typeList !== 'recentBans') {
+					if (filter.type === 'jail' && listType !== 'recentBans') {
 						continue;
 					}
 
