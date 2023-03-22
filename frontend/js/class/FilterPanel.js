@@ -1,6 +1,8 @@
 export class FilterPanel {
+  #data = []
+
   constructor (data = []) {
-    this.data = data
+    this.#data = data
   }
 
   /**
@@ -44,7 +46,7 @@ export class FilterPanel {
     if (type === 'version') {
       data = [{ number: 4 }, { number: 6 }]
     } else {
-      data = this.data[type].list
+      data = this.#data[type].list
     }
 
     for (let index = 0; index < data.length; index++) {
