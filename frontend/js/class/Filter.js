@@ -128,7 +128,7 @@ export class Filter {
    * @param {string} filterId filter UUID
    * @param {value} value filter value
    */
-  removeValue (filterId, value = null) {
+  removeValue (filterId, value) {
     const index = this.#findFilterByUUID(filterId)
     const filter = this.#settings[index]
 
