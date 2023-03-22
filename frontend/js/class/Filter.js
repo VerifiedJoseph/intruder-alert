@@ -1,11 +1,12 @@
 import { Details } from './Details.js'
 
 export class Filter {
+  #data = []
   #settings = []
   #details
 
   constructor (data = []) {
-    this.data = data
+    this.#data = data
     this.#settings = []
     this.#details = new Details(data)
   }
@@ -21,7 +22,7 @@ export class Filter {
     if (listType === 'recentBans') {
       data = this.#getRecentBans()
     } else {
-      data = this.data[listType].list
+      data = this.#data[listType].list
     }
 
     if (this.#settings.length > 0 && (listType === 'address' || listType === 'recentBans')) {
@@ -205,7 +206,7 @@ export class Filter {
   #getRecentBans () {
     const events = []
 
-    this.data.address.list.forEach(ip => {
+    this.#data.address.list.forEach(ip => {
       ip.events.forEach(event => {
         events.push({
           address: ip.address,
