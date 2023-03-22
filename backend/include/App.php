@@ -2,6 +2,7 @@
 
 use Helper\File;
 use Helper\Json;
+use Helper\Misc;
 use Exception\ReportException;
 
 class App
@@ -53,22 +54,22 @@ class App
 	 */
 	private function processLogs(): void
 	{
+		$logs = new Logs(constant('LOG_FOLDER'));
 		$cache = new Cache($this->cacheFilepath);
 
-		$logs = new Logs(constant('LOG_FOLDER'));
 		foreach ($logs->process() as $line) {
-
 			if ($cache->hasItem($line['ip']) === true) {
 				$cacheData = $cache->getItem($line['ip']);
 				$ip = [
 					'address' => $line['ip'],
+					'version' => Misc::detectIpVersion($line['ip']),
 					'jail' => $line['jail'],
 					'timestamp' => $line['timestamp'],
 					'network' => $cacheData['network'],
 					'country' => $cacheData['country'],
 				];
+
 				$this->lists->addIp($ip);
-			
 			} else {
 				$ip = new Ip(
 					$line['ip'],

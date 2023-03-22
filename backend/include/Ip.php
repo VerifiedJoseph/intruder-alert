@@ -1,5 +1,7 @@
 <?php
 
+use Helper\Misc;
+
 class Ip 
 {
 	/** @var array<string, mixed> $data IP address details */
@@ -13,6 +15,7 @@ class Ip
 	public function __construct(string $address, string $jail, string $timestamp)
 	{
 		$this->data['address'] = $address;
+		$this->data['version'] = Misc::detectIpVersion($address);
 		$this->data['jail'] = $jail;
 		$this->data['timestamp'] = $timestamp;
 

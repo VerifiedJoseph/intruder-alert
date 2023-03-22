@@ -35,9 +35,9 @@ class Address extends AbstractList
 
 		if ($key === false) {
 			$this->data['totalBans']++;
-
 			$this->data['list'][] = [
 				'address' => $ip['address'],
+				'version' => $ip['version'],
 				'bans' => 1,
 				'country' =>  $ip['country']['code'],
 				'network' => $ip['network']['number'],
