@@ -34,6 +34,7 @@ abstract class AbstractList
 	final protected function calculateMostBanned(): void
 	{
 		$highest = 0;
+		$name = '';
 
 		switch (get_class($this)) {
 			case 'List\Address':
