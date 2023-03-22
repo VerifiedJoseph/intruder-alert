@@ -17,7 +17,7 @@ class Logs
 	private $gzRegex = '/.gz$/';
 
 	/** @var string $lineRegex Log line regex */
-	private $lineRegex = '/([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}),[0-9]+ fail2ban\.(?:filter|actions)[\s]+\[[0-9]+]: [A-Z]+[\s]+\[([\w]+)] Ban ([0-9a-z.:]+|[0-9.]+)/';
+	private $lineRegex = '/([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}),[0-9]+ fail2ban\.actions[\s]+\[[0-9]+]: [A-Z]+[\s]+\[([\w]+)] Ban ([0-9a-z.:]+)/';
 
 	/** @var string $path Log folder path */
 	private string $path = '';
