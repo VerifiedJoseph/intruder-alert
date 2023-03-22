@@ -1,19 +1,20 @@
 <?php 
 
-class Lists {
-	private Lists\Address $addressList;
-	private Lists\Date $dateList;
-	private Lists\Jail $jailList;
-	private Lists\Network $networkList;
-	private Lists\Country $countryList;
+class Lists
+{
+	private Lists\Address $addresses;
+	private Lists\Date $dates;
+	private Lists\Jail $jails;
+	private Lists\Network $networks;
+	private Lists\Country $countries;
 
 	public function __construct()
 	{
-		$this->addressList = new Lists\Address();
-		$this->dateList = new Lists\Date();
-		$this->jailList = new Lists\Jail();
-		$this->networkList = new Lists\Network();
-		$this->countryList = new Lists\Country();
+		$this->addresses = new Lists\Address();
+		$this->dates = new Lists\Date();
+		$this->jails = new Lists\Jail();
+		$this->networks = new Lists\Network();
+		$this->countries = new Lists\Country();
 	}
 
 	/**
@@ -23,11 +24,11 @@ class Lists {
 	 */
 	public function addIp(array $ip): void
 	{
-		$this->addressList->addIp($ip);
-		$this->dateList->addIp($ip);
-		$this->jailList->addIp($ip);
-		$this->networkList->addIp($ip);
-		$this->countryList->addIp($ip);
+		$this->addresses->addIp($ip);
+		$this->dates->addIp($ip);
+		$this->jails->addIp($ip);
+		$this->networks->addIp($ip);
+		$this->countries->addIp($ip);
 	}
 
 	/**
@@ -38,11 +39,11 @@ class Lists {
 	public function get(): array
 	{
 		return [
-			'address' => $this->addressList->get(),
-			'date' => $this->dateList->get(),
-			'jail' => $this->jailList->get(),
-			'network' => $this->networkList->get(),
-			'country' => $this->countryList->get()
+			'address' => $this->addresses->get(),
+			'date' => $this->dates->get(),
+			'jail' => $this->jails->get(),
+			'network' => $this->networks->get(),
+			'country' => $this->countries->get()
 		];
 	}
 }
