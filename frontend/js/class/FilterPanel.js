@@ -12,30 +12,47 @@ export class FilterPanel {
     select.innerText = ''
 
     let valueName = ''
+    let textValueName = ''
     switch (type) {
       case 'address':
         valueName = 'address'
+        textValueName = 'address'
+        break
+      case 'version':
+        valueName = 'number'
+        textValueName = 'number'
         break
       case 'network':
         valueName = 'number'
+        textValueName = 'name'
         break
       case 'country':
         valueName = 'code'
+        textValueName = 'name'
         break
       case 'jail':
         valueName = 'name'
+        textValueName = 'name'
         break
       case 'date':
         valueName = 'date'
+        textValueName = 'date'
         break
     }
 
-    for (let index = 0; index < this.data[type].list.length; index++) {
-      const item = this.data[type].list[index]
+    let data = []
+    if (type === 'version') {
+      data = [{ number: 4 }, { number: 6 }]
+    } else {
+      data = this.data[type].list
+    }
+
+    for (let index = 0; index < data.length; index++) {
+      const item = data[index]
 
       const option = document.createElement('option')
       option.value = item[valueName]
-      option.innerText = item.date || item.name || item.address
+      option.innerText = item[textValueName]
 
       if (filter.hasFilter(type, item[valueName]) === true) {
         option.disabled = true

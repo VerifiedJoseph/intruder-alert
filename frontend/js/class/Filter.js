@@ -209,6 +209,7 @@ export class Filter {
       ip.events.forEach(event => {
         events.push({
           address: ip.address,
+          version: ip.version,
           jail: event.jail,
           network: ip.network,
           country: ip.country,
@@ -242,6 +243,7 @@ export class Filter {
 
     const typeTexts = {
       address: 'IP Address',
+      version: 'IP Version',
       network: 'Network',
       country: 'Country',
       jail: 'Jail',
