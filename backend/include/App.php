@@ -1,6 +1,5 @@
 <?php
 
-use Exception\AppException;
 use Helper\File;
 use Helper\Json;
 use Exception\ReportException;
