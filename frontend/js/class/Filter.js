@@ -287,6 +287,8 @@ export class Filter {
    * @param {string} uuid Filter UUID
    */
   #removeLabel (uuid) {
-    document.querySelector(`div[data-label-id="${uuid}"]`).remove()
+    if (document.querySelector(`div[data-label-id="${uuid}"]`)) {
+      document.querySelector(`div[data-label-id="${uuid}"]`).remove()
+    }
   }
 }
