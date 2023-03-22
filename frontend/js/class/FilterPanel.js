@@ -85,6 +85,7 @@ export class FilterPanel {
    */
   show () {
     document.getElementById('filter-panel').classList.remove('hide')
+    document.getElementById('open-filter-panel').disabled = true
   }
 
   /**
@@ -92,6 +93,7 @@ export class FilterPanel {
    */
   hide () {
     document.getElementById('filter-panel').classList.add('hide')
+    document.getElementById('open-filter-panel').disabled = false
   }
 
   setup (filter) {

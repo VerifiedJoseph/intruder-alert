@@ -337,15 +337,11 @@ document.getElementById('data-view-type').addEventListener('change', function (e
 })
 
 document.getElementById('open-filter-panel').addEventListener('click', function (e) {
-  document.getElementById('open-filter-panel').disabled = true
-
   filterPanel.setup(filter)
   filterPanel.show()
 })
 
 document.getElementById('close-filter-panel').addEventListener('click', function (e) {
-  document.getElementById('open-filter-panel').disabled = false
-
   filterPanel.hide()
 })
 
@@ -356,7 +352,6 @@ document.getElementById('filter-type').addEventListener('change', function (e) {
 document.getElementById('filter-apply').addEventListener('click', function (e) {
   const viewType = document.getElementById('data-view-type').value
 
-  document.getElementById('open-filter-panel').disabled = false
   document.getElementById('applied-filters').classList.remove('hide')
 
   filterPanel.hide()
