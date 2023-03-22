@@ -12,7 +12,7 @@ final class Misc
 	 */
 	static public function detectIpVersion(string $address): int
 	{
-		if (str_contains(':', $address) === true) {
+		if (str_contains($address, ':') === true) {
 			return 6;
 		}
 
