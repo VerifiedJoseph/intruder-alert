@@ -4,7 +4,7 @@ namespace Helper;
 
 use Exception\AppException;
 
-class File
+final class File
 {
     /**
      * Read a file
