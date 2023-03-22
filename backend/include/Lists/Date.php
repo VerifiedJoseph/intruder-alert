@@ -14,7 +14,7 @@ class Date
 	 * 
 	 * @return array<string, mixed>
 	 */
-	public function get()
+	public function get(): array
 	{
 		$this->orderByDate();
 

@@ -15,7 +15,8 @@ class Country
 	 * 
 	 * @return array<string, mixed>
 	 */
-	public function get() {
+	public function get(): array
+	{
 		$this->calculateMostBanned();
 
 		return $this->data;
