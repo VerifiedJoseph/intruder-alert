@@ -2,19 +2,19 @@
 
 class Lists
 {
-	private Lists\Address $addresses;
-	private Lists\Date $dates;
-	private Lists\Jail $jails;
-	private Lists\Network $networks;
-	private Lists\Country $countries;
+	private List\Address $addresses;
+	private List\Date $dates;
+	private List\Jail $jails;
+	private List\Network $networks;
+	private List\Country $countries;
 
 	public function __construct()
 	{
-		$this->addresses = new Lists\Address();
-		$this->dates = new Lists\Date();
-		$this->jails = new Lists\Jail();
-		$this->networks = new Lists\Network();
-		$this->countries = new Lists\Country();
+		$this->addresses = new List\Address();
+		$this->dates = new List\Date();
+		$this->jails = new List\Jail();
+		$this->networks = new List\Network();
+		$this->countries = new List\Country();
 	}
 
 	/**

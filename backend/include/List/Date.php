@@ -1,15 +1,9 @@
 <?php
 
-namespace Lists;
+namespace List;
 
-class Jail
+class Date extends AbstractList
 {
-	/** @var array<string, mixed> $data */
-	private array $data = [
-		'mostBanned' => '',
-		'list' => []
-	];
-
 	/**
 	 * Get list
 	 * 
@@ -17,7 +11,7 @@ class Jail
 	 */
 	public function get(): array
 	{
-		$this->calculateMostBanned();
+		$this->orderByDate();
 
 		return $this->data;
 	}
@@ -29,14 +23,15 @@ class Jail
 	 */
 	public function addIp(array $ip): void
 	{
-		$key = array_search($ip['jail'], array_column($this->data['list'], 'name'));
+		$date = date('Y-m-d', strtotime($ip['timestamp']));
+		$key = array_search($date, array_column($this->data['list'], 'date'));
 
 		if ($key === false) {
 			$this->data['list'][] = [
-				'name' => $ip['jail'],
-				'ipList' => [$ip['address']],
+				'date' => $date,
+				'bans' => 1,
 				'ipCount' => 1,
-				'bans' => 1
+				'ipList' => [$ip['address']]
 			];
 		} else {
 			$this->data['list'][$key]['bans']++;
@@ -51,15 +46,12 @@ class Jail
 	/**
 	 * Calculate most banned
 	 */
-	private function calculateMostBanned(): void
+	private function orderByDate(): void
 	{
-		$highest = 0;
-
-		foreach ($this->data['list'] as $item) {
-			if (count($item['ipList']) > $highest) {
-				$highest = count($item['ipList']);
-				$this->data['mostBanned'] = $item['name'];
-			}
-		}
-	}
+		usort($this->data['list'], function($a1, $a2) {
+			$v1 = strtotime($a1['date']);
+			$v2 = strtotime($a2['date']);
+			return $v2 - $v1;
+		});
+    }
 }

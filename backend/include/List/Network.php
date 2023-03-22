@@ -1,25 +1,14 @@
 <?php
 
-namespace Lists;
+namespace List;
 
-class Date
+class Network  extends AbstractList
 {
 	/** @var array<string, mixed> $data */
-	private array $data = [
+	protected array $data = [
+		'mostBanned' => '',
 		'list' => []
 	];
-
-	/**
-	 * Get list
-	 * 
-	 * @return array<string, mixed>
-	 */
-	public function get(): array
-	{
-		$this->orderByDate();
-
-		return $this->data;
-	}
 
 	/**
 	 * Add IP address
@@ -28,12 +17,12 @@ class Date
 	 */
 	public function addIp(array $ip): void
 	{
-		$date = date('Y-m-d', strtotime($ip['timestamp']));
-		$key = array_search($date, array_column($this->data['list'], 'date'));
+		$key = array_search($ip['network']['number'], array_column($this->data['list'], 'number'));
 
 		if ($key === false) {
 			$this->data['list'][] = [
-				'date' => $date,
+				'name' => $ip['network']['name'],
+				'number' => $ip['network']['number'],
 				'bans' => 1,
 				'ipCount' => 1,
 				'ipList' => [$ip['address']]
@@ -47,16 +36,4 @@ class Date
 			}
 		}
 	}
-
-	/**
-	 * Calculate most banned
-	 */
-	private function orderByDate(): void
-	{
-		usort($this->data['list'], function($a1, $a2) {
-			$v1 = strtotime($a1['date']);
-			$v2 = strtotime($a2['date']);
-			return $v2 - $v1;
-		});
-    }
 }

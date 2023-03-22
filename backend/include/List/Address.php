@@ -1,11 +1,11 @@
 <?php
 
-namespace Lists;
+namespace List;
 
-class Address
+class Address extends AbstractList
 {
 	/** @var array<string, mixed> $data */
-	private array $data = [
+	protected array $data = [
 		'mostBanned' => '',
 		'totalBans' => 0,
 		'list' => []
@@ -53,21 +53,6 @@ class Address
 				'timestamp' => $ip['timestamp'],
 				'jail' => $ip['jail']
 			];
-		}
-	}
-
-	/**
-	 * Calculate most banned
-	 */
-	private function calculateMostBanned(): void
-	{
-		$highest = 0;
-
-		foreach ($this->data['list'] as $item) {
-			if ($item['bans'] > $highest) {
-				$highest = $item['bans'];
-				$this->data['mostBanned'] = $item['address'];
-			}
 		}
 	}
 
