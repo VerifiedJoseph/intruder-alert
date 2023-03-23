@@ -4,17 +4,11 @@ namespace List;
 
 class Date extends AbstractList
 {
-	/**
-	 * Get list
-	 * 
-	 * @return array<string, mixed>
-	 */
-	public function get(): array
-	{
-		$this->orderByDate();
-
-		return $this->data;
-	}
+	/** @var array<string, boolean|string> $settings */
+	protected array $settings = [
+		'calculateMostBanned' => false,
+		'orderBy' => 'date'
+	];
 
 	/**
 	 * Add IP address
@@ -42,16 +36,4 @@ class Date extends AbstractList
 			}
 		}
 	}
-
-	/**
-	 * Calculate most banned
-	 */
-	private function orderByDate(): void
-	{
-		usort($this->data['list'], function($a1, $a2) {
-			$v1 = strtotime($a1['date']);
-			$v2 = strtotime($a2['date']);
-			return $v2 - $v1;
-		});
-    }
 }

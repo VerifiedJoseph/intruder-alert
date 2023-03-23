@@ -10,6 +10,12 @@ class Jail extends AbstractList
 		'list' => []
 	];
 
+	/** @var array<string, boolean|string> $settings */
+	protected array $settings = [
+		'calculateMostBanned' => true,
+		'orderBy' => 'bans'
+	];
+
 	/**
 	 * Add IP address
 	 * 

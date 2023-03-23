@@ -9,6 +9,12 @@ abstract class AbstractList
 		'list' => []
 	];
 
+	/** @var array<string, boolean|string> $settings */
+	protected array $settings = [
+		'calculateMostBanned' => true,
+		'orderBy' => 'none'
+	];
+
 	/**
 	 * Get list
 	 * 
@@ -16,7 +22,17 @@ abstract class AbstractList
 	 */
 	public function get(): array
 	{
-		$this->calculateMostBanned();
+		if ($this->settings['calculateMostBanned'] === true) {
+			$this->calculateMostBanned();
+		}
+
+		if ($this->settings['orderBy'] === 'bans') {
+			$this->orderByBans();
+		}
+
+		if ($this->settings['orderBy'] === 'date') {
+			$this->orderByDate();
+		}
 
 		return $this->data;
 	}
@@ -57,5 +73,26 @@ abstract class AbstractList
 				$this->data['mostBanned'] = $item[$name];
 			}
 		}
+	}
+
+	/**
+	 * Order by bans
+	 */
+	final protected function orderByBans(): void
+	{
+		$keys = array_column($this->data['list'], 'bans');
+		array_multisort($keys, SORT_DESC, $this->data['list']);
+	}
+
+	/**
+	 * Order by date
+	 */
+	protected function orderByDate(): void
+	{
+		usort($this->data['list'], function($a1, $a2) {
+			$v1 = strtotime($a1['date']);
+			$v2 = strtotime($a2['date']);
+			return $v2 - $v1;
+		});
 	}
 }

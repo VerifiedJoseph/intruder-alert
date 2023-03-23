@@ -11,18 +11,11 @@ class Address extends AbstractList
 		'list' => []
 	];
 
-	/**
-	 * Get list
-	 * 
-	 * @return array<string, mixed>
-	 */
-	public function get(): array
-	{
-		$this->calculateMostBanned();
-		$this->orderByDate();
-
-		return $this->data;
-	}
+	/** @var array<string, boolean|string> $settings */
+	protected array $settings = [
+		'calculateMostBanned' => true,
+		'orderBy' => 'date'
+	];
 
 	/**
 	 * Add IP address
@@ -59,7 +52,7 @@ class Address extends AbstractList
 	/**
 	 * Order by date
 	 */
-	private function orderByDate(): void
+	protected function orderByDate(): void
 	{
 		$list = $this->data['list'];
 
