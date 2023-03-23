@@ -13,8 +13,8 @@ if (php_sapi_name() !== 'cli') {
 
 try {
 	Config::check();
-	Lookup::setNetworkDB(constant('GEO_IP_ASN'));
-	Lookup::setCountryDB(constant('GEO_IP_COUNTRY'));
+	Lookup::setNetworkDB(constant('ASN_DATABASE'));
+	Lookup::setCountryDB(constant('COUNTRY_DATABASE'));
 
 	$app = new App();
 	$app->run();
