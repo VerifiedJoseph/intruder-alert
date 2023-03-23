@@ -14,7 +14,7 @@ class Address extends AbstractList
 	/** @var array<string, boolean|string> $settings */
 	protected array $settings = [
 		'calculateMostBanned' => true,
-		'orderBy' => 'date'
+		'orderBy' => 'bans'
 	];
 
 	/**
