@@ -84,7 +84,7 @@ class Report
 	 */
 	private function getDataSinceDate(): string
 	{
-		$key = array_key_last($this->lists['address']['list']);
-		return date('Y-m-d', strtotime($this->lists['address']['list'][$key]['firstSeen']));
+		$key = array_key_last($this->lists['date']['list']);
+		return $this->lists['date']['list'][$key]['date'];
 	}
 }
