@@ -8,11 +8,11 @@ use Helper\Output;
  */
 class Lookup
 {
-	/** @var string $countryDBPath GeoIP2 country database path */
-	static private string $countryDBPath = '';
+	/** @var Reader $countryReader GeoIP2 country database reader */
+	static private Reader $countryReader;
 
-	/** @var string $asnDBPath GeoIP2 network database path */
-	static private string $asnDBPath = '';
+	/** @var Reader $networkReader GeoIP2 network database reader */
+	static private Reader $networkReader;
 
 	/**
 	 * Set country database
@@ -21,7 +21,7 @@ class Lookup
 	 */
 	static public function setCountryDB(string $path): void
 	{
-		self::$countryDBPath = $path;
+		self::$countryReader = new Reader($path);
 	}
 
 	/**
@@ -31,7 +31,7 @@ class Lookup
 	 */
 	static public function setNetworkDB(string $path): void
 	{
-		self::$asnDBPath = $path;
+		self::$networkReader = new Reader($path);
 	}
 
 	/**
@@ -48,12 +48,9 @@ class Lookup
 		];
 
 		try {
-			$geo = new Reader(self::$countryDBPath);
-
-			$record = $geo->country($address);
+			$record = self::$countryReader->country($address);
 			$data['name'] = (string) $record->country->name;
 			$data['code'] = (string) $record->country->isoCode;
-
 		} catch (GeoIp2\Exception\AddressNotFoundException) {
 			Output::text('Address not found in GeoIP2 country database: ' . $address);
 		} finally {
@@ -75,12 +72,9 @@ class Lookup
 		];
 
 		try {
-			$geo = new Reader(self::$asnDBPath);
-
-			$record = $geo->asn($address);
+			$record = self::$networkReader->asn($address);
 			$data['name'] = (string) $record->autonomousSystemOrganization;
 			$data['number'] = (int) $record->autonomousSystemNumber;
-
 		} catch (GeoIp2\Exception\AddressNotFoundException) {
 			Output::text('Address not found in GeoIP2 ASN database: ' . $address);
 		} finally {
