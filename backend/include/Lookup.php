@@ -1,6 +1,7 @@
 <?php
 
 use GeoIp2\Database\Reader;
+use Helper\Output;
 
 /**
  * Class for looking up IP address details in GeoIP2 databases
@@ -36,54 +37,54 @@ class Lookup
 	/**
 	 * Lookup country details for an IP address
 	 * 
-	 * @param string $ip IP address
+	 * @param string $address IP address
 	 * @return array<string, string>
 	 */
-	static public function country(string $ip): array
+	static public function country(string $address): array
 	{
-		$geo = new Reader(self::$countryDBPath);
-		$name = 'Unknown';
-		$code = 'Unknown';
+		$data = [
+			'name' => 'Unknown',
+			'code' => 'Unknown'
+		];
 
 		try {
-			$record = $geo->country($ip);
-			$name = $record->country->name;
-			$code = $record->country->isoCode;
+			$geo = new Reader(self::$countryDBPath);
+
+			$record = $geo->country($address);
+			$data['name'] = $record->country->name;
+			$data['code'] = $record->country->isoCode;
 
 		} catch (GeoIp2\Exception\AddressNotFoundException) {
-			// do things here
+			Output::text('Address not found in GeoIP2 country database: ' . $address);
 		} finally {
-			return [
-				'name' => $name,
-				'code' => $code
-			];
+			return $data;
 		}
 	}
 
 	/**
 	 * Lookup network details for an IP address
 	 * 
-	 * @param string $ip IP address
+	 * @param string $address IP address
 	 * @return array<string, string|int>
 	 */
-	static public function network(string $ip): array
+	static public function network(string $address): array
 	{
-		$geo = new Reader(self::$asnDBPath);
-		$name = 'Unknown';
-		$number = 'Unknown';
+		$data = [
+			'name' => 'Unknown',
+			'number' => 'Unknown'
+		];
 
 		try {
-			$record = $geo->asn($ip);
-			$name = $record->autonomousSystemOrganization;
-			$number = $record->autonomousSystemNumber;
+			$geo = new Reader(self::$asnDBPath);
+
+			$record = $geo->asn($address);
+			$data['name'] = $record->autonomousSystemOrganization;
+			$data['number'] = $record->autonomousSystemNumber;
 
 		} catch (GeoIp2\Exception\AddressNotFoundException) {
-			// do things here
+			Output::text('Address not found in GeoIP2 ASN database: ' . $address);
 		} finally {
-			return [
-				'name' => $name,
-				'number' => $number
-			];
+			return $data;
 		}
 	}
 }
