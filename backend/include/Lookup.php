@@ -51,8 +51,8 @@ class Lookup
 			$geo = new Reader(self::$countryDBPath);
 
 			$record = $geo->country($address);
-			$data['name'] = $record->country->name;
-			$data['code'] = $record->country->isoCode;
+			$data['name'] = (string) $record->country->name;
+			$data['code'] = (string) $record->country->isoCode;
 
 		} catch (GeoIp2\Exception\AddressNotFoundException) {
 			Output::text('Address not found in GeoIP2 country database: ' . $address);
@@ -78,8 +78,8 @@ class Lookup
 			$geo = new Reader(self::$asnDBPath);
 
 			$record = $geo->asn($address);
-			$data['name'] = $record->autonomousSystemOrganization;
-			$data['number'] = $record->autonomousSystemNumber;
+			$data['name'] = (string) $record->autonomousSystemOrganization;
+			$data['number'] = (int) $record->autonomousSystemNumber;
 
 		} catch (GeoIp2\Exception\AddressNotFoundException) {
 			Output::text('Address not found in GeoIP2 ASN database: ' . $address);
