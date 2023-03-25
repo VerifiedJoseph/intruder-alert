@@ -299,11 +299,11 @@ function createMostBannedButtons () {
     createViewButton('recentBans', 'address', botData.address.mostBanned, 'most-banned')
   )
 
-  document.getElementById('most-banned-network-button').appendChild(
+  document.getElementById('most-seen-network-button').appendChild(
     createViewButton('recentBans', 'network', botData.network.mostBanned, 'most-banned')
   )
 
-  document.getElementById('most-banned-country-button').appendChild(
+  document.getElementById('most-seen-country-button').appendChild(
     createViewButton('recentBans', 'country', botData.country.mostBanned, 'most-banned')
   )
 
