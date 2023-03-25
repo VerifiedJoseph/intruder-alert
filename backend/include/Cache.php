@@ -75,6 +75,7 @@ final class Cache
     {
         $this->data['items'][] = [
             'address' => $ip['address'],
+            'version' => $ip['version'],
             'network' => $ip['network'],
             'country' => $ip['country'],
         ];

@@ -2,7 +2,6 @@
 
 use Helper\File;
 use Helper\Json;
-use Helper\Misc;
 use Exception\ReportException;
 
 class App
@@ -59,17 +58,9 @@ class App
 
 		foreach ($logs->process() as $line) {
 			if ($cache->hasItem($line['ip']) === true) {
-				$cacheData = $cache->getItem($line['ip']);
-				$ip = [
-					'address' => $line['ip'],
-					'version' => Misc::detectIpVersion($line['ip']),
-					'jail' => $line['jail'],
-					'timestamp' => $line['timestamp'],
-					'network' => $cacheData['network'],
-					'country' => $cacheData['country'],
-				];
-
-				$this->lists->addIp($ip);
+				$this->lists->addIp(
+					array_merge($cache->getItem($line['ip']), $line)
+				);
 			} else {
 				$ip = new Ip(
 					$line['ip'],
