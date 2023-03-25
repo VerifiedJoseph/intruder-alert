@@ -59,5 +59,17 @@ class Config
         if (is_readable(constant('COUNTRY_DATABASE')) === false) {
             throw new ConfigException('GeoLite2 Country database is not readable [COUNTRY_DATABASE]');
         }
+
+        self::checkDatabaseIsValid(constant('ASN_DATABASE'));
+        self::checkDatabaseIsValid(constant('COUNTRY_DATABASE'));
+    }
+
+    static private function checkDatabaseIsValid(string $path): void
+    {
+        try {
+            new GeoIp2\Database\Reader($path);
+        } catch (MaxMind\Db\Reader\InvalidDatabaseException) {
+            throw new ConfigException('GeoLite2 database is invalid: ' . $path);
+        }
     }
 }
