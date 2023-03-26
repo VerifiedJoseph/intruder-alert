@@ -19,6 +19,7 @@ export class Pagination {
 
   getData () {
     const pages = []
+    this.#pageSize = Number(document.getElementById('page-size').value)
 
     for (let i = 0; i < this.#data.length; i += this.#pageSize) {
       pages.push(this.#data.slice(i, i + this.#pageSize))

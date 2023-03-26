@@ -382,6 +382,13 @@ document.getElementById('page-number').addEventListener('change', function (e) {
   displayData(filter.getData(viewType), viewType, page)
 })
 
+document.getElementById('page-size').addEventListener('change', function (e) {
+  const viewType = document.getElementById('data-view-type').value
+  const page = 0
+
+  displayData(filter.getData(viewType), viewType, page)
+})
+
 fetchData()
   .then(response => {
     if (response.status !== 200) {

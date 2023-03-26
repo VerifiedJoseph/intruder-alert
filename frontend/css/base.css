@@ -278,12 +278,17 @@ table td.no-data {
 	margin-bottom: 0px;
 }
 
-#data-table-pagination > div {
-	display: inline-block;
+#data-table-pagination {
+	display: flex;
+	justify-content: space-between;
 }
 
 #pagination {
 	padding-left: 5px;
+}
+
+.page-options-left > div {
+	display: inline-block;
 }
 
 .input {

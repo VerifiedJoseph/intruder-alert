@@ -147,15 +147,27 @@
 			<div id="data" class="hide">
 				<div id="data-table"></div>
 				<div class="box" id="data-table-pagination">
-					<div>
-						<button class="page-button" id="load-first-page" data-page="0" disabled>First</button>
-						<button class="page-button middle" id="load-prev-page" disabled>Prev</button>
-						<button class="page-button middle" id="load-next-page" disabled>Next</button>
-						<button class="page-button" id="load-last-page" disabled>Last</button>
+					<div class="page-options-left">
+						<div>
+							<button class="page-button" id="load-first-page" data-page="0" disabled>First</button>
+							<button class="page-button middle" id="load-prev-page" disabled>Prev</button>
+							<button class="page-button middle" id="load-next-page" disabled>Next</button>
+							<button class="page-button" id="load-last-page" disabled>Last</button>
+						</div>
+						<div id="pagination">
+							Page
+							<select id="page-number"></select> of <span id="total-pages"></span> (<span id="total-page-count"></span> total items)
+						</div>
 					</div>
-					<div id="pagination">
-						Page
-						<select id="page-number"></select> of <span id="total-pages"></span> (<span id="total-page-count"></span> total items)
+					<div>
+						Page size: 
+						<select id="page-size">
+							<option value="25">25</option>
+							<option value="50">50</option>
+							<option value="100">100</option>
+							<option value="200">200</option>
+							<option value="500">500</option>
+						</select>
 					</div>
 				</div>
 			</div>
