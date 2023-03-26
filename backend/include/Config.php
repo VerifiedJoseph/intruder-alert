@@ -17,6 +17,7 @@ class Config
 
         self::checkLogFolder();
         self::checkDatabases();
+        self::checkTimeZones();
     }
 
     private static function checkLogFolder(): void
@@ -70,6 +71,33 @@ class Config
             new GeoIp2\Database\Reader($path);
         } catch (MaxMind\Db\Reader\InvalidDatabaseException) {
             throw new ConfigException('GeoLite2 database is invalid: ' . $path);
+        }
+    }
+
+    static private function checkTimeZones(): void
+    {
+        if (defined('TIMEZONE') === true) {
+            if (constant('TIMEZONE') === '') {
+                throw new ConfigException('Time zone can not be empty [TIMEZONE]');
+            }
+
+            if (in_array(constant('TIMEZONE'), DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === false) {
+                throw new ConfigException('Unknown time zone given [TIMEZONE]');
+            }
+
+            date_default_timezone_set(constant('TIMEZONE'));
+        }
+
+        if (defined('SYSTEM_LOG_TIMEZONE') === true ) {
+            if (constant('SYSTEM_LOG_TIMEZONE') === '') {
+                throw new ConfigException('Time zone can not be empty [SYSTEM_LOG_TIMEZONE]');
+            }
+
+            if (in_array(constant('SYSTEM_LOG_TIMEZONE'), DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === false) {
+                throw new ConfigException('Unknown time zone given [SYSTEM_LOG_TIMEZONE]');
+            }
+        } else {
+            define('SYSTEM_LOG_TIMEZONE', 'UTC');
         }
     }
 }

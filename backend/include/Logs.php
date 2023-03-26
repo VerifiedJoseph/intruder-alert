@@ -60,7 +60,7 @@ class Logs
 					$rows[] = [
 						'ip' => $match[3],
 						'jail' => $match[2],
-						'timestamp' => $match[1]
+						'timestamp' => $this->formatTimestamp($match[1])
 					];
 				}
 			}
@@ -84,5 +84,13 @@ class Logs
 		$flattened = new RecursiveIteratorIterator($directory);
 
 		return new RegexIterator($flattened, $this->filenameRegex);
+	}
+
+	private function formatTimestamp($timestamp): string
+	{
+		$tz = new DateTimeZone(constant('TIMEZONE'));
+		$date = new DateTime($timestamp . constant('SYSTEM_LOG_TIMEZONE'), $tz);
+
+		return $date->format('Y-m-d H:i:s');
 	}
 }

@@ -31,11 +31,13 @@ composer install --no-dev
 
 Use ` backend/config.php` (copied from [`backend/config.example.php`](backend/config.example.php)) to set the configuration.
 
-| Name               | Description                                 |
-| ------------------ | ------------------------------------------- |
-| `LOG_FOLDER`       | Path of the Fail2ban logs folder.           |
-| `ASN_DATABASE`     | Path of the GeoLite2 ASN database file.     |
-| `COUNTRY_DATABASE` | Path of the GeoLite2 Country database file. |
+| Name                  | Description                                                                   |
+| --------------------- | ----------------------------------------------------------------------------- |
+| `LOG_FOLDER`          | Path of the Fail2ban logs folder.                                             |
+| `ASN_DATABASE`        | Path of the GeoLite2 ASN database file.                                       |
+| `COUNTRY_DATABASE`    | Path of the GeoLite2 Country database file.                                   |
+| `TIMEZONE`            | Timezone (optional) ([php docs](https://www.php.net/manual/en/timezones.php)) |
+| `SYSTEM_LOG_TIMEZONE` | Timezone of fail2ban logs (optional, default is UTC)                          |
 
 GeoLite2 databases can be [downloaded](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data?lang=en) from MaxMind.
 
