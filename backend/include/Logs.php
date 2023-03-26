@@ -86,10 +86,19 @@ class Logs
 		return new RegexIterator($flattened, $this->filenameRegex);
 	}
 
-	private function formatTimestamp($timestamp): string
+	/**
+	 * Format timestamp (convert from system to local time zone)
+	 * 
+	 * @param string $timestamp
+	 */
+	private function formatTimestamp(string $timestamp): string
 	{
-		$tz = new DateTimeZone(constant('TIMEZONE'));
-		$date = new DateTime($timestamp . constant('SYSTEM_LOG_TIMEZONE'), $tz);
+		$date = new DateTime(
+			$timestamp, 
+			new DateTimeZone(constant('SYSTEM_LOG_TIMEZONE'))
+		);
+	
+		$date->setTimezone(new DateTimeZone(constant('TIMEZONE')));
 
 		return $date->format('Y-m-d H:i:s');
 	}
