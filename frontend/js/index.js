@@ -375,6 +375,13 @@ for (let i = 0; i < pageButtons.length; i++) {
   })
 }
 
+document.getElementById('page-number').addEventListener('change', function (e) {
+  const viewType = document.getElementById('data-view-type').value
+  const page = Number(e.target.value)
+
+  displayData(filter.getData(viewType), viewType, page)
+})
+
 fetchData()
   .then(response => {
     if (response.status !== 200) {

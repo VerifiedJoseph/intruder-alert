@@ -73,16 +73,32 @@ export class Pagination {
       this.#disableButton('load-last-page')
     }
 
-    const paginationCount = document.getElementById('pagination-count')
-    let displayPageNumber = this.#pageNumber + 1
     let displayPageCount = this.#pageCount + 1
-
     if (displayPageCount === 0) {
-      displayPageNumber = 1
       displayPageCount = 1
     }
 
-    paginationCount.innerText = `Page ${displayPageNumber} of ${displayPageCount} (${Format.Number(this.#totalItems)} total items)`
+    document.getElementById('total-pages').innerText = displayPageCount
+    document.getElementById('total-page-count').innerText = Format.Number(this.#totalItems)
+
+    const select = document.getElementById('page-number')
+    select.innerText = ''
+
+    for (let index = 0; index < displayPageCount; index++) {
+      const option = document.createElement('option')
+      option.value = index
+      option.innerText = index + 1
+
+      select.appendChild(option)
+    }
+
+    select.value = this.#pageNumber
+
+    if (this.#totalItems === 0 || this.#pageCount === 0) {
+      select.disabled = true
+    } else {
+      select.disabled = false
+    }
   }
 
   #updateButton (id, number) {
