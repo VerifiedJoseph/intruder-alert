@@ -384,9 +384,8 @@ document.getElementById('page-number').addEventListener('change', function (e) {
 
 document.getElementById('page-size').addEventListener('change', function (e) {
   const viewType = document.getElementById('data-view-type').value
-  const page = 0
 
-  displayData(filter.getData(viewType), viewType, page)
+  displayData(filter.getData(viewType), viewType, 0)
 })
 
 fetchData()
