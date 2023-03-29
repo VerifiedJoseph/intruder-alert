@@ -33,6 +33,7 @@ class Address extends AbstractList
 				'version' => $ip['version'],
 				'bans' => 1,
 				'country' =>  $ip['country']['code'],
+				'continent' =>  $ip['continent']['code'],
 				'network' => $ip['network']['number'],
 				'subnet' => $ip['network']['subnet'],
 				'events' => [[

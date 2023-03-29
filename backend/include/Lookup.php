@@ -43,14 +43,16 @@ class Lookup
 	static public function country(string $address): array
 	{
 		$data = [
-			'name' => 'Unknown',
-			'code' => 'Unknown'
+			'country' => ['name' => null, 'code' => null],
+			'continent'  => ['name' => null, 'code' => null]
 		];
 
 		try {
 			$record = self::$countryReader->country($address);
-			$data['name'] = (string) $record->country->name;
-			$data['code'] = (string) $record->country->isoCode;
+			$data['country']['name'] = (string) $record->country->name;
+			$data['country']['code'] = (string) $record->country->isoCode;
+			$data['continent']['name'] = (string) $record->continent->names['en'];
+			$data['continent']['code'] = (string) $record->continent->code;
 		} catch (GeoIp2\Exception\AddressNotFoundException) {
 			Output::text('Address not found in GeoIP2 country database: ' . $address);
 		} finally {
