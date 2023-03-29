@@ -29,6 +29,7 @@ export class FilterPanel {
         textValueName = 'name'
         break
       case 'country':
+      case 'continent':
         valueName = 'code'
         textValueName = 'name'
         break

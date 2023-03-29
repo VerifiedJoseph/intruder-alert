@@ -214,6 +214,7 @@ export class Filter {
           jail: event.jail,
           network: ip.network,
           country: ip.country,
+          continent: ip.continent,
           timestamp: event.timestamp
         })
       })
@@ -247,6 +248,7 @@ export class Filter {
       version: 'IP Version',
       network: 'Network',
       country: 'Country',
+      continent: 'Continent',
       jail: 'Jail',
       date: 'Date'
     }
@@ -260,6 +262,11 @@ export class Filter {
     if (type === 'country') {
       const country = this.#details.getCountry(value)
       valueText = country.name
+    }
+
+    if (type === 'continent') {
+      const continent = this.#details.getContinent(value)
+      valueText = continent.name
     }
 
     let actionText = 'is'

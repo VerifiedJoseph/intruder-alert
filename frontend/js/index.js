@@ -20,6 +20,7 @@ const tableHeaders = {
   jail: ['Jail', 'IPs', 'Bans', ''],
   network: ['Network', 'IPs', 'Bans', ''],
   country: ['Country', 'IPs', 'Bans', ''],
+  continent: ['Continent', 'IPs', 'Bans', ''],
   events: ['Date', 'Jail'],
   recentBans: ['Date', 'Address', 'Jail', 'Network', 'Country'],
   date: ['Date', 'IPs', 'Bans', '']
@@ -213,7 +214,7 @@ function createTable (data = [], type, indexStart = 0) {
         ))
       }
 
-      if (type === 'network' || type === 'country') {
+      if (type === 'network' || type === 'country' || type === 'continent') {
         const span = document.createElement('span')
         span.innerText = item.name
         span.setAttribute('title', item.name)
