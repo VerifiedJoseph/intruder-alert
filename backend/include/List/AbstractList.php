@@ -57,6 +57,7 @@ abstract class AbstractList
 				$name = 'address';
 				break;
 			case 'List\Country':
+			case 'List\Continent':
 				$name = 'code';
 				break;
 			case 'List\Jail':

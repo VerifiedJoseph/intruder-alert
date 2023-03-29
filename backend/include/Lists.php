@@ -7,6 +7,7 @@ class Lists
 	private List\Jail $jails;
 	private List\Network $networks;
 	private List\Country $countries;
+	private List\Continent $continents;
 
 	public function __construct()
 	{
@@ -15,6 +16,7 @@ class Lists
 		$this->jails = new List\Jail();
 		$this->networks = new List\Network();
 		$this->countries = new List\Country();
+		$this->continents = new List\Continent();
 	}
 
 	/**
@@ -29,6 +31,7 @@ class Lists
 		$this->jails->addIp($ip);
 		$this->networks->addIp($ip);
 		$this->countries->addIp($ip);
+		$this->continents->addIp($ip);
 	}
 
 	/**
@@ -43,7 +46,8 @@ class Lists
 			'date' => $this->dates->get(),
 			'jail' => $this->jails->get(),
 			'network' => $this->networks->get(),
-			'country' => $this->countries->get()
+			'country' => $this->countries->get(),
+			'continent' => $this->continents->get()
 		];
 	}
 }
