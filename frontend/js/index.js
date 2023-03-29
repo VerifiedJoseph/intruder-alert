@@ -346,7 +346,7 @@ document.getElementById('close-filter-panel').addEventListener('click', function
 })
 
 document.getElementById('filter-type').addEventListener('change', function (e) {
-  filterPanel.setOptions(e.target.value, filter)
+  filterPanel.setFilterValues(e.target.value, filter)
 })
 
 document.getElementById('filter-apply').addEventListener('click', function (e) {
@@ -415,8 +415,6 @@ fetchData()
     display.globalStats()
     display.mostBanned()
     createMostBannedButtons()
-
-    filterPanel.setOptions('address', filter)
 
     displayData(filter.getData('recentBans'), 'recentBans')
   }).catch(error => {

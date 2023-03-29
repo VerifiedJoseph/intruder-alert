@@ -6,10 +6,10 @@ export class FilterPanel {
   }
 
   /**
-   * Set filter select options
+   * Set select options for a filter type
    * @param {string} type Filter type
    */
-  setOptions (type, filter) {
+  setFilterValues (type, filter) {
     const select = document.getElementById('filter-value')
     select.innerText = ''
 
@@ -65,22 +65,6 @@ export class FilterPanel {
   }
 
   /**
-   * Disable select option
-   * @param {string} name
-   */
-  disableOption (name) {
-    document.querySelector(`#filter-type [value="${name}"]`).disabled = true
-  }
-
-  /**
-   * Enable select option
-   * @param {string} name
-   */
-  enableOption (name) {
-    document.querySelector(`#filter-type [value="${name}"]`).disabled = false
-  }
-
-  /**
    * Show filter panel
    */
   show () {
@@ -98,17 +82,44 @@ export class FilterPanel {
 
   setup (filter) {
     const viewType = document.getElementById('data-view-type').value
-
-    document.getElementById('filter-type')[0].selected = true
     document.getElementById('filter-action')[0].selected = true
 
-    this.setOptions('address', filter)
-    this.enableOption('jail')
-    this.enableOption('date')
-
     if (viewType === 'address') {
-      this.disableOption('jail')
-      this.disableOption('date')
+      this.#setSelectedFilter('version')
+      this.setFilterValues('version', filter)
+      this.#disableFilter('address')
+      this.#disableFilter('jail')
+      this.#disableFilter('date')
+    } else {
+      this.#setSelectedFilter('address')
+      this.setFilterValues('address', filter)
+      this.#enableFilter('address')
+      this.#enableFilter('jail')
+      this.#enableFilter('date')
     }
+  }
+
+  /**
+   * Disable a filter type
+   * @param {string} name
+   */
+  #disableFilter (name) {
+    document.querySelector(`#filter-type [value="${name}"]`).disabled = true
+  }
+
+  /**
+   * Enable a filter type
+   * @param {string} name
+   */
+  #enableFilter (name) {
+    document.querySelector(`#filter-type [value="${name}"]`).disabled = false
+  }
+
+  /**
+   * Set selected filter type
+   * @param {string} name
+   */
+  #setSelectedFilter (name) {
+    document.querySelector(`#filter-type [value="${name}"]`).selected = true
   }
 }
