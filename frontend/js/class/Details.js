@@ -27,6 +27,14 @@ export class Details {
     }
   }
 
+  getContinent (code) {
+    for (let i = 0; i < this.data.continent.list.length; i++) {
+      if (this.data.continent.list[i].code === code) {
+        return this.data.continent.list[i]
+      }
+    }
+  }
+
   getJail (name) {
     for (let i = 0; i < this.data.jail.list.length; i++) {
       if (this.data.jail.list[i].name === name) {
