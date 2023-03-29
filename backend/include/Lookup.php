@@ -68,13 +68,15 @@ class Lookup
 	{
 		$data = [
 			'name' => 'Unknown',
-			'number' => 'Unknown'
+			'number' => 'Unknown',
+			'subnet' => 'Unknown'
 		];
 
 		try {
 			$record = self::$networkReader->asn($address);
 			$data['name'] = (string) $record->autonomousSystemOrganization;
 			$data['number'] = (int) $record->autonomousSystemNumber;
+			$data['subnet'] = (string) $record->network;
 		} catch (GeoIp2\Exception\AddressNotFoundException) {
 			Output::text('Address not found in GeoIP2 ASN database: ' . $address);
 		} finally {

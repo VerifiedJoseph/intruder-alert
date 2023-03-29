@@ -34,6 +34,7 @@ class Address extends AbstractList
 				'bans' => 1,
 				'country' =>  $ip['country']['code'],
 				'network' => $ip['network']['number'],
+				'subnet' => $ip['network']['subnet'],
 				'events' => [[
 					'timestamp' => $ip['timestamp'],
 					'jail' => $ip['jail']
