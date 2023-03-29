@@ -78,6 +78,7 @@ final class Cache
             'version' => $ip['version'],
             'network' => $ip['network'],
             'country' => $ip['country'],
+            'continent' => $ip['continent'],
         ];
     }
 
