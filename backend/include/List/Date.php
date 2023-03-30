@@ -4,6 +4,9 @@ namespace List;
 
 class Date extends AbstractList
 {
+	/** @var array<int, string> $ipList  IP addresses for this list */
+	protected array $ipList = [];
+
 	/** @var array<string, boolean|string> $settings */
 	protected array $settings = [
 		'calculateMostBanned' => false,
@@ -25,12 +28,13 @@ class Date extends AbstractList
 				'date' => $date,
 				'bans' => 1,
 				'ipCount' => 1,
-				'ipList' => [$ip['address']]
 			];
+
+			$this->ipList[] = $ip['address'];
 		} else {
 			$this->data['list'][$key]['bans']++;
 
-			if (in_array($ip['address'], $this->data['list'][$key]['ipList']) === false) {
+			if (in_array($ip['address'], $this->ipList) === false) {
 				$this->data['list'][$key]['ipList'][] = $ip['address'];
 				$this->data['list'][$key]['ipCount']++;
 			}

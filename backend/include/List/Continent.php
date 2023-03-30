@@ -10,6 +10,9 @@ class Continent extends AbstractList
 		'list' => []
 	];
 
+	/** @var array<int, string> $ipList  IP addresses for this list */
+	protected array $ipList = [];
+
 	/** @var array<string, boolean|string> $settings */
 	protected array $settings = [
 		'calculateMostBanned' => true,
@@ -33,11 +36,13 @@ class Continent extends AbstractList
 				'ipCount' => 1,
 				'ipList' => [$ip['address']]
 			];
+
+			$this->ipList[] = $ip['address'];
 		} else {
 			$this->data['list'][$key]['bans']++;
 
-			if (in_array($ip['address'], $this->data['list'][$key]['ipList']) === false) {
-				$this->data['list'][$key]['ipList'][] = $ip['address'];
+			if (in_array($ip['address'], $this->ipList) === false) {
+				$this->ipList[] = $ip['address'];
 				$this->data['list'][$key]['ipCount']++;
 			}
 		}

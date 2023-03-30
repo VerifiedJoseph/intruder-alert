@@ -10,6 +10,9 @@ class Jail extends AbstractList
 		'list' => []
 	];
 
+	/** @var array<int, string> $ipList  IP addresses for this list */
+	protected array $ipList = [];
+
 	/** @var array<string, boolean|string> $settings */
 	protected array $settings = [
 		'calculateMostBanned' => true,
@@ -28,15 +31,16 @@ class Jail extends AbstractList
 		if ($key === false) {
 			$this->data['list'][] = [
 				'name' => $ip['jail'],
-				'ipList' => [$ip['address']],
 				'ipCount' => 1,
 				'bans' => 1
 			];
+
+			$this->ipList[] = $ip['address'];
 		} else {
 			$this->data['list'][$key]['bans']++;
 
-			if (in_array($ip['address'], $this->data['list'][$key]['ipList']) === false) {
-				$this->data['list'][$key]['ipList'][] = $ip['address'];
+			if (in_array($ip['address'], $this->ipList) === false) {
+				$this->ipList[] = $ip['address'];
 				$this->data['list'][$key]['ipCount']++;
 			}
 		}
