@@ -89,25 +89,26 @@ export class FilterPanel {
     const viewType = document.getElementById('data-view-type').value
     document.getElementById('filter-action')[0].selected = true
 
-    if (viewType === 'address') {
-      this.#setSelectedFilter('version')
-      this.setFilterValues('version', filter)
+    this.#enableAllFilters()
+
+    if (viewType !== 'recentBans') {
       this.#disableFilter('address')
       this.#disableFilter('jail')
       this.#disableFilter('date')
-    } else if (viewType === 'subnet') {
-      this.#setSelectedFilter('subnet')
-      this.setFilterValues('subnet', filter)
-      this.#disableFilter('address')
-      this.#disableFilter('continent')
-      this.#disableFilter('jail')
-      this.#disableFilter('date')
+
+      if (viewType === 'address') {
+        this.#setSelectedFilter('version')
+        this.setFilterValues('version', filter)
+      }
+
+      if (viewType === 'subnet') {
+        this.#setSelectedFilter('subnet')
+        this.setFilterValues('subnet', filter)
+        this.#disableFilter('continent')
+      }
     } else {
       this.#setSelectedFilter('address')
       this.setFilterValues('address', filter)
-      this.#enableFilter('address')
-      this.#enableFilter('jail')
-      this.#enableFilter('date')
     }
   }
 
@@ -116,7 +117,9 @@ export class FilterPanel {
    * @param {string} name
    */
   #disableFilter (name) {
-    document.querySelector(`#filter-type [value="${name}"]`).disabled = true
+    const element = document.querySelector(`#filter-type [value="${name}"]`)
+    element.hidden = true
+    element.disabled = true
   }
 
   /**
@@ -124,7 +127,21 @@ export class FilterPanel {
    * @param {string} name
    */
   #enableFilter (name) {
-    document.querySelector(`#filter-type [value="${name}"]`).disabled = false
+    const element = document.querySelector(`#filter-type [value="${name}"]`)
+    element.hidden = false
+    element.disabled = false
+  }
+
+  /**
+   * Enable all filter types
+   */
+  #enableAllFilters () {
+    const elements = document.querySelectorAll('#filter-type [value]')
+
+    elements.forEach(element => {
+      element.hidden = false
+      element.disabled = false
+    })
   }
 
   /**
