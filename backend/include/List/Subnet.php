@@ -28,6 +28,7 @@ class Subnet extends AbstractList
 		if ($key === false) {
 			$this->data['list'][] = [
 				'subnet' => $ip['network']['subnet'],
+				'version' => $ip['version'],
 				'network' => $ip['network']['number'],
 				'country' => $ip['country']['code'],
 				'bans' => 1,
