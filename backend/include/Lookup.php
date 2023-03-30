@@ -38,7 +38,7 @@ class Lookup
 	 * Lookup country details for an IP address
 	 * 
 	 * @param string $address IP address
-	 * @return array<string, string>
+	 * @return array<string, array<string, string|null>>
 	 */
 	static public function country(string $address): array
 	{
@@ -49,9 +49,11 @@ class Lookup
 
 		try {
 			$record = self::$countryReader->country($address);
+			$names = (array) $record->continent->names;
+
+			$data['continent']['name'] = $names['en'];
 			$data['country']['name'] = (string) $record->country->name;
 			$data['country']['code'] = (string) $record->country->isoCode;
-			$data['continent']['name'] = (string) $record->continent->names['en'];
 			$data['continent']['code'] = (string) $record->continent->code;
 		} catch (GeoIp2\Exception\AddressNotFoundException) {
 			Output::text('Address not found in GeoIP2 country database: ' . $address);
