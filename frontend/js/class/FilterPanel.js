@@ -24,6 +24,10 @@ export class FilterPanel {
         valueName = 'number'
         textValueName = 'number'
         break
+      case 'subnet':
+        valueName = 'subnet'
+        textValueName = 'subnet'
+        break
       case 'network':
         valueName = 'number'
         textValueName = 'name'
@@ -89,6 +93,13 @@ export class FilterPanel {
       this.#setSelectedFilter('version')
       this.setFilterValues('version', filter)
       this.#disableFilter('address')
+      this.#disableFilter('jail')
+      this.#disableFilter('date')
+    } else if (viewType === 'subnet') {
+      this.#setSelectedFilter('subnet')
+      this.setFilterValues('subnet', filter)
+      this.#disableFilter('address')
+      this.#disableFilter('continent')
       this.#disableFilter('jail')
       this.#disableFilter('date')
     } else {

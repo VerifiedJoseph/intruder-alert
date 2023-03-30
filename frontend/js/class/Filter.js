@@ -25,7 +25,7 @@ export class Filter {
       data = this.#data[listType].list
     }
 
-    if (this.#settings.length > 0 && (listType === 'address' || listType === 'recentBans')) {
+    if (this.#settings.length > 0 && (listType === 'address' || listType === 'recentBans' || listType === 'subnet')) {
       const filtered = []
 
       data.forEach(item => {
@@ -212,6 +212,7 @@ export class Filter {
           address: ip.address,
           version: ip.version,
           jail: event.jail,
+          subnet: ip.subnet,
           network: ip.network,
           country: ip.country,
           continent: ip.continent,
@@ -246,6 +247,7 @@ export class Filter {
     const typeTexts = {
       address: 'IP Address',
       version: 'IP Version',
+      subnet: 'Subnet',
       network: 'Network',
       country: 'Country',
       continent: 'Continent',

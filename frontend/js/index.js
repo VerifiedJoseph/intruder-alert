@@ -19,6 +19,7 @@ const tableHeaders = {
   address: ['Address', 'Network', 'Country', 'Bans', ''],
   jail: ['Jail', 'IPs', 'Bans', ''],
   network: ['Network', 'IPs', 'Bans', ''],
+  subnet: ['Subnet', 'Network', 'Country', 'IPs', 'Bans', ''],
   country: ['Country', 'IPs', 'Bans', ''],
   continent: ['Continent', 'IPs', 'Bans', ''],
   events: ['Date', 'Jail'],
@@ -279,6 +280,39 @@ function createTable (data = [], type, indexStart = 0) {
         ))
       }
 
+      if (type === 'subnet') {
+        const network = details.getNetwork(item.network)
+        const country = details.getCountry(item.country)
+
+        row.addCell(new Cell(item.subnet))
+        row.addCell(new Cell(
+          createCellWithFilter('network', network.number, network.name),
+          'asn',
+          true
+        ))
+        row.addCell(new Cell(
+          createCellWithFilter('country', country.code, country.name),
+          'country',
+          true
+        ))
+        row.addCell(new Cell(Format.Number(item.ipCount)))
+        row.addCell(new Cell(Format.Number(item.bans)))
+
+        const viewButtons = document.createElement('span')
+        viewButtons.appendChild(
+          createViewButton('address', type, item.subnet)
+        )
+        viewButtons.appendChild(
+          createViewButton('recentBans', type, item.subnet)
+        )
+
+        row.addCell(new Cell(
+          viewButtons,
+          'view-btn',
+          true
+        ))
+      }
+
       table.addRow(row)
     })
   } else {
@@ -318,10 +352,17 @@ document.getElementById('data-view-type').addEventListener('change', function (e
 
   const type = e.target.value
 
-  if (type === 'address' || type === 'recentBans') {
+  if (type === 'address' || type === 'recentBans' || type === 'subnet') {
     document.getElementById('open-filter-panel').disabled = false
 
     if (type === 'address') {
+      filter.remove('date')
+      filter.remove('jail')
+    }
+
+    if (type === 'subnet') {
+      filter.remove('address')
+      filter.remove('continent')
       filter.remove('date')
       filter.remove('jail')
     }
