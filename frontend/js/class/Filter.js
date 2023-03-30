@@ -1,6 +1,7 @@
 import { Details } from './Details.js'
 
 export class Filter {
+  #supportedListTypes = ['address', 'recentBans', 'subnet']
   #data = []
   #settings = []
   #details
@@ -25,7 +26,7 @@ export class Filter {
       data = this.#data[listType].list
     }
 
-    if (this.#settings.length > 0 && (listType === 'address' || listType === 'recentBans' || listType === 'subnet')) {
+    if (this.#settings.length > 0 && this.#supportedListTypes.includes(listType) === true) {
       const filtered = []
 
       data.forEach(item => {
