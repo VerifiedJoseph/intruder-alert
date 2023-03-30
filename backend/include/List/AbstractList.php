@@ -66,6 +66,9 @@ abstract class AbstractList
 			case 'List\Network':
 				$name = 'number';
 				break;
+			case 'List\Subnet':
+				$name = 'subnet';
+				break;
 		}
 
 		foreach ($this->data['list'] as $item) {
