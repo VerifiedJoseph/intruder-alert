@@ -4,10 +4,10 @@ namespace List;
 
 class Date extends AbstractList
 {
-	/** @var array<int, string> $ipList  IP addresses for this list */
+	/** {@inheritDoc} */
 	protected array $ipList = [];
 
-	/** @var array<string, boolean|string> $settings */
+	/** {@inheritDoc} */
 	protected array $settings = [
 		'calculateMostBanned' => false,
 		'orderBy' => 'date'

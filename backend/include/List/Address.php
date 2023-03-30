@@ -4,24 +4,20 @@ namespace List;
 
 class Address extends AbstractList
 {
-	/** @var array<string, mixed> $data */
+	/** {@inheritDoc} */
 	protected array $data = [
 		'mostBanned' => '',
 		'totalBans' => 0,
 		'list' => []
 	];
 
-	/** @var array<string, boolean|string> $settings */
+	/** {@inheritDoc} */
 	protected array $settings = [
 		'calculateMostBanned' => true,
 		'orderBy' => 'bans'
 	];
 
-	/**
-	 * Add IP address
-	 * 
-	 * @param array<string, mixed> $ip IP address details
-	 */
+	/** {@inheritDoc} */
 	public function addIp(array $ip): void
 	{
 		$key = array_search($ip['address'], array_column($this->data['list'], 'address'));
