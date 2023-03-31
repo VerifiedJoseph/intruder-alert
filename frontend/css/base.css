@@ -33,18 +33,19 @@ h3 {
 }
 
 #main {
-	margin: 10px auto 10px;
+	margin: 0px auto;
 	width: 1000px;
+	padding: 6px;
 }
 
 .header {
-	padding: 0px 10px 5px;
+	padding: 6px 10px 6px;
 	position: relative;
 }
 
 .header > #dates {
 	position: absolute;
-	top: 0px;
+	top: 6px;
 	right: 10px;
 	margin: 2px;
 }
@@ -86,7 +87,7 @@ input {
 }
 
 table {
-	width: 1000px;
+	width: 100%;
 	background-color: white;
 	border-spacing: 0;
 	border-collapse: collapse;
