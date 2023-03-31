@@ -1,5 +1,5 @@
 # Intruder Alert
-![screenshot](screenshot-2023-03-21.png)
+![screenshot](screenshot.png)
 
 Intruder Alert is an incident dashboard for Fail2ban.
 
