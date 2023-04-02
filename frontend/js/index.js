@@ -16,7 +16,7 @@ let display
 
 let botData = {}
 const tableHeaders = {
-  address: ['Address', 'Network', 'Country', 'Bans', ''],
+  address: ['Address', 'Subnet', 'Network', 'Country', 'Bans', ''],
   jail: ['Jail', 'IPs', 'Bans', ''],
   network: ['Network', 'IPs', 'Bans', ''],
   subnet: ['Subnet', 'Network', 'Country', 'IPs', 'Bans', ''],
@@ -197,6 +197,11 @@ function createTable (data = [], type, indexStart = 0) {
         const country = details.getCountry(item.country)
 
         row.addCell(new Cell(item.address))
+        row.addCell(new Cell(
+          createCellWithFilter('subnet', item.subnet, item.subnet),
+          null,
+          true
+        ))
         row.addCell(new Cell(
           createCellWithFilter('network', network.number, network.name),
           'asn',
