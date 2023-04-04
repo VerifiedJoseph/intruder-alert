@@ -38,13 +38,13 @@ class Lookup
 	 * Lookup country details for an IP address
 	 * 
 	 * @param string $address IP address
-	 * @return array<string, array<string, string|null>>
+	 * @return array<string, array<string, string>>
 	 */
 	static public function country(string $address): array
 	{
 		$data = [
-			'country' => ['name' => null, 'code' => null],
-			'continent'  => ['name' => null, 'code' => null]
+			'country' => ['name' => 'Unknown', 'code' => 'Unknown'],
+			'continent'  => ['name' => 'Unknown', 'code' => 'Unknown']
 		];
 
 		try {
