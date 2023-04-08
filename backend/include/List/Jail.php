@@ -11,9 +11,6 @@ class Jail extends AbstractList
 	];
 
 	/** {@inheritDoc} */
-	protected array $ipList = [];
-
-	/** {@inheritDoc} */
 	protected array $settings = [
 		'calculateMostBanned' => true,
 		'orderBy' => 'bans'

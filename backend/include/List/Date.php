@@ -5,9 +5,6 @@ namespace List;
 class Date extends AbstractList
 {
 	/** {@inheritDoc} */
-	protected array $ipList = [];
-
-	/** {@inheritDoc} */
 	protected array $settings = [
 		'calculateMostBanned' => false,
 		'orderBy' => 'date'
