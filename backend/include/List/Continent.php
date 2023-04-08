@@ -29,8 +29,7 @@ class Continent extends AbstractList
 				'code' => $ip['continent']['code'],
 				'name' => $ip['continent']['name'],
 				'bans' => 1,
-				'ipCount' => 1,
-				'ipList' => [$ip['address']]
+				'ipCount' => 1
 			];
 
 			$this->ipList[] = $ip['address'];
