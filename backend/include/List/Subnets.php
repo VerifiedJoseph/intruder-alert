@@ -2,7 +2,7 @@
 
 namespace List;
 
-class Subnet extends AbstractList
+class Subnets extends AbstractList
 {
 	/** {@inheritDoc} */
 	protected array $data = [

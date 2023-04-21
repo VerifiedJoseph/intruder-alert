@@ -2,7 +2,7 @@
 
 namespace List;
 
-class Address extends AbstractList
+class Addresses extends AbstractList
 {
 	/** {@inheritDoc} */
 	protected array $data = [

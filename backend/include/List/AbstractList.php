@@ -56,20 +56,20 @@ abstract class AbstractList
 		$name = '';
 
 		switch (get_class($this)) {
-			case 'List\Address':
+			case 'List\Addresses':
 				$name = 'address';
 				break;
-			case 'List\Country':
-			case 'List\Continent':
+			case 'List\Countries':
+			case 'List\Continents':
 				$name = 'code';
 				break;
-			case 'List\Jail':
+			case 'List\Jails':
 				$name = 'name';
 				break;
-			case 'List\Network':
+			case 'List\Networks':
 				$name = 'number';
 				break;
-			case 'List\Subnet':
+			case 'List\Subnets':
 				$name = 'subnet';
 				break;
 		}

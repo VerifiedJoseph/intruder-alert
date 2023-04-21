@@ -2,29 +2,31 @@
 
 namespace List;
 
-class Date extends AbstractList
+class Countries extends AbstractList
 {
 	/** {@inheritDoc} */
-	protected array $settings = [
-		'calculateMostBanned' => false,
-		'orderBy' => 'date'
+	protected array $data = [
+		'mostBanned' => '',
+		'list' => []
 	];
 
-	/**
-	 * Add IP address
-	 * 
-	 * @param array<string, mixed> $ip IP address details
-	 */
+	/** {@inheritDoc} */
+	protected array $settings = [
+		'calculateMostBanned' => true,
+		'orderBy' => 'bans'
+	];
+
+	/** {@inheritDoc} */
 	public function addIp(array $ip): void
 	{
-		$date = date('Y-m-d', strtotime($ip['timestamp']));
-		$key = array_search($date, array_column($this->data['list'], 'date'));
-
+		$key = array_search($ip['country']['code'], array_column($this->data['list'], 'code'));
+	
 		if ($key === false) {
 			$this->data['list'][] = [
-				'date' => $date,
+				'code' => $ip['country']['code'],
+				'name' => $ip['country']['name'],
 				'bans' => 1,
-				'ipCount' => 1,
+				'ipCount' => 1
 			];
 
 			$this->ipList[] = $ip['address'];

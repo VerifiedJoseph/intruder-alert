@@ -2,7 +2,7 @@
 
 namespace List;
 
-class Continent extends AbstractList
+class Jails extends AbstractList
 {
 	/** {@inheritDoc} */
 	protected array $data = [
@@ -19,14 +19,13 @@ class Continent extends AbstractList
 	/** {@inheritDoc} */
 	public function addIp(array $ip): void
 	{
-		$key = array_search($ip['continent']['code'], array_column($this->data['list'], 'code'));
-	
+		$key = array_search($ip['jail'], array_column($this->data['list'], 'name'));
+
 		if ($key === false) {
 			$this->data['list'][] = [
-				'code' => $ip['continent']['code'],
-				'name' => $ip['continent']['name'],
-				'bans' => 1,
-				'ipCount' => 1
+				'name' => $ip['jail'],
+				'ipCount' => 1,
+				'bans' => 1
 			];
 
 			$this->ipList[] = $ip['address'];

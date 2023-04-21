@@ -2,23 +2,23 @@
 
 class Lists
 {
-	private List\Address $addresses;
-	private List\Date $dates;
-	private List\Jail $jails;
-	private List\Network $networks;
-	private List\Subnet $subnets;
-	private List\Country $countries;
-	private List\Continent $continents;
+	private List\Addresses $addresses;
+	private List\Dates $dates;
+	private List\Jails $jails;
+	private List\Networks $networks;
+	private List\Subnets $subnets;
+	private List\Countries $countries;
+	private List\Continents $continents;
 
 	public function __construct()
 	{
-		$this->addresses = new List\Address();
-		$this->dates = new List\Date();
-		$this->jails = new List\Jail();
-		$this->networks = new List\Network();
-		$this->subnets = new List\Subnet();
-		$this->countries = new List\Country();
-		$this->continents = new List\Continent();
+		$this->addresses = new List\Addresses();
+		$this->dates = new List\Dates();
+		$this->jails = new List\Jails();
+		$this->networks = new List\Networks();
+		$this->subnets = new List\Subnets();
+		$this->countries = new List\Countries();
+		$this->continents = new List\Continents();
 	}
 
 	/**
