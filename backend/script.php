@@ -6,11 +6,6 @@ use Exception\AppException;
 
 require 'vendor/autoload.php';
 
-if (php_sapi_name() !== 'cli') {
-    Output::text('Intruder Alert script must be run via the command-line.');
-    die();
-}
-
 try {
     Config::check();
     Lookup::setNetworkDB(constant('ASN_DATABASE'));

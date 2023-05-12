@@ -9,6 +9,10 @@ class Config
      */
     public static function check(): void
     {
+        if (php_sapi_name() !== 'cli') {
+            throw new ConfigException('Intruder Alert script must be run via the command-line.');
+        }
+
         if (file_exists('config.php') === false) {
             throw new ConfigException('config file not found (../config.php)');
         }
