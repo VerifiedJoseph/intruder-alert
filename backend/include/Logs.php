@@ -41,7 +41,7 @@ class Logs
         $rows = [];
 
         foreach($this->getFiles($this->path) as $file) {
-            Output::text($file->getPathname());
+            Output::text('Parsing ' . $file->getPathname());
 
             if (is_readable($file->getPathname()) === false) {
                 throw new AppException('Failed to read file ' . $file->getPathname());
@@ -53,10 +53,16 @@ class Logs
                 $contents = (string) gzdecode($contents);
             }
 
-            foreach (explode("\n", $contents) as $line) {
+            $lines = explode("\n", $contents);
+            $lineCount = count($lines);
+            $banCount = 0;
+
+            foreach ($lines as $line) {
                 preg_match($this->lineRegex, $line, $match);
 
                 if ($match != []) {
+                    $banCount +=1;
+
                     $rows[] = [
                         'ip' => $match[3],
                         'jail' => $match[2],
@@ -64,11 +70,18 @@ class Logs
                     ];
                 }
             }
+
+            Output::text(
+                'Scanned '. number_format($lineCount) .' lines and found ' .
+                number_format($banCount) . ' bans in ' . $file->getPathname()
+            );
         }
 
         if (count($rows) === 0) {
-            throw new ReportException('No ban events found');
+            throw new ReportException('No bans found');
         }
+
+        Output::text('Found ' . number_format(count($rows)) . ' bans in all files.');
 
         return $rows;
     }
