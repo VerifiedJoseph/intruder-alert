@@ -2,6 +2,7 @@
 
 use Helper\File;
 use Helper\Json;
+use Helper\Output;
 
 /**
  * Class for generating the report JSON
@@ -34,6 +35,8 @@ class Report
             './data/data.json',
             Json::encode($data)
         );
+
+        Output::text('Created report JSON file (/data/data.json)');
     }
 
     /**
