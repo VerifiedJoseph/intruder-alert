@@ -51,10 +51,12 @@ class Lookup
             $record = self::$countryReader->country($address);
             $names = (array) $record->continent->names;
 
-            $data['continent']['name'] = $names['en'];
-            $data['country']['name'] = (string) $record->country->name;
-            $data['country']['code'] = (string) $record->country->isoCode;
-            $data['continent']['code'] = (string) $record->continent->code;
+            if ((string) $record->country->name !== '') {
+                $data['continent']['name'] = $names['en'];
+                $data['country']['name'] = (string) $record->country->name;
+                $data['country']['code'] = (string) $record->country->isoCode;
+                $data['continent']['code'] = (string) $record->continent->code;
+            }
         } catch (GeoIp2\Exception\AddressNotFoundException) {
             Output::text('Address not found in GeoIP2 country database: ' . $address);
         } finally {
