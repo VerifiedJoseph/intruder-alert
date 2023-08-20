@@ -7,7 +7,9 @@ use Exception\AppException;
 require 'vendor/autoload.php';
 
 try {
+    Config::setDir(__DIR__);
     Config::check();
+
     Lookup::setNetworkDB(constant('ASN_DATABASE'));
     Lookup::setCountryDB(constant('COUNTRY_DATABASE'));
 

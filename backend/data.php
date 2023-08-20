@@ -8,6 +8,8 @@ require 'vendor/autoload.php';
 $data = '';
 
 try {
+    Config::setDir(__DIR__);
+
 	$app = new App();
 	$data = $app->getJsonReport();
 

@@ -10,10 +10,10 @@ class App
     private Lists $lists;
 
     /** @var string $dataFilepath Report data filepath */
-    private string $dataFilepath = './data/data.json';
+    private string $dataFilepath = 'data/data.json';
 
     /** @var string $cacheFilepath Cache filepath */
-    private string $cacheFilepath = './data/cache.json';
+    private string $cacheFilepath = 'data/cache.json';
 
     public function __construct()
     {
@@ -38,14 +38,16 @@ class App
      */
     public function getJsonReport(): string
     {
-        if (File::exists($this->dataFilepath) === false) {
+        $path = Config::getPath($this->dataFilepath);
+
+        if (File::exists($path) === false) {
             return Json::encode([
                 'error' => true,
                 'message' => 'No data. Is the backend script setup?'
             ]);
         }
 
-        return File::read($this->dataFilepath);
+        return File::read($path);
     }
 
     /**
@@ -54,7 +56,9 @@ class App
     private function processLogs(): void
     {
         $logs = new Logs(constant('LOG_FOLDER'));
-        $cache = new Cache($this->cacheFilepath);
+        $cache = new Cache(
+            Config::getPath($this->cacheFilepath)
+        );
 
         foreach ($logs->process() as $line) {
             if ($cache->hasItem($line['ip']) === true) {
@@ -99,7 +103,7 @@ class App
         ];
 
         File::write(
-            $this->dataFilepath,
+            Config::getPath($this->dataFilepath),
             Json::encode($data)
         );
     }

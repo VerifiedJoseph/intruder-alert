@@ -4,6 +4,28 @@ use Exception\ConfigException;
 
 class Config
 {
+    private static $path;
+
+    /**
+     * Set backend directory
+     * 
+     * @vsr string $path
+     */
+    public static function setDir(string $path): void
+    {
+        self::$path = $path . DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * Set file path
+     * 
+     * @vsr string $file
+     */
+    public static function getPath(string $file = ''): string
+    {
+        return self::$path . $file;
+    }
+
     /**
      * Check config
      */
@@ -13,8 +35,8 @@ class Config
             throw new ConfigException('Intruder Alert script must be run via the command-line.');
         }
 
-        if (file_exists('config.php') === false) {
-            throw new ConfigException('config file not found (../config.php)');
+        if (file_exists(self::getPath('config.php')) === false) {
+           throw new ConfigException('config file not found: ' . self::getPath('config.php'));
         }
 
         require 'config.php';

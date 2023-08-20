@@ -32,11 +32,11 @@ class Report
         $data['dataSince'] = $this->getDataSinceDate();
 
         File::write(
-            './data/data.json',
+            Config::getPath('data/data.json'),
             Json::encode($data)
         );
 
-        Output::text('Created report JSON file (/data/data.json)');
+        Output::text('Created report JSON file: ' . Config::getPath('data/data.json'));
     }
 
     /**
