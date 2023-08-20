@@ -55,7 +55,7 @@ class App
      */
     private function processLogs(): void
     {
-        $logs = new Logs(constant('LOG_FOLDER'));
+        $logs = new Logs(Config::getLogFolder());
         $cache = new Cache(
             Config::getPath($this->cacheFilepath)
         );

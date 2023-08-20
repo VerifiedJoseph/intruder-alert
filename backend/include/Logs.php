@@ -108,10 +108,10 @@ class Logs
     {
         $date = new DateTime(
             $timestamp, 
-            new DateTimeZone(constant('SYSTEM_LOG_TIMEZONE'))
+            new DateTimeZone(Config::getSystemLogTimezone())
         );
     
-        $date->setTimezone(new DateTimeZone(constant('TIMEZONE')));
+        $date->setTimezone(new DateTimeZone(Config::getTimezone()));
 
         return $date->format('Y-m-d H:i:s');
     }

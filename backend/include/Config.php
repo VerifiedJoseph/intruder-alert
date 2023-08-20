@@ -4,7 +4,7 @@ use Exception\ConfigException;
 
 class Config
 {
-    private static $path;
+    private static string $path;
 
     /**
      * Set backend directory
@@ -24,6 +24,31 @@ class Config
     public static function getPath(string $file = ''): string
     {
         return self::$path . $file;
+    }
+
+    public static function getLogFolder(): string
+    {
+        return constant('LOG_FOLDER');
+    }
+
+    public static function getAsnDatabasePath(): string
+    {
+        return constant('ASN_DATABASE');
+    }
+
+    public static function getCountryDatabasePath(): string
+    {
+        return constant('ASN_DATABASE');
+    }
+
+    public static function getTimezone(): string
+    {
+        return constant('TIMEZONE');
+    }
+
+    public static function getSystemLogTimezone(): string
+    {
+        return constant('SYSTEM_LOG_TIMEZONE');
     }
 
     /**

@@ -10,8 +10,8 @@ try {
     Config::setDir(__DIR__);
     Config::check();
 
-    Lookup::setNetworkDB(constant('ASN_DATABASE'));
-    Lookup::setCountryDB(constant('COUNTRY_DATABASE'));
+    Lookup::setNetworkDB(Config::getAsnDatabasePath());
+    Lookup::setCountryDB(Config::getCountryDatabasePath());
 
     $app = new App();
     $app->run();
