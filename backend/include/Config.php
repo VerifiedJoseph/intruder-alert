@@ -17,7 +17,7 @@ class Config
     }
 
     /**
-     * Set file path
+     * Get absolute path of a file
      * 
      * @vsr string $file
      */
