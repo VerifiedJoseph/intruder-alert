@@ -3,7 +3,7 @@
 use Helper\File;
 use Helper\Json;
 use Exception\ReportException;
-use Helper\Logger;
+use Helper\Output;
 
 class App
 {
@@ -83,7 +83,7 @@ class App
 
         $cache->save();
         $timer->stop();
-        Logger::addEntry(sprintf('Time taken: %ss', $timer->getTime()));
+        Output::text(sprintf('Time taken: %ss', $timer->getTime()), log: true);
     }
 
     /**
