@@ -3,6 +3,7 @@
 use Helper\File;
 use Helper\Json;
 use Exception\ReportException;
+use Helper\Logger;
 
 class App
 {
@@ -55,6 +56,9 @@ class App
      */
     private function processLogs(): void
     {
+        $timer = new Timer();
+        $timer->start();
+
         $logs = new Logs(Config::getLogFolder());
         $cache = new Cache(
             Config::getPath($this->cacheFilepath)
@@ -78,6 +82,8 @@ class App
         }
 
         $cache->save();
+        $timer->stop();
+        Logger::addEntry(sprintf('Time taken: %ss', $timer->getTime()));
     }
 
     /**

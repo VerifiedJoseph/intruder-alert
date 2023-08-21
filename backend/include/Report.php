@@ -32,6 +32,7 @@ class Report
         $data['updated'] = date('Y-m-d H:i:s');
         $data['dataSince'] = $this->getDataSinceDate();
         $data['log'] = Logger::getEntries();
+        $data['log'][] = 'Last run: ' . $data['updated'];
 
         File::write(
             Config::getPath('data/data.json'),
