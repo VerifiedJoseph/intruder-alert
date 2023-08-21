@@ -38,7 +38,7 @@ class Config
 
     public static function getCountryDatabasePath(): string
     {
-        return constant('ASN_DATABASE');
+        return constant('COUNTRY_DATABASE');
     }
 
     public static function getTimezone(): string
