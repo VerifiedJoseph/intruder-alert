@@ -6,6 +6,11 @@ use Helper\Json;
 final class Cache
 {
     /**
+     * @var int $lifetime Number of hours to cache data in seconds.
+     */
+    private int $lifetime = 43200;
+
+    /**
      * @var string $path Cache folder path
      */
     private string $path = './data/cache.json';
@@ -87,7 +92,7 @@ final class Cache
      */
     public function save(): void
     {
-        $this->data['expires'] = time() + 21600;
+        $this->data['expires'] = time() + $this->lifetime;
 
 		File::write(
 			'./data/cache.json',
