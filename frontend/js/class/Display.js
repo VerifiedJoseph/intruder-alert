@@ -50,4 +50,17 @@ export class Display {
     document.getElementById('most-activated-jail-count').innerText = Format.Number(jail.bans)
     document.getElementById('most-banned').classList.remove('hide')
   }
+
+  daemonLog () {
+    const div = document.getElementById('log-entries')
+
+    this.#data.log.forEach(item => {
+      const entry = document.createElement('p')
+      entry.innerText = item
+
+      div.appendChild(entry)
+    })
+
+    document.getElementById('log').classList.remove('hide')
+  }
 }

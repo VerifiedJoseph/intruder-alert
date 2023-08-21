@@ -366,3 +366,14 @@ table td.no-data {
 	width: 30px;
 	margin-left: 4px;
 }
+
+#log {
+	background-color: white;
+	padding: 10px;
+	margin-top: 6px;
+	border-bottom: 1px solid #8f8f9d;
+}
+
+#log-entries {
+	margin: 0;
+}

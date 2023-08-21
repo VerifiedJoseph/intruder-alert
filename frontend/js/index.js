@@ -461,6 +461,8 @@ fetchData()
     display.headerDates()
     display.globalStats()
     display.mostBanned()
+    display.daemonLog()
+
     createMostBannedButtons()
 
     displayData(filter.getData('recentBans'), 'recentBans')
