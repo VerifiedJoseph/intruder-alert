@@ -29,11 +29,16 @@ final class Output
      * Display text in terminal
      *
      * @param string $text Text string to display
+     * @param bool $log Add message to logger
      */
-    public static function text(string $text = ''): void
+    public static function text(string $text = '', bool $log = false): void
     {
         if (self::$quiet === false) {
             echo $text . "\n";
+        }
+
+        if ($log === true) {
+            Logger::addEntry($text);
         }
     }
 

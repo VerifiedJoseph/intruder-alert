@@ -2,6 +2,7 @@
 
 use Helper\File;
 use Helper\Json;
+use Helper\Logger;
 use Helper\Output;
 
 /**
@@ -30,6 +31,7 @@ class Report
         $data['stats'] =  $this->createStats();
         $data['updated'] = date('Y-m-d H:i:s');
         $data['dataSince'] = $this->getDataSinceDate();
+        $data['log'] = Logger::getEntries();
 
         File::write(
             Config::getPath('data/data.json'),

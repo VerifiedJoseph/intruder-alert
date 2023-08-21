@@ -41,7 +41,7 @@ class Logs
         $rows = [];
 
         foreach($this->getFiles($this->path) as $file) {
-            Output::text('Parsing ' . $file->getPathname());
+            Output::text('Parsing ' . $file->getPathname(), log: true);
 
             if (is_readable($file->getPathname()) === false) {
                 throw new AppException('Failed to read file ' . $file->getPathname());
@@ -71,17 +71,22 @@ class Logs
                 }
             }
 
-            Output::text(
-                'Scanned '. number_format($lineCount) .' lines and found ' .
-                number_format($banCount) . ' bans in ' . $file->getPathname()
+            $message = sprintf(
+                'Scanned %s lines and found %s bans in %s',
+                number_format($lineCount),
+                number_format($banCount),
+                $file->getPathname()
             );
+
+            Output::text($message, log: true);
         }
 
         if (count($rows) === 0) {
             throw new ReportException('No bans found');
         }
 
-        Output::text('Found ' . number_format(count($rows)) . ' bans in all files.');
+        $totalBans = number_format(count($rows));
+        Output::text(sprintf('Found %s bans in all files.', $totalBans), log: true);
 
         return $rows;
     }
