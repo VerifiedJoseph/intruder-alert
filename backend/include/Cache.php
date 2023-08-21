@@ -54,7 +54,7 @@ final class Cache
     }
 
     /**
-     * Check cache has item
+     * Check cache for IP address
      * 
      * @param string $ipAddress IP address
      */
