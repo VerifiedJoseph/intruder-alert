@@ -47,9 +47,7 @@ final class Cache
     public function getItem(string $ipAddress): array
     {
         if ($this->hasItem($ipAddress) === true) {
-            $key = array_search($ipAddress, array_column($this->data['items'], 'address'));
-
-            return $this->data['items'][$key];
+            return $this->data['items'][$ipAddress];
         }
 
         return [];
@@ -62,9 +60,7 @@ final class Cache
      */
     public function hasItem(string $ipAddress): bool
     {
-        $key = array_search($ipAddress, array_column($this->data['items'], 'address'));
-
-        if ($key !== false) {
+        if (array_key_exists($ipAddress, $this->data['items']) === true) {
             return true;
         }
 
@@ -78,7 +74,7 @@ final class Cache
      */
     public function addItem(array $ip): void
     {
-        $this->data['items'][] = [
+        $this->data['items'][$ip['address']] = [
             'address' => $ip['address'],
             'version' => $ip['version'],
             'network' => $ip['network'],
