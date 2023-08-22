@@ -28,7 +28,7 @@ const tableHeaders = {
 }
 
 function fetchData () {
-  return fetch('../backend/data.php')
+  return fetch('backend/data.php')
 }
 
 function displayData (data, type, pageNumber = 0) {
