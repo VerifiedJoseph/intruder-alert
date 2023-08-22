@@ -19,18 +19,6 @@ class Logs
     /** @var string $lineRegex Log line regex */
     private $lineRegex = '/([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}),[0-9]+ fail2ban\.actions[\s]+\[[0-9]+]: [A-Z]+[\s]+\[([\w]+)] Ban ([0-9a-z.:]+)/';
 
-    /** @var string $path Log folder path */
-    private string $path = '';
-
-    /**
-     * 
-     * @param string $path Log folder path
-     */
-    public function __construct(string $path)
-    {
-        $this->path = $path;
-    }
-
     /**
      * Process logs
      * 
@@ -40,7 +28,7 @@ class Logs
     {
         $rows = [];
 
-        foreach($this->getFiles($this->path) as $file) {
+        foreach($this->getFiles() as $file) {
             $timer = new Timer();
             $timer->start();
 
@@ -98,15 +86,25 @@ class Logs
     }
 
     /**
-     * Get RegexIterator of logs file
+     * Get logs file
      * 
-     * @param string $path Log folder path
+     * @return RegexIterator|array<int, SplFileInfo>
      */
-    private function getFiles(string $path): RegexIterator
+    private function getFiles(): RegexIterator|array
     {
-        $directory = new RecursiveDirectoryIterator($path);
-        $flattened = new RecursiveIteratorIterator($directory);
+        if (Config::getLogPaths() !== '') {
+            $paths = array_unique(explode(',', Config::getLogPaths()));
+            $files = [];
 
+            foreach ($paths as $path) {
+                $files[] = new SplFileInfo($path);
+            }
+
+            return $files;
+        }
+
+        $directory = new RecursiveDirectoryIterator(Config::getLogFolder());
+        $flattened = new RecursiveIteratorIterator($directory);
         return new RegexIterator($flattened, $this->filenameRegex);
     }
 

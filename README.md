@@ -25,7 +25,8 @@ Alternatively, you can use `backend/config.php` (copied from [`backend/config.ex
 
 | Name                     | Description                                                                   |
 | ------------------------ | ----------------------------------------------------------------------------- |
-| `IA_LOG_FOLDER`          | Path of the Fail2ban logs folder.                                             |
+| `IA_LOG_PATHS`           | Comma separated list of Fail2ban log files.                                   |
+| `IA_LOG_FOLDER`          | Path of the Fail2ban logs folder. Ignored if `IA_LOG_PATHS` is set            |
 | `IA_ASN_DATABASE`        | Path of the GeoLite2 ASN database file.                                       |
 | `IA_COUNTRY_DATABASE`    | Path of the GeoLite2 Country database file.                                   |
 | `IA_TIMEZONE`            | Timezone (optional) ([php docs](https://www.php.net/manual/en/timezones.php)) |
