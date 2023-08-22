@@ -59,7 +59,7 @@ class App
         $timer = new Timer();
         $timer->start();
 
-        $logs = new Logs(Config::getLogFolder());
+        $logs = new Logs();
         $cache = new Cache(
             Config::getPath($this->cacheFilepath)
         );
