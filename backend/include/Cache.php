@@ -13,7 +13,7 @@ final class Cache
     /**
      * @var string $path Cache folder path
      */
-    private string $path = './data/cache.json';
+    private string $path = '';
 
     /**
      * @var array<string, mixed> $data Data from cache file
@@ -91,7 +91,7 @@ final class Cache
         $this->data['expires'] = time() + $this->lifetime;
 
 		File::write(
-			'./data/cache.json',
+			$this->getPath(),
 			Json::encode($this->data)
 		);
     }
