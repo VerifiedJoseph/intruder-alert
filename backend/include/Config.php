@@ -6,6 +6,8 @@ class Config
 {
     private static string $path;
 
+    private static string $envPrefix = 'IA_';
+
     /**
      * Set backend directory
      * 
@@ -28,27 +30,27 @@ class Config
 
     public static function getLogFolder(): string
     {
-        return constant('LOG_FOLDER');
+        return self::getEnv('LOG_FOLDER');
     }
 
     public static function getAsnDatabasePath(): string
     {
-        return constant('ASN_DATABASE');
+        return self::getEnv('ASN_DATABASE');
     }
 
     public static function getCountryDatabasePath(): string
     {
-        return constant('COUNTRY_DATABASE');
+        return self::getEnv('COUNTRY_DATABASE');
     }
 
     public static function getTimezone(): string
     {
-        return constant('TIMEZONE');
+        return self::getEnv('TIMEZONE');
     }
 
     public static function getSystemLogTimezone(): string
     {
-        return constant('SYSTEM_LOG_TIMEZONE');
+        return self::getEnv('SYSTEM_LOG_TIMEZONE');
     }
 
     /**
@@ -60,11 +62,9 @@ class Config
             throw new ConfigException('Intruder Alert script must be run via the command-line.');
         }
 
-        if (file_exists(self::getPath('config.php')) === false) {
-           throw new ConfigException('config file not found: ' . self::getPath('config.php'));
+        if (file_exists(self::getPath('config.php')) === true) {
+            require self::getPath('config.php');
         }
-
-        require 'config.php';
 
         self::checkLogFolder();
         self::checkDatabases();
@@ -73,47 +73,47 @@ class Config
 
     private static function checkLogFolder(): void
     {
-        if (defined('LOG_FOLDER') === false || constant('LOG_FOLDER') === '') {
+        if (self::hasEnv('LOG_FOLDER') === false || self::getEnv('LOG_FOLDER') === '') {
             throw new ConfigException('fail2ban log folder must be set [LOG_FOLDER]');
         }
 
-        if (file_exists(constant('LOG_FOLDER')) === false) {
+        if (file_exists(self::getEnv('LOG_FOLDER')) === false) {
             throw new ConfigException('fail2ban log folder does not exist [LOG_FOLDER]');
         }
 
-        if (is_readable(constant('LOG_FOLDER')) === false) {
+        if (is_readable(self::getEnv('LOG_FOLDER')) === false) {
             throw new ConfigException('fail2ban log folder is not readable [LOG_FOLDER]');
         }
     }
 
     private static function checkDatabases(): void
     {
-        if (defined('ASN_DATABASE') === false || constant('ASN_DATABASE') === '') {
+        if (self::hasEnv('ASN_DATABASE') === false || self::getEnv('ASN_DATABASE') === '') {
             throw new ConfigException('GeoLite2 ASN database path must be set [ASN_DATABASE]');
         }
 
-        if (defined('COUNTRY_DATABASE') === false || constant('COUNTRY_DATABASE') === '') {
+        if (self::hasEnv('COUNTRY_DATABASE') === false || self::getEnv('COUNTRY_DATABASE') === '') {
             throw new ConfigException('GeoLite2 Country database path must be set [COUNTRY_DATABASE]');
         }
 
-        if (file_exists(constant('ASN_DATABASE')) === false) {
+        if (file_exists(self::getEnv('ASN_DATABASE')) === false) {
             throw new ConfigException('GeoLite2 ASN database not found [ASN_DATABASE]');
         }
 
-        if (file_exists(constant('COUNTRY_DATABASE')) === false) {
+        if (file_exists(self::getEnv('COUNTRY_DATABASE')) === false) {
             throw new ConfigException('GeoLite2 Country database not found [COUNTRY_DATABASE]');
         }
 
-        if (is_readable(constant('ASN_DATABASE')) === false) {
+        if (is_readable(self::getEnv('ASN_DATABASE')) === false) {
             throw new ConfigException('GeoLite2 ASN database is not readable [ASN_DATABASE]');
         }
     
-        if (is_readable(constant('COUNTRY_DATABASE')) === false) {
+        if (is_readable(self::getEnv('COUNTRY_DATABASE')) === false) {
             throw new ConfigException('GeoLite2 Country database is not readable [COUNTRY_DATABASE]');
         }
 
-        self::checkDatabaseIsValid(constant('ASN_DATABASE'));
-        self::checkDatabaseIsValid(constant('COUNTRY_DATABASE'));
+        self::checkDatabaseIsValid(self::getEnv('ASN_DATABASE'));
+        self::checkDatabaseIsValid(self::getEnv('COUNTRY_DATABASE'));
     }
 
     static private function checkDatabaseIsValid(string $path): void
@@ -127,28 +127,63 @@ class Config
 
     static private function checkTimeZones(): void
     {
-        if (defined('TIMEZONE') === true) {
-            if (constant('TIMEZONE') === '') {
+        if (self::hasEnv('TIMEZONE') === true) {
+            if (self::getEnv('TIMEZONE') === '') {
                 throw new ConfigException('Time zone can not be empty [TIMEZONE]');
             }
 
-            if (in_array(constant('TIMEZONE'), DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === false) {
+            if (in_array(self::getEnv('TIMEZONE'), DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === false) {
                 throw new ConfigException('Unknown time zone given [TIMEZONE]');
             }
 
-            date_default_timezone_set(constant('TIMEZONE'));
+            date_default_timezone_set(self::getEnv('TIMEZONE'));
         }
 
-        if (defined('SYSTEM_LOG_TIMEZONE') === true ) {
-            if (constant('SYSTEM_LOG_TIMEZONE') === '') {
+        if (self::hasEnv('SYSTEM_LOG_TIMEZONE') === true ) {
+            if (self::getEnv('SYSTEM_LOG_TIMEZONE') === '') {
                 throw new ConfigException('Time zone can not be empty [SYSTEM_LOG_TIMEZONE]');
             }
 
-            if (in_array(constant('SYSTEM_LOG_TIMEZONE'), DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === false) {
+            if (in_array(self::getEnv('SYSTEM_LOG_TIMEZONE'), DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === false) {
                 throw new ConfigException('Unknown time zone given [SYSTEM_LOG_TIMEZONE]');
             }
         } else {
-            define('SYSTEM_LOG_TIMEZONE', 'UTC');
+            self::setEnv('SYSTEM_LOG_TIMEZONE', 'UTC');
         }
+    }
+
+    /**
+     * Check for an environment variable
+     * 
+     * @var string $name Variable name excluding prefix
+     */
+    static private function hasEnv(string $name): bool
+    {
+        if (getenv(self::$envPrefix . $name) === false) {
+            return false;
+        }
+
+       return true;
+    }
+
+    /**
+     * Get an environment variable
+     * 
+     * @var string $name Variable name excluding prefix
+     */
+    static private function getEnv(string $name)
+    {
+       return getenv(self::$envPrefix . $name);
+    }
+
+    /**
+     * Set an environment variable
+     * 
+     * @var string $name Variable name excluding prefix
+     * @var string $value Variable value
+     */
+    static private function setEnv(string $name, string $value): void
+    {
+        putenv(sprintf('%s%s=%s', self::$envPrefix, $name, $value));
     }
 }

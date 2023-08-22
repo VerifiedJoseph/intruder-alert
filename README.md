@@ -29,15 +29,17 @@ composer install --no-dev
 
 ## Configuration
 
-Use ` backend/config.php` (copied from [`backend/config.example.php`](backend/config.example.php)) to set the configuration.
+The preferred method to adjust the configuration is with environment variables.
 
-| Name                  | Description                                                                   |
-| --------------------- | ----------------------------------------------------------------------------- |
-| `LOG_FOLDER`          | Path of the Fail2ban logs folder.                                             |
-| `ASN_DATABASE`        | Path of the GeoLite2 ASN database file.                                       |
-| `COUNTRY_DATABASE`    | Path of the GeoLite2 Country database file.                                   |
-| `TIMEZONE`            | Timezone (optional) ([php docs](https://www.php.net/manual/en/timezones.php)) |
-| `SYSTEM_LOG_TIMEZONE` | Timezone of fail2ban logs (optional, default is UTC)                          |
+Alternatively, you can use `backend/config.php` (copied from [`backend/config.example.php`](backend/config.example.php)) to set the variables.
+
+| Name                     | Description                                                                   |
+| ------------------------ | ----------------------------------------------------------------------------- |
+| `IA_LOG_FOLDER`          | Path of the Fail2ban logs folder.                                             |
+| `IA_ASN_DATABASE`        | Path of the GeoLite2 ASN database file.                                       |
+| `IA_COUNTRY_DATABASE`    | Path of the GeoLite2 Country database file.                                   |
+| `IA_TIMEZONE`            | Timezone (optional) ([php docs](https://www.php.net/manual/en/timezones.php)) |
+| `IA_SYSTEM_LOG_TIMEZONE` | Timezone of fail2ban logs (optional, default is UTC)                          |
 
 GeoLite2 databases can be [downloaded](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data?lang=en) from MaxMind.
 
