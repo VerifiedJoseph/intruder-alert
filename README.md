@@ -39,7 +39,7 @@ The backend script `backend\script.php` is designed to be used with a task sched
 
 Cron example:
 
-`1 * * * * cd intruder-alert/backend && php script.php > /dev/null 2>&1`
+`1 * * * * php path/to/intruder-alert/backend/script.php`
 
 ## Dependencies
 - [`geoip2/geoip2`](https://github.com/maxmind/GeoIP2-php)
