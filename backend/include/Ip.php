@@ -1,8 +1,6 @@
 <?php
 
-use Helper\Misc;
-
-class Ip 
+class Ip
 {
     /** @var array<string, mixed> $data IP address details */
     private array $data = [];
