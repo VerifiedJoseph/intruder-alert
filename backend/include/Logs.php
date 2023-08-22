@@ -87,6 +87,8 @@ class Logs
 
     /**
      * Get logs file
+     * 
+     * @return RegexIterator|array<int, SplFileInfo>
      */
     private function getFiles(): RegexIterator|array
     {
@@ -101,12 +103,9 @@ class Logs
             return $files;
         }
 
-        if (Config::getLogFolder() !== '') {
-            $directory = new RecursiveDirectoryIterator(Config::getLogFolder());
-            $flattened = new RecursiveIteratorIterator($directory);
-    
-            return new RegexIterator($flattened, $this->filenameRegex);
-        }
+        $directory = new RecursiveDirectoryIterator(Config::getLogFolder());
+        $flattened = new RecursiveIteratorIterator($directory);
+        return new RegexIterator($flattened, $this->filenameRegex);
     }
 
     /**
