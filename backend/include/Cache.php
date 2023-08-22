@@ -90,10 +90,10 @@ final class Cache
     {
         $this->data['expires'] = time() + $this->lifetime;
 
-		File::write(
-			$this->getPath(),
-			Json::encode($this->data)
-		);
+        File::write(
+            $this->getPath(),
+            Json::encode($this->data)
+        );
     }
 
     /**
