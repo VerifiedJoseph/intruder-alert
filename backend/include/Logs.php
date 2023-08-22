@@ -10,6 +10,9 @@ use Exception\ReportException;
  */
 class Logs
 {
+    /** @var Config $config */
+    private Config $config;
+
     /** @var string $filenameRegex Log filename regex */
     private $filenameRegex = '/fail2ban\.log/';
 
@@ -18,6 +21,11 @@ class Logs
 
     /** @var string $lineRegex Log line regex */
     private $lineRegex = '/([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}),[0-9]+ fail2ban\.actions[\s]+\[[0-9]+]: [A-Z]+[\s]+\[([\w]+)] Ban ([0-9a-z.:]+)/';
+
+    public function __construct(Config $config)
+    {
+        $this->config = $config;
+    }
 
     /**
      * Process logs
@@ -92,8 +100,8 @@ class Logs
      */
     private function getFiles(): RegexIterator|array
     {
-        if (Config::getLogPaths() !== '') {
-            $paths = array_unique(explode(',', Config::getLogPaths()));
+        if ($this->config->getLogPaths() !== '') {
+            $paths = array_unique(explode(',', $this->config->getLogPaths()));
             $files = [];
 
             foreach ($paths as $path) {
@@ -103,7 +111,7 @@ class Logs
             return $files;
         }
 
-        $directory = new RecursiveDirectoryIterator(Config::getLogFolder());
+        $directory = new RecursiveDirectoryIterator($this->config->getLogFolder());
         $flattened = new RecursiveIteratorIterator($directory);
         return new RegexIterator($flattened, $this->filenameRegex);
     }
@@ -117,10 +125,10 @@ class Logs
     {
         $date = new DateTime(
             $timestamp,
-            new DateTimeZone(Config::getSystemLogTimezone())
+            new DateTimeZone($this->config->getSystemLogTimezone())
         );
     
-        $date->setTimezone(new DateTimeZone(Config::getTimezone()));
+        $date->setTimezone(new DateTimeZone($this->config->getTimezone()));
 
         return $date->format('Y-m-d H:i:s');
     }

@@ -5,20 +5,20 @@ use Exception\ConfigException;
 class Config
 {
 	/** @var string $minPhpVersion Minimum PHP version */
-	private static string $minPhpVersion = '8.1.0';
+	private string $minPhpVersion = '8.1.0';
 
-    private static string $path;
+    private string $path;
 
-    private static string $envPrefix = 'IA_';
+    private string $envPrefix = 'IA_';
 
     /**
      * Set backend directory
      * 
      * @param string $path
      */
-    public static function setDir(string $path): void
+    public function setDir(string $path): void
     {
-        self::$path = $path . DIRECTORY_SEPARATOR;
+        $this->path = $path . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -26,43 +26,43 @@ class Config
      * 
      * @param string $file
      */
-    public static function getPath(string $file = ''): string
+    public function getPath(string $file = ''): string
     {
-        return self::$path . $file;
+        return $this->path . $file;
     }
 
-    public static function getLogFolder(): string
+    public function getLogFolder(): string
     {
-        return self::getEnv('LOG_FOLDER');
+        return $this->getEnv('LOG_FOLDER');
     }
 
-    public static function getLogPaths(): string
+    public function getLogPaths(): string
     {
-        if (self::hasEnv('LOG_PATHS') === true) {
-            return self::getEnv('LOG_PATHS');
+        if ($this->hasEnv('LOG_PATHS') === true) {
+            return $this->getEnv('LOG_PATHS');
         }
 
         return '';
     }
 
-    public static function getAsnDatabasePath(): string
+    public function getAsnDatabasePath(): string
     {
-        return self::getEnv('ASN_DATABASE');
+        return $this->getEnv('ASN_DATABASE');
     }
 
-    public static function getCountryDatabasePath(): string
+    public function getCountryDatabasePath(): string
     {
-        return self::getEnv('COUNTRY_DATABASE');
+        return $this->getEnv('COUNTRY_DATABASE');
     }
 
-    public static function getTimezone(): string
+    public function getTimezone(): string
     {
-        return self::getEnv('TIMEZONE');
+        return $this->getEnv('TIMEZONE');
     }
 
-    public static function getSystemLogTimezone(): string
+    public function getSystemLogTimezone(): string
     {
-        return self::getEnv('SYSTEM_LOG_TIMEZONE');
+        return $this->getEnv('SYSTEM_LOG_TIMEZONE');
     }
 
     /**
@@ -72,28 +72,28 @@ class Config
      * @throws ConfigException if PHP version not supported.
      * @throws ConfigException if environment variable `IA_LOG_FOLDER` or `IA_LOG_PATHS` is not set.
      */
-    public static function check(): void
+    public function check(): void
     {
         if (php_sapi_name() !== 'cli') {
             throw new ConfigException('Intruder Alert script must be run via the command-line.');
         }
 
-		if(version_compare(PHP_VERSION, self::$minPhpVersion) === -1) {
-			throw new ConfigException('Intruder Alert requires at least PHP version ' . self::$minPhpVersion);
+		if(version_compare(PHP_VERSION, $this->minPhpVersion) === -1) {
+			throw new ConfigException('Intruder Alert requires at least PHP version ' . $this->minPhpVersion);
 		}
 
-        if (file_exists(self::getPath('config.php')) === true) {
-            require self::getPath('config.php');
+        if (file_exists($this->getPath('config.php')) === true) {
+            require $this->getPath('config.php');
         }
 
-        if (self::hasEnv('LOG_PATHS') === false && self::hasEnv('LOG_FOLDER') === false) {
+        if ($this->hasEnv('LOG_PATHS') === false && $this->hasEnv('LOG_FOLDER') === false) {
             throw new ConfigException('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
         }
 
-        self::checkLogPaths();
-        self::checkLogFolder();
-        self::checkDatabases();
-        self::checkTimeZones();
+        $this->checkLogPaths();
+        $this->checkLogFolder();
+        $this->checkDatabases();
+        $this->checkTimeZones();
     }
 
     /**
@@ -103,10 +103,10 @@ class Config
      * @throws ConfigException if Fail2ban log folder does not exist.
      * @throws ConfigException if Fail2ban log folder not readable.
      */
-    private static function checkLogPaths(): void
+    private function checkLogPaths(): void
     {
-        if (self::hasEnv('LOG_PATHS') === true) {
-            if (self::getEnv('LOG_PATHS') === '') {
+        if ($this->hasEnv('LOG_PATHS') === true) {
+            if ($this->getEnv('LOG_PATHS') === '') {
                 throw new ConfigException('fail2ban logs environment variable can not be empty [LOG_PATHS]');
             }
         }
@@ -119,18 +119,18 @@ class Config
      * @throws ConfigException if Fail2ban log folder does not exist.
      * @throws ConfigException if Fail2ban log folder not readable.
      */
-    private static function checkLogFolder(): void
+    private function checkLogFolder(): void
     {
-        if (self::hasEnv('LOG_PATHS') === false) {
-            if (self::hasEnv('LOG_FOLDER') === false || self::getEnv('LOG_FOLDER') === '') {
+        if ($this->hasEnv('LOG_PATHS') === false) {
+            if ($this->hasEnv('LOG_FOLDER') === false || $this->getEnv('LOG_FOLDER') === '') {
                 throw new ConfigException('fail2ban log folder must be set [LOG_FOLDER]');
             }
     
-            if (file_exists(self::getEnv('LOG_FOLDER')) === false) {
+            if (file_exists($this->getEnv('LOG_FOLDER')) === false) {
                 throw new ConfigException('fail2ban log folder does not exist [LOG_FOLDER]');
             }
     
-            if (is_readable(self::getEnv('LOG_FOLDER')) === false) {
+            if (is_readable($this->getEnv('LOG_FOLDER')) === false) {
                 throw new ConfigException('fail2ban log folder is not readable [LOG_FOLDER]');
             }
         }
@@ -147,34 +147,34 @@ class Config
      * @throws ConfigException if GeoLite2 Country database not readable.
      * @throws ConfigException if GeoLite2 database is invalid.
      */
-    private static function checkDatabases(): void
+    private function checkDatabases(): void
     {
-        if (self::hasEnv('ASN_DATABASE') === false || self::getEnv('ASN_DATABASE') === '') {
+        if ($this->hasEnv('ASN_DATABASE') === false || $this->getEnv('ASN_DATABASE') === '') {
             throw new ConfigException('GeoLite2 ASN database path must be set [ASN_DATABASE]');
         }
 
-        if (self::hasEnv('COUNTRY_DATABASE') === false || self::getEnv('COUNTRY_DATABASE') === '') {
+        if ($this->hasEnv('COUNTRY_DATABASE') === false || $this->getEnv('COUNTRY_DATABASE') === '') {
             throw new ConfigException('GeoLite2 Country database path must be set [COUNTRY_DATABASE]');
         }
 
-        if (file_exists(self::getEnv('ASN_DATABASE')) === false) {
+        if (file_exists($this->getEnv('ASN_DATABASE')) === false) {
             throw new ConfigException('GeoLite2 ASN database not found [ASN_DATABASE]');
         }
 
-        if (file_exists(self::getEnv('COUNTRY_DATABASE')) === false) {
+        if (file_exists($this->getEnv('COUNTRY_DATABASE')) === false) {
             throw new ConfigException('GeoLite2 Country database not found [COUNTRY_DATABASE]');
         }
 
-        if (is_readable(self::getEnv('ASN_DATABASE')) === false) {
+        if (is_readable($this->getEnv('ASN_DATABASE')) === false) {
             throw new ConfigException('GeoLite2 ASN database is not readable [ASN_DATABASE]');
         }
     
-        if (is_readable(self::getEnv('COUNTRY_DATABASE')) === false) {
+        if (is_readable($this->getEnv('COUNTRY_DATABASE')) === false) {
             throw new ConfigException('GeoLite2 Country database is not readable [COUNTRY_DATABASE]');
         }
 
-        self::checkDatabaseIsValid(self::getEnv('ASN_DATABASE'));
-        self::checkDatabaseIsValid(self::getEnv('COUNTRY_DATABASE'));
+        $this->checkDatabaseIsValid($this->getEnv('ASN_DATABASE'));
+        $this->checkDatabaseIsValid($this->getEnv('COUNTRY_DATABASE'));
     }
 
     /**
@@ -184,7 +184,7 @@ class Config
      *
      * @throws ConfigException if GeoLite2 database is invalid.
      */
-    static private function checkDatabaseIsValid(string $path): void
+    private function checkDatabaseIsValid(string $path): void
     {
         try {
             new GeoIp2\Database\Reader($path);
@@ -200,30 +200,30 @@ class Config
      * @throws ConfigException if `SYSTEM_LOG_TIMEZONE` environment variable is empty.
      * @throws ConfigException if an unknown timezone given in either `TIMEZONE` or `SYSTEM_LOG_TIMEZONE`.
      */
-    static private function checkTimeZones(): void
+    private function checkTimeZones(): void
     {
-        if (self::hasEnv('TIMEZONE') === true) {
-            if (self::getEnv('TIMEZONE') === '') {
+        if ($this->hasEnv('TIMEZONE') === true) {
+            if ($this->getEnv('TIMEZONE') === '') {
                 throw new ConfigException('Time zone can not be empty [TIMEZONE]');
             }
 
-            if (in_array(self::getEnv('TIMEZONE'), DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === false) {
+            if (in_array($this->getEnv('TIMEZONE'), DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === false) {
                 throw new ConfigException('Unknown time zone given [TIMEZONE]');
             }
 
-            date_default_timezone_set(self::getEnv('TIMEZONE'));
+            date_default_timezone_set($this->getEnv('TIMEZONE'));
         }
 
-        if (self::hasEnv('SYSTEM_LOG_TIMEZONE') === true ) {
-            if (self::getEnv('SYSTEM_LOG_TIMEZONE') === '') {
+        if ($this->hasEnv('SYSTEM_LOG_TIMEZONE') === true ) {
+            if ($this->getEnv('SYSTEM_LOG_TIMEZONE') === '') {
                 throw new ConfigException('Time zone can not be empty [SYSTEM_LOG_TIMEZONE]');
             }
 
-            if (in_array(self::getEnv('SYSTEM_LOG_TIMEZONE'), DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === false) {
+            if (in_array($this->getEnv('SYSTEM_LOG_TIMEZONE'), DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === false) {
                 throw new ConfigException('Unknown time zone given [SYSTEM_LOG_TIMEZONE]');
             }
         } else {
-            self::setEnv('SYSTEM_LOG_TIMEZONE', 'UTC');
+            $this->setEnv('SYSTEM_LOG_TIMEZONE', 'UTC');
         }
     }
 
@@ -232,9 +232,9 @@ class Config
      * 
      * @param string $name Variable name excluding prefix
      */
-    static private function hasEnv(string $name): bool
+    private function hasEnv(string $name): bool
     {
-        if (getenv(self::$envPrefix . $name) === false) {
+        if (getenv($this->envPrefix . $name) === false) {
             return false;
         }
 
@@ -246,9 +246,9 @@ class Config
      * 
      * @param string $name Variable name excluding prefix
      */
-    static private function getEnv(string $name): mixed
+    private function getEnv(string $name): mixed
     {
-       return getenv(self::$envPrefix . $name);
+       return getenv($this->envPrefix . $name);
     }
 
     /**
@@ -257,8 +257,8 @@ class Config
      * @param string $name Variable name excluding prefix
      * @param string $value Variable value
      */
-    static private function setEnv(string $name, string $value): void
+    private function setEnv(string $name, string $value): void
     {
-        putenv(sprintf('%s%s=%s', self::$envPrefix, $name, $value));
+        putenv(sprintf('%s%s=%s', $this->envPrefix, $name, $value));
     }
 }

@@ -8,9 +8,10 @@ require 'backend/vendor/autoload.php';
 $data = '';
 
 try {
-    Config::setDir(__DIR__ . DIRECTORY_SEPARATOR . 'backend');
+    $config = new Config();
+    $config->setDir(__DIR__ . DIRECTORY_SEPARATOR . 'backend');
 
-    $app = new App();
+    $app = new App($config);
     $data = $app->getJsonReport();
 
 } catch (AppException $err) {
