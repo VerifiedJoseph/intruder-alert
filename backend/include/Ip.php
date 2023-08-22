@@ -15,7 +15,7 @@ class Ip
     public function __construct(string $address, string $jail, string $timestamp)
     {
         $this->data['address'] = $address;
-        $this->data['version'] = Misc::detectIpVersion($address);
+        $this->data['version'] = $this->detectIpVersion($address);
         $this->data['jail'] = $jail;
         $this->data['timestamp'] = $timestamp;
         $this->data['network'] = Lookup::network($address);
@@ -30,5 +30,20 @@ class Ip
     public function getDetails(): array
     {
         return $this->data;
+    }
+
+    /**
+     * Detect internet protocol address version
+     * 
+     * @param string $address IP address
+     * @return int Address version
+     */
+    private function detectIpVersion(string $address): int
+    {
+        if (str_contains($address, ':') === true) {
+            return 6;
+        }
+
+        return 4;
     }
 }
