@@ -36,6 +36,15 @@ class Config
         return self::getEnv('LOG_FOLDER');
     }
 
+    public static function getLogPaths(): string
+    {
+        if (self::hasEnv('LOG_PATHS') === true) {
+            return self::getEnv('LOG_PATHS');
+        }
+
+        return '';
+    }
+
     public static function getAsnDatabasePath(): string
     {
         return self::getEnv('ASN_DATABASE');
@@ -61,6 +70,7 @@ class Config
      * 
      * @throws ConfigException if script not run via the command-line.
      * @throws ConfigException if PHP version not supported.
+     * @throws ConfigException if environment variable `IA_LOG_FOLDER` or `IA_LOG_PATHS` is not set.
      */
     public static function check(): void
     {
@@ -76,9 +86,30 @@ class Config
             require self::getPath('config.php');
         }
 
+        if (self::hasEnv('LOG_PATHS') === false && self::hasEnv('LOG_FOLDER') === false) {
+            throw new ConfigException('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
+        }
+
+        self::checkLogPaths();
         self::checkLogFolder();
         self::checkDatabases();
         self::checkTimeZones();
+    }
+
+    /**
+     * Check log paths
+     * 
+     * @throws ConfigException if `IA_LOG_PATHS` environment variable is empty.
+     * @throws ConfigException if Fail2ban log folder does not exist.
+     * @throws ConfigException if Fail2ban log folder not readable.
+     */
+    private static function checkLogPaths(): void
+    {
+        if (self::hasEnv('LOG_PATHS') === true) {
+            if (self::getEnv('LOG_PATHS') === '') {
+                throw new ConfigException('fail2ban logs environment variable can not be empty [LOG_PATHS]');
+            }
+        }
     }
 
     /**
@@ -90,16 +121,18 @@ class Config
      */
     private static function checkLogFolder(): void
     {
-        if (self::hasEnv('LOG_FOLDER') === false || self::getEnv('LOG_FOLDER') === '') {
-            throw new ConfigException('fail2ban log folder must be set [LOG_FOLDER]');
-        }
-
-        if (file_exists(self::getEnv('LOG_FOLDER')) === false) {
-            throw new ConfigException('fail2ban log folder does not exist [LOG_FOLDER]');
-        }
-
-        if (is_readable(self::getEnv('LOG_FOLDER')) === false) {
-            throw new ConfigException('fail2ban log folder is not readable [LOG_FOLDER]');
+        if (self::hasEnv('LOG_PATHS') === false) {
+            if (self::hasEnv('LOG_FOLDER') === false || self::getEnv('LOG_FOLDER') === '') {
+                throw new ConfigException('fail2ban log folder must be set [LOG_FOLDER]');
+            }
+    
+            if (file_exists(self::getEnv('LOG_FOLDER')) === false) {
+                throw new ConfigException('fail2ban log folder does not exist [LOG_FOLDER]');
+            }
+    
+            if (is_readable(self::getEnv('LOG_FOLDER')) === false) {
+                throw new ConfigException('fail2ban log folder is not readable [LOG_FOLDER]');
+            }
         }
     }
 
