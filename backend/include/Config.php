@@ -14,7 +14,7 @@ class Config
     /**
      * Set backend directory
      * 
-     * @vsr string $path
+     * @param string $path
      */
     public static function setDir(string $path): void
     {
@@ -24,7 +24,7 @@ class Config
     /**
      * Get absolute path of a file
      * 
-     * @vsr string $file
+     * @param string $file
      */
     public static function getPath(string $file = ''): string
     {
@@ -197,7 +197,7 @@ class Config
     /**
      * Check for an environment variable
      * 
-     * @var string $name Variable name excluding prefix
+     * @param string $name Variable name excluding prefix
      */
     static private function hasEnv(string $name): bool
     {
@@ -211,9 +211,9 @@ class Config
     /**
      * Get an environment variable
      * 
-     * @var string $name Variable name excluding prefix
+     * @param string $name Variable name excluding prefix
      */
-    static private function getEnv(string $name)
+    static private function getEnv(string $name): mixed
     {
        return getenv(self::$envPrefix . $name);
     }
@@ -221,8 +221,8 @@ class Config
     /**
      * Set an environment variable
      * 
-     * @var string $name Variable name excluding prefix
-     * @var string $value Variable value
+     * @param string $name Variable name excluding prefix
+     * @param string $value Variable value
      */
     static private function setEnv(string $name, string $value): void
     {
