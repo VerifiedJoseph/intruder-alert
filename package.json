@@ -7,7 +7,7 @@
     "eslint-plugin-promise": "^6.1.1"
   },
   "scripts": {
-    "lint": "eslint ./frontend/js",
-    "fix": "eslint ./frontend/js --fix"
+    "lint": "eslint ./static/js",
+    "fix": "eslint ./static/js --fix"
   }
 }
