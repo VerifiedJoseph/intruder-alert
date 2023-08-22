@@ -1,0 +1,38 @@
+name: Code quality
+
+on:
+  pull_request:
+    paths:
+      - "**.php"
+      - ".github/workflows/code-quality.yml"
+  push:
+    branches: main
+    paths:
+      - "**.php"
+      - ".github/workflows/code-quality.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  phpstan:
+    name: PHPStan
+
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@72ae4ccbe57f82bbe08411e84e2130bd4ba1c10f # v2.25.5
+        with:
+          php-version: '8.1'
+
+      - name: "Validate composer.json and composer.lock"
+        run: "composer validate --no-check-publish"
+
+      - name: Install dependencies with composer
+        run: composer install --prefer-dist
+
+      - name: Run PHPStan
+        run: ./backend/vendor/bin/phpstan analyse
