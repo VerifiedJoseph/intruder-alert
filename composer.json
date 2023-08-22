@@ -6,9 +6,12 @@
         "phpstan/phpstan": "^1.10"
     },
     "autoload": {
-        "classmap": ["include/"]
+        "classmap": ["backend/include/"]
     },
     "scripts": {
         "lint": "phpstan "
+    },
+    "config": {
+        "vendor-dir": "backend/vendor"
     }
 }
