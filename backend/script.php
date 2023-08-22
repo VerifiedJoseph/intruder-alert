@@ -7,13 +7,14 @@ use Exception\AppException;
 require 'vendor/autoload.php';
 
 try {
-    Config::setDir(__DIR__);
-    Config::check();
+    $config = new Config();
+    $config->setDir(__DIR__);
+    $config->check();
 
-    Lookup::setNetworkDB(Config::getAsnDatabasePath());
-    Lookup::setCountryDB(Config::getCountryDatabasePath());
+    Lookup::setNetworkDB($config->getAsnDatabasePath());
+    Lookup::setCountryDB($config->getCountryDatabasePath());
 
-    $app = new App();
+    $app = new App($config);
     $app->run();
 } catch (ConfigException | AppException $err) {
     Output::text($err->getMessage());
