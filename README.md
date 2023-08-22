@@ -56,7 +56,6 @@ Cron example:
 
 ## Requirements
 
-- Node.js >= 18.0
 - PHP >= 8.1
 - Composer
-
+- Node.js >= 18.0 (development only)
