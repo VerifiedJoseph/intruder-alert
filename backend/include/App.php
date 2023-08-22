@@ -7,6 +7,9 @@ use Helper\Output;
 
 class App
 {
+    /** @var Config $config */
+    private Config $config;
+
     /** @var Lists $lists */
     private Lists $lists;
 
@@ -16,8 +19,9 @@ class App
     /** @var string $cacheFilepath Cache filepath */
     private string $cacheFilepath = 'data/cache.json';
 
-    public function __construct()
+    public function __construct(Config $config)
     {
+        $this->config = $config;
         $this->lists = new Lists();
     }
 
@@ -39,7 +43,7 @@ class App
      */
     public function getJsonReport(): string
     {
-        $path = Config::getPath($this->dataFilepath);
+        $path = $this->config->getPath($this->dataFilepath);
 
         if (File::exists($path) === false) {
             return Json::encode([
@@ -59,9 +63,9 @@ class App
         $timer = new Timer();
         $timer->start();
 
-        $logs = new Logs();
+        $logs = new Logs($this->config);
         $cache = new Cache(
-            Config::getPath($this->cacheFilepath)
+            $this->config->getPath($this->cacheFilepath)
         );
 
         foreach ($logs->process() as $line) {
@@ -91,7 +95,10 @@ class App
      */
     private function generateReport(): void
     {
-        $report = new Report($this->lists->get());
+        $report = new Report(
+            $this->lists->get(),
+            $this->config->getPath($this->dataFilepath)
+        );
         $report->generate();
     }
 
@@ -109,7 +116,7 @@ class App
         ];
 
         File::write(
-            Config::getPath($this->dataFilepath),
+            $this->config->getPath($this->dataFilepath),
             Json::encode($data)
         );
     }
