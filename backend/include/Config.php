@@ -4,6 +4,9 @@ use Exception\ConfigException;
 
 class Config
 {
+	/** @var string $minPhpVersion Minimum PHP version */
+	private static string $minPhpVersion = '8.1.0';
+
     private static string $path;
 
     private static string $envPrefix = 'IA_';
@@ -61,6 +64,10 @@ class Config
         if (php_sapi_name() !== 'cli') {
             throw new ConfigException('Intruder Alert script must be run via the command-line.');
         }
+
+		if(version_compare(PHP_VERSION, self::$minPhpVersion) === -1) {
+			throw new ConfigException('Intruder Alert requires at least PHP version ' . self::$minPhpVersion);
+		}
 
         if (file_exists(self::getPath('config.php')) === true) {
             require self::getPath('config.php');
