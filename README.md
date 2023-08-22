@@ -7,8 +7,6 @@ Intruder Alert is an incident dashboard for Fail2ban.
 
 Browser-based dashboard for viewing the data report created by the backend.
 
-The dashboard fetches the report by requesting `backend\data.php`, make sure it is accessible via HTTP.
-
 ## Backend
 
 PHP script for parsing Fail2ban logs and generating the report.
@@ -21,7 +19,7 @@ Clone the repository.
 git clone {path here}
 ```
 
-Install dependencies with composer in the backend folder.
+Install dependencies with composer.
 
 ```
 composer install --no-dev
