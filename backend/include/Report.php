@@ -13,13 +13,17 @@ class Report
     /** @var array<string, mixed> $lists */
     private array $lists = [];
 
+    /** @var string $path Path to save the generated report */
+    private string $path = '';
+
     /**
      * 
      * @param array<string, mixed> $lists
      */
-    public function __construct(array $lists)
+    public function __construct(array $lists, string $path)
     {
         $this->lists = $lists;
+        $this->path = $path;
     }
 
     /**
@@ -35,11 +39,11 @@ class Report
         $data['log'][] = 'Last run: ' . $data['updated'];
 
         File::write(
-            Config::getPath('data/data.json'),
+            $this->path,
             Json::encode($data)
         );
 
-        Output::text('Created report JSON file: ' . Config::getPath('data/data.json'));
+        Output::text('Created report JSON file: ' . $this->path);
     }
 
     /**
