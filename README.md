@@ -8,7 +8,7 @@ Intruder Alert is a browser-based incident dashboard for Fail2ban.
 Clone the repository.
 
 ```
-git clone {path here}
+git clone https://github.com/VerifiedJoseph/intruder-alert
 ```
 
 Install dependencies with composer.
