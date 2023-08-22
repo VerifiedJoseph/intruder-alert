@@ -41,7 +41,10 @@ class Logs
         $rows = [];
 
         foreach($this->getFiles($this->path) as $file) {
-            Output::text('Parsing ' . $file->getPathname(), log: true);
+            $timer = new Timer();
+            $timer->start();
+
+            Output::text('Processing ' . $file->getPathname(), log: true);
 
             if (is_readable($file->getPathname()) === false) {
                 throw new AppException('Failed to read file ' . $file->getPathname());
@@ -71,11 +74,14 @@ class Logs
                 }
             }
 
+            $timer->stop();
+
             $message = sprintf(
-                'Scanned %s lines and found %s bans in %s',
+                'Scanned %s lines and found %s bans in %s (%ss)',
                 number_format($lineCount),
                 number_format($banCount),
-                $file->getPathname()
+                $file->getPathname(),
+                $timer->getTime()
             );
 
             Output::text($message, log: true);
@@ -112,7 +118,7 @@ class Logs
     private function formatTimestamp(string $timestamp): string
     {
         $date = new DateTime(
-            $timestamp, 
+            $timestamp,
             new DateTimeZone(Config::getSystemLogTimezone())
         );
     
