@@ -1,0 +1,5 @@
+parameters:
+	level: 8
+	paths:
+		- backend/include/
+		- data.php
