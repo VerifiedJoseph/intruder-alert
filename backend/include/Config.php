@@ -58,6 +58,9 @@ class Config
 
     /**
      * Check config
+     * 
+     * @throws ConfigException if script not run via the command-line.
+     * @throws ConfigException if PHP version not supported.
      */
     public static function check(): void
     {
@@ -78,6 +81,13 @@ class Config
         self::checkTimeZones();
     }
 
+    /**
+     * Check log folder
+     * 
+     * @throws ConfigException if `IA_LOG_FOLDER` environment variable not set.
+     * @throws ConfigException if Fail2ban log folder does not exist.
+     * @throws ConfigException if Fail2ban log folder not readable.
+     */
     private static function checkLogFolder(): void
     {
         if (self::hasEnv('LOG_FOLDER') === false || self::getEnv('LOG_FOLDER') === '') {
@@ -93,6 +103,17 @@ class Config
         }
     }
 
+    /**
+     * Check GeoLite2 databases
+     * 
+     * @throws ConfigException if `ASN_DATABASE` environment variable not set.
+     * @throws ConfigException if `COUNTRY_DATABASE` environment variable not set.
+     * @throws ConfigException if GeoLite2 ASN database does not exist.
+     * @throws ConfigException if GeoLite2 Country database does not exist.
+     * @throws ConfigException if GeoLite2 ASN database not readable.
+     * @throws ConfigException if GeoLite2 Country database not readable.
+     * @throws ConfigException if GeoLite2 database is invalid.
+     */
     private static function checkDatabases(): void
     {
         if (self::hasEnv('ASN_DATABASE') === false || self::getEnv('ASN_DATABASE') === '') {
@@ -123,6 +144,13 @@ class Config
         self::checkDatabaseIsValid(self::getEnv('COUNTRY_DATABASE'));
     }
 
+    /**
+     * Check GeoLite2 database is valid
+     * 
+     * @param string $path Path of GeoLite2 database
+     *
+     * @throws ConfigException if GeoLite2 database is invalid.
+     */
     static private function checkDatabaseIsValid(string $path): void
     {
         try {
@@ -132,6 +160,13 @@ class Config
         }
     }
 
+    /**
+     * Check timezones
+     * 
+     * @throws ConfigException if `TIMEZONE` environment variable is empty.
+     * @throws ConfigException if `SYSTEM_LOG_TIMEZONE` environment variable is empty.
+     * @throws ConfigException if an unknown timezone given in either `TIMEZONE` or `SYSTEM_LOG_TIMEZONE`.
+     */
     static private function checkTimeZones(): void
     {
         if (self::hasEnv('TIMEZONE') === true) {
