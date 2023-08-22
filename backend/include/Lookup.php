@@ -58,7 +58,7 @@ class Lookup
                 $data['continent']['code'] = (string) $record->continent->code;
             }
         } catch (GeoIp2\Exception\AddressNotFoundException) {
-            Output::text('Address not found in GeoIP2 country database: ' . $address);
+            Output::text('Address not found in GeoIP2 country database: ' . $address, log: true);
         } finally {
             return $data;
         }
@@ -84,7 +84,7 @@ class Lookup
             $data['number'] = (int) $record->autonomousSystemNumber;
             $data['subnet'] = (string) $record->network;
         } catch (GeoIp2\Exception\AddressNotFoundException) {
-            Output::text('Address not found in GeoIP2 ASN database: ' . $address);
+            Output::text('Address not found in GeoIP2 ASN database: ' . $address, log: true);
         } finally {
             return $data;
         }
