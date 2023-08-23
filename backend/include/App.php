@@ -31,6 +31,7 @@ class App
     public function run(): void
     {
         try {
+            $this->databaseUpdate();
             $this->processLogs();
             $this->generateReport();
         } catch (ReportException $err) {
@@ -60,6 +61,9 @@ class App
      */
     private function processLogs(): void
     {
+        Database\Lookup::setNetworkDB($this->config->getAsnDatabasePath());
+        Database\Lookup::setCountryDB($this->config->getCountryDatabasePath());
+
         $timer = new Timer();
         $timer->start();
 
@@ -119,5 +123,11 @@ class App
             $this->config->getPath($this->dataFilepath),
             Json::encode($data)
         );
+    }
+
+    private function databaseUpdate(): void
+    {
+        $update = new Database\Update($this->config);
+        $update->run();
     }
 }
