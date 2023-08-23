@@ -1,6 +1,7 @@
 {
     "require": {
-        "geoip2/geoip2": "^2.13"
+        "geoip2/geoip2": "^2.13",
+        "tronovav/geoip2-update": "^2.1"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.10"
