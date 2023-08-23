@@ -82,8 +82,8 @@ class App
                 $ip = new Ip($line['ip']);
                 $ip->setJail($line['jail']);
                 $ip->setTimestamp($line['timestamp']);
-                $ip->setNetwork($lookup->network($line['ip']));
                 $ip->setCountry($lookup->country($line['ip']));
+                $ip->setNetwork($lookup->network($line['ip']));
 
                 $cache->addItem($ip->getDetails());
                 $this->lists->addIp($ip->getDetails());
