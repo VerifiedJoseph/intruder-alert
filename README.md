@@ -27,12 +27,15 @@ Alternatively, you can use `backend/config.php` (copied from [`backend/config.ex
 | ------------------------ | ----------------------------------------------------------------------------- |
 | `IA_LOG_PATHS`           | Comma separated list of Fail2ban log files.                                   |
 | `IA_LOG_FOLDER`          | Path of the Fail2ban logs folder. Ignored if `IA_LOG_PATHS` is set            |
+| `IA_MAXMIND_LICENSE_KEY` | MaxMind license key.                                                          |
 | `IA_ASN_DATABASE`        | Path of the GeoLite2 ASN database file.                                       |
 | `IA_COUNTRY_DATABASE`    | Path of the GeoLite2 Country database file.                                   |
 | `IA_TIMEZONE`            | Timezone (optional) ([php docs](https://www.php.net/manual/en/timezones.php)) |
 | `IA_SYSTEM_LOG_TIMEZONE` | Timezone of fail2ban logs (optional, default is UTC)                          |
 
 GeoLite2 databases can be [downloaded](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data?lang=en) from MaxMind.
+
+If a [MaxMind license key](https://support.maxmind.com/hc/en-us/articles/4407111582235-Generate-a-License-Key) is given, the values of `IA_ASN_DATABASE` and `IA_COUNTRY_DATABASE` are ignored. GeoLite2 databases will be automatically downloaded and updated.
 
 ## Running
 
@@ -44,6 +47,7 @@ Cron example:
 
 ## Dependencies
 - [`geoip2/geoip2`](https://github.com/maxmind/GeoIP2-php)
+- [`tronovav/geoip2-update`](https://github.com/tronovav/geoip2-update)
 
 ## Requirements
 

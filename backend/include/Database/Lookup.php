@@ -1,7 +1,10 @@
 <?php
 
-use GeoIp2\Database\Reader;
-use Helper\Output;
+namespace Database;
+
+use \Helper\Output;
+use \GeoIp2\Database\Reader;
+use \GeoIp2\Exception\AddressNotFoundException;
 
 /**
  * Class for looking up IP address details in GeoIP2 databases
@@ -57,7 +60,7 @@ class Lookup
                 $data['country']['code'] = (string) $record->country->isoCode;
                 $data['continent']['code'] = (string) $record->continent->code;
             }
-        } catch (GeoIp2\Exception\AddressNotFoundException) {
+        } catch (AddressNotFoundException) {
             Output::text('Address not found in GeoIP2 country database: ' . $address, log: true);
         } finally {
             return $data;
@@ -83,7 +86,7 @@ class Lookup
             $data['name'] = (string) $record->autonomousSystemOrganization;
             $data['number'] = (int) $record->autonomousSystemNumber;
             $data['subnet'] = (string) $record->network;
-        } catch (GeoIp2\Exception\AddressNotFoundException) {
+        } catch (AddressNotFoundException) {
             Output::text('Address not found in GeoIP2 ASN database: ' . $address, log: true);
         } finally {
             return $data;

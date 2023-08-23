@@ -16,8 +16,8 @@ class Ip
         $this->data['version'] = $this->detectIpVersion($address);
         $this->data['jail'] = $jail;
         $this->data['timestamp'] = $timestamp;
-        $this->data['network'] = Lookup::network($address);
-        $this->data = array_merge($this->data, Lookup::country($address));
+        $this->data['network'] = Database\Lookup::network($address);
+        $this->data = array_merge($this->data, Database\Lookup::country($address));
     }
 
     /**
