@@ -61,8 +61,9 @@ class App
      */
     private function processLogs(): void
     {
-        Database\Lookup::setNetworkDB($this->config->getAsnDatabasePath());
-        Database\Lookup::setCountryDB($this->config->getCountryDatabasePath());
+        $lookup = new Database\Lookup();
+        $lookup->setNetworkDatabase($this->config->getAsnDatabasePath());
+        $lookup->setCountryDatabase($this->config->getCountryDatabasePath());
 
         $timer = new Timer();
         $timer->start();
@@ -81,7 +82,8 @@ class App
                 $ip = new Ip(
                     $line['ip'],
                     $line['jail'],
-                    $line['timestamp']
+                    $line['timestamp'],
+                    $lookup
                 );
 
                 $cache->addItem($ip->getDetails());
