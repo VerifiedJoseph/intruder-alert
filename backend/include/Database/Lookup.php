@@ -12,19 +12,19 @@ use \GeoIp2\Exception\AddressNotFoundException;
 class Lookup
 {
     /** @var Reader $countryReader GeoIP2 country database reader */
-    static private Reader $countryReader;
+    private Reader $countryReader;
 
     /** @var Reader $networkReader GeoIP2 network database reader */
-    static private Reader $networkReader;
+    private Reader $networkReader;
 
     /**
      * Set country database
      * 
      * @param string $path Database path
      */
-    static public function setCountryDB(string $path): void
+    public function setCountryDatabase(string $path): void
     {
-        self::$countryReader = new Reader($path);
+        $this->countryReader = new Reader($path);
     }
 
     /**
@@ -32,9 +32,9 @@ class Lookup
      * 
      * @param string $path Database path
      */
-    static public function setNetworkDB(string $path): void
+    public function setNetworkDatabase(string $path): void
     {
-        self::$networkReader = new Reader($path);
+        $this->networkReader = new Reader($path);
     }
 
     /**
@@ -43,7 +43,7 @@ class Lookup
      * @param string $address IP address
      * @return array<string, array<string, string>>
      */
-    static public function country(string $address): array
+    public function country(string $address): array
     {
         $data = [
             'country' => ['name' => 'Unknown', 'code' => 'Unknown'],
@@ -51,7 +51,7 @@ class Lookup
         ];
 
         try {
-            $record = self::$countryReader->country($address);
+            $record = $this->countryReader->country($address);
             $names = (array) $record->continent->names;
 
             if ((string) $record->country->name !== '') {
@@ -73,7 +73,7 @@ class Lookup
      * @param string $address IP address
      * @return array<string, string|int>
      */
-    static public function network(string $address): array
+    public function network(string $address): array
     {
         $data = [
             'name' => 'Unknown',
@@ -82,7 +82,7 @@ class Lookup
         ];
 
         try {
-            $record = self::$networkReader->asn($address);
+            $record = $this->networkReader->asn($address);
             $data['name'] = (string) $record->autonomousSystemOrganization;
             $data['number'] = (int) $record->autonomousSystemNumber;
             $data['subnet'] = (string) $record->network;
