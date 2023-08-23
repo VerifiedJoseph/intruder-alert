@@ -14,11 +14,21 @@ class Ip
         $this->data['version'] = $this->detectIpVersion($address);
     }
 
+    /**
+     * Set Fail2ban jail
+     * 
+     * @param string $jail
+     */
     public function setJail(string $jail): void
     {
         $this->data['jail'] = $jail;
     }
 
+    /**
+     * Set ban event timestamp
+     * 
+     * @param string $timestamp
+     */
     public function setTimestamp(string $timestamp): void
     {
         $this->data['timestamp'] = $timestamp;
