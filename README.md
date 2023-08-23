@@ -1,7 +1,7 @@
 # Intruder Alert
 ![screenshot](screenshot.png)
 
-Intruder Alert is a browser-based incident dashboard for Fail2ban.
+Intruder Alert is an incident dashboard for Fail2ban.
 
 ## Installation
 
