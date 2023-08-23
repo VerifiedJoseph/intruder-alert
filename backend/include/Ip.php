@@ -24,14 +24,24 @@ class Ip
         $this->data['timestamp'] = $timestamp;
     }
 
-    public function setNetwork(array $network): void
-    {
-        $this->data['network'] = $network;
-    }
-
+    /**
+     * Set country
+     * 
+     * @param array<string, array<string, string>> $country
+     */
     public function setCountry(array $country): void
     {
         $this->data = array_merge($this->data, $country);
+    }
+
+    /**
+     * Set network
+     * 
+     * @param array<string, string|int> $network
+     */
+    public function setNetwork(array $network): void
+    {
+        $this->data['network'] = $network;
     }
 
     /**
