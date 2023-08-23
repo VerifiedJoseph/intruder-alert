@@ -11,6 +11,11 @@ class Config
 
     private string $envPrefix = 'IA_';
 
+    private array $defaultGeoLite2Paths = [
+        'GeoLite2-ASN' => 'data/geoip2/GeoLite2-ASN/GeoLite2-ASN.mmdb',
+        'GeoLite2-Country' => 'data/geoip2/GeoLite2-Country/GeoLite2-Country.mmdb'
+    ];
+
     /**
      * Set backend directory
      * 
@@ -45,13 +50,30 @@ class Config
         return '';
     }
 
+    public function getMaxMindLicenseKey(): string
+    {
+        if ($this->hasEnv('MAXMIND_LICENSE_KEY') === true) {
+            return $this->getEnv('MAXMIND_LICENSE_KEY');
+        }
+
+        return '';
+    }
+
     public function getAsnDatabasePath(): string
     {
+        if ($this->hasEnv('MAXMIND_LICENSE_KEY') === true) {
+            return $this->getPath($this->defaultGeoLite2Paths['GeoLite2-ASN']);
+        }
+
         return $this->getEnv('ASN_DATABASE');
     }
 
     public function getCountryDatabasePath(): string
     {
+        if ($this->hasEnv('MAXMIND_LICENSE_KEY') === true) {
+            return $this->getPath($this->defaultGeoLite2Paths['GeoLite2-Country']);
+        }
+
         return $this->getEnv('COUNTRY_DATABASE');
     }
 
@@ -92,6 +114,7 @@ class Config
 
         $this->checkLogPaths();
         $this->checkLogFolder();
+        $this->checkMaxMindLicenseKey();
         $this->checkDatabases();
         $this->checkTimeZones();
     }
@@ -137,6 +160,20 @@ class Config
     }
 
     /**
+     * Check MaxMind license key
+     * 
+     * @throws ConfigException if `IA_MAXMIND_LICENSE_KEY` environment variable is empty.
+     */
+    private function checkMaxMindLicenseKey():  void
+    {
+        if ($this->hasEnv('MAXMIND_LICENSE_KEY') === true) {
+            if ($this->getEnv('MAXMIND_LICENSE_KEY') === '') {
+                throw new ConfigException('MaxMind license key can not be empty [IA_MAXMIND_LICENSE_KEY]');
+            }
+        }
+    }
+
+    /**
      * Check GeoLite2 databases
      * 
      * @throws ConfigException if `IA_ASN_DATABASE` environment variable not set.
@@ -149,32 +186,34 @@ class Config
      */
     private function checkDatabases(): void
     {
-        if ($this->hasEnv('ASN_DATABASE') === false || $this->getEnv('ASN_DATABASE') === '') {
-            throw new ConfigException('GeoLite2 ASN database path must be set [IA_ASN_DATABASE]');
-        }
-
-        if ($this->hasEnv('COUNTRY_DATABASE') === false || $this->getEnv('COUNTRY_DATABASE') === '') {
-            throw new ConfigException('GeoLite2 Country database path must be set [IA_COUNTRY_DATABASE]');
-        }
-
-        if (file_exists($this->getEnv('ASN_DATABASE')) === false) {
-            throw new ConfigException('GeoLite2 ASN database not found [IA_ASN_DATABASE]');
-        }
-
-        if (file_exists($this->getEnv('COUNTRY_DATABASE')) === false) {
-            throw new ConfigException('GeoLite2 Country database not found [IA_COUNTRY_DATABASE]');
-        }
-
-        if (is_readable($this->getEnv('ASN_DATABASE')) === false) {
-            throw new ConfigException('GeoLite2 ASN database is not readable [IA_ASN_DATABASE]');
-        }
+        if ($this->hasEnv('MAXMIND_LICENSE_KEY') === false) {
+            if ($this->hasEnv('ASN_DATABASE') === false || $this->getEnv('ASN_DATABASE') === '') {
+                throw new ConfigException('GeoLite2 ASN database path must be set [IA_ASN_DATABASE]');
+            }
     
-        if (is_readable($this->getEnv('COUNTRY_DATABASE')) === false) {
-            throw new ConfigException('GeoLite2 Country database is not readable [IA_COUNTRY_DATABASE]');
+            if ($this->hasEnv('COUNTRY_DATABASE') === false || $this->getEnv('COUNTRY_DATABASE') === '') {
+                throw new ConfigException('GeoLite2 Country database path must be set [IA_COUNTRY_DATABASE]');
+            }
+    
+            if (file_exists($this->getEnv('ASN_DATABASE')) === false) {
+                throw new ConfigException('GeoLite2 ASN database not found [IA_ASN_DATABASE]');
+            }
+    
+            if (file_exists($this->getEnv('COUNTRY_DATABASE')) === false) {
+                throw new ConfigException('GeoLite2 Country database not found [IA_COUNTRY_DATABASE]');
+            }
+    
+            if (is_readable($this->getEnv('ASN_DATABASE')) === false) {
+                throw new ConfigException('GeoLite2 ASN database is not readable [IA_ASN_DATABASE]');
+            }
+        
+            if (is_readable($this->getEnv('COUNTRY_DATABASE')) === false) {
+                throw new ConfigException('GeoLite2 Country database is not readable [IA_COUNTRY_DATABASE]');
+            }
+    
+            $this->checkDatabaseIsValid($this->getEnv('ASN_DATABASE'));
+            $this->checkDatabaseIsValid($this->getEnv('COUNTRY_DATABASE'));
         }
-
-        $this->checkDatabaseIsValid($this->getEnv('ASN_DATABASE'));
-        $this->checkDatabaseIsValid($this->getEnv('COUNTRY_DATABASE'));
     }
 
     /**
