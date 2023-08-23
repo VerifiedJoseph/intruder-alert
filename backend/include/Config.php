@@ -11,6 +11,7 @@ class Config
 
     private string $envPrefix = 'IA_';
 
+    /** @var array<string, string> $defaultGeoLite2Paths Default GeoLite2 database paths */
     private array $defaultGeoLite2Paths = [
         'GeoLite2-ASN' => 'data/geoip2/GeoLite2-ASN/GeoLite2-ASN.mmdb',
         'GeoLite2-Country' => 'data/geoip2/GeoLite2-Country/GeoLite2-Country.mmdb'

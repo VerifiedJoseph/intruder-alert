@@ -11,6 +11,7 @@ class Update
 {
     private Config $config;
 
+    /** @var array<int, string> $editions GeoLite2 database editions */
     private array $editions = ['GeoLite2-ASN', 'GeoLite2-Country'];
 
     private string $destinationDir = 'data/geoip2';
@@ -20,7 +21,7 @@ class Update
         $this->config = $config;
     }
 
-    public function run()
+    public function run(): void
     {
         if ($this->config->getMaxMindLicenseKey() !== '') {
             $path = $this->config->getPath($this->destinationDir);
@@ -68,7 +69,7 @@ class Update
                 return true;
             }
 
-            $fileModTime = filemtime($file);
+            $fileModTime = (int) filemtime($file);
 
             if ($this->calculateTimeDiff($fileModTime) >= 86400) {
                 return true;
