@@ -47,6 +47,7 @@ Cron example:
 
 ## Dependencies
 - [`geoip2/geoip2`](https://github.com/maxmind/GeoIP2-php)
+- [`tronovav/geoip2-update`](https://github.com/tronovav/geoip2-update)
 
 ## Requirements
 
