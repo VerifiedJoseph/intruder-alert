@@ -107,7 +107,7 @@ class Config
     {
         if ($this->hasEnv('LOG_PATHS') === true) {
             if ($this->getEnv('LOG_PATHS') === '') {
-                throw new ConfigException('fail2ban logs environment variable can not be empty [LOG_PATHS]');
+                throw new ConfigException('fail2ban logs environment variable can not be empty [IA_LOG_PATHS]');
             }
         }
     }
@@ -123,15 +123,15 @@ class Config
     {
         if ($this->hasEnv('LOG_PATHS') === false) {
             if ($this->hasEnv('LOG_FOLDER') === false || $this->getEnv('LOG_FOLDER') === '') {
-                throw new ConfigException('fail2ban log folder must be set [LOG_FOLDER]');
+                throw new ConfigException('fail2ban log folder must be set [IA_LOG_FOLDER]');
             }
     
             if (file_exists($this->getEnv('LOG_FOLDER')) === false) {
-                throw new ConfigException('fail2ban log folder does not exist [LOG_FOLDER]');
+                throw new ConfigException('fail2ban log folder does not exist [IA_LOG_FOLDER]');
             }
     
             if (is_readable($this->getEnv('LOG_FOLDER')) === false) {
-                throw new ConfigException('fail2ban log folder is not readable [LOG_FOLDER]');
+                throw new ConfigException('fail2ban log folder is not readable [IA_LOG_FOLDER]');
             }
         }
     }
@@ -139,8 +139,8 @@ class Config
     /**
      * Check GeoLite2 databases
      * 
-     * @throws ConfigException if `ASN_DATABASE` environment variable not set.
-     * @throws ConfigException if `COUNTRY_DATABASE` environment variable not set.
+     * @throws ConfigException if `IA_ASN_DATABASE` environment variable not set.
+     * @throws ConfigException if `IA_COUNTRY_DATABASE` environment variable not set.
      * @throws ConfigException if GeoLite2 ASN database does not exist.
      * @throws ConfigException if GeoLite2 Country database does not exist.
      * @throws ConfigException if GeoLite2 ASN database not readable.
@@ -150,27 +150,27 @@ class Config
     private function checkDatabases(): void
     {
         if ($this->hasEnv('ASN_DATABASE') === false || $this->getEnv('ASN_DATABASE') === '') {
-            throw new ConfigException('GeoLite2 ASN database path must be set [ASN_DATABASE]');
+            throw new ConfigException('GeoLite2 ASN database path must be set [IA_ASN_DATABASE]');
         }
 
         if ($this->hasEnv('COUNTRY_DATABASE') === false || $this->getEnv('COUNTRY_DATABASE') === '') {
-            throw new ConfigException('GeoLite2 Country database path must be set [COUNTRY_DATABASE]');
+            throw new ConfigException('GeoLite2 Country database path must be set [IA_COUNTRY_DATABASE]');
         }
 
         if (file_exists($this->getEnv('ASN_DATABASE')) === false) {
-            throw new ConfigException('GeoLite2 ASN database not found [ASN_DATABASE]');
+            throw new ConfigException('GeoLite2 ASN database not found [IA_ASN_DATABASE]');
         }
 
         if (file_exists($this->getEnv('COUNTRY_DATABASE')) === false) {
-            throw new ConfigException('GeoLite2 Country database not found [COUNTRY_DATABASE]');
+            throw new ConfigException('GeoLite2 Country database not found [IA_COUNTRY_DATABASE]');
         }
 
         if (is_readable($this->getEnv('ASN_DATABASE')) === false) {
-            throw new ConfigException('GeoLite2 ASN database is not readable [ASN_DATABASE]');
+            throw new ConfigException('GeoLite2 ASN database is not readable [IA_ASN_DATABASE]');
         }
     
         if (is_readable($this->getEnv('COUNTRY_DATABASE')) === false) {
-            throw new ConfigException('GeoLite2 Country database is not readable [COUNTRY_DATABASE]');
+            throw new ConfigException('GeoLite2 Country database is not readable [IA_COUNTRY_DATABASE]');
         }
 
         $this->checkDatabaseIsValid($this->getEnv('ASN_DATABASE'));
@@ -208,7 +208,7 @@ class Config
             }
 
             if (in_array($this->getEnv('TIMEZONE'), DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === false) {
-                throw new ConfigException('Unknown time zone given [TIMEZONE]');
+                throw new ConfigException('Unknown time zone given [IA_TIMEZONE]');
             }
 
             date_default_timezone_set($this->getEnv('TIMEZONE'));
@@ -216,11 +216,11 @@ class Config
 
         if ($this->hasEnv('SYSTEM_LOG_TIMEZONE') === true ) {
             if ($this->getEnv('SYSTEM_LOG_TIMEZONE') === '') {
-                throw new ConfigException('Time zone can not be empty [SYSTEM_LOG_TIMEZONE]');
+                throw new ConfigException('Time zone can not be empty [IA_SYSTEM_LOG_TIMEZONE]');
             }
 
             if (in_array($this->getEnv('SYSTEM_LOG_TIMEZONE'), DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === false) {
-                throw new ConfigException('Unknown time zone given [SYSTEM_LOG_TIMEZONE]');
+                throw new ConfigException('Unknown time zone given [IA_SYSTEM_LOG_TIMEZONE]');
             }
         } else {
             $this->setEnv('SYSTEM_LOG_TIMEZONE', 'UTC');
