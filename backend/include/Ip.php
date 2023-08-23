@@ -6,19 +6,52 @@ class Ip
     private array $data = [];
 
     /**
-     * @param Database\Lookup $lookup `Database\Lookup` class instance
      * @param string $address IP address
-     * @param string $jail Jail name
-     * @param string $timestamp Event timestamp
      */
-    public function __construct(string $address, string $jail, string $timestamp, Database\Lookup $lookup)
+    public function __construct(string $address)
     {
         $this->data['address'] = $address;
         $this->data['version'] = $this->detectIpVersion($address);
+    }
+
+    /**
+     * Set Fail2ban jail
+     * 
+     * @param string $jail
+     */
+    public function setJail(string $jail): void
+    {
         $this->data['jail'] = $jail;
+    }
+
+    /**
+     * Set ban event timestamp
+     * 
+     * @param string $timestamp
+     */
+    public function setTimestamp(string $timestamp): void
+    {
         $this->data['timestamp'] = $timestamp;
-        $this->data['network'] = $lookup->network($address);
-        $this->data = array_merge($this->data, $lookup->country($address));
+    }
+
+    /**
+     * Set country
+     * 
+     * @param array<string, array<string, string>> $country
+     */
+    public function setCountry(array $country): void
+    {
+        $this->data = array_merge($this->data, $country);
+    }
+
+    /**
+     * Set network
+     * 
+     * @param array<string, string|int> $network
+     */
+    public function setNetwork(array $network): void
+    {
+        $this->data['network'] = $network;
     }
 
     /**

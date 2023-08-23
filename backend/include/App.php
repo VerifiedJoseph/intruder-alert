@@ -79,12 +79,11 @@ class App
                     array_merge($cache->getItem($line['ip']), $line)
                 );
             } else {
-                $ip = new Ip(
-                    $line['ip'],
-                    $line['jail'],
-                    $line['timestamp'],
-                    $lookup
-                );
+                $ip = new Ip($line['ip']);
+                $ip->setJail($line['jail']);
+                $ip->setTimestamp($line['timestamp']);
+                $ip->setCountry($lookup->country($line['ip']));
+                $ip->setNetwork($lookup->network($line['ip']));
 
                 $cache->addItem($ip->getDetails());
                 $this->lists->addIp($ip->getDetails());
