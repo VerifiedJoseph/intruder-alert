@@ -3,9 +3,9 @@
 namespace Database;
 
 use Config;
-use Exception\AppException;
 use Helper\File;
 use Helper\Output;
+use Exception\AppException;
 
 class Update
 {
