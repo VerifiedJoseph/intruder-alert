@@ -36,12 +36,16 @@ function orderData (data) {
     return data
   }
 
-  let orderBy = 'bans'
+  let orderBy = document.getElementById('data-order-by').value
   if (document.getElementById('data-order-by').value === 'ips') {
     orderBy = 'ipCount'
   }
 
   data.sort(function (a, b) {
+    if (orderBy === 'date') {
+      return new Date(b.date) - new Date(a.date)
+    }
+
     return b[orderBy] - a[orderBy]
   })
 
@@ -376,10 +380,20 @@ document.getElementById('data-view-type').addEventListener('change', function (e
 
   const type = e.target.value
 
+  // Disable/enable order by select
   if (type === 'address' || type === 'recentBans') {
     document.getElementById('data-order-by').disabled = true
   } else {
     document.getElementById('data-order-by').disabled = false
+  }
+
+  // Disable/enable order by date option
+  if (type === 'date') {
+    document.getElementById('data-order-by').options[2].disabled = false
+    document.getElementById('data-order-by').options[2].selected = true
+  } else {
+    document.getElementById('data-order-by').options[2].disabled = true
+    document.getElementById('data-order-by').options[0].selected = true
   }
 
   if (type === 'address' || type === 'recentBans' || type === 'subnet') {
