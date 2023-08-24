@@ -4,12 +4,12 @@ on:
   pull_request:
     paths:
       - "**.php"
-      - ".github/workflows/code-quality.yml"
+      - ".github/workflows/php-code-quality.yml"
   push:
     branches: main
     paths:
       - "**.php"
-      - ".github/workflows/code-quality.yml"
+      - ".github/workflows/php-code-quality.yml"
 
 permissions:
   contents: read
