@@ -5,17 +5,12 @@ namespace List;
 class Addresses extends AbstractList
 {
     /** {@inheritDoc} */
-    protected array $data = [
-        'mostBanned' => '',
-        'totalBans' => 0,
-        'list' => []
-    ];
+    protected ?string $mostBannedParam = 'address';
 
-    /** {@inheritDoc} */
-    protected array $settings = [
-        'calculateMostBanned' => true,
-        'orderBy' => 'bans'
-    ];
+    function __construct()
+    {
+        $this->data['totalBans'] = 0;
+    }
 
     /** {@inheritDoc} */
     public function addIp(array $ip): void

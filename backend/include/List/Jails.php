@@ -11,10 +11,7 @@ class Jails extends AbstractList
     ];
 
     /** {@inheritDoc} */
-    protected array $settings = [
-        'calculateMostBanned' => true,
-        'orderBy' => 'bans'
-    ];
+    protected ?string $mostBannedParam = 'name';
 
     /** {@inheritDoc} */
     public function addIp(array $ip): void

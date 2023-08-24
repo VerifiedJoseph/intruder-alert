@@ -6,17 +6,21 @@ abstract class AbstractList
 {
     /** @var array<string, mixed> $data */
     protected array $data = [
+        'mostBanned' => null,
         'list' => []
     ];
 
     /** @var array<int, string> $ipList  IP addresses for this list */
     protected array $ipList = [];
 
-    /** @var array<string, boolean|string> $settings */
-    protected array $settings = [
-        'calculateMostBanned' => true,
-        'orderBy' => 'none'
-    ];
+    /** @var bool $calculateMostBanned Calculate most banned value for a list */
+    protected bool $calculateMostBanned = true;
+
+    /** @var ?string $mostBannedParam Data list parameter to use when calculating the most banned */
+    protected ?string $mostBannedParam = null;
+
+    /** @var 'bans'|'date' $orderItemsBy Data list parameter to order lists by */
+    protected string $orderItemsBy = 'bans';
 
     /**
      * Get list
@@ -25,17 +29,14 @@ abstract class AbstractList
      */
     public function get(): array
     {
-        if ($this->settings['calculateMostBanned'] === true) {
+        if ($this->calculateMostBanned === true) {
             $this->calculateMostBanned();
         }
 
-        if ($this->settings['orderBy'] === 'bans') {
-            $this->orderByBans();
-        }
-
-        if ($this->settings['orderBy'] === 'date') {
-            $this->orderByDate();
-        }
+        match ($this->orderItemsBy) {
+            'bans' => $this->orderByBans(),
+            'date' => $this->orderByDate()
+        };
 
         return $this->data;
     }
@@ -53,31 +54,11 @@ abstract class AbstractList
     final protected function calculateMostBanned(): void
     {
         $highest = 0;
-        $name = '';
-
-        switch (get_class($this)) {
-            case 'List\Addresses':
-                $name = 'address';
-                break;
-            case 'List\Countries':
-            case 'List\Continents':
-                $name = 'code';
-                break;
-            case 'List\Jails':
-                $name = 'name';
-                break;
-            case 'List\Networks':
-                $name = 'number';
-                break;
-            case 'List\Subnets':
-                $name = 'subnet';
-                break;
-        }
 
         foreach ($this->data['list'] as $item) {
             if ($item['bans'] > $highest) {
                 $highest = $item['bans'];
-                $this->data['mostBanned'] = $item[$name];
+                $this->data['mostBanned'] = $item[$this->mostBannedParam];
             }
         }
     }

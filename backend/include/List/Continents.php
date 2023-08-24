@@ -11,10 +11,7 @@ class Continents extends AbstractList
     ];
 
     /** {@inheritDoc} */
-    protected array $settings = [
-        'calculateMostBanned' => true,
-        'orderBy' => 'bans'
-    ];
+    protected ?string $mostBannedParam = 'code';
 
     /** {@inheritDoc} */
     public function addIp(array $ip): void
