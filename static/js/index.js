@@ -31,7 +31,26 @@ function fetchData () {
   return fetch('data.php')
 }
 
+function orderData (data) {
+  if (document.getElementById('data-order-by').disabled === true) {
+    return data
+  }
+
+  let orderBy = 'bans'
+  if (document.getElementById('data-order-by').value === 'ips') {
+    orderBy = 'ipCount'
+  }
+
+  data.sort(function (a, b) {
+    return b[orderBy] - a[orderBy]
+  })
+
+  return data
+}
+
 function displayData (data, type, pageNumber = 0) {
+  data = orderData(data)
+
   const pagination = new Pagination(data)
   pagination.setPage(pageNumber)
 
@@ -357,6 +376,12 @@ document.getElementById('data-view-type').addEventListener('change', function (e
 
   const type = e.target.value
 
+  if (type === 'address' || type === 'recentBans') {
+    document.getElementById('data-order-by').disabled = true
+  } else {
+    document.getElementById('data-order-by').disabled = false
+  }
+
   if (type === 'address' || type === 'recentBans' || type === 'subnet') {
     document.getElementById('open-filter-panel').disabled = false
 
@@ -381,6 +406,11 @@ document.getElementById('data-view-type').addEventListener('change', function (e
   }
 
   displayData(filter.getData(type), type)
+})
+
+document.getElementById('data-order-by').addEventListener('change', function (e) {
+  const viewType = document.getElementById('data-view-type').value
+  displayData(filter.getData(viewType), viewType)
 })
 
 document.getElementById('open-filter-panel').addEventListener('click', function (e) {
