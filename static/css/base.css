@@ -296,6 +296,10 @@ table td.no-data {
 	margin-bottom: 5px;
 }
 
+.input.order-by {
+	margin-top: 10px;
+}
+
 .input > select {
 	display: inline-block;
 }
