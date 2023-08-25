@@ -242,7 +242,9 @@ export class Filter {
   #createLabel (type, action, value, uuid) {
     const labelCon = document.getElementById('applied-filters')
     const div = document.createElement('div')
-    const span = document.createElement('span')
+    const typeSpan = document.createElement('span')
+    const actionSpan = document.createElement('span')
+    const valueSpan = document.createElement('span')
     const button = document.createElement('button')
 
     const typeTexts = {
@@ -277,16 +279,22 @@ export class Filter {
       actionText = 'is not'
     }
 
-    span.innerText = `${typeTexts[type]} ${actionText} '${valueText}'`
+    typeSpan.innerText = `${typeTexts[type]} `
+    actionSpan.innerText = `${actionText} `
+    valueSpan.innerText = valueText
+    actionSpan.classList.add('action')
 
     button.innerText = 'X'
-    button.setAttribute('title', `Remove filter '${typeTexts[type]} ${actionText} ${valueText}'`)
+    button.setAttribute('title', 'Remove filter')
     button.setAttribute('data-filter-id', uuid)
     button.setAttribute('data-filter-value', value)
 
-    div.appendChild(span)
+    div.appendChild(typeSpan)
+    div.appendChild(actionSpan)
+    div.appendChild(valueSpan)
     div.appendChild(button)
     div.classList.add('item')
+    div.setAttribute('title', `${typeTexts[type]} ${actionText} ${valueText}`)
     div.setAttribute('data-label-id', uuid)
 
     labelCon.appendChild(div)

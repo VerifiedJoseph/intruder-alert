@@ -365,6 +365,10 @@ table td.no-data {
 	border: 1px solid #8f8f9d;
 }
 
+#applied-filters > .item > .action {
+	font-weight: bold;
+}
+
 #applied-filters > .item > button {
 	padding: 2px;
 	width: 30px;
