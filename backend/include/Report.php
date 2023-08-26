@@ -16,14 +16,18 @@ class Report
     /** @var string $path Path to save the generated report */
     private string $path = '';
 
+    /** @var bool $disableCharts Status for disable charts in frontend */
+    private bool $disableCharts = false;
+
     /**
      * 
      * @param array<string, mixed> $lists
      */
-    public function __construct(array $lists, string $path)
+    public function __construct(array $lists, string $path, bool $disableCharts = false)
     {
         $this->lists = $lists;
         $this->path = $path;
+        $this->disableCharts = $disableCharts;
     }
 
     /**
@@ -38,6 +42,7 @@ class Report
         $data['dataSince'] = $this->getDataSinceDate();
         $data['log'] = Logger::getEntries();
         $data['log'][] = 'Last run: ' . $data['updated'];
+        $data['settings']['disableCharts'] = $this->disableCharts;
 
         File::write(
             $this->path,

@@ -509,12 +509,16 @@ fetchData()
     details = new Details(data)
     display = new Display(data)
 
-    plot = new Plot(data)
-    plot.newChart('last24hours')
-
     document.getElementById('loading').classList.add('hide')
-    document.getElementById('chart-options').classList.remove('hide')
-    document.getElementById('chart').classList.remove('hide')
+
+    if (data.settings.disableCharts === false) {
+      plot = new Plot(data)
+      plot.newChart('last24hours')
+
+      document.getElementById('chart-options').classList.remove('hide')
+      document.getElementById('chart').classList.remove('hide')
+    }
+
     document.getElementById('options').classList.remove('hide')
     document.getElementById('data').classList.remove('hide')
 
