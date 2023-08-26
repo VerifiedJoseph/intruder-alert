@@ -1,8 +1,10 @@
 export class FilterPanel {
   #data = []
+  #type = ''
 
-  constructor (data = []) {
+  constructor (data = [], type = '') {
     this.#data = data
+    this.#type = type
   }
 
   /**
@@ -10,7 +12,7 @@ export class FilterPanel {
    * @param {string} type Filter type
    */
   setFilterValues (type, filter) {
-    const select = document.getElementById('filter-value')
+    const select = document.getElementById(this.#getId('filter-value'))
     select.innerText = ''
 
     let valueName = ''
@@ -73,21 +75,21 @@ export class FilterPanel {
    * Show filter panel
    */
   show () {
-    document.getElementById('filter-panel').classList.remove('hide')
-    document.getElementById('open-filter-panel').disabled = true
+    document.getElementById(this.#getId('filter-panel')).classList.remove('hide')
+    document.getElementById(this.#getId('filter-open-panel')).disabled = true
   }
 
   /**
    * Hide filter panel
    */
   hide () {
-    document.getElementById('filter-panel').classList.add('hide')
-    document.getElementById('open-filter-panel').disabled = false
+    document.getElementById(this.#getId('filter-panel')).classList.add('hide')
+    document.getElementById(this.#getId('filter-open-panel')).disabled = false
   }
 
   setup (filter) {
     const viewType = document.getElementById('data-view-type').value
-    document.getElementById('filter-action')[0].selected = true
+    document.getElementById(this.#getId('filter-action'))[0].selected = true
 
     this.#enableAllFilters()
 
@@ -117,7 +119,7 @@ export class FilterPanel {
    * @param {string} name
    */
   #disableFilter (name) {
-    const element = document.querySelector(`#filter-type [value="${name}"]`)
+    const element = document.querySelector(`#${this.#getId('filter-type')} [value="${name}"]`)
     element.hidden = true
     element.disabled = true
   }
@@ -127,7 +129,7 @@ export class FilterPanel {
    * @param {string} name
    */
   #enableFilter (name) {
-    const element = document.querySelector(`#filter-type [value="${name}"]`)
+    const element = document.querySelector(`#${this.#getId('filter-type')} [value="${name}"]`)
     element.hidden = false
     element.disabled = false
   }
@@ -136,7 +138,7 @@ export class FilterPanel {
    * Enable all filter types
    */
   #enableAllFilters () {
-    const elements = document.querySelectorAll('#filter-type [value]')
+    const elements = document.querySelectorAll(`#${this.#getId('filter-type')} [value]`)
 
     elements.forEach(element => {
       element.hidden = false
@@ -149,6 +151,18 @@ export class FilterPanel {
    * @param {string} name
    */
   #setSelectedFilter (name) {
-    document.querySelector(`#filter-type [value="${name}"]`).selected = true
+    document.querySelector(`#${this.#getId('filter-type')} [value="${name}"]`).selected = true
+  }
+
+  /**
+   * Get element Id with prefix
+   * @param {string} name
+   */
+  #getId (name) {
+    if (this.#type !== '') {
+      return `${this.#type}-${name}`
+    }
+
+    return name
   }
 }
