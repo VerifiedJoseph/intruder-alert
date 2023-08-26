@@ -95,6 +95,11 @@ class Report
         return $data;
     }
 
+    /**
+     * Create chart plots
+     * 
+     * @return array<string, array<string, mixed>>
+     */
     private function createPlots(): array
     {
         $data = [];
