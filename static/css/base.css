@@ -78,6 +78,10 @@ input {
 	margin-bottom: 6px;
 }
 
+.margin-zero {
+	margin: 0px !important;
+}
+
 .filter {
 	width: 250px;
 }
@@ -203,9 +207,16 @@ table td.no-data {
 	text-align: center;
 }
 
-.input-text {
+.input-text, .input-text-small {
 	display: inline-block;
+}
+
+.input-text {
 	width: 60px;
+}
+
+.input-text-small {
+	width: 40px;
 }
 
 #modal {
@@ -376,12 +387,14 @@ table td.no-data {
 }
 
 #log {
-	background-color: white;
-	padding: 10px;
 	margin-top: 6px;
-	border-bottom: 1px solid #8f8f9d;
 }
 
 #log-entries {
 	margin: 0;
+}
+
+#chart {
+	margin-bottom: 6px;
+	height: 250px;
 }
