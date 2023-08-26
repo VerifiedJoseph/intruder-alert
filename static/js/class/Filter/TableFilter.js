@@ -19,7 +19,7 @@ export class TableFilter extends Filter {
     }
 
     if (this.settings.length > 0 && this.#supportedListTypes.includes(listType) === true) {
-      return this._getData(data, listType)
+      return this._getFilteredData(data, listType)
     }
 
     return data
