@@ -4,7 +4,8 @@ import { } from './lib/chart.js'
 
 import { Plot } from './class/Plot.js'
 import { Table, Row, Cell } from './class/Table.js'
-import { Filter } from './class/Filter.js'
+import { TableFilter } from './class/Filter/TableFilter.js'
+import { ChartFilter } from './class/Filter/ChartFilter.js'
 import { FilterPanel } from './class/FilterPanel.js'
 import { Details } from './class/Details.js'
 import { Display } from './class/Display.js'
@@ -14,6 +15,7 @@ import { Message } from './class/Message.js'
 
 let filterPanel
 let filter
+let chartFilter
 let plot
 let details
 let display
@@ -383,7 +385,7 @@ function createMostBannedButtons () {
 
 document.getElementById('chart-type').addEventListener('change', function (e) {
   plot.destroyChart()
-  plot.newChart(e.target.value)
+  plot.newChart(chartFilter.getData(e.target.value))
 })
 
 document.getElementById('data-view-type').addEventListener('change', function (e) {
@@ -408,7 +410,7 @@ document.getElementById('data-view-type').addEventListener('change', function (e
   }
 
   if (type === 'address' || type === 'recentBans' || type === 'subnet') {
-    document.getElementById('open-filter-panel').disabled = false
+    document.getElementById('filter-open-panel').disabled = false
 
     if (type === 'address') {
       filter.remove('date')
@@ -422,7 +424,7 @@ document.getElementById('data-view-type').addEventListener('change', function (e
       filter.remove('jail')
     }
   } else {
-    document.getElementById('open-filter-panel').disabled = true
+    document.getElementById('filter-open-panel').disabled = true
     filter.reset()
   }
 
@@ -438,12 +440,12 @@ document.getElementById('data-order-by').addEventListener('change', function (e)
   displayData(filter.getData(viewType), viewType)
 })
 
-document.getElementById('open-filter-panel').addEventListener('click', function (e) {
+document.getElementById('filter-open-panel').addEventListener('click', function (e) {
   filterPanel.setup(filter)
   filterPanel.show()
 })
 
-document.getElementById('close-filter-panel').addEventListener('click', function (e) {
+document.getElementById('filter-close-panel').addEventListener('click', function (e) {
   filterPanel.hide()
 })
 
@@ -504,8 +506,10 @@ fetchData()
       throw new Error(data.message)
     }
 
-    filter = new Filter(data)
+    filter = new TableFilter(data)
+    chartFilter = new ChartFilter(data)
     filterPanel = new FilterPanel(data)
+
     details = new Details(data)
     display = new Display(data)
 
@@ -513,7 +517,7 @@ fetchData()
 
     if (data.settings.disableCharts === false) {
       plot = new Plot(data)
-      plot.newChart('last24hours')
+      plot.newChart(chartFilter.getData('last24hours'))
 
       document.getElementById('chart-options').classList.remove('hide')
       document.getElementById('chart').classList.remove('hide')
