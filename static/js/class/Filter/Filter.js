@@ -11,7 +11,7 @@ export class Filter {
     this.details = new Details(data)
   }
 
-  _getData (data, listType) {
+  _getFilteredData (data, listType) {
     const filtered = []
 
     data.forEach(item => {
