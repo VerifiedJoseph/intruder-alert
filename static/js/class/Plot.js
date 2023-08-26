@@ -35,6 +35,7 @@ export class Plot {
         }]
       },
       options: {
+        animation: false,
         interaction: {
           intersect: false,
           mode: 'index'
