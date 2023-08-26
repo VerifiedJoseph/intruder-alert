@@ -2,6 +2,11 @@
 
 class Plots
 {
+
+    /**
+     * @param array<string, mixed> $addresses
+     * @return array<string, array<int, string>>
+     */
     public function last24Hours(array $addresses): array
     {
         $data = [
@@ -44,6 +49,10 @@ class Plots
         return $data;
     }
 
+    /**
+     * @param array<string, mixed> $addresses
+     * @return array<string, array<int, string>>
+     */
     public function lastXDays(array $addresses, int $days): array
     {
         $data = [
@@ -86,10 +95,16 @@ class Plots
         return $data;
     }
 
+    /**
+     * Sort array by date value
+     * 
+     * @param array<int, array<string, mixed>> $array
+     * @return array<int, array<string, mixed>>
+     */
     private function sortByDate(array $array): array
     {
         $ord = array();
-        foreach ($array as $key => $value) {
+        foreach ($array as $value) {
             $ord[] = strtotime($value['date']);
         }
 
