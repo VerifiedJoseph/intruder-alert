@@ -5,7 +5,7 @@ Intruder Alert is an incident dashboard for Fail2ban.
 
 ## Demo
 
-A [demo](https://verifiedjoseph.github.io/intruder-alert/demo/) is available and is built from the latest commit on the `main` brach.
+A demo is [available](https://verifiedjoseph.github.io/intruder-alert/demo/). It is built from the latest commit on the `main` brach.
 
 ## Installation
 
