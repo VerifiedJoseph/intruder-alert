@@ -138,7 +138,7 @@ function createViewButtonEvents () {
           filter.add(filterType, 'include', filterValue)
 
           document.getElementById('applied-filters').classList.remove('hide')
-          document.getElementById('open-filter-panel').disabled = false
+          document.getElementById('filter-open-panel').disabled = false
 
           const viewType = document.getElementById('data-view-type').value
 
