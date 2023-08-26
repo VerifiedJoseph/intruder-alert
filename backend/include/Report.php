@@ -32,7 +32,8 @@ class Report
     public function generate(): void
     {
         $data = $this->lists;
-        $data['stats'] =  $this->createStats();
+        $data['stats'] = $this->createStats();
+        $data['plots'] = $this->createPlots();
         $data['updated'] = date('Y-m-d H:i:s');
         $data['dataSince'] = $this->getDataSinceDate();
         $data['log'] = Logger::getEntries();
@@ -85,6 +86,17 @@ class Report
 
         $dayCount = count($this->lists['date']['list']);
         $data['bans']['perDay'] = floor($this->lists['address']['totalBans'] / $dayCount);
+
+        return $data;
+    }
+
+    private function createPlots(): array
+    {
+        $data = [];
+        $plots = new Plots();
+        $data['last24hours'] = $plots->last24Hours($this->lists['address']['list']);
+        $data['last7days'] = $plots->lastXDays($this->lists['address']['list'], days: 7);
+        $data['last30days'] = $plots->lastXDays($this->lists['address']['list'], days: 30);
 
         return $data;
     }
