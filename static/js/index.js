@@ -16,6 +16,7 @@ import { Message } from './class/Message.js'
 let filterPanel
 let filter
 let chartFilter
+let chartFilterPanel
 let plot
 let details
 let display
@@ -117,8 +118,6 @@ function createViewButtonEvents () {
   for (let i = 0; i < buttons.length; i++) {
     if (buttons[i].getAttribute('data-event') !== 'true') {
       buttons[i].addEventListener('click', function (e) {
-        location.hash = '#table'
-
         const filterType = e.target.getAttribute('data-filter-type')
         const filterValue = e.target.getAttribute('data-filter-value')
         const context = e.target.getAttribute('data-context')
@@ -195,6 +194,32 @@ function createFilerRemoveEvents () {
 
         if (document.getElementById('applied-filters').hasChildNodes() === false) {
           document.getElementById('applied-filters').classList.add('hide')
+        }
+      })
+
+      buttons[i].setAttribute('data-event', 'true')
+    }
+  }
+}
+
+function createChartFilerRemoveEvents () {
+  const buttons = document.querySelectorAll('#chart-applied-filters > .item > button[data-filter-id]')
+
+  for (let i = 0; i < buttons.length; i++) {
+    if (buttons[i].getAttribute('data-event') !== 'true') {
+      buttons[i].addEventListener('click', function (e) {
+        e.target.parentElement.remove()
+
+        chartFilter.removeValue(
+          e.target.getAttribute('data-filter-id'),
+          e.target.getAttribute('data-filter-value')
+        )
+
+        plot.destroyChart()
+        plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
+
+        if (document.getElementById('chart-applied-filters').hasChildNodes() === false) {
+          document.getElementById('chart-applied-filters').classList.add('hide')
         }
       })
 
@@ -469,6 +494,36 @@ document.getElementById('filter-apply').addEventListener('click', function (e) {
   createFilerRemoveEvents()
 })
 
+document.getElementById('chart-filter-open-panel').addEventListener('click', function (e) {
+  chartFilterPanel.setup(filter)
+  chartFilterPanel.show()
+})
+
+document.getElementById('chart-filter-close-panel').addEventListener('click', function (e) {
+  chartFilterPanel.hide()
+})
+
+document.getElementById('chart-filter-type').addEventListener('change', function (e) {
+  chartFilterPanel.setFilterValues(e.target.value, filter)
+})
+
+document.getElementById('chart-filter-apply').addEventListener('click', function (e) {
+  const chartType = document.getElementById('chart-type').value
+
+  chartFilterPanel.hide()
+  document.getElementById('chart-applied-filters').classList.remove('hide')
+
+  chartFilter.add(
+    document.getElementById('chart-filter-type').value,
+    document.getElementById('chart-filter-action').value,
+    document.getElementById('chart-filter-value').value
+  )
+
+  plot.destroyChart()
+  plot.newChart(chartFilter.getData(chartType))
+  createChartFilerRemoveEvents()
+})
+
 const pageButtons = document.getElementsByClassName('page-button')
 for (let i = 0; i < pageButtons.length; i++) {
   pageButtons[i].addEventListener('click', function (e) {
@@ -507,8 +562,10 @@ fetchData()
     }
 
     filter = new TableFilter(data)
-    chartFilter = new ChartFilter(data)
     filterPanel = new FilterPanel(data)
+
+    chartFilter = new ChartFilter(data)
+    chartFilterPanel = new FilterPanel(data, 'chart')
 
     details = new Details(data)
     display = new Display(data)
