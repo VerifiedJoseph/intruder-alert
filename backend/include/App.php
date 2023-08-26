@@ -102,7 +102,8 @@ class App
     {
         $report = new Report(
             $this->lists->get(),
-            $this->config->getPath($this->dataFilepath)
+            $this->config->getPath($this->dataFilepath),
+            $this->config->getDisableChartsStatus()
         );
         $report->generate();
     }

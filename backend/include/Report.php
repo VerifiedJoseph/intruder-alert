@@ -16,14 +16,18 @@ class Report
     /** @var string $path Path to save the generated report */
     private string $path = '';
 
+    /** @var bool $disableCharts Status for disable charts in frontend */
+    private bool $disableCharts = false;
+
     /**
      * 
      * @param array<string, mixed> $lists
      */
-    public function __construct(array $lists, string $path)
+    public function __construct(array $lists, string $path, bool $disableCharts = false)
     {
         $this->lists = $lists;
         $this->path = $path;
+        $this->disableCharts = $disableCharts;
     }
 
     /**
@@ -32,11 +36,13 @@ class Report
     public function generate(): void
     {
         $data = $this->lists;
-        $data['stats'] =  $this->createStats();
+        $data['stats'] = $this->createStats();
+        $data['plots'] = $this->createPlots();
         $data['updated'] = date('Y-m-d H:i:s');
         $data['dataSince'] = $this->getDataSinceDate();
         $data['log'] = Logger::getEntries();
         $data['log'][] = 'Last run: ' . $data['updated'];
+        $data['settings']['disableCharts'] = $this->disableCharts;
 
         File::write(
             $this->path,
@@ -85,6 +91,22 @@ class Report
 
         $dayCount = count($this->lists['date']['list']);
         $data['bans']['perDay'] = floor($this->lists['address']['totalBans'] / $dayCount);
+
+        return $data;
+    }
+
+    /**
+     * Create chart plots
+     * 
+     * @return array<string, array<string, mixed>>
+     */
+    private function createPlots(): array
+    {
+        $data = [];
+        $plots = new Plots();
+        $data['last24hours'] = $plots->last24Hours($this->lists['address']['list']);
+        $data['last7days'] = $plots->lastXDays($this->lists['address']['list'], days: 7);
+        $data['last30days'] = $plots->lastXDays($this->lists['address']['list'], days: 30);
 
         return $data;
     }

@@ -37,6 +37,15 @@ class Config
         return $this->path . $file;
     }
 
+    public function getDisableChartsStatus(): bool
+    {
+        if ($this->getEnv('DISABLE_CHARTS') === 'true') {
+            return true;
+        }
+
+        return false;
+    }
+
     public function getLogFolder(): string
     {
         return $this->getEnv('LOG_FOLDER');
@@ -94,6 +103,7 @@ class Config
      * @throws ConfigException if script not run via the command-line.
      * @throws ConfigException if PHP version not supported.
      * @throws ConfigException if environment variable `IA_LOG_FOLDER` or `IA_LOG_PATHS` is not set.
+     * @throws ConfigException if environment variable `IA_DISABLE_CHARTS` is not `true` or `false`.
      */
     public function check(): void
     {
@@ -111,6 +121,10 @@ class Config
 
         if ($this->hasEnv('LOG_PATHS') === false && $this->hasEnv('LOG_FOLDER') === false) {
             throw new ConfigException('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
+        }
+
+        if ($this->hasEnv('DISABLE_CHARTS') === true && in_array($this->getEnv('DISABLE_CHARTS'), ['true', 'false']) === false) {
+            throw new ConfigException('Disable charts environment variable must be true or false [IA_DISABLE_CHARTS]');
         }
 
         $this->checkLogPaths();
