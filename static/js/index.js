@@ -1,5 +1,8 @@
 'use strict'
 
+import { } from './lib/chart.js'
+
+import { Plot } from './class/Plot.js'
 import { Table, Row, Cell } from './class/Table.js'
 import { Filter } from './class/Filter.js'
 import { FilterPanel } from './class/FilterPanel.js'
@@ -11,6 +14,7 @@ import { Message } from './class/Message.js'
 
 let filterPanel
 let filter
+let plot
 let details
 let display
 
@@ -111,6 +115,8 @@ function createViewButtonEvents () {
   for (let i = 0; i < buttons.length; i++) {
     if (buttons[i].getAttribute('data-event') !== 'true') {
       buttons[i].addEventListener('click', function (e) {
+        location.hash = '#table'
+
         const filterType = e.target.getAttribute('data-filter-type')
         const filterValue = e.target.getAttribute('data-filter-value')
         const context = e.target.getAttribute('data-context')
@@ -375,6 +381,11 @@ function createMostBannedButtons () {
   )
 }
 
+document.getElementById('chart-type').addEventListener('change', function (e) {
+  plot.destroyChart()
+  plot.newChart(e.target.value)
+})
+
 document.getElementById('data-view-type').addEventListener('change', function (e) {
   filterPanel.hide()
 
@@ -498,7 +509,12 @@ fetchData()
     details = new Details(data)
     display = new Display(data)
 
+    plot = new Plot(data)
+    plot.newChart('last24hours')
+
     document.getElementById('loading').classList.add('hide')
+    document.getElementById('chart-options').classList.remove('hide')
+    document.getElementById('chart').classList.remove('hide')
     document.getElementById('options').classList.remove('hide')
     document.getElementById('data').classList.remove('hide')
 
