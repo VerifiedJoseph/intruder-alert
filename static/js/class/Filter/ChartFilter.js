@@ -84,11 +84,11 @@ export class ChartFilter extends Filter {
     const groups = []
     const banCounts = []
 
-    let lastWeek = spacetime.now('Europe/London')
+    let lastWeek = spacetime.now()
     lastWeek = lastWeek.subtract(`${days}`, 'days')
 
     for (const item of data) {
-      const timestamp = spacetime(item.timestamp, 'Europe/London')
+      const timestamp = spacetime(item.timestamp)
 
       if (timestamp.isAfter(lastWeek) === true) {
         const timestampFormat = timestamp.format('{year}-{iso-month}-{date-pad}')
