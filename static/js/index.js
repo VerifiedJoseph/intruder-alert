@@ -365,9 +365,8 @@ function createTable (data = [], type, indexStart = 0) {
     })
   } else {
     const row = new Row()
-    table.addRow(
-      row.addCell(new Cell('No data found', 'no-data', false, 6))
-    )
+    row.addCell(new Cell('No data found', 'no-data', false, 6))
+    table.addRow(row)
   }
 
   div.innerText = ''
