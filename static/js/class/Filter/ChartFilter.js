@@ -98,7 +98,7 @@ export class ChartFilter extends Filter {
     const groups = []
 
     let lastWeek = spacetime.now()
-    lastWeek = lastWeek.subtract(`${days}`, 'days')
+    lastWeek = lastWeek.subtract(`${days - 1}`, 'days')
 
     for (const item of data) {
       const timestamp = spacetime(item.timestamp)
