@@ -1,4 +1,8 @@
 export class Table {
+  /**
+   * @param {string|null} cssClass CSS class name
+   * @param {string|null} id ID attribute value
+   */
   constructor (cssClass = null, id = null) {
     this.id = id
     this.cssClass = cssClass
@@ -20,6 +24,10 @@ export class Table {
     return this.html
   }
 
+  /**
+   * Add table header
+   * @param {Row} row
+   */
   addHeader (row) {
     const tr = document.createElement('tr')
 
@@ -38,6 +46,10 @@ export class Table {
     this.header.appendChild(tr)
   }
 
+  /**
+  * Add table row
+  * @param {Row} row
+  */
   addRow (row) {
     const tr = document.createElement('tr')
 
@@ -66,20 +78,28 @@ export class Table {
 }
 
 export class Row {
-  constructor () {
-    this.data = []
-  }
+  #data = []
 
   get () {
-    return this.data
+    return this.#data
   }
 
+  /**
+   * Add a cell to the row
+   * @param {Cell} cell
+   */
   addCell (cell) {
-    this.data.push(cell.get())
+    this.#data.push(cell.get())
   }
 }
 
 export class Cell {
+  /**
+   * @param {*} value
+   * @param {null|string} cssClass CSS class of the cell
+   * @param {boolean} html Is cell value an HTML element?
+   * @param {int} colSpan Number columns the cell should span
+   */
   constructor (value, cssClass = null, html = false, colSpan = 0) {
     this.value = value
     this.cssClass = cssClass
@@ -87,6 +107,9 @@ export class Cell {
     this.colSpan = colSpan
   }
 
+  /**
+   * Get cell details
+   */
   get () {
     return {
       value: this.value,
