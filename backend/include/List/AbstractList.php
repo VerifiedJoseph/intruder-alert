@@ -10,7 +10,7 @@ abstract class AbstractList
         'list' => []
     ];
 
-    /** @var array<int, string> $ipList  IP addresses for this list */
+    /** @var array<int, array<int, string>> $ipList  IP addresses for this list */
     protected array $ipList = [];
 
     /** @var bool $calculateMostBanned Calculate most banned value for a list */
