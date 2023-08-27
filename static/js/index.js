@@ -14,6 +14,7 @@ import { Message } from './class/Message.js'
 
 let filterPanel, filter, chartFilter, chartFilterPanel,
   plot, details, display
+let chartsDisabled = false
 
 const tableHeaders = {
   address: ['Address', 'Subnet', 'Network', 'Country', 'Bans', ''],
@@ -152,7 +153,7 @@ function createViewButtonEvents () {
           Message.error('A filter already exists for this.', true)
         }
 
-        if (chartFilter.hasFilter(filterType, filterValue) === false && context === 'most-banned') {
+        if (chartFilter.hasFilter(filterType, filterValue) === false && context === 'most-banned' && chartsDisabled === false) {
           chartFilter.add(filterType, 'include', filterValue)
 
           document.getElementById('chart-applied-filters').classList.remove('hide')
@@ -568,6 +569,7 @@ fetchData()
 
     document.getElementById('loading').classList.add('hide')
 
+    chartsDisabled = data.settings.disableCharts
     if (data.settings.disableCharts === false) {
       plot = new Plot(data)
       plot.newChart(chartFilter.getData('last24hours'))
