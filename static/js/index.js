@@ -554,7 +554,7 @@ fetchData()
 
     if (data.settings.disableCharts === false) {
       plot = new Plot(data)
-      plot.newChart(chartFilter.getData('last24hours'))
+      plot.newChart(chartFilter.getData('last24hours'), data.settings.timezone)
 
       document.getElementById('chart-options').classList.remove('hide')
       document.getElementById('chart').classList.remove('hide')
