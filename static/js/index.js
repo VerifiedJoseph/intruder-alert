@@ -495,7 +495,7 @@ document.getElementById('filter-apply').addEventListener('click', function (e) {
 })
 
 document.getElementById('chart-filter-open-panel').addEventListener('click', function (e) {
-  chartFilterPanel.setup(filter)
+  chartFilterPanel.setup(chartFilter)
   chartFilterPanel.show()
 })
 
@@ -504,7 +504,7 @@ document.getElementById('chart-filter-close-panel').addEventListener('click', fu
 })
 
 document.getElementById('chart-filter-type').addEventListener('change', function (e) {
-  chartFilterPanel.setFilterValues(e.target.value, filter)
+  chartFilterPanel.setFilterValues(e.target.value, chartFilter)
 })
 
 document.getElementById('chart-filter-apply').addEventListener('click', function (e) {
