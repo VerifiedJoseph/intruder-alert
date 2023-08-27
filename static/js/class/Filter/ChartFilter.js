@@ -81,6 +81,11 @@ export class ChartFilter extends Filter {
       }
     }
 
+    if (groups.length > 24) {
+      groups.shift()
+      groupKeys.shift()
+    }
+
     return {
       labels: groupKeys.reverse(),
       datasets: this.#getDatasets(groups),
@@ -133,8 +138,6 @@ export class ChartFilter extends Filter {
         break
       }
     }
-
-    console.log(groups)
 
     return {
       labels: groupKeys.reverse(),
