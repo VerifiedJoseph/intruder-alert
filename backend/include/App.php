@@ -103,7 +103,8 @@ class App
         $report = new Report(
             $this->lists->get(),
             $this->config->getPath($this->dataFilepath),
-            $this->config->getDisableChartsStatus()
+            $this->config->getDisableChartsStatus(),
+            $this->config->getTimezone()
         );
         $report->generate();
     }
