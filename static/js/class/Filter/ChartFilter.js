@@ -43,8 +43,8 @@ export class ChartFilter extends Filter {
    * @param {string} chartType Chart type
    */
   #groupByHour (data, chartType) {
-    const groupKeys = []
     const groups = []
+    const banCounts = []
 
     let yesterday = spacetime.now()
     yesterday = yesterday.subtract('24', 'hours')
@@ -55,26 +55,13 @@ export class ChartFilter extends Filter {
       if (timestamp.isAfter(yesterday) === true) {
         const timestampFormat = timestamp.format('{year}-{iso-month}-{date-pad} {hour-24-pad}:00')
 
-        if (groupKeys.includes(timestampFormat) === true) {
-          const key = groupKeys.indexOf(timestampFormat)
+        if (groups.includes(timestampFormat) === true) {
+          const key = groups.indexOf(timestampFormat)
 
-          const group = groups[key]
-          group.banCount++
-
-          if (group.addresses.includes(item.address) === false) {
-            group.ipCount++
-            group.addresses.push(item.address)
-          }
+          banCounts[key]++
         } else {
-          const group = {
-            date: timestampFormat,
-            banCount: 1,
-            ipCount: 1,
-            addresses: [item.address]
-          }
-
-          groupKeys.push(timestampFormat)
-          groups.push(group)
+          groups.push(timestampFormat)
+          banCounts.push(1)
         }
       } else {
         break
@@ -82,8 +69,8 @@ export class ChartFilter extends Filter {
     }
 
     return {
-      labels: groupKeys.reverse(),
-      datasets: this.#getDatasets(groups),
+      labels: groups.reverse(),
+      data: banCounts.reverse(),
       type: chartType
     }
   }
@@ -94,8 +81,8 @@ export class ChartFilter extends Filter {
    * @param {string} chartType Chart type
    */
   #groupByDay (data, days, chartType) {
-    const groupKeys = []
     const groups = []
+    const banCounts = []
 
     let lastWeek = spacetime.now()
     lastWeek = lastWeek.subtract(`${days}`, 'days')
@@ -106,62 +93,23 @@ export class ChartFilter extends Filter {
       if (timestamp.isAfter(lastWeek) === true) {
         const timestampFormat = timestamp.format('{year}-{iso-month}-{date-pad}')
 
-        if (groupKeys.includes(timestampFormat) === true) {
-          const key = groupKeys.indexOf(timestampFormat)
+        if (groups.includes(timestampFormat) === true) {
+          const key = groups.indexOf(timestampFormat)
 
-          const group = groups[key]
-          group.banCount++
-
-          if (group.addresses.includes(item.address) === false) {
-            group.ipCount++
-            group.addresses.push(item.address)
-          }
-
-          groups[key] = group
+          banCounts[key]++
         } else {
-          const group = {
-            date: timestampFormat,
-            banCount: 1,
-            ipCount: 1,
-            addresses: [item.address]
-          }
-
-          groupKeys.push(timestampFormat)
-          groups.push(group)
+          groups.push(timestampFormat)
+          banCounts.push(1)
         }
       } else {
         break
       }
     }
 
-    console.log(groups)
-
     return {
-      labels: groupKeys.reverse(),
-      datasets: this.#getDatasets(groups),
+      labels: groups.reverse(),
+      data: banCounts.reverse(),
       type: chartType
     }
-  }
-
-  #getDatasets (groups) {
-    const banCounts = []
-    const ipCounts = []
-
-    groups.reverse().forEach(g => {
-      banCounts.push(g.banCount)
-      ipCounts.push(g.ipCount)
-    })
-
-    return [
-      {
-        fill: true,
-        label: 'IPs',
-        data: ipCounts
-      },
-      {
-        fill: true,
-        label: 'Bans',
-        data: banCounts
-      }]
   }
 }
