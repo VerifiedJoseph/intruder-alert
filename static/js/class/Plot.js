@@ -42,20 +42,18 @@ export class Plot {
               minRotation: 0,
               maxRotation: 0,
               align: 'inner',
-              autoSkip: true,
+              autoSkip: false,
               callback: function (val, index) {
                 const regex = /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:00/
 
-                let number = 4
                 let value = this.getLabelForValue(val)
                 if (regex.test(this.getLabelForValue(val)) === true) {
-                  number = 2
                   const time = new Date(this.getLabelForValue(val))
                   value = time.toLocaleString('en-GB', { hour: 'numeric', minute: 'numeric', hour12: false })
                 }
 
                 // Hide every x tick label
-                return index % number === 0 ? value : ''
+                return index % 2 === 0 ? value.replace(/[0-9]{4}-/, '') : ''
               }
             }
           }
