@@ -8,6 +8,12 @@ export class Plot {
   }
 
   newChart (data) {
+    if (data.data.length === 0) {
+      document.getElementById('chart-message').classList.remove('hide')
+    } else {
+      document.getElementById('chart-message').classList.add('hide')
+    }
+
     const ctx = document.getElementById('chart-canvas')
     const options = {
       type: 'line',
