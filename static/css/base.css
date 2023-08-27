@@ -315,7 +315,7 @@ table td.no-data {
 	display: inline-block;
 }
 
-#filter-panel {
+.filter-panel {
 	position: absolute;
 	top: 30px;
 	left: 64px;
@@ -326,40 +326,40 @@ table td.no-data {
 	border: 1px solid #8f8f9d;
 }
 
-#filter-panel > #header {
+.filter-panel > #header {
 	font-weight: bold;
 	margin-bottom: 6px;
 }
 
-#filter-panel > .selects > div {
+.filter-panel > .selects > div {
 	display: inline-block;
 }
 
-#filter-action {
+.filter-action {
 	width: 70px;
 }
 
-#filter-value {
+.filter-value {
 	width: 159px;
 }
 
-#filter-panel > .buttons {
+.filter-panel > .buttons {
 	margin-top: 6px;
 	text-align: end;
 }
 
-#filters {
+.filters {
 	display: flow-root;
 	position: relative;
 	margin-top: 10px;
 	margin-bottom: 0px;
 }
 
-#filters > .text, #filters > .labels {
+.filters > .text, .filters > .labels {
 	display: inline-block;
 }
 
-#applied-filters {
+.applied-filters {
 	margin-left: 64px;
 	margin-top: 10px;
 	flex-direction: row;
@@ -369,18 +369,18 @@ table td.no-data {
 	width: 890px;
 }
 
-#applied-filters > .item {
+.applied-filters > .item {
 	padding: 4px;
 	margin-right: 5px;
 	background-color: #f1f1f1;
 	border: 1px solid #8f8f9d;
 }
 
-#applied-filters > .item > .action {
+.applied-filters > .item > .action {
 	font-weight: bold;
 }
 
-#applied-filters > .item > button {
+.applied-filters > .item > button {
 	padding: 2px;
 	width: 30px;
 	margin-left: 4px;
@@ -395,6 +395,18 @@ table td.no-data {
 }
 
 #chart {
+	position: relative;
 	margin-bottom: 6px;
 	height: 250px;
+}
+
+#chart-message {
+	position: absolute;
+	background-color: white;
+	width: 100%;
+	height: 100%;
+	left: 0px;
+	top: 0px;
+	padding: 10px;
+	text-align: center;
 }

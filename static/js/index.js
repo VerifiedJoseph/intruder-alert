@@ -1,10 +1,10 @@
 'use strict'
 
 import { } from './lib/chart.js'
-
 import { Plot } from './class/Plot.js'
 import { Table, Row, Cell } from './class/Table.js'
-import { Filter } from './class/Filter.js'
+import { TableFilter } from './class/Filter/TableFilter.js'
+import { ChartFilter } from './class/Filter/ChartFilter.js'
 import { FilterPanel } from './class/FilterPanel.js'
 import { Details } from './class/Details.js'
 import { Display } from './class/Display.js'
@@ -12,13 +12,9 @@ import { Format } from './class/Format.js'
 import { Pagination } from './class/Pagination.js'
 import { Message } from './class/Message.js'
 
-let filterPanel
-let filter
-let plot
-let details
-let display
+let filterPanel, filter, chartFilter, chartFilterPanel,
+  plot, details, display
 
-let botData = {}
 const tableHeaders = {
   address: ['Address', 'Subnet', 'Network', 'Country', 'Bans', ''],
   jail: ['Jail', 'IPs', 'Bans', ''],
@@ -57,9 +53,7 @@ function orderData (data) {
 }
 
 function displayData (data, type, pageNumber = 0) {
-  data = orderData(data)
-
-  const pagination = new Pagination(data)
+  const pagination = new Pagination(orderData(data))
   pagination.setPage(pageNumber)
 
   createTable(
@@ -69,6 +63,10 @@ function displayData (data, type, pageNumber = 0) {
   )
 
   pagination.setButtons()
+}
+
+function getViewType () {
+  return document.getElementById('data-view-type').value
 }
 
 function createCellWithFilter (dataType, dataValue, text) {
@@ -105,7 +103,6 @@ function createViewButton (viewType, filterType, filterValue, context = 'table')
   button.setAttribute('data-filter-type', filterType)
   button.setAttribute('data-filter-value', filterValue)
   button.setAttribute('data-context', context)
-
   return button
 }
 
@@ -115,8 +112,6 @@ function createViewButtonEvents () {
   for (let i = 0; i < buttons.length; i++) {
     if (buttons[i].getAttribute('data-event') !== 'true') {
       buttons[i].addEventListener('click', function (e) {
-        location.hash = '#table'
-
         const filterType = e.target.getAttribute('data-filter-type')
         const filterValue = e.target.getAttribute('data-filter-value')
         const context = e.target.getAttribute('data-context')
@@ -126,7 +121,7 @@ function createViewButtonEvents () {
           filter.reset()
         }
 
-        if (e.target.getAttribute('data-view-type') === 'recentBans' && document.getElementById('data-view-type').value === 'address') {
+        if (e.target.getAttribute('data-view-type') === 'recentBans' && getViewType() === 'address') {
           filter.reset()
         }
 
@@ -136,11 +131,9 @@ function createViewButtonEvents () {
           filter.add(filterType, 'include', filterValue)
 
           document.getElementById('applied-filters').classList.remove('hide')
-          document.getElementById('open-filter-panel').disabled = false
+          document.getElementById('filter-open-panel').disabled = false
 
-          const viewType = document.getElementById('data-view-type').value
-
-          displayData(filter.getData(viewType), viewType)
+          displayData(filter.getData(getViewType()), getViewType())
           createFilerRemoveEvents()
         } else {
           Message.error('A filter already exists for this.', true)
@@ -166,9 +159,7 @@ function createFilerButtonEvents () {
 
       document.getElementById('applied-filters').classList.remove('hide')
 
-      const viewType = document.getElementById('data-view-type').value
-
-      displayData(filter.getData(viewType), viewType)
+      displayData(filter.getData(getViewType()), getViewType())
       createFilerRemoveEvents()
     })
   }
@@ -187,12 +178,35 @@ function createFilerRemoveEvents () {
 
         e.target.parentElement.remove()
 
-        const viewType = document.getElementById('data-view-type').value
-
-        displayData(filter.getData(viewType), viewType)
+        displayData(filter.getData(getViewType()), getViewType())
 
         if (document.getElementById('applied-filters').hasChildNodes() === false) {
           document.getElementById('applied-filters').classList.add('hide')
+        }
+      })
+
+      buttons[i].setAttribute('data-event', 'true')
+    }
+  }
+}
+
+function createChartFilerRemoveEvents () {
+  const buttons = document.querySelectorAll('#chart-applied-filters > .item > button[data-filter-id]')
+
+  for (let i = 0; i < buttons.length; i++) {
+    if (buttons[i].getAttribute('data-event') !== 'true') {
+      buttons[i].addEventListener('click', function (e) {
+        e.target.parentElement.remove()
+
+        chartFilter.removeValue(
+          e.target.getAttribute('data-filter-id'),
+          e.target.getAttribute('data-filter-value')
+        )
+
+        plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
+
+        if (document.getElementById('chart-applied-filters').hasChildNodes() === false) {
+          document.getElementById('chart-applied-filters').classList.add('hide')
         }
       })
 
@@ -352,7 +366,6 @@ function createTable (data = [], type, indexStart = 0) {
   } else {
     const row = new Row()
     row.addCell(new Cell('No data found', 'no-data', false, 6))
-
     table.addRow(row)
   }
 
@@ -363,27 +376,18 @@ function createTable (data = [], type, indexStart = 0) {
   createFilerButtonEvents()
 }
 
-function createMostBannedButtons () {
-  document.getElementById('most-banned-ip-button').appendChild(
-    createViewButton('recentBans', 'address', botData.address.mostBanned, 'most-banned')
-  )
+function createMostBannedButtons (data) {
+  const buttons = ['address', 'network', 'country', 'jail']
 
-  document.getElementById('most-seen-network-button').appendChild(
-    createViewButton('recentBans', 'network', botData.network.mostBanned, 'most-banned')
-  )
-
-  document.getElementById('most-seen-country-button').appendChild(
-    createViewButton('recentBans', 'country', botData.country.mostBanned, 'most-banned')
-  )
-
-  document.getElementById('most-activated-jail-button').appendChild(
-    createViewButton('recentBans', 'jail', botData.jail.mostBanned, 'most-banned')
-  )
+  buttons.forEach(name => {
+    document.getElementById(`most-${name}-button`).appendChild(
+      createViewButton('recentBans', name, data[name].mostBanned, 'most-banned')
+    )
+  })
 }
 
 document.getElementById('chart-type').addEventListener('change', function (e) {
-  plot.destroyChart()
-  plot.newChart(e.target.value)
+  plot.newChart(chartFilter.getData(e.target.value))
 })
 
 document.getElementById('data-view-type').addEventListener('change', function (e) {
@@ -408,21 +412,17 @@ document.getElementById('data-view-type').addEventListener('change', function (e
   }
 
   if (type === 'address' || type === 'recentBans' || type === 'subnet') {
-    document.getElementById('open-filter-panel').disabled = false
+    document.getElementById('filter-open-panel').disabled = false
 
     if (type === 'address') {
-      filter.remove('date')
-      filter.remove('jail')
+      filter.removeMany(['date', 'jail'])
     }
 
     if (type === 'subnet') {
-      filter.remove('address')
-      filter.remove('continent')
-      filter.remove('date')
-      filter.remove('jail')
+      filter.removeMany(['address', 'continent', 'date', 'jail'])
     }
   } else {
-    document.getElementById('open-filter-panel').disabled = true
+    document.getElementById('filter-open-panel').disabled = true
     filter.reset()
   }
 
@@ -434,16 +434,15 @@ document.getElementById('data-view-type').addEventListener('change', function (e
 })
 
 document.getElementById('data-order-by').addEventListener('change', function (e) {
-  const viewType = document.getElementById('data-view-type').value
-  displayData(filter.getData(viewType), viewType)
+  displayData(filter.getData(getViewType()), getViewType())
 })
 
-document.getElementById('open-filter-panel').addEventListener('click', function (e) {
+document.getElementById('filter-open-panel').addEventListener('click', function (e) {
   filterPanel.setup(filter)
   filterPanel.show()
 })
 
-document.getElementById('close-filter-panel').addEventListener('click', function (e) {
+document.getElementById('filter-close-panel').addEventListener('click', function (e) {
   filterPanel.hide()
 })
 
@@ -452,8 +451,6 @@ document.getElementById('filter-type').addEventListener('change', function (e) {
 })
 
 document.getElementById('filter-apply').addEventListener('click', function (e) {
-  const viewType = document.getElementById('data-view-type').value
-
   document.getElementById('applied-filters').classList.remove('hide')
 
   filterPanel.hide()
@@ -463,31 +460,54 @@ document.getElementById('filter-apply').addEventListener('click', function (e) {
     document.getElementById('filter-value').value
   )
 
-  displayData(filter.getData(viewType), viewType)
+  displayData(filter.getData(getViewType()), getViewType())
   createFilerRemoveEvents()
+})
+
+document.getElementById('chart-filter-open-panel').addEventListener('click', function (e) {
+  chartFilterPanel.setup(chartFilter)
+  chartFilterPanel.show()
+})
+
+document.getElementById('chart-filter-close-panel').addEventListener('click', function (e) {
+  chartFilterPanel.hide()
+})
+
+document.getElementById('chart-filter-type').addEventListener('change', function (e) {
+  chartFilterPanel.setFilterValues(e.target.value, chartFilter)
+})
+
+document.getElementById('chart-filter-apply').addEventListener('click', function (e) {
+  const chartType = document.getElementById('chart-type').value
+
+  chartFilterPanel.hide()
+  document.getElementById('chart-applied-filters').classList.remove('hide')
+
+  chartFilter.add(
+    document.getElementById('chart-filter-type').value,
+    document.getElementById('chart-filter-action').value,
+    document.getElementById('chart-filter-value').value
+  )
+
+  plot.newChart(chartFilter.getData(chartType))
+  createChartFilerRemoveEvents()
 })
 
 const pageButtons = document.getElementsByClassName('page-button')
 for (let i = 0; i < pageButtons.length; i++) {
   pageButtons[i].addEventListener('click', function (e) {
-    const viewType = document.getElementById('data-view-type').value
     const page = Number(e.target.getAttribute('data-page'))
 
-    displayData(filter.getData(viewType), viewType, page)
+    displayData(filter.getData(getViewType()), getViewType(), page)
   })
 }
 
 document.getElementById('page-number').addEventListener('change', function (e) {
-  const viewType = document.getElementById('data-view-type').value
-  const page = Number(e.target.value)
-
-  displayData(filter.getData(viewType), viewType, page)
+  displayData(filter.getData(getViewType()), getViewType(), Number(e.target.value))
 })
 
 document.getElementById('page-size').addEventListener('change', function (e) {
-  const viewType = document.getElementById('data-view-type').value
-
-  displayData(filter.getData(viewType), viewType, 0)
+  displayData(filter.getData(getViewType()), getViewType(), 0)
 })
 
 fetchData()
@@ -498,14 +518,15 @@ fetchData()
 
     return response.json()
   }).then(data => {
-    botData = data
-
     if (data.error === true) {
       throw new Error(data.message)
     }
 
-    filter = new Filter(data)
+    filter = new TableFilter(data)
     filterPanel = new FilterPanel(data)
+    chartFilter = new ChartFilter(data)
+    chartFilterPanel = new FilterPanel(data, 'chart')
+
     details = new Details(data)
     display = new Display(data)
 
@@ -513,7 +534,7 @@ fetchData()
 
     if (data.settings.disableCharts === false) {
       plot = new Plot(data)
-      plot.newChart('last24hours')
+      plot.newChart(chartFilter.getData('last24hours'))
 
       document.getElementById('chart-options').classList.remove('hide')
       document.getElementById('chart').classList.remove('hide')
@@ -527,12 +548,10 @@ fetchData()
     display.mostBanned()
     display.daemonLog()
 
-    createMostBannedButtons()
+    createMostBannedButtons(data)
 
     displayData(filter.getData('recentBans'), 'recentBans')
   }).catch(error => {
     document.getElementById('loading').classList.add('hide')
-
-    console.log(error)
     Message.error(error.message)
   })

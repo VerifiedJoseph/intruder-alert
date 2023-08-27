@@ -74,40 +74,73 @@
 						<span>Most banned IP address</span>
 						<div id="most-banned-ip" class="big"></div>
 						<strong><span id="most-banned-ip-count"></span></strong> bans
-						<span id="most-banned-ip-button"></span>
+						<span id="most-address-button"></span>
 					</div>
 					<div class="cell">
 						<span>Most seen network</span>
 						<div id="most-seen-network" class="big ellipsis-text"></div>
 						<strong><span id="most-seen-network-count"></span></strong> bans
-						<span id="most-seen-network-button"></span>
+						<span id="most-network-button"></span>
 					</div>
 					<div class="cell">
 						<span>Most seen country</span>
 						<div id="most-seen-country" class="big ellipsis-text"></div>
 						<strong><span id="most-seen-country-count"></span></strong> bans 
-						<span id="most-seen-country-button"></span>
+						<span id="most-country-button"></span>
 					</div>
 					<div class="cell">
 						<span>Most activated jail</span>
 						<div id="most-activated-jail" class="big ellipsis-text"></div>
 						<strong><span id="most-activated-jail-count"></span></strong> bans 
-						<span id="most-activated-jail-button"></span>
+						<span id="most-jail-button"></span>
 					</div>
 				</div>
 			</div>
 			<div id="chart-options" class="box hide">
-				<div class="input margin-zero">
-					<span class="input-text-small">View:</span>
+				<div class="input">
+					<span class="input-text">View:</span>
 					<select id="chart-type">
 						<option value="last24hours" selected>Bans &#x2013; Last 24 hours</option>
 						<option value="last7days">Bans &#x2013; Last 7 days</option>
 						<option value="last30days">Bans &#x2013; Last 30 days</option>
-						<!--<option value="recentBans">Bans & IPs per day</option>-->
 					</select>
 				</div>
+				<div id="chart-filters" class="filters input">
+					<div class="text">
+						<span class="input-text">Filters:</span>
+					</div>
+					<div class="labels">
+						<button id="chart-filter-open-panel" title="Add a filter">+ Add</button>
+					</div>
+					<div id="chart-filter-panel" class="filter-panel hide">
+						<div id="header">
+							New filter
+						</div>
+						<div class="selects">
+							<select id="chart-filter-type" class="filter-type">
+								<option value="address">IP address</option>
+								<option value="version">IP version</option>
+								<option value="subnet">Subnet</option>
+								<option value="network">Network</option>
+								<option value="country">Country</option>
+								<option value="continent">Continent</option>
+								<option value="jail">Jails</option>
+							</select>
+							<select id="chart-filter-action" class="filter-action">
+								<option value="include">is</option>
+								<option value="exclude">is not</option>
+							</select>
+							<select id="chart-filter-value" class="filter-value"></select>
+						</div>
+						<div class="buttons">
+							<button id="chart-filter-apply">Apply</button> <button id="chart-filter-close-panel">Cancel</button>
+						</div>
+					</div>
+				</div>
+				<div id="chart-applied-filters" class="applied-filters hide"></div>
 			</div>
 			<div id="chart" class="box hide">
+				<div id="chart-message" class="hide">No data</div>
 				<canvas id="chart-canvas"></canvas>
 			</div>
 			<div id="table">
@@ -133,19 +166,19 @@
 							<option value="date">Date</option>
 						</select>
 					</div>
-					<div id="filters" class="input">
+					<div id="filters" class="filters input">
 						<div class="text">
 							<span class="input-text">Filters:</span>
 						</div>
 						<div class="labels">
-							<button id="open-filter-panel" title="Add a filter">+ Add</button>
+							<button id="filter-open-panel" title="Add a filter">+ Add</button>
 						</div>
-						<div id="filter-panel" class="hide">
+						<div id="filter-panel" class="filter-panel hide">
 							<div id="header">
 								New filter
 							</div>
 							<div class="selects">
-								<select id="filter-type">
+								<select id="filter-type" class="filter-type">
 									<option value="address">IP address</option>
 									<option value="version">IP version</option>
 									<option value="subnet">Subnet</option>
@@ -155,18 +188,19 @@
 									<option value="jail">Jails</option>
 									<option value="date">Date</option>
 								</select>
-								<select id="filter-action">
+								<select id="filter-action" class="filter-action">
 									<option value="include">is</option>
 									<option value="exclude">is not</option>
 								</select>
-								<select id="filter-value"></select>
+								<select id="filter-value" class="filter-value"></select>
 							</div>
 							<div class="buttons">
-								<button id="filter-apply">Apply</button> <button id="close-filter-panel">Cancel</button>
+								<button id="filter-apply">Apply</button>
+								<button id="filter-close-panel">Cancel</button>
 							</div>
 						</div>
 					</div>
-					<div id="applied-filters" class="hide"></div>
+					<div id="applied-filters" class="applied-filters hide"></div>
 				</div>
 				<div id="data" class="hide">
 					<div id="data-table"></div>
@@ -184,7 +218,7 @@
 							</div>
 						</div>
 						<div>
-							Page size: 
+							Page size:
 							<select id="page-size">
 								<option value="25">25</option>
 								<option value="50">50</option>

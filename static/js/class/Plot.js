@@ -7,31 +7,26 @@ export class Plot {
     this.#data = data
   }
 
-  newChart (type) {
-    const ctx = document.getElementById('chart-canvas')
-
-    let plotData = []
-    let plotLabels = []
-
-    if (type === 'last7days') {
-      plotLabels = this.#data.plots.last7days.labels
-      plotData = this.#data.plots.last7days.data
-    } else if (type === 'last24hours') {
-      plotLabels = this.#data.plots.last24hours.labels
-      plotData = this.#data.plots.last24hours.data
-    } else {
-      plotLabels = this.#data.plots.last30days.labels
-      plotData = this.#data.plots.last30days.data
+  newChart (data) {
+    if (this.#chart !== undefined) {
+      this.#chart.destroy()
     }
 
+    if (data.data.length === 0) {
+      document.getElementById('chart-message').classList.remove('hide')
+    } else {
+      document.getElementById('chart-message').classList.add('hide')
+    }
+
+    const ctx = document.getElementById('chart-canvas')
     const options = {
       type: 'line',
       data: {
-        labels: plotLabels,
+        labels: data.labels,
         datasets: [{
           fill: true,
           label: 'Bans',
-          data: plotData
+          data: data.data
         }]
       },
       options: {
@@ -48,7 +43,10 @@ export class Plot {
           },
           x: {
             ticks: {
+              minRotation: 0,
               maxRotation: 0,
+              align: 'inner',
+              autoSkip: false,
               callback: function (val, index) {
                 const regex = /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:00/
 
@@ -59,7 +57,7 @@ export class Plot {
                 }
 
                 // Hide every x tick label
-                return index % 2 === 0 ? value : ''
+                return index % 2 === 0 ? value.replace(/[0-9]{4}-/, '') : ''
               }
             }
           }
@@ -73,9 +71,5 @@ export class Plot {
     }
 
     this.#chart = new Chart(ctx, options)
-  }
-
-  destroyChart () {
-    this.#chart.destroy()
   }
 }

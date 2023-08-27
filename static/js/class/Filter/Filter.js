@@ -1,80 +1,58 @@
-import { Details } from './Details.js'
+import { Details } from '../Details.js'
 
 export class Filter {
-  #supportedListTypes = ['address', 'recentBans', 'subnet']
-  #data = []
-  #settings = []
-  #details
+  data = []
+  settings = []
+  details
 
   constructor (data = []) {
-    this.#data = data
-    this.#settings = []
-    this.#details = new Details(data)
+    this.data = data
+    this.settings = []
+    this.details = new Details(data)
   }
 
-  /**
-   * Get filtered data
-   * @param {string} typeList
-   * @returns
-   */
-  getData (listType) {
-    let data
+  _getFilteredData (data) {
+    const filtered = []
 
-    if (listType === 'recentBans') {
-      data = this.#getRecentBans()
-    } else {
-      data = this.#data[listType].list
-    }
+    data.forEach(item => {
+      const addStatus = []
 
-    if (this.#settings.length > 0 && this.#supportedListTypes.includes(listType) === true) {
-      const filtered = []
+      for (let index = 0; index < this.settings.length; index++) {
+        const filter = this.settings[index]
 
-      data.forEach(item => {
-        const addStatus = []
+        let value
+        if (filter.type === 'date') {
+          const date = new Date(item.timestamp)
+          const parts = date.toISOString().substring(0, 10).split('-')
 
-        for (let index = 0; index < this.#settings.length; index++) {
-          const filter = this.#settings[index]
+          value = `${parts[0]}-${parts[1]}-${parts[2]}`
+        } else {
+          value = item[filter.type].toString()
+        }
 
-          if (filter.type === 'jail' && listType !== 'recentBans') {
-            continue
-          }
-
-          let value
-          if (filter.type === 'date') {
-            const date = new Date(item.timestamp)
-            const parts = date.toISOString().substring(0, 10).split('-')
-
-            value = `${parts[0]}-${parts[1]}-${parts[2]}`
+        if (filter.action === 'include' && filter.values.length > 0) {
+          if (filter.values.includes(value) === true) {
+            addStatus.push(1)
           } else {
-            value = item[filter.type].toString()
-          }
-
-          if (filter.action === 'include' && filter.values.length > 0) {
-            if (filter.values.includes(value) === true) {
-              addStatus.push(1)
-            } else {
-              addStatus.push(0)
-            }
-          }
-
-          if (filter.action === 'exclude' && filter.values.length > 0) {
-            if (filter.values.includes(value) === true) {
-              addStatus.push(0)
-            } else {
-              addStatus.push(1)
-            }
+            addStatus.push(0)
           }
         }
 
-        if (addStatus.includes(0) === false) {
-          filtered.push(item)
+        if (filter.action === 'exclude' && filter.values.length > 0) {
+          if (filter.values.includes(value) === true) {
+            addStatus.push(0)
+          } else {
+            addStatus.push(1)
+          }
         }
-      })
+      }
 
-      return filtered
-    }
+      if (addStatus.includes(0) === false) {
+        filtered.push(item)
+      }
+    })
 
-    return data
+    return filtered
   }
 
   /**
@@ -84,22 +62,22 @@ export class Filter {
    * @param {string} value Filter value
    */
   add (type, action, value) {
-    const index = this.#findFilter(type, action)
+    const index = this.findFilter(type, action)
 
     if (index !== false) {
-      this.#settings[index].values.push(value)
-      this.#createLabel(type, action, value, this.#settings[index].id)
+      this.settings[index].values.push(value)
+      this.createLabel(type, action, value, this.settings[index].id)
     } else {
       const id = crypto.randomUUID()
 
-      this.#settings.push({
+      this.settings.push({
         id,
         type,
         action,
         values: [value]
       })
 
-      this.#createLabel(type, action, value, id)
+      this.createLabel(type, action, value, id)
     }
   }
 
@@ -110,7 +88,7 @@ export class Filter {
   remove (type) {
     let id = null
 
-    this.#settings = this.#settings.filter(filter => {
+    this.settings = this.settings.filter(filter => {
       if (filter.type === type) {
         id = filter.id
         return false
@@ -120,8 +98,31 @@ export class Filter {
     })
 
     if (id !== null) {
-      this.#removeLabel(id)
+      this.removeLabel(id)
     }
+  }
+
+  /**
+   * Remove a number of filters by type
+   * @param {array} types filter types
+   */
+  removeMany (types) {
+    Array.from(types).forEach(type => {
+      let id = null
+
+      this.settings = this.settings.filter(filter => {
+        if (filter.type === type) {
+          id = filter.id
+          return false
+        }
+
+        return true
+      })
+
+      if (id !== null) {
+        this.removeLabel(id)
+      }
+    })
   }
 
   /**
@@ -130,10 +131,10 @@ export class Filter {
    * @param {value} value filter value
    */
   removeValue (filterId, value) {
-    const index = this.#findFilterByUUID(filterId)
-    const filter = this.#settings[index]
+    const index = this.findFilterByUUID(filterId)
+    const filter = this.settings[index]
 
-    this.#settings[index].values = filter.values.filter(
+    this.settings[index].values = filter.values.filter(
       item => item !== value
     )
   }
@@ -142,8 +143,8 @@ export class Filter {
    * Reset filters
    */
   reset () {
-    this.#settings = []
-    document.getElementById('applied-filters').innerText = ''
+    this.settings = []
+    document.getElementById(this.labelDiv).innerText = ''
   }
 
   /**
@@ -155,7 +156,7 @@ export class Filter {
   hasFilter (type, value) {
     let status = false
 
-    this.#settings.forEach(filter => {
+    this.settings.forEach(filter => {
       if (filter.type === type && filter.values.includes(value.toString()) === true) {
         status = true
       }
@@ -169,10 +170,10 @@ export class Filter {
    * @param {string} uuid Unique identifier
    * @returns Array index of filter
    */
-  #findFilterByUUID (uuid) {
+  findFilterByUUID (uuid) {
     let key = null
 
-    this.#settings.forEach((filter, index) => {
+    this.settings.forEach((filter, index) => {
       if (filter.id === uuid) {
         key = index
       }
@@ -185,10 +186,10 @@ export class Filter {
     return false
   }
 
-  #findFilter (type, action) {
+  findFilter (type, action) {
     let key = null
 
-    this.#settings.forEach((filter, index) => {
+    this.settings.forEach((filter, index) => {
       if (filter.type === type && filter.action === action) {
         key = index
       }
@@ -204,10 +205,10 @@ export class Filter {
   /**
    * Get recent bans
    */
-  #getRecentBans () {
+  getRecentBans () {
     const events = []
 
-    this.#data.address.list.forEach(ip => {
+    this.data.address.list.forEach(ip => {
       ip.events.forEach(event => {
         events.push({
           address: ip.address,
@@ -239,8 +240,8 @@ export class Filter {
    * @param {string} value Filter value
    * @param {string} uuid Filter UUID
    */
-  #createLabel (type, action, value, uuid) {
-    const labelCon = document.getElementById('applied-filters')
+  createLabel (type, action, value, uuid) {
+    const labelCon = document.getElementById(this.labelDiv)
     const div = document.createElement('div')
     const typeSpan = document.createElement('span')
     const actionSpan = document.createElement('span')
@@ -260,17 +261,17 @@ export class Filter {
 
     let valueText = value
     if (type === 'network') {
-      const network = this.#details.getNetwork(value)
+      const network = this.details.getNetwork(value)
       valueText = network.name
     }
 
     if (type === 'country') {
-      const country = this.#details.getCountry(value)
+      const country = this.details.getCountry(value)
       valueText = country.name
     }
 
     if (type === 'continent') {
-      const continent = this.#details.getContinent(value)
+      const continent = this.details.getContinent(value)
       valueText = continent.name
     }
 
@@ -304,7 +305,7 @@ export class Filter {
    * Remove filter label
    * @param {string} uuid Filter UUID
    */
-  #removeLabel (uuid) {
+  removeLabel (uuid) {
     if (document.querySelector(`div[data-label-id="${uuid}"]`)) {
       document.querySelector(`div[data-label-id="${uuid}"]`).remove()
     }
