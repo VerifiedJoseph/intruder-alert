@@ -377,11 +377,11 @@ function createTable (data = [], type, indexStart = 0) {
 }
 
 function createMostBannedButtons (data) {
-  const buttons = ['address', 'network', 'country', 'jail']
+  const types = ['address', 'network', 'country', 'jail']
 
-  buttons.forEach(name => {
-    document.getElementById(`most-${name}-button`).appendChild(
-      createViewButton('recentBans', name, data[name].mostBanned, 'most-banned')
+  types.forEach(type => {
+    document.getElementById(`most-${type}-button`).appendChild(
+      createViewButton('recentBans', type, data[type].mostBanned, 'most-banned')
     )
   })
 }
