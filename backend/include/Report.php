@@ -19,15 +19,19 @@ class Report
     /** @var bool $disableCharts Status for disable charts in frontend */
     private bool $disableCharts = false;
 
+    /** @var bool $timezone Timezone */
+    private string $timezone = '';
+
     /**
      * 
      * @param array<string, mixed> $lists
      */
-    public function __construct(array $lists, string $path, bool $disableCharts = false)
+    public function __construct(array $lists, string $path, bool $disableCharts = false, string $timezone)
     {
         $this->lists = $lists;
         $this->path = $path;
         $this->disableCharts = $disableCharts;
+        $this->timezone = $timezone;
     }
 
     /**
@@ -43,6 +47,7 @@ class Report
         $data['log'] = Logger::getEntries();
         $data['log'][] = 'Last run: ' . $data['updated'];
         $data['settings']['disableCharts'] = $this->disableCharts;
+        $data['settings']['timezone'] = $this->timezone;
 
         File::write(
             $this->path,
