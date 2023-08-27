@@ -22,17 +22,17 @@ export class ChartFilter extends Filter {
 
   #groupData (data, chartType) {
     if (chartType === 'last24hours') {
-      return this.#groupByHour(data)
+      return this.#groupByHour(data, chartType)
     }
 
     if (chartType === 'last7days') {
-      return this.#groupByDay(data, 7)
+      return this.#groupByDay(data, 7, chartType)
     }
 
-    return this.#groupByDay(data, 30)
+    return this.#groupByDay(data, 30, chartType)
   }
 
-  #groupByHour (data) {
+  #groupByHour (data, chartType) {
     const groups = []
     const banCounts = []
 
@@ -60,11 +60,12 @@ export class ChartFilter extends Filter {
 
     return {
       labels: groups.reverse(),
-      data: banCounts.reverse()
+      data: banCounts.reverse(),
+      type: chartType
     }
   }
 
-  #groupByDay (data, days) {
+  #groupByDay (data, days, chartType) {
     const groups = []
     const banCounts = []
 
@@ -92,7 +93,8 @@ export class ChartFilter extends Filter {
 
     return {
       labels: groups.reverse(),
-      data: banCounts.reverse()
+      data: banCounts.reverse(),
+      type: chartType
     }
   }
 }
