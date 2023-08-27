@@ -56,11 +56,7 @@ function displayData (data, type, pageNumber = 0) {
   const pagination = new Pagination(orderData(data))
   pagination.setPage(pageNumber)
 
-  createTable(
-    pagination.getData(),
-    type,
-    pagination.getIndexStart()
-  )
+  createTable(pagination.getData(), type)
 
   pagination.setButtons()
 }
@@ -69,7 +65,14 @@ function getViewType () {
   return document.getElementById('data-view-type').value
 }
 
-function createCellWithFilter (dataType, dataValue, text) {
+/**
+ * Create data filter button for a table cell
+ * @param {string} dataType Data type
+ * @param {string} dataValue Data value
+ * @param {string} text Span text
+ * @returns HTMLSpanElement
+ */
+function createFilterButton (dataType, dataValue, text) {
   const span = document.createElement('span')
 
   span.innerText = text
@@ -89,15 +92,18 @@ function createCellWithFilter (dataType, dataValue, text) {
   return span
 }
 
+/**
+ * Create a data view button
+ * @param {string} viewType Data view type
+ * @param {string} filterType Filter type
+ * @param {string} filterValue Filter value
+ * @param {string} context Context the button is being used
+ * @returns HTMLButtonElement
+ */
 function createViewButton (viewType, filterType, filterValue, context = 'table') {
   const button = document.createElement('button')
-  let text = 'View Bans'
 
-  if (viewType === 'address') {
-    text = 'View IPs'
-  }
-
-  button.innerText = text
+  button.innerText = (viewType === 'address') ? 'View IPs' : 'View Bans'
   button.classList.add('view')
   button.setAttribute('data-view-type', viewType)
   button.setAttribute('data-filter-type', filterType)
@@ -106,6 +112,9 @@ function createViewButton (viewType, filterType, filterValue, context = 'table')
   return button
 }
 
+/**
+ * Create click events for view buttons
+ */
 function createViewButtonEvents () {
   const buttons = document.getElementsByClassName('view')
 
@@ -145,6 +154,9 @@ function createViewButtonEvents () {
   }
 }
 
+/**
+ * Create click events for filer buttons
+ */
 function createFilerButtonEvents () {
   const buttons = document.getElementsByClassName('row-filter')
 
@@ -165,6 +177,9 @@ function createFilerButtonEvents () {
   }
 }
 
+/**
+ * Create click events for removing table filters
+ */
 function createFilerRemoveEvents () {
   const buttons = document.querySelectorAll('button[data-filter-id]')
 
@@ -190,6 +205,9 @@ function createFilerRemoveEvents () {
   }
 }
 
+/**
+ * Create click events for removing chart filters
+ */
 function createChartFilerRemoveEvents () {
   const buttons = document.querySelectorAll('#chart-applied-filters > .item > button[data-filter-id]')
 
@@ -215,7 +233,12 @@ function createChartFilerRemoveEvents () {
   }
 }
 
-function createTable (data = [], type, indexStart = 0) {
+/**
+ * Create table
+ * @param {array} data Table data
+ * @param {string} type Table type
+ */
+function createTable (data = [], type) {
   const div = document.getElementById('data-table')
 
   const table = new Table()
@@ -228,10 +251,10 @@ function createTable (data = [], type, indexStart = 0) {
 
   table.addHeader(header)
 
-  if (data.length > 0) {
-    data.forEach(function (item, index) {
+  if (data.items.length > 0) {
+    data.items.forEach(function (item, index) {
       const row = new Row()
-      const itemNumber = index + indexStart
+      const itemNumber = index + data.indexStart
 
       row.addCell(new Cell(Format.Number(itemNumber), 'number'))
 
@@ -241,17 +264,17 @@ function createTable (data = [], type, indexStart = 0) {
 
         row.addCell(new Cell(item.address))
         row.addCell(new Cell(
-          createCellWithFilter('subnet', item.subnet, item.subnet),
+          createFilterButton('subnet', item.subnet, item.subnet),
           null,
           true
         ))
         row.addCell(new Cell(
-          createCellWithFilter('network', network.number, network.name),
+          createFilterButton('network', network.number, network.name),
           'asn',
           true
         ))
         row.addCell(new Cell(
-          createCellWithFilter('country', country.code, country.name),
+          createFilterButton('country', country.code, country.name),
           'country',
           true
         ))
@@ -267,11 +290,8 @@ function createTable (data = [], type, indexStart = 0) {
         const span = document.createElement('span')
         span.innerText = item.name
         span.setAttribute('title', item.name)
-        row.addCell(new Cell(
-          span,
-          'long',
-          true
-        ))
+
+        row.addCell(new Cell(span, 'long', true))
         row.addCell(new Cell(Format.Number(item.ipCount)))
         row.addCell(new Cell(Format.Number(item.bans)))
 
@@ -296,22 +316,22 @@ function createTable (data = [], type, indexStart = 0) {
 
         row.addCell(new Cell(item.timestamp, 'date'))
         row.addCell(new Cell(
-          createCellWithFilter('address', item.address, item.address),
+          createFilterButton('address', item.address, item.address),
           'address',
           true
         ))
         row.addCell(new Cell(
-          createCellWithFilter('jail', item.jail, item.jail),
+          createFilterButton('jail', item.jail, item.jail),
           'jail',
           true
         ))
         row.addCell(new Cell(
-          createCellWithFilter('network', network.number, network.name),
+          createFilterButton('network', network.number, network.name),
           'asn',
           true
         ))
         row.addCell(new Cell(
-          createCellWithFilter('country', country.code, country.name),
+          createFilterButton('country', country.code, country.name),
           'country',
           true
         ))
@@ -334,12 +354,12 @@ function createTable (data = [], type, indexStart = 0) {
 
         row.addCell(new Cell(item.subnet))
         row.addCell(new Cell(
-          createCellWithFilter('network', network.number, network.name),
+          createFilterButton('network', network.number, network.name),
           'asn',
           true
         ))
         row.addCell(new Cell(
-          createCellWithFilter('country', country.code, country.name),
+          createFilterButton('country', country.code, country.name),
           'country',
           true
         ))
@@ -377,11 +397,11 @@ function createTable (data = [], type, indexStart = 0) {
 }
 
 function createMostBannedButtons (data) {
-  const buttons = ['address', 'network', 'country', 'jail']
+  const types = ['address', 'network', 'country', 'jail']
 
-  buttons.forEach(name => {
-    document.getElementById(`most-${name}-button`).appendChild(
-      createViewButton('recentBans', name, data[name].mostBanned, 'most-banned')
+  types.forEach(type => {
+    document.getElementById(`most-${type}-button`).appendChild(
+      createViewButton('recentBans', type, data[type].mostBanned, 'most-banned')
     )
   })
 }

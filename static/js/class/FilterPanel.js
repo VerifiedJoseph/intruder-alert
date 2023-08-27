@@ -87,6 +87,10 @@ export class FilterPanel {
     document.getElementById(this.#getId('filter-open-panel')).disabled = false
   }
 
+  /**
+   * Setup filter panel
+   * @param {Filter|ChartFilter} filter Filter class instance
+   */
   setup (filter) {
     const viewType = document.getElementById('data-view-type').value
     document.getElementById(this.#getId('filter-action'))[0].selected = true

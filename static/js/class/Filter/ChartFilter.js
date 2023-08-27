@@ -20,6 +20,11 @@ export class ChartFilter extends Filter {
     return this.#groupData(data, chartType)
   }
 
+  /**
+   * Group data
+   * @param {array} data Data to group
+   * @param {string} chartType Chart type
+   */
   #groupData (data, chartType) {
     if (chartType === 'last24hours') {
       return this.#groupByHour(data, chartType)
@@ -32,6 +37,11 @@ export class ChartFilter extends Filter {
     return this.#groupByDay(data, 30, chartType)
   }
 
+  /**
+   * Group data by hour
+   * @param {array} data Data to group
+   * @param {string} chartType Chart type
+   */
   #groupByHour (data, chartType) {
     const groups = []
     const banCounts = []
@@ -65,6 +75,11 @@ export class ChartFilter extends Filter {
     }
   }
 
+  /**
+   * Group data by day
+   * @param {array} data Data to group
+   * @param {string} chartType Chart type
+   */
   #groupByDay (data, days, chartType) {
     const groups = []
     const banCounts = []
