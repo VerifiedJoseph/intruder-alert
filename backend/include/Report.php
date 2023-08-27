@@ -19,7 +19,7 @@ class Report
     /** @var bool $disableCharts Status for disable charts in frontend */
     private bool $disableCharts = false;
 
-    /** @var bool $timezone Timezone */
+    /** @var string $timezone Timezone */
     private string $timezone = '';
 
     /**
