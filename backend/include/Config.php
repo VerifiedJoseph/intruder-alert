@@ -250,23 +250,21 @@ class Config
     /**
      * Check timezones
      * 
-     * @throws ConfigException if `TIMEZONE` environment variable is empty.
+     * @throws ConfigException if `TIMEZONE` environment variable is npt set or empty.
      * @throws ConfigException if `SYSTEM_LOG_TIMEZONE` environment variable is empty.
      * @throws ConfigException if an unknown timezone given in either `TIMEZONE` or `SYSTEM_LOG_TIMEZONE`.
      */
     private function checkTimeZones(): void
     {
-        if ($this->hasEnv('TIMEZONE') === true) {
-            if ($this->getEnv('TIMEZONE') === '') {
-                throw new ConfigException('Time zone can not be empty [TIMEZONE]');
-            }
-
-            if (in_array($this->getEnv('TIMEZONE'), DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === false) {
-                throw new ConfigException('Unknown time zone given [IA_TIMEZONE]');
-            }
-
-            date_default_timezone_set($this->getEnv('TIMEZONE'));
+        if ($this->hasEnv('TIMEZONE') === false || $this->getEnv('TIMEZONE') === '') {
+            throw new ConfigException('Timezone environment variable must be set [TIMEZONE]');
         }
+
+        if (in_array($this->getEnv('TIMEZONE'), DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === false) {
+            throw new ConfigException('Unknown time zone given [IA_TIMEZONE]');
+        }
+
+        date_default_timezone_set($this->getEnv('TIMEZONE'));
 
         if ($this->hasEnv('SYSTEM_LOG_TIMEZONE') === true ) {
             if ($this->getEnv('SYSTEM_LOG_TIMEZONE') === '') {
