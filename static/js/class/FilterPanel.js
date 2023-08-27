@@ -93,20 +93,25 @@ export class FilterPanel {
 
     this.#enableAllFilters()
 
-    if (viewType !== 'recentBans') {
-      this.#disableFilter('address')
-      this.#disableFilter('jail')
-      this.#disableFilter('date')
+    if (this.#type === '') {
+      if (viewType !== 'recentBans') {
+        this.#disableFilter('address')
+        this.#disableFilter('jail')
+        this.#disableFilter('date')
 
-      if (viewType === 'address') {
-        this.#setSelectedFilter('version')
-        this.setFilterValues('version', filter)
-      }
+        if (viewType === 'address') {
+          this.#setSelectedFilter('version')
+          this.setFilterValues('version', filter)
+        }
 
-      if (viewType === 'subnet') {
-        this.#setSelectedFilter('subnet')
-        this.setFilterValues('subnet', filter)
-        this.#disableFilter('continent')
+        if (viewType === 'subnet') {
+          this.#setSelectedFilter('subnet')
+          this.setFilterValues('subnet', filter)
+          this.#disableFilter('continent')
+        }
+      } else {
+        this.#setSelectedFilter('address')
+        this.setFilterValues('address', filter)
       }
     } else {
       this.#setSelectedFilter('address')
