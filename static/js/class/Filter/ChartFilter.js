@@ -43,7 +43,7 @@ export class ChartFilter extends Filter {
       const timestamp = spacetime(item.timestamp, 'Europe/London')
 
       if (timestamp.isAfter(yesterday) === true) {
-        const timestampFormat = timestamp.format('{year}-{month-pad}-{date-pad} {hour-24-pad}:00')
+        const timestampFormat = timestamp.format('{year}-{iso-month}-{date-pad} {hour-24-pad}:00')
 
         if (groups.includes(timestampFormat) === true) {
           const key = groups.indexOf(timestampFormat)
@@ -75,7 +75,7 @@ export class ChartFilter extends Filter {
       const timestamp = spacetime(item.timestamp, 'Europe/London')
 
       if (timestamp.isAfter(lastWeek) === true) {
-        const timestampFormat = timestamp.format('{year}-{month-pad}-{date-pad}')
+        const timestampFormat = timestamp.format('{year}-{iso-month}-{date-pad}')
 
         if (groups.includes(timestampFormat) === true) {
           const key = groups.indexOf(timestampFormat)
