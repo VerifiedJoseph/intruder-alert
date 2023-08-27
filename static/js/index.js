@@ -126,8 +126,11 @@ function createViewButtonEvents () {
         const context = e.target.getAttribute('data-context')
 
         filterPanel.hide()
+        chartFilterPanel.hide()
+
         if (context === 'most-banned') {
           filter.reset()
+          chartFilter.reset()
         }
 
         if (e.target.getAttribute('data-view-type') === 'recentBans' && getViewType() === 'address') {
@@ -135,6 +138,7 @@ function createViewButtonEvents () {
         }
 
         document.getElementById('data-view-type').value = e.target.getAttribute('data-view-type')
+        document.getElementById('chart-type').value = 'last30days'
 
         if (filter.hasFilter(filterType, filterValue) === false) {
           filter.add(filterType, 'include', filterValue)
@@ -144,6 +148,18 @@ function createViewButtonEvents () {
 
           displayData(filter.getData(getViewType()), getViewType())
           createFilerRemoveEvents()
+        } else {
+          Message.error('A filter already exists for this.', true)
+        }
+
+        if (chartFilter.hasFilter(filterType, filterValue) === false && context === 'most-banned') {
+          chartFilter.add(filterType, 'include', filterValue)
+
+          document.getElementById('chart-applied-filters').classList.remove('hide')
+          document.getElementById('chart-filter-open-panel').disabled = false
+
+          plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
+          createChartFilerRemoveEvents()
         } else {
           Message.error('A filter already exists for this.', true)
         }
