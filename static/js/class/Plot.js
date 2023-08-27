@@ -12,7 +12,7 @@ export class Plot {
       this.#chart.destroy()
     }
 
-    if (data.data.length === 0) {
+    if (data.datasets.length === 0) {
       document.getElementById('chart-message').classList.remove('hide')
     } else {
       document.getElementById('chart-message').classList.add('hide')
@@ -23,11 +23,7 @@ export class Plot {
       type: 'line',
       data: {
         labels: data.labels,
-        datasets: [{
-          fill: true,
-          label: 'Bans',
-          data: data.data
-        }]
+        datasets: data.datasets
       },
       options: {
         animation: false,
