@@ -14,7 +14,7 @@ export class ChartFilter extends Filter {
     const data = this.getRecentBans()
 
     if (this.settings.length > 0) {
-      return this.#groupData(this._getFilteredData(data, chartType), chartType)
+      return this.#groupData(this._getFilteredData(data), chartType)
     }
 
     return this.#groupData(data, chartType)
