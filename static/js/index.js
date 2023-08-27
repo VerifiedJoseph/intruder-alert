@@ -1,7 +1,6 @@
 'use strict'
 
 import { } from './lib/chart.js'
-
 import { Plot } from './class/Plot.js'
 import { Table, Row, Cell } from './class/Table.js'
 import { TableFilter } from './class/Filter/TableFilter.js'
@@ -16,7 +15,6 @@ import { Message } from './class/Message.js'
 let filterPanel, filter, chartFilter, chartFilterPanel,
   plot, details, display
 
-let botData = {}
 const tableHeaders = {
   address: ['Address', 'Subnet', 'Network', 'Country', 'Bans', ''],
   jail: ['Jail', 'IPs', 'Bans', ''],
@@ -55,9 +53,7 @@ function orderData (data) {
 }
 
 function displayData (data, type, pageNumber = 0) {
-  data = orderData(data)
-
-  const pagination = new Pagination(data)
+  const pagination = new Pagination(orderData(data))
   pagination.setPage(pageNumber)
 
   createTable(
@@ -107,7 +103,6 @@ function createViewButton (viewType, filterType, filterValue, context = 'table')
   button.setAttribute('data-filter-type', filterType)
   button.setAttribute('data-filter-value', filterValue)
   button.setAttribute('data-context', context)
-
   return button
 }
 
@@ -371,9 +366,9 @@ function createTable (data = [], type, indexStart = 0) {
     })
   } else {
     const row = new Row()
-    row.addCell(new Cell('No data found', 'no-data', false, 6))
-
-    table.addRow(row)
+    table.addRow(
+      row.addCell(new Cell('No data found', 'no-data', false, 6))
+    )
   }
 
   div.innerText = ''
@@ -383,18 +378,18 @@ function createTable (data = [], type, indexStart = 0) {
   createFilerButtonEvents()
 }
 
-function createMostBannedButtons () {
+function createMostBannedButtons (data) {
   document.getElementById('most-banned-ip-button').appendChild(
-    createViewButton('recentBans', 'address', botData.address.mostBanned, 'most-banned')
+    createViewButton('recentBans', 'address', data.address.mostBanned, 'most-banned')
   )
   document.getElementById('most-seen-network-button').appendChild(
-    createViewButton('recentBans', 'network', botData.network.mostBanned, 'most-banned')
+    createViewButton('recentBans', 'network', data.network.mostBanned, 'most-banned')
   )
   document.getElementById('most-seen-country-button').appendChild(
-    createViewButton('recentBans', 'country', botData.country.mostBanned, 'most-banned')
+    createViewButton('recentBans', 'country', data.country.mostBanned, 'most-banned')
   )
   document.getElementById('most-activated-jail-button').appendChild(
-    createViewButton('recentBans', 'jail', botData.jail.mostBanned, 'most-banned')
+    createViewButton('recentBans', 'jail', data.jail.mostBanned, 'most-banned')
   )
 }
 
@@ -532,8 +527,6 @@ fetchData()
 
     return response.json()
   }).then(data => {
-    botData = data
-
     if (data.error === true) {
       throw new Error(data.message)
     }
@@ -564,12 +557,10 @@ fetchData()
     display.mostBanned()
     display.daemonLog()
 
-    createMostBannedButtons()
+    createMostBannedButtons(data)
 
     displayData(filter.getData('recentBans'), 'recentBans')
   }).catch(error => {
     document.getElementById('loading').classList.add('hide')
-
-    console.log(error)
     Message.error(error.message)
   })
