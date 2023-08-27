@@ -4,14 +4,16 @@ import { } from '../../lib/spacetime.js'
 
 export class ChartFilter extends Filter {
   labelDiv = 'chart-applied-filters'
+  #timezone = 'UTC'
 
   /**
    * Get filtered data
    * @param {string} chartType
    * @returns
    */
-  getData (chartType) {
+  getData (chartType, timezone) {
     const data = this.getRecentBans()
+    this.#timezone = timezone
 
     if (this.settings.length > 0) {
       return this.#groupData(this._getFilteredData(data), chartType)
@@ -46,11 +48,11 @@ export class ChartFilter extends Filter {
     const groups = []
     const banCounts = []
 
-    let yesterday = spacetime.now('Europe/London')
+    let yesterday = spacetime.now(this.#timezone)
     yesterday = yesterday.subtract('24', 'hours')
 
     for (const item of data) {
-      const timestamp = spacetime(item.timestamp, 'Europe/London')
+      const timestamp = spacetime(item.timestamp, this.#timezone)
 
       if (timestamp.isAfter(yesterday) === true) {
         const timestampFormat = timestamp.format('{year}-{iso-month}-{date-pad} {hour-24-pad}:00')
