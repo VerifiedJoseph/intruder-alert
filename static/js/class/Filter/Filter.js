@@ -103,6 +103,29 @@ export class Filter {
   }
 
   /**
+   * Remove a number of filters by type
+   * @param {array} types filter types
+   */
+  removeMany (types) {
+    Array.from(types).forEach(type => {
+      let id = null
+
+      this.settings = this.settings.filter(filter => {
+        if (filter.type === type) {
+          id = filter.id
+          return false
+        }
+
+        return true
+      })
+
+      if (id !== null) {
+        this.removeLabel(id)
+      }
+    })
+  }
+
+  /**
    * Remove value from a filter
    * @param {string} filterId filter UUID
    * @param {value} value filter value
