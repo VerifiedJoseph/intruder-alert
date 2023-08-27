@@ -13,13 +13,8 @@ import { Format } from './class/Format.js'
 import { Pagination } from './class/Pagination.js'
 import { Message } from './class/Message.js'
 
-let filterPanel
-let filter
-let chartFilter
-let chartFilterPanel
-let plot
-let details
-let display
+let filterPanel, filter, chartFilter, chartFilterPanel,
+  plot, details, display
 
 let botData = {}
 const tableHeaders = {
@@ -394,15 +389,12 @@ function createMostBannedButtons () {
   document.getElementById('most-banned-ip-button').appendChild(
     createViewButton('recentBans', 'address', botData.address.mostBanned, 'most-banned')
   )
-
   document.getElementById('most-seen-network-button').appendChild(
     createViewButton('recentBans', 'network', botData.network.mostBanned, 'most-banned')
   )
-
   document.getElementById('most-seen-country-button').appendChild(
     createViewButton('recentBans', 'country', botData.country.mostBanned, 'most-banned')
   )
-
   document.getElementById('most-activated-jail-button').appendChild(
     createViewButton('recentBans', 'jail', botData.jail.mostBanned, 'most-banned')
   )
@@ -563,7 +555,6 @@ fetchData()
 
     filter = new TableFilter(data)
     filterPanel = new FilterPanel(data)
-
     chartFilter = new ChartFilter(data)
     chartFilterPanel = new FilterPanel(data, 'chart')
 
