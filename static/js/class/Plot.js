@@ -1,11 +1,6 @@
 /* global Chart */
 export class Plot {
-  #data = []
   #chart
-
-  constructor (data = []) {
-    this.#data = data
-  }
 
   newChart (data) {
     if (this.#chart !== undefined) {

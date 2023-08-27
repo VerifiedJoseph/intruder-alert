@@ -1,18 +1,6 @@
 export class Table {
-  /**
-   * @param {string|null} cssClass CSS class name
-   * @param {string|null} id ID attribute value
-   */
-  constructor (cssClass = null, id = null) {
-    this.id = id
-    this.cssClass = cssClass
-
+  constructor () {
     this.html = document.createElement('table')
-
-    if (cssClass !== null) {
-      this.html.classList.add(cssClass)
-    }
-
     this.header = document.createElement('thead')
     this.body = document.createElement('tbody')
   }
