@@ -378,18 +378,13 @@ function createTable (data = [], type, indexStart = 0) {
 }
 
 function createMostBannedButtons (data) {
-  document.getElementById('most-banned-ip-button').appendChild(
-    createViewButton('recentBans', 'address', data.address.mostBanned, 'most-banned')
-  )
-  document.getElementById('most-seen-network-button').appendChild(
-    createViewButton('recentBans', 'network', data.network.mostBanned, 'most-banned')
-  )
-  document.getElementById('most-seen-country-button').appendChild(
-    createViewButton('recentBans', 'country', data.country.mostBanned, 'most-banned')
-  )
-  document.getElementById('most-activated-jail-button').appendChild(
-    createViewButton('recentBans', 'jail', data.jail.mostBanned, 'most-banned')
-  )
+  const buttons = ['address', 'network', 'country', 'jail']
+
+  buttons.forEach(name => {
+    document.getElementById(`most-${name}-button`).appendChild(
+      createViewButton('recentBans', name, data[name].mostBanned, 'most-banned')
+    )
+  })
 }
 
 document.getElementById('chart-type').addEventListener('change', function (e) {
