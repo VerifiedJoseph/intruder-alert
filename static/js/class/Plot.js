@@ -8,6 +8,10 @@ export class Plot {
   }
 
   newChart (data) {
+    if (this.#chart !== undefined) {
+      this.#chart.destroy()
+    }
+
     if (data.data.length === 0) {
       document.getElementById('chart-message').classList.remove('hide')
     } else {
@@ -67,9 +71,5 @@ export class Plot {
     }
 
     this.#chart = new Chart(ctx, options)
-  }
-
-  destroyChart () {
-    this.#chart.destroy()
   }
 }

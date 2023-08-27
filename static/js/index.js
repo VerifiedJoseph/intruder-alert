@@ -203,7 +203,6 @@ function createChartFilerRemoveEvents () {
           e.target.getAttribute('data-filter-value')
         )
 
-        plot.destroyChart()
         plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
 
         if (document.getElementById('chart-applied-filters').hasChildNodes() === false) {
@@ -394,7 +393,6 @@ function createMostBannedButtons (data) {
 }
 
 document.getElementById('chart-type').addEventListener('change', function (e) {
-  plot.destroyChart()
   plot.newChart(chartFilter.getData(e.target.value))
 })
 
@@ -497,7 +495,6 @@ document.getElementById('chart-filter-apply').addEventListener('click', function
     document.getElementById('chart-filter-value').value
   )
 
-  plot.destroyChart()
   plot.newChart(chartFilter.getData(chartType))
   createChartFilerRemoveEvents()
 })
