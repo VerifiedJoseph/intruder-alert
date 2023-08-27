@@ -20,10 +20,6 @@ export class Filter {
       for (let index = 0; index < this.settings.length; index++) {
         const filter = this.settings[index]
 
-        if (filter.type === 'jail' && listType !== 'recentBans') {
-          continue
-        }
-
         let value
         if (filter.type === 'date') {
           const date = new Date(item.timestamp)
