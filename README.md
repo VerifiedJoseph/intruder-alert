@@ -51,8 +51,13 @@ Cron example:
 `1 * * * * php path/to/intruder-alert/backend/script.php`
 
 ## Dependencies
-- [`geoip2/geoip2`](https://github.com/maxmind/GeoIP2-php)
-- [`tronovav/geoip2-update`](https://github.com/tronovav/geoip2-update)
+
+- PHP
+	- [`geoip2/geoip2`](https://github.com/maxmind/GeoIP2-php)
+	- [`tronovav/geoip2-update`](https://github.com/tronovav/geoip2-update)
+- JavaScript
+	- [Chart.js](https://github.com/chartjs/Chart.js/)
+	- [Spacetime](https://github.com/spencermountain/spacetime)
 
 ## Requirements
 
