@@ -27,15 +27,10 @@ export class Pagination {
 
     this.#pageCount = pages.length - 1
 
-    return pages[this.#pageNumber]
-  }
-
-  getIndexStart () {
-    if (this.#pageNumber >= 1) {
-      return (this.#pageNumber * this.#pageSize) + 1
+    return {
+      items: pages[this.#pageNumber],
+      indexStart: this.#getIndexStart()
     }
-
-    return this.#indexStart
   }
 
   setButtons () {
@@ -100,6 +95,14 @@ export class Pagination {
     } else {
       select.disabled = false
     }
+  }
+
+  #getIndexStart () {
+    if (this.#pageNumber >= 1) {
+      return (this.#pageNumber * this.#pageSize) + 1
+    }
+
+    return this.#indexStart
   }
 
   #updateButton (id, number) {

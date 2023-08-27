@@ -56,11 +56,7 @@ function displayData (data, type, pageNumber = 0) {
   const pagination = new Pagination(orderData(data))
   pagination.setPage(pageNumber)
 
-  createTable(
-    pagination.getData(),
-    type,
-    pagination.getIndexStart()
-  )
+  createTable(pagination.getData(), type)
 
   pagination.setButtons()
 }
@@ -215,7 +211,12 @@ function createChartFilerRemoveEvents () {
   }
 }
 
-function createTable (data = [], type, indexStart = 0) {
+/**
+ * Create table
+ * @param {array} data Table data
+ * @param {string} type Table type
+ */
+function createTable (data = [], type) {
   const div = document.getElementById('data-table')
 
   const table = new Table()
@@ -228,10 +229,10 @@ function createTable (data = [], type, indexStart = 0) {
 
   table.addHeader(header)
 
-  if (data.length > 0) {
-    data.forEach(function (item, index) {
+  if (data.items.length > 0) {
+    data.items.forEach(function (item, index) {
       const row = new Row()
-      const itemNumber = index + indexStart
+      const itemNumber = index + data.indexStart
 
       row.addCell(new Cell(Format.Number(itemNumber), 'number'))
 
