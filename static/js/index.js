@@ -259,53 +259,6 @@ function createTable (data = [], type) {
   div.append(table.get())
 }
 
-fetchData()
-  .then(response => {
-    if (response.status !== 200) {
-      throw new Error(`Failed to fetch data (${response.status} ${response.statusText})`)
-    }
-
-    return response.json()
-  }).then(data => {
-    if (data.error === true) {
-      throw new Error(data.message)
-    }
-
-    filter = new TableFilter(data)
-    filterPanel = new FilterPanel(data)
-    chartFilter = new ChartFilter(data)
-    chartFilterPanel = new FilterPanel(data, 'chart')
-
-    details = new Details(data)
-    display = new Display(data)
-
-    document.getElementById('loading').classList.add('hide')
-
-    chartsDisabled = data.settings.disableCharts
-    if (data.settings.disableCharts === false) {
-      plot = new Plot(data)
-      plot.newChart(chartFilter.getData('last24hours'))
-
-      document.getElementById('chart-options').classList.remove('hide')
-      document.getElementById('chart').classList.remove('hide')
-    }
-
-    document.getElementById('options').classList.remove('hide')
-    document.getElementById('data').classList.remove('hide')
-
-    display.headerDates()
-    display.globalStats()
-    display.mostBanned()
-    display.daemonLog()
-
-    Helper.createMostBannedButtons(data)
-
-    displayData(filter.getData('recentBans'), 'recentBans')
-  }).catch(error => {
-    document.getElementById('loading').classList.add('hide')
-    Message.error(error.message)
-  })
-
 function clickHandler (event) {
   switch (event.target.id || event.target.className) {
     case 'filter-open-panel':
@@ -475,6 +428,53 @@ function changeHandler (event) {
       break
   }
 }
+
+fetchData()
+  .then(response => {
+    if (response.status !== 200) {
+      throw new Error(`Failed to fetch data (${response.status} ${response.statusText})`)
+    }
+
+    return response.json()
+  }).then(data => {
+    if (data.error === true) {
+      throw new Error(data.message)
+    }
+
+    filter = new TableFilter(data)
+    filterPanel = new FilterPanel(data)
+    chartFilter = new ChartFilter(data)
+    chartFilterPanel = new FilterPanel(data, 'chart')
+
+    details = new Details(data)
+    display = new Display(data)
+
+    document.getElementById('loading').classList.add('hide')
+
+    chartsDisabled = data.settings.disableCharts
+    if (data.settings.disableCharts === false) {
+      plot = new Plot(data)
+      plot.newChart(chartFilter.getData('last24hours'))
+
+      document.getElementById('chart-options').classList.remove('hide')
+      document.getElementById('chart').classList.remove('hide')
+    }
+
+    document.getElementById('options').classList.remove('hide')
+    document.getElementById('data').classList.remove('hide')
+
+    display.headerDates()
+    display.globalStats()
+    display.mostBanned()
+    display.daemonLog()
+
+    Helper.createMostBannedButtons(data)
+
+    displayData(filter.getData('recentBans'), 'recentBans')
+  }).catch(error => {
+    document.getElementById('loading').classList.add('hide')
+    Message.error(error.message)
+  })
 
 const body = document.querySelector('body')
 body.addEventListener('click', clickHandler)
