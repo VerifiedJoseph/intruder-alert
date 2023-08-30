@@ -380,7 +380,7 @@ function clickHandler (event) {
         filter.reset()
       }
 
-      document.getElementById('data-view-type').value = event.target.getAttribute('data-view-type')
+      document.getElementById('table-type').value = event.target.getAttribute('data-view-type')
       document.getElementById('chart-type').value = 'last30days'
 
       if (filter.hasFilter(event.target.getAttribute('data-filter-type'), event.target.getAttribute('data-filter-value')) === false) {
@@ -418,7 +418,7 @@ function changeHandler (event) {
     case 'chart-type':
       plot.newChart(chartFilter.getData(event.target.value))
       break
-    case 'data-view-type':
+    case 'table-type':
       filterPanel.hide()
 
       // Disable/enable order by select

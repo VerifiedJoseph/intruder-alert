@@ -38,6 +38,6 @@ export class Helper {
   }
 
   static getViewType () {
-    return document.getElementById('data-view-type').value
+    return document.getElementById('table-type').value
   }
 }
