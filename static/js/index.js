@@ -257,8 +257,6 @@ function createTable (data = [], type) {
 
   div.innerText = ''
   div.append(table.get())
-
-  createViewButtonEvents()
 }
 
 document.getElementById('data-view-type').addEventListener('change', function (e) {
