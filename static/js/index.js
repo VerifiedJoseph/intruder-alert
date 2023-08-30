@@ -475,8 +475,6 @@ function clickHandler (event) {
 }
 
 function changeHandler (event) {
-  console.log(event.target.className)
-
   switch (event.target.id || event.target.className) {
     case 'chart-type':
       plot.newChart(chartFilter.getData(event.target.value))
