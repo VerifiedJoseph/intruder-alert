@@ -44,66 +44,6 @@ function displayData (data, type, pageNumber = 0) {
 }
 
 /**
- * Create click events for view buttons
- */
-function createViewButtonEvents () {
-  const buttons = document.getElementsByClassName('view')
-
-  for (let i = 0; i < buttons.length; i++) {
-    if (buttons[i].getAttribute('data-event') !== 'true') {
-      buttons[i].addEventListener('click', function (e) {
-        const filterType = e.target.getAttribute('data-filter-type')
-        const filterValue = e.target.getAttribute('data-filter-value')
-        const context = e.target.getAttribute('data-context')
-
-        filterPanel.hide()
-        chartFilterPanel.hide()
-
-        if (context === 'most-banned') {
-          filter.reset()
-          chartFilter.reset()
-        }
-
-        if (e.target.getAttribute('data-view-type') === 'recentBans' && Helper.getViewType() === 'address') {
-          filter.reset()
-        }
-
-        document.getElementById('data-view-type').value = e.target.getAttribute('data-view-type')
-        document.getElementById('chart-type').value = 'last30days'
-
-        if (filter.hasFilter(filterType, filterValue) === false) {
-          filter.add(filterType, 'include', filterValue)
-
-          document.getElementById('applied-filters').classList.remove('hide')
-          document.getElementById('filter-open-panel').disabled = false
-
-          displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
-          createFilerRemoveEvents()
-        } else {
-          Message.error('A filter already exists for this.', true)
-        }
-
-        if (context === 'most-banned' && chartsDisabled === false) {
-          if (chartFilter.hasFilter(filterType, filterValue) === false) {
-            chartFilter.add(filterType, 'include', filterValue)
-
-            document.getElementById('chart-applied-filters').classList.remove('hide')
-            document.getElementById('chart-filter-open-panel').disabled = false
-
-            plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
-            createChartFilerRemoveEvents()
-          } else {
-            Message.error('A filter already exists for this.', true)
-          }
-        }
-      })
-
-      buttons[i].setAttribute('data-event', 'true')
-    }
-  }
-}
-
-/**
  * Create click events for removing table filters
  */
 function createFilerRemoveEvents () {
@@ -471,6 +411,50 @@ function clickHandler (event) {
     case 'load-next-page':
     case 'load-last-page':
       displayData(filter.getData(Helper.getViewType()), Helper.getViewType(), Number(event.target.getAttribute('data-page')))
+      break
+    case 'view-button':
+      filterPanel.hide()
+      chartFilterPanel.hide()
+
+      if (event.target.getAttribute('data-context') === 'most-banned') {
+        filter.reset()
+        chartFilter.reset()
+      }
+
+      if (event.target.getAttribute('data-view-type') === 'recentBans' && Helper.getViewType() === 'address') {
+        filter.reset()
+      }
+
+      document.getElementById('data-view-type').value = event.target.getAttribute('data-view-type')
+      document.getElementById('chart-type').value = 'last30days'
+
+      if (filter.hasFilter(event.target.getAttribute('data-filter-type'), event.target.getAttribute('data-filter-value')) === false) {
+        filter.add(event.target.getAttribute('data-filter-type'), 'include', event.target.getAttribute('data-filter-value'))
+
+        document.getElementById('applied-filters').classList.remove('hide')
+        document.getElementById('filter-open-panel').disabled = false
+
+        displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
+        createFilerRemoveEvents()
+      } else {
+        Message.error('A filter already exists for this.', true)
+      }
+
+      if (event.target.getAttribute('data-context') === 'most-banned' && chartsDisabled === false) {
+        if (chartFilter.hasFilter(event.target.getAttribute('data-filter-type'), event.target.getAttribute('data-filter-value')) === false) {
+          chartFilter.add(
+            event.target.getAttribute('data-filter-type'),
+            'include',
+            event.target.getAttribute('data-filter-value')
+          )
+
+          document.getElementById('chart-applied-filters').classList.remove('hide')
+          document.getElementById('chart-filter-open-panel').disabled = false
+
+          plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
+          createChartFilerRemoveEvents()
+        }
+      }
   }
 }
 
