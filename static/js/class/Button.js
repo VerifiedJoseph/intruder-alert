@@ -1,3 +1,6 @@
+/**
+ * Class for creating buttons
+ */
 export class Button {
   /**
    * Create a data view button
