@@ -1,3 +1,5 @@
+import { Button } from './Button.js'
+
 export class Helper {
   /**
    * Create most banned buttons
@@ -9,7 +11,7 @@ export class Helper {
 
     types.forEach(type => {
       document.getElementById(`most-${type}-button`).appendChild(
-        Helper.createViewButton('recentBans', type, data[type].mostBanned, 'most-banned')
+        Button.createView('recentBans', type, data[type].mostBanned, 'most-banned')
       )
     })
   }
