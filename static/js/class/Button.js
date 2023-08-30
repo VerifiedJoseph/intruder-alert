@@ -14,7 +14,7 @@ export class Button {
     const button = document.createElement('button')
 
     button.innerText = (viewType === 'address') ? 'View IPs' : 'View Bans'
-    button.classList.add('view')
+    button.classList.add('view-button')
     button.setAttribute('data-view-type', viewType)
     button.setAttribute('data-filter-type', filterType)
     button.setAttribute('data-filter-value', filterValue)
