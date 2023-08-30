@@ -259,49 +259,6 @@ function createTable (data = [], type) {
   div.append(table.get())
 }
 
-document.getElementById('data-view-type').addEventListener('change', function (e) {
-  filterPanel.hide()
-
-  const type = e.target.value
-
-  // Disable/enable order by select
-  if (type === 'address' || type === 'recentBans') {
-    document.getElementById('data-order-by').disabled = true
-  } else {
-    document.getElementById('data-order-by').disabled = false
-  }
-
-  // Disable/enable order by date option
-  if (type === 'date') {
-    document.getElementById('data-order-by').options[2].disabled = false
-    document.getElementById('data-order-by').options[2].selected = true
-  } else {
-    document.getElementById('data-order-by').options[2].disabled = true
-    document.getElementById('data-order-by').options[0].selected = true
-  }
-
-  if (type === 'address' || type === 'recentBans' || type === 'subnet') {
-    document.getElementById('filter-open-panel').disabled = false
-
-    if (type === 'address') {
-      filter.removeMany(['date', 'jail'])
-    }
-
-    if (type === 'subnet') {
-      filter.removeMany(['address', 'continent', 'date', 'jail'])
-    }
-  } else {
-    document.getElementById('filter-open-panel').disabled = true
-    filter.reset()
-  }
-
-  if (document.getElementById('applied-filters').hasChildNodes() === false) {
-    document.getElementById('applied-filters').classList.add('hide')
-  }
-
-  displayData(filter.getData(type), type)
-})
-
 fetchData()
   .then(response => {
     if (response.status !== 200) {
@@ -460,6 +417,46 @@ function changeHandler (event) {
   switch (event.target.id || event.target.className) {
     case 'chart-type':
       plot.newChart(chartFilter.getData(event.target.value))
+      break
+    case 'data-view-type':
+      filterPanel.hide()
+
+      // Disable/enable order by select
+      if (event.target.value === 'address' || event.target.value === 'recentBans') {
+        document.getElementById('data-order-by').disabled = true
+      } else {
+        document.getElementById('data-order-by').disabled = false
+      }
+
+      // Disable/enable order by date option
+      if (event.target.value === 'date') {
+        document.getElementById('data-order-by').options[2].disabled = false
+        document.getElementById('data-order-by').options[2].selected = true
+      } else {
+        document.getElementById('data-order-by').options[2].disabled = true
+        document.getElementById('data-order-by').options[0].selected = true
+      }
+
+      if (event.target.value === 'address' || event.target.value === 'recentBans' || event.target.value === 'subnet') {
+        document.getElementById('filter-open-panel').disabled = false
+
+        if (event.target.value === 'address') {
+          filter.removeMany(['date', 'jail'])
+        }
+
+        if (event.target.value === 'subnet') {
+          filter.removeMany(['address', 'continent', 'date', 'jail'])
+        }
+      } else {
+        document.getElementById('filter-open-panel').disabled = true
+        filter.reset()
+      }
+
+      if (document.getElementById('applied-filters').hasChildNodes() === false) {
+        document.getElementById('applied-filters').classList.add('hide')
+      }
+
+      displayData(filter.getData(event.target.value), event.target.value)
       break
     case 'data-order-by':
       displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
