@@ -11,6 +11,8 @@ import { Display } from './class/Display.js'
 import { Format } from './class/Format.js'
 import { Pagination } from './class/Pagination.js'
 import { Message } from './class/Message.js'
+import { Button } from './class/Button.js'
+import { Helper } from './class/Helper.js'
 
 let filterPanel, filter, chartFilter, chartFilterPanel,
   plot, details, display
@@ -32,166 +34,13 @@ function fetchData () {
   return fetch('data.php')
 }
 
-function orderData (data) {
-  if (document.getElementById('data-order-by').disabled === true) {
-    return data
-  }
-
-  let orderBy = document.getElementById('data-order-by').value
-  if (document.getElementById('data-order-by').value === 'ips') {
-    orderBy = 'ipCount'
-  }
-
-  data.sort(function (a, b) {
-    if (orderBy === 'date') {
-      return new Date(b.date) - new Date(a.date)
-    }
-
-    return b[orderBy] - a[orderBy]
-  })
-
-  return data
-}
-
 function displayData (data, type, pageNumber = 0) {
-  const pagination = new Pagination(orderData(data))
+  const pagination = new Pagination(Helper.orderData(data))
   pagination.setPage(pageNumber)
 
   createTable(pagination.getData(), type)
 
   pagination.setButtons()
-}
-
-function getViewType () {
-  return document.getElementById('data-view-type').value
-}
-
-/**
- * Create data filter button for a table cell
- * @param {string} dataType Data type
- * @param {string} dataValue Data value
- * @param {string} text Span text
- * @returns HTMLSpanElement
- */
-function createFilterButton (dataType, dataValue, text) {
-  const span = document.createElement('span')
-
-  span.innerText = text
-  span.setAttribute('title', text)
-
-  if (filter.hasFilter(dataType, dataValue) === false) {
-    const button = document.createElement('button')
-
-    button.innerText = 'Filter'
-    button.classList.add('row-filter')
-    button.setAttribute('title', `Filter ${dataType} to ${text}`)
-    button.setAttribute('data-type', dataType)
-    button.setAttribute('data-value', dataValue)
-    span.append(button)
-  }
-
-  return span
-}
-
-/**
- * Create a data view button
- * @param {string} viewType Data view type
- * @param {string} filterType Filter type
- * @param {string} filterValue Filter value
- * @param {string} context Context the button is being used
- * @returns HTMLButtonElement
- */
-function createViewButton (viewType, filterType, filterValue, context = 'table') {
-  const button = document.createElement('button')
-
-  button.innerText = (viewType === 'address') ? 'View IPs' : 'View Bans'
-  button.classList.add('view')
-  button.setAttribute('data-view-type', viewType)
-  button.setAttribute('data-filter-type', filterType)
-  button.setAttribute('data-filter-value', filterValue)
-  button.setAttribute('data-context', context)
-  return button
-}
-
-/**
- * Create click events for view buttons
- */
-function createViewButtonEvents () {
-  const buttons = document.getElementsByClassName('view')
-
-  for (let i = 0; i < buttons.length; i++) {
-    if (buttons[i].getAttribute('data-event') !== 'true') {
-      buttons[i].addEventListener('click', function (e) {
-        const filterType = e.target.getAttribute('data-filter-type')
-        const filterValue = e.target.getAttribute('data-filter-value')
-        const context = e.target.getAttribute('data-context')
-
-        filterPanel.hide()
-        chartFilterPanel.hide()
-
-        if (context === 'most-banned') {
-          filter.reset()
-          chartFilter.reset()
-        }
-
-        if (e.target.getAttribute('data-view-type') === 'recentBans' && getViewType() === 'address') {
-          filter.reset()
-        }
-
-        document.getElementById('data-view-type').value = e.target.getAttribute('data-view-type')
-        document.getElementById('chart-type').value = 'last30days'
-
-        if (filter.hasFilter(filterType, filterValue) === false) {
-          filter.add(filterType, 'include', filterValue)
-
-          document.getElementById('applied-filters').classList.remove('hide')
-          document.getElementById('filter-open-panel').disabled = false
-
-          displayData(filter.getData(getViewType()), getViewType())
-          createFilerRemoveEvents()
-        } else {
-          Message.error('A filter already exists for this.', true)
-        }
-
-        if (chartFilter.hasFilter(filterType, filterValue) === false && context === 'most-banned' && chartsDisabled === false) {
-          chartFilter.add(filterType, 'include', filterValue)
-
-          document.getElementById('chart-applied-filters').classList.remove('hide')
-          document.getElementById('chart-filter-open-panel').disabled = false
-
-          plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
-          createChartFilerRemoveEvents()
-        } else {
-          Message.error('A filter already exists for this.', true)
-        }
-      })
-
-      buttons[i].setAttribute('data-event', 'true')
-    }
-  }
-}
-
-/**
- * Create click events for filer buttons
- */
-function createFilerButtonEvents () {
-  const buttons = document.getElementsByClassName('row-filter')
-
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('click', function (e) {
-      filterPanel.hide()
-      filter.add(
-        e.target.getAttribute('data-type'),
-        'include',
-        e.target.getAttribute('data-value')
-      )
-
-      document.getElementById('applied-filters').classList.remove('hide')
-
-      displayData(filter.getData(getViewType()), getViewType())
-      createFilerRemoveEvents()
-    })
-  }
 }
 
 /**
@@ -210,7 +59,7 @@ function createFilerRemoveEvents () {
 
         e.target.parentElement.remove()
 
-        displayData(filter.getData(getViewType()), getViewType())
+        displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
 
         if (document.getElementById('applied-filters').hasChildNodes() === false) {
           document.getElementById('applied-filters').classList.add('hide')
@@ -281,23 +130,23 @@ function createTable (data = [], type) {
 
         row.addCell(new Cell(item.address))
         row.addCell(new Cell(
-          createFilterButton('subnet', item.subnet, item.subnet),
+          Button.createFilter('subnet', item.subnet, item.subnet, filter),
           null,
           true
         ))
         row.addCell(new Cell(
-          createFilterButton('network', network.number, network.name),
+          Button.createFilter('network', network.number, network.name, filter),
           'asn',
           true
         ))
         row.addCell(new Cell(
-          createFilterButton('country', country.code, country.name),
+          Button.createFilter('country', country.code, country.name, filter),
           'country',
           true
         ))
         row.addCell(new Cell(Format.Number(item.bans)))
         row.addCell(new Cell(
-          createViewButton('recentBans', type, item.address),
+          Button.createFilter('recentBans', type, item.address, filter),
           'view-bans-btn',
           true
         ))
@@ -314,10 +163,10 @@ function createTable (data = [], type) {
 
         const viewButtons = document.createElement('span')
         viewButtons.appendChild(
-          createViewButton('address', type, item.number || item.code || item.name)
+          Button.createView('address', type, item.number || item.code || item.name)
         )
         viewButtons.appendChild(
-          createViewButton('recentBans', type, item.number || item.code || item.name)
+          Button.createView('recentBans', type, item.number || item.code || item.name)
         )
 
         row.addCell(new Cell(
@@ -333,22 +182,22 @@ function createTable (data = [], type) {
 
         row.addCell(new Cell(item.timestamp, 'date'))
         row.addCell(new Cell(
-          createFilterButton('address', item.address, item.address),
+          Button.createFilter('address', item.address, item.address, filter),
           'address',
           true
         ))
         row.addCell(new Cell(
-          createFilterButton('jail', item.jail, item.jail),
+          Button.createFilter('jail', item.jail, item.jail, filter),
           'jail',
           true
         ))
         row.addCell(new Cell(
-          createFilterButton('network', network.number, network.name),
+          Button.createFilter('network', network.number, network.name, filter),
           'asn',
           true
         ))
         row.addCell(new Cell(
-          createFilterButton('country', country.code, country.name),
+          Button.createFilter('country', country.code, country.name, filter),
           'country',
           true
         ))
@@ -359,7 +208,7 @@ function createTable (data = [], type) {
         row.addCell(new Cell(Format.Number(item.ipCount)))
         row.addCell(new Cell(Format.Number(item.bans)))
         row.addCell(new Cell(
-          createViewButton('recentBans', type, item.date || item.name),
+          Button.createView('recentBans', type, item.date || item.name),
           'view-bans-btn',
           true
         ))
@@ -371,12 +220,12 @@ function createTable (data = [], type) {
 
         row.addCell(new Cell(item.subnet))
         row.addCell(new Cell(
-          createFilterButton('network', network.number, network.name),
+          Button.createFilter('network', network.number, network.name, filter),
           'asn',
           true
         ))
         row.addCell(new Cell(
-          createFilterButton('country', country.code, country.name),
+          Button.createFilter('country', country.code, country.name, filter),
           'country',
           true
         ))
@@ -385,10 +234,10 @@ function createTable (data = [], type) {
 
         const viewButtons = document.createElement('span')
         viewButtons.appendChild(
-          createViewButton('address', type, item.subnet)
+          Button.createView('address', type, item.subnet)
         )
         viewButtons.appendChild(
-          createViewButton('recentBans', type, item.subnet)
+          Button.createView('recentBans', type, item.subnet)
         )
 
         row.addCell(new Cell(
@@ -408,144 +257,177 @@ function createTable (data = [], type) {
 
   div.innerText = ''
   div.append(table.get())
-
-  createViewButtonEvents()
-  createFilerButtonEvents()
 }
 
-function createMostBannedButtons (data) {
-  const types = ['address', 'network', 'country', 'jail']
+function clickHandler (event) {
+  switch (event.target.id || event.target.className) {
+    case 'filter-open-panel':
+      filterPanel.setup(filter)
+      filterPanel.show()
+      break
+    case 'filter-close-panel':
+      filterPanel.hide()
+      break
+    case 'filter-apply':
+      document.getElementById('applied-filters').classList.remove('hide')
 
-  types.forEach(type => {
-    document.getElementById(`most-${type}-button`).appendChild(
-      createViewButton('recentBans', type, data[type].mostBanned, 'most-banned')
-    )
-  })
+      filterPanel.hide()
+      filter.add(
+        document.getElementById('filter-type').value,
+        document.getElementById('filter-action').value,
+        document.getElementById('filter-value').value
+      )
+
+      displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
+      createFilerRemoveEvents()
+      break
+    case 'chart-filter-open-panel':
+      chartFilterPanel.setup(chartFilter)
+      chartFilterPanel.show()
+      break
+    case 'chart-filter-close-panel':
+      chartFilterPanel.hide()
+      break
+    case 'chart-filter-apply':
+      chartFilterPanel.hide()
+      document.getElementById('chart-applied-filters').classList.remove('hide')
+
+      chartFilter.add(
+        document.getElementById('chart-filter-type').value,
+        document.getElementById('chart-filter-action').value,
+        document.getElementById('chart-filter-value').value
+      )
+
+      plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
+      createChartFilerRemoveEvents()
+      break
+    case 'row-filter':
+      filterPanel.hide()
+      filter.add(
+        event.target.getAttribute('data-type'),
+        'include',
+        event.target.getAttribute('data-value')
+      )
+
+      document.getElementById('applied-filters').classList.remove('hide')
+
+      displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
+      createFilerRemoveEvents()
+      break
+    case 'load-first-page':
+    case 'load-prev-page':
+    case 'load-next-page':
+    case 'load-last-page':
+      displayData(filter.getData(Helper.getViewType()), Helper.getViewType(), Number(event.target.getAttribute('data-page')))
+      break
+    case 'view-button':
+      filterPanel.hide()
+      chartFilterPanel.hide()
+
+      if (event.target.getAttribute('data-context') === 'most-banned') {
+        filter.reset()
+        chartFilter.reset()
+      }
+
+      if (event.target.getAttribute('data-view-type') === 'recentBans' && Helper.getViewType() === 'address') {
+        filter.reset()
+      }
+
+      document.getElementById('table-type').value = event.target.getAttribute('data-view-type')
+      document.getElementById('chart-type').value = 'last30days'
+
+      if (filter.hasFilter(event.target.getAttribute('data-filter-type'), event.target.getAttribute('data-filter-value')) === false) {
+        filter.add(event.target.getAttribute('data-filter-type'), 'include', event.target.getAttribute('data-filter-value'))
+
+        document.getElementById('applied-filters').classList.remove('hide')
+        document.getElementById('filter-open-panel').disabled = false
+
+        displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
+        createFilerRemoveEvents()
+      } else {
+        Message.error('A filter already exists for this.', true)
+      }
+
+      if (event.target.getAttribute('data-context') === 'most-banned' && chartsDisabled === false) {
+        if (chartFilter.hasFilter(event.target.getAttribute('data-filter-type'), event.target.getAttribute('data-filter-value')) === false) {
+          chartFilter.add(
+            event.target.getAttribute('data-filter-type'),
+            'include',
+            event.target.getAttribute('data-filter-value')
+          )
+
+          document.getElementById('chart-applied-filters').classList.remove('hide')
+          document.getElementById('chart-filter-open-panel').disabled = false
+
+          plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
+          createChartFilerRemoveEvents()
+        }
+      }
+  }
 }
 
-document.getElementById('chart-type').addEventListener('change', function (e) {
-  plot.newChart(chartFilter.getData(e.target.value))
-})
+function changeHandler (event) {
+  switch (event.target.id || event.target.className) {
+    case 'chart-type':
+      plot.newChart(chartFilter.getData(event.target.value))
+      break
+    case 'table-type':
+      filterPanel.hide()
 
-document.getElementById('data-view-type').addEventListener('change', function (e) {
-  filterPanel.hide()
+      // Disable/enable order by select
+      if (event.target.value === 'address' || event.target.value === 'recentBans') {
+        document.getElementById('data-order-by').disabled = true
+      } else {
+        document.getElementById('data-order-by').disabled = false
+      }
 
-  const type = e.target.value
+      // Disable/enable order by date option
+      if (event.target.value === 'date') {
+        document.getElementById('data-order-by').options[2].disabled = false
+        document.getElementById('data-order-by').options[2].selected = true
+      } else {
+        document.getElementById('data-order-by').options[2].disabled = true
+        document.getElementById('data-order-by').options[0].selected = true
+      }
 
-  // Disable/enable order by select
-  if (type === 'address' || type === 'recentBans') {
-    document.getElementById('data-order-by').disabled = true
-  } else {
-    document.getElementById('data-order-by').disabled = false
+      if (event.target.value === 'address' || event.target.value === 'recentBans' || event.target.value === 'subnet') {
+        document.getElementById('filter-open-panel').disabled = false
+
+        if (event.target.value === 'address') {
+          filter.removeMany(['date', 'jail'])
+        }
+
+        if (event.target.value === 'subnet') {
+          filter.removeMany(['address', 'continent', 'date', 'jail'])
+        }
+      } else {
+        document.getElementById('filter-open-panel').disabled = true
+        filter.reset()
+      }
+
+      if (document.getElementById('applied-filters').hasChildNodes() === false) {
+        document.getElementById('applied-filters').classList.add('hide')
+      }
+
+      displayData(filter.getData(event.target.value), event.target.value)
+      break
+    case 'data-order-by':
+      displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
+      break
+    case 'filter-type':
+      filterPanel.setFilterValues(event.target.value, filter)
+      break
+    case 'chart-filter-type':
+      chartFilterPanel.setFilterValues(event.target.value, chartFilter)
+      break
+    case 'page-number':
+      displayData(filter.getData(Helper.getViewType()), Helper.getViewType(), Number(event.target.value))
+      break
+    case 'page-size':
+      displayData(filter.getData(Helper.getViewType()), Helper.getViewType(), 0)
+      break
   }
-
-  // Disable/enable order by date option
-  if (type === 'date') {
-    document.getElementById('data-order-by').options[2].disabled = false
-    document.getElementById('data-order-by').options[2].selected = true
-  } else {
-    document.getElementById('data-order-by').options[2].disabled = true
-    document.getElementById('data-order-by').options[0].selected = true
-  }
-
-  if (type === 'address' || type === 'recentBans' || type === 'subnet') {
-    document.getElementById('filter-open-panel').disabled = false
-
-    if (type === 'address') {
-      filter.removeMany(['date', 'jail'])
-    }
-
-    if (type === 'subnet') {
-      filter.removeMany(['address', 'continent', 'date', 'jail'])
-    }
-  } else {
-    document.getElementById('filter-open-panel').disabled = true
-    filter.reset()
-  }
-
-  if (document.getElementById('applied-filters').hasChildNodes() === false) {
-    document.getElementById('applied-filters').classList.add('hide')
-  }
-
-  displayData(filter.getData(type), type)
-})
-
-document.getElementById('data-order-by').addEventListener('change', function (e) {
-  displayData(filter.getData(getViewType()), getViewType())
-})
-
-document.getElementById('filter-open-panel').addEventListener('click', function (e) {
-  filterPanel.setup(filter)
-  filterPanel.show()
-})
-
-document.getElementById('filter-close-panel').addEventListener('click', function (e) {
-  filterPanel.hide()
-})
-
-document.getElementById('filter-type').addEventListener('change', function (e) {
-  filterPanel.setFilterValues(e.target.value, filter)
-})
-
-document.getElementById('filter-apply').addEventListener('click', function (e) {
-  document.getElementById('applied-filters').classList.remove('hide')
-
-  filterPanel.hide()
-  filter.add(
-    document.getElementById('filter-type').value,
-    document.getElementById('filter-action').value,
-    document.getElementById('filter-value').value
-  )
-
-  displayData(filter.getData(getViewType()), getViewType())
-  createFilerRemoveEvents()
-})
-
-document.getElementById('chart-filter-open-panel').addEventListener('click', function (e) {
-  chartFilterPanel.setup(chartFilter)
-  chartFilterPanel.show()
-})
-
-document.getElementById('chart-filter-close-panel').addEventListener('click', function (e) {
-  chartFilterPanel.hide()
-})
-
-document.getElementById('chart-filter-type').addEventListener('change', function (e) {
-  chartFilterPanel.setFilterValues(e.target.value, chartFilter)
-})
-
-document.getElementById('chart-filter-apply').addEventListener('click', function (e) {
-  const chartType = document.getElementById('chart-type').value
-
-  chartFilterPanel.hide()
-  document.getElementById('chart-applied-filters').classList.remove('hide')
-
-  chartFilter.add(
-    document.getElementById('chart-filter-type').value,
-    document.getElementById('chart-filter-action').value,
-    document.getElementById('chart-filter-value').value
-  )
-
-  plot.newChart(chartFilter.getData(chartType))
-  createChartFilerRemoveEvents()
-})
-
-const pageButtons = document.getElementsByClassName('page-button')
-for (let i = 0; i < pageButtons.length; i++) {
-  pageButtons[i].addEventListener('click', function (e) {
-    const page = Number(e.target.getAttribute('data-page'))
-
-    displayData(filter.getData(getViewType()), getViewType(), page)
-  })
 }
-
-document.getElementById('page-number').addEventListener('change', function (e) {
-  displayData(filter.getData(getViewType()), getViewType(), Number(e.target.value))
-})
-
-document.getElementById('page-size').addEventListener('change', function (e) {
-  displayData(filter.getData(getViewType()), getViewType(), 0)
-})
 
 fetchData()
   .then(response => {
@@ -586,10 +468,14 @@ fetchData()
     display.mostBanned()
     display.daemonLog()
 
-    createMostBannedButtons(data)
+    Helper.createMostBannedButtons(data)
 
     displayData(filter.getData('recentBans'), 'recentBans')
   }).catch(error => {
     document.getElementById('loading').classList.add('hide')
     Message.error(error.message)
   })
+
+const body = document.querySelector('body')
+body.addEventListener('click', clickHandler)
+body.addEventListener('change', changeHandler)

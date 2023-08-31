@@ -1,3 +1,5 @@
+import { Helper } from './Helper.js'
+
 export class FilterPanel {
   #data = []
   #type = ''
@@ -92,23 +94,22 @@ export class FilterPanel {
    * @param {Filter|ChartFilter} filter Filter class instance
    */
   setup (filter) {
-    const viewType = document.getElementById('data-view-type').value
     document.getElementById(this.#getId('filter-action'))[0].selected = true
 
     this.#enableAllFilters()
 
     if (this.#type === '') {
-      if (viewType !== 'recentBans') {
+      if (Helper.getViewType() !== 'recentBans') {
         this.#disableFilter('address')
         this.#disableFilter('jail')
         this.#disableFilter('date')
 
-        if (viewType === 'address') {
+        if (Helper.getViewType() === 'address') {
           this.#setSelectedFilter('version')
           this.setFilterValues('version', filter)
         }
 
-        if (viewType === 'subnet') {
+        if (Helper.getViewType() === 'subnet') {
           this.#setSelectedFilter('subnet')
           this.setFilterValues('subnet', filter)
           this.#disableFilter('continent')
