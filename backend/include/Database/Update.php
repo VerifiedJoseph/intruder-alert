@@ -30,7 +30,7 @@ class Update
                 mkdir($path);
             }
     
-            if ($this->isUpdateDue() === true) {
+            if ($this->updateRequired() === true) {
                 Output::text('Updating Geoip2 databases', log: true);
 
                 $client = new \tronovav\GeoIP2Update\Client([
@@ -56,7 +56,10 @@ class Update
         }
     }
 
-    private function isUpdateDue(): bool
+    /**
+     * Check if a database update is required
+     */
+    private function updateRequired(): bool
     {
         foreach ($this->getDatabasePaths() as $path) {
             if (File::exists($path) === false) {
