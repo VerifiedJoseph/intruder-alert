@@ -18,6 +18,10 @@ export class Pagination {
   }
 
   getData () {
+    if (this.#data.length === 0) {
+      return { items: [] }
+    }
+
     const pages = []
     this.#pageSize = Number(document.getElementById('page-size').value)
 

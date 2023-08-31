@@ -29,6 +29,10 @@ export class ChartFilter extends Filter {
    * @param {string} chartType Chart type
    */
   #groupData (data, chartType) {
+    if (data.length === 0) {
+      return { hasData: false }
+    }
+
     if (chartType === 'last24hours') {
       return this.#groupByHour(data, chartType)
     }
@@ -72,7 +76,8 @@ export class ChartFilter extends Filter {
     return {
       labels: groupKeys,
       datasets: this.#getDatasets(groups),
-      type: chartType
+      type: chartType,
+      hasData: true
     }
   }
 
@@ -108,7 +113,8 @@ export class ChartFilter extends Filter {
     return {
       labels: groupKeys,
       datasets: this.#getDatasets(groups),
-      type: chartType
+      type: chartType,
+      hasData: true
     }
   }
 

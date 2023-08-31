@@ -7,7 +7,7 @@ export class Plot {
       this.#chart.destroy()
     }
 
-    if (data.labels.length === 0) {
+    if (data.hasData === false) {
       document.getElementById('chart-message').classList.remove('hide')
     } else {
       document.getElementById('chart-message').classList.add('hide')
