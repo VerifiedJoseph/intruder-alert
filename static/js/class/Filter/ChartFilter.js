@@ -5,6 +5,9 @@ import { } from '../../lib/spacetime.js'
 export class ChartFilter extends Filter {
   labelDiv = 'chart-applied-filters'
 
+  #hourDisplayFormat = '{year}-{iso-month}-{date-pad} {hour-24-pad}:00'
+  #dateDisplayFormat = '{year}-{iso-month}-{date-pad}'
+
   /**
    * Get filtered data
    * @param {string} chartType
@@ -43,51 +46,31 @@ export class ChartFilter extends Filter {
    * @param {string} chartType Chart type
    */
   #groupByHour (data, chartType) {
-    const groupKeys = []
-    const groups = []
+    const groupParts = this.#createHourGroups()
+    const groupKeys = groupParts[0]
+    const groups = groupParts[1]
 
-    let yesterday = spacetime.now()
-    yesterday = yesterday.subtract('24', 'hours')
+    const yesterday = spacetime.now().subtract('24', 'hours')
 
     for (const item of data) {
       const timestamp = spacetime(item.timestamp)
 
       if (timestamp.isAfter(yesterday) === true) {
-        const timestampFormat = timestamp.format('{year}-{iso-month}-{date-pad} {hour-24-pad}:00')
+        const key = groupKeys.indexOf(timestamp.format(this.#hourDisplayFormat))
 
-        if (groupKeys.includes(timestampFormat) === true) {
-          const key = groupKeys.indexOf(timestampFormat)
+        groups[key].banCount++
 
-          const group = groups[key]
-          group.banCount++
-
-          if (group.addresses.includes(item.address) === false) {
-            group.ipCount++
-            group.addresses.push(item.address)
-          }
-        } else {
-          const group = {
-            date: timestampFormat,
-            banCount: 1,
-            ipCount: 1,
-            addresses: [item.address]
-          }
-
-          groupKeys.push(timestampFormat)
-          groups.push(group)
+        if (groups[key].addresses.includes(item.address) === false) {
+          groups[key].ipCount++
+          groups[key].addresses.push(item.address)
         }
       } else {
         break
       }
     }
 
-    if (groups.length > 24) {
-      groups.shift()
-      groupKeys.shift()
-    }
-
     return {
-      labels: groupKeys.reverse(),
+      labels: groupKeys,
       datasets: this.#getDatasets(groups),
       type: chartType
     }
@@ -99,40 +82,23 @@ export class ChartFilter extends Filter {
    * @param {string} chartType Chart type
    */
   #groupByDay (data, days, chartType) {
-    const groupKeys = []
-    const groups = []
+    const groupParts = this.#createDayGroups(days)
+    const groupKeys = groupParts[0]
+    const groups = groupParts[1]
 
-    let lastWeek = spacetime.now()
-    lastWeek = lastWeek.subtract(`${days - 1}`, 'days')
+    const date = spacetime.now().subtract(`${days - 1}`, 'days')
 
     for (const item of data) {
       const timestamp = spacetime(item.timestamp)
 
-      if (timestamp.isAfter(lastWeek) === true) {
-        const timestampFormat = timestamp.format('{year}-{iso-month}-{date-pad}')
+      if (timestamp.isAfter(date) === true) {
+        const key = groupKeys.indexOf(timestamp.format(this.#dateDisplayFormat))
 
-        if (groupKeys.includes(timestampFormat) === true) {
-          const key = groupKeys.indexOf(timestampFormat)
+        groups[key].banCount++
 
-          const group = groups[key]
-          group.banCount++
-
-          if (group.addresses.includes(item.address) === false) {
-            group.ipCount++
-            group.addresses.push(item.address)
-          }
-
-          groups[key] = group
-        } else {
-          const group = {
-            date: timestampFormat,
-            banCount: 1,
-            ipCount: 1,
-            addresses: [item.address]
-          }
-
-          groupKeys.push(timestampFormat)
-          groups.push(group)
+        if (groups[key].addresses.includes(item.address) === false) {
+          groups[key].ipCount++
+          groups[key].addresses.push(item.address)
         }
       } else {
         break
@@ -140,7 +106,7 @@ export class ChartFilter extends Filter {
     }
 
     return {
-      labels: groupKeys.reverse(),
+      labels: groupKeys,
       datasets: this.#getDatasets(groups),
       type: chartType
     }
@@ -150,7 +116,7 @@ export class ChartFilter extends Filter {
     const banCounts = []
     const ipCounts = []
 
-    groups.reverse().forEach(g => {
+    groups.forEach(g => {
       banCounts.push(g.banCount)
       ipCounts.push(g.ipCount)
     })
@@ -166,5 +132,50 @@ export class ChartFilter extends Filter {
         label: 'Bans',
         data: banCounts
       }]
+  }
+
+  #createHourGroups () {
+    let hour = spacetime.now().subtract('24', 'hours')
+    const groups = []
+    const keys = []
+
+    for (let i = 1; i <= 24; i++) {
+      if (i > 1) {
+        hour = hour.add('1', 'hours')
+      }
+
+      const hourFormatted = hour.format(this.#hourDisplayFormat)
+
+      keys.push(hourFormatted)
+      groups.push({
+        date: hourFormatted,
+        banCount: 0,
+        ipCount: 0,
+        addresses: []
+      })
+    }
+
+    return [keys, groups]
+  }
+
+  #createDayGroups (days) {
+    let date = spacetime.now().subtract(days, 'days')
+    const groups = []
+    const keys = []
+
+    for (let i = 1; i <= days; i++) {
+      date = date.add(1, 'day')
+      const dateFormatted = date.format(this.#dateDisplayFormat)
+
+      keys.push(dateFormatted)
+      groups.push({
+        date: dateFormatted,
+        banCount: 0,
+        ipCount: 0,
+        addresses: []
+      })
+    }
+
+    return [keys, groups]
   }
 }
