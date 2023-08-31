@@ -58,18 +58,12 @@ class Update
 
     private function isUpdateDue(): bool
     {
-        foreach ($this->editions as $edition) {
-            if ($edition == 'GeoLite2-ASN') {
-                $file = $this->config->getAsnDatabasePath();
-            } else {
-                $file = $this->config->getCountryDatabasePath();
-            }
-
-            if (File::exists($file) === false) {
+        foreach ($this->getDatabasePaths() as $path) {
+            if (File::exists($path) === false) {
                 return true;
             }
 
-            $fileModTime = (int) filemtime($file);
+            $fileModTime = (int) filemtime($path);
 
             if ($this->calculateTimeDiff($fileModTime) >= 86400) {
                 return true;
@@ -79,11 +73,30 @@ class Update
         return false;
     }
 
+    /**
+     * Calculate the difference between a file's last mod unix time and now
+     * 
+     * @param int $lastMod Last modified unix timestamp of a file
+     * @return int
+     */
     private function calculateTimeDiff(int $lastMod): int
     {
         $now = time();
         $diff = $now - $lastMod;
 
         return $diff;
+    }
+
+    /**
+     * Get GeoIP2 database paths
+     * 
+     * @return array<int, string>
+     */
+    private function getDatabasePaths(): array
+    {
+        return [
+            $this->config->getAsnDatabasePath(),
+            $this->config->getCountryDatabasePath()
+        ];
     }
 }
