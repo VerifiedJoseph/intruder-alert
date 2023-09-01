@@ -1,17 +1,13 @@
-import { Details } from '../Details.js'
-
 export class Filter {
   iaData
   data = []
   settings = []
-  details
   chip
 
   constructor (iaData, data = []) {
     this.iaData = iaData
     this.data = data
     this.settings = []
-    this.details = new Details(data)
   }
 
   _getFilteredData (data) {
