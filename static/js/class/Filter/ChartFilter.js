@@ -66,11 +66,13 @@ export class ChartFilter extends Filter {
       if (timestamp.isAfter(yesterday) === true) {
         const key = groupKeys.indexOf(timestamp.format(this.#hourDisplayFormat))
 
-        groups[key].banCount++
+        if (groups[key]) {
+          groups[key].banCount++
 
-        if (groups[key].addresses.includes(item.address) === false) {
-          groups[key].ipCount++
-          groups[key].addresses.push(item.address)
+          if (groups[key].addresses.includes(item.address) === false) {
+            groups[key].ipCount++
+            groups[key].addresses.push(item.address)
+          }
         }
       } else {
         break
@@ -103,11 +105,13 @@ export class ChartFilter extends Filter {
       if (timestamp.isAfter(date) === true) {
         const key = groupKeys.indexOf(timestamp.format(this.#dateDisplayFormat))
 
-        groups[key].banCount++
+        if (groups[key]) {
+          groups[key].banCount++
 
-        if (groups[key].addresses.includes(item.address) === false) {
-          groups[key].ipCount++
-          groups[key].addresses.push(item.address)
+          if (groups[key].addresses.includes(item.address) === false) {
+            groups[key].ipCount++
+            groups[key].addresses.push(item.address)
+          }
         }
       } else {
         break
