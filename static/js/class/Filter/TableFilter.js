@@ -4,7 +4,7 @@ import { FilterChip } from '../FilterChip.js'
 export class TableFilter extends Filter {
   #supportedListTypes = ['address', 'recentBans', 'subnet']
 
-  constructor (iaData, data = []) {
+  constructor (iaData) {
     super(iaData)
     this.chip = new FilterChip('applied-filters', iaData)
   }
@@ -20,7 +20,7 @@ export class TableFilter extends Filter {
     if (listType === 'recentBans') {
       data = this.iaData.getRecentBans()
     } else {
-      data = this.data[listType].list
+      data = this.iaData.getList(listType)
     }
 
     if (this.settings.length > 0 && this.#supportedListTypes.includes(listType) === true) {
