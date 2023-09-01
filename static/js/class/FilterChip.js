@@ -1,4 +1,6 @@
 export class FilterChip {
+  #details
+
   /** @var {HTMLElement} */
   #container = null
 
@@ -14,8 +16,9 @@ export class FilterChip {
     date: 'Date'
   }
 
-  constructor (containerId) {
+  constructor (containerId, details) {
     this.#container = document.getElementById(containerId)
+    this.details = details
   }
 
   /**

@@ -9,7 +9,7 @@ export class ChartFilter extends Filter {
 
   constructor (data = []) {
     super(data)
-    this.chip = new FilterChip('chart-applied-filters')
+    this.chip = new FilterChip('chart-applied-filters', this.details)
   }
 
   /**
