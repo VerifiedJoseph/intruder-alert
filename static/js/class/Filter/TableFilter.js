@@ -1,8 +1,13 @@
 import { Filter } from './Filter.js'
+import { FilterChip } from '../FilterChip.js'
 
 export class TableFilter extends Filter {
   #supportedListTypes = ['address', 'recentBans', 'subnet']
-  labelDiv = 'applied-filters'
+
+  constructor (data = []) {
+    super(data)
+    this.chip = new FilterChip('applied-filters')
+  }
 
   /**
    * Get filtered data
