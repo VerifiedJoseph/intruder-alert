@@ -446,9 +446,9 @@ fetchData()
 
     details = new Details(data)
     filter = new TableFilter(iaData, data, details)
-    filterPanel = new FilterPanel(data)
+    filterPanel = new FilterPanel(iaData)
     chartFilter = new ChartFilter(iaData, data, details)
-    chartFilterPanel = new FilterPanel(data, 'chart')
+    chartFilterPanel = new FilterPanel(iaData, 'chart')
     display = new Display(iaData)
 
     document.getElementById('loading').classList.add('hide')
