@@ -7,7 +7,7 @@ export class ChartFilter extends Filter {
   #hourDisplayFormat = '{year}-{iso-month}-{date-pad} {hour-24-pad}:00'
   #dateDisplayFormat = '{year}-{iso-month}-{date-pad}'
 
-  constructor (iaData, data = []) {
+  constructor (iaData) {
     super(iaData)
     this.chip = new FilterChip('chart-applied-filters', iaData)
   }
