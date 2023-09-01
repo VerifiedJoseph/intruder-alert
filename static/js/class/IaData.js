@@ -10,8 +10,6 @@ export class IaData {
    * Get recent bans
    */
   getRecentBans () {
-    console.log(this.#recentBans.length)
-
     if (this.#recentBans.length > 0) {
       return this.#recentBans
     }
