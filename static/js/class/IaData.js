@@ -1,4 +1,4 @@
-export class Data {
+export class IaData {
   #data = []
   #recentBans = []
 
