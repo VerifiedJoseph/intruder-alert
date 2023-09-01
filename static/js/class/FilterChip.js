@@ -1,4 +1,5 @@
 export class FilterChip {
+  #iaData
   #details
 
   /** @var {HTMLElement} */
@@ -16,9 +17,9 @@ export class FilterChip {
     date: 'Date'
   }
 
-  constructor (containerId, details) {
+  constructor (containerId, iaData) {
     this.#container = document.getElementById(containerId)
-    this.details = details
+    this.#iaData = iaData
   }
 
   /**
@@ -33,13 +34,13 @@ export class FilterChip {
 
     switch (type) {
       case 'network':
-        valueText = this.details.getNetwork(value).name
+        valueText = this.#iaData.getNetworkName(value)
         break
       case 'country':
-        valueText = this.details.getCountry(value).name
+        valueText = this.details.getCountryName(value)
         break
       case 'continent':
-        valueText = this.details.getContinent(value).name
+        valueText = this.details.getContinentName(value)
         break
     }
 
