@@ -26,9 +26,8 @@ export class FilterChip {
    * @param {string} uuid Filter UUID
    */
   create (type, action, value, uuid) {
-    const div = document.createElement('div')
-
     let valueText = value
+
     switch (type) {
       case 'network':
         valueText = this.details.getNetwork(value).name
@@ -46,6 +45,7 @@ export class FilterChip {
       actionText = 'is not'
     }
 
+    const div = document.createElement('div')
     div.appendChild(this.#createSpan(this.#typeTexts[type]))
     div.appendChild(this.#createSpan(` ${actionText} `, 'action'))
     div.appendChild(this.#createSpan(valueText))
