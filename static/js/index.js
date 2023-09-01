@@ -445,9 +445,9 @@ fetchData()
     iaData = new IaData(data)
 
     details = new Details(data)
-    filter = new TableFilter(data, details)
+    filter = new TableFilter(iaData, data, details)
     filterPanel = new FilterPanel(data)
-    chartFilter = new ChartFilter(data, details)
+    chartFilter = new ChartFilter(iaData, data, details)
     chartFilterPanel = new FilterPanel(data, 'chart')
     display = new Display(iaData)
 
@@ -476,6 +476,7 @@ fetchData()
   }).catch(error => {
     document.getElementById('loading').classList.add('hide')
     Message.error(error.message)
+    console.log(error)
   })
 
 const body = document.querySelector('body')
