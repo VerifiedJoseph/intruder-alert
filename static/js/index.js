@@ -7,7 +7,6 @@ import { Table, Row, Cell } from './class/Table.js'
 import { TableFilter } from './class/Filter/TableFilter.js'
 import { ChartFilter } from './class/Filter/ChartFilter.js'
 import { FilterPanel } from './class/FilterPanel.js'
-import { Details } from './class/Details.js'
 import { Display } from './class/Display.js'
 import { Format } from './class/Format.js'
 import { Pagination } from './class/Pagination.js'
@@ -16,7 +15,7 @@ import { Button } from './class/Button.js'
 import { Helper } from './class/Helper.js'
 
 let filterPanel, filter, chartFilter, chartFilterPanel,
-  plot, details, display, iaData
+  plot, display, iaData
 let chartsDisabled = false
 
 const tableHeaders = {
@@ -126,8 +125,8 @@ function createTable (data = [], type) {
       row.addCell(new Cell(Format.Number(itemNumber), 'number'))
 
       if (type === 'address') {
-        const network = details.getNetwork(item.network)
-        const country = details.getCountry(item.country)
+        const network = iaData.getNetwork(item.network)
+        const country = iaData.getCountry(item.country)
 
         row.addCell(new Cell(item.address))
         row.addCell(new Cell(
@@ -178,8 +177,8 @@ function createTable (data = [], type) {
       }
 
       if (type === 'recentBans') {
-        const network = details.getNetwork(item.network)
-        const country = details.getCountry(item.country)
+        const network = iaData.getNetwork(item.network)
+        const country = iaData.getCountry(item.country)
 
         row.addCell(new Cell(item.timestamp, 'date'))
         row.addCell(new Cell(
@@ -216,8 +215,8 @@ function createTable (data = [], type) {
       }
 
       if (type === 'subnet') {
-        const network = details.getNetwork(item.network)
-        const country = details.getCountry(item.country)
+        const network = iaData.getNetwork(item.network)
+        const country = iaData.getCountry(item.country)
 
         row.addCell(new Cell(item.subnet))
         row.addCell(new Cell(
@@ -443,8 +442,6 @@ fetchData()
     }
 
     iaData = new IaData(data)
-
-    details = new Details(data)
     filter = new TableFilter(iaData)
     filterPanel = new FilterPanel(iaData)
     chartFilter = new ChartFilter(iaData)
