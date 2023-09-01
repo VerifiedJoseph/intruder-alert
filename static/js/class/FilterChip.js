@@ -1,6 +1,5 @@
 export class FilterChip {
   #iaData
-  #details
 
   /** @var {HTMLElement} */
   #container = null
@@ -37,10 +36,10 @@ export class FilterChip {
         valueText = this.#iaData.getNetworkName(value)
         break
       case 'country':
-        valueText = this.details.getCountryName(value)
+        valueText = this.#iaData.getCountryName(value)
         break
       case 'continent':
-        valueText = this.details.getContinentName(value)
+        valueText = this.#iaData.getContinentName(value)
         break
     }
 
