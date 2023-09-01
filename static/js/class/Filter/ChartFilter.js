@@ -1,12 +1,16 @@
 /* global spacetime */
 import { Filter } from './Filter.js'
+import { FilterChip } from '../FilterChip.js'
 import { } from '../../lib/spacetime.js'
 
 export class ChartFilter extends Filter {
-  labelDiv = 'chart-applied-filters'
-
   #hourDisplayFormat = '{year}-{iso-month}-{date-pad} {hour-24-pad}:00'
   #dateDisplayFormat = '{year}-{iso-month}-{date-pad}'
+
+  constructor (data = []) {
+    super(data)
+    this.chip = new FilterChip('chart-applied-filters')
+  }
 
   /**
    * Get filtered data
