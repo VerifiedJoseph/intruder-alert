@@ -146,7 +146,7 @@ function createTable (data = [], type) {
         ))
         row.addCell(new Cell(Format.Number(item.bans)))
         row.addCell(new Cell(
-          Button.createFilter('recentBans', type, item.address, filter),
+          Button.createView('recentBans', type, item.address),
           'view-bans-btn',
           true
         ))
