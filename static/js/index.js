@@ -1,6 +1,7 @@
 'use strict'
 
 import { } from './lib/chart.js'
+import { IaData } from './class/IaData.js'
 import { Plot } from './class/Plot.js'
 import { Table, Row, Cell } from './class/Table.js'
 import { TableFilter } from './class/Filter/TableFilter.js'
@@ -15,7 +16,7 @@ import { Button } from './class/Button.js'
 import { Helper } from './class/Helper.js'
 
 let filterPanel, filter, chartFilter, chartFilterPanel,
-  plot, details, display
+  plot, details, display, iaData
 let chartsDisabled = false
 
 const tableHeaders = {
@@ -441,12 +442,14 @@ fetchData()
       throw new Error(data.message)
     }
 
+    iaData = new IaData(data)
+
     details = new Details(data)
     filter = new TableFilter(data, details)
     filterPanel = new FilterPanel(data)
     chartFilter = new ChartFilter(data, details)
     chartFilterPanel = new FilterPanel(data, 'chart')
-    display = new Display(data)
+    display = new Display(iaData)
 
     document.getElementById('loading').classList.add('hide')
 
