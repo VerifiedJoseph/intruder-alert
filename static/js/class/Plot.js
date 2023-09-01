@@ -42,8 +42,8 @@ export class Plot {
                 const regex = /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:00/
 
                 let value = this.getLabelForValue(val)
-                if (regex.test(this.getLabelForValue(val)) === true) {
-                  const time = new Date(this.getLabelForValue(val))
+                if (regex.test(value) === true) {
+                  const time = new Date(value)
                   value = time.toLocaleString('en-GB', { hour: 'numeric', minute: 'numeric', hour12: false })
                 }
 
