@@ -1,8 +1,44 @@
 export class Data {
   #data = []
+  #recentBans = []
 
   constructor (data = []) {
     this.#data = data
+  }
+
+  /**
+   * Get recent bans
+   */
+  getRecentBans () {
+    console.log(this.#recentBans.length)
+
+    if (this.#recentBans.length > 0) {
+      return this.#recentBans
+    }
+
+    this.#data.address.list.forEach(ip => {
+      ip.events.forEach(event => {
+        this.#recentBans.push({
+          address: ip.address,
+          version: ip.version,
+          jail: event.jail,
+          subnet: ip.subnet,
+          network: ip.network,
+          country: ip.country,
+          continent: ip.continent,
+          timestamp: event.timestamp
+        })
+      })
+    })
+
+    this.#recentBans.sort(function (a, b) {
+      const da = new Date(a.timestamp).getTime()
+      const db = new Date(b.timestamp).getTime()
+
+      return da < db ? -1 : da > db ? 1 : 0
+    })
+
+    return this.#recentBans.reverse()
   }
 
   getUpdatedDate () {
