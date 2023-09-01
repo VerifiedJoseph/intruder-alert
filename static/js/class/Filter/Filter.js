@@ -1,12 +1,14 @@
 import { Details } from '../Details.js'
 
 export class Filter {
+  iaData
   data = []
   settings = []
   details
   chip
 
-  constructor (data = []) {
+  constructor (iaData, data = []) {
+    this.iaData = iaData
     this.data = data
     this.settings = []
     this.details = new Details(data)
@@ -201,36 +203,5 @@ export class Filter {
     }
 
     return false
-  }
-
-  /**
-   * Get recent bans
-   */
-  getRecentBans () {
-    const events = []
-
-    this.data.address.list.forEach(ip => {
-      ip.events.forEach(event => {
-        events.push({
-          address: ip.address,
-          version: ip.version,
-          jail: event.jail,
-          subnet: ip.subnet,
-          network: ip.network,
-          country: ip.country,
-          continent: ip.continent,
-          timestamp: event.timestamp
-        })
-      })
-    })
-
-    events.sort(function (a, b) {
-      const da = new Date(a.timestamp).getTime()
-      const db = new Date(b.timestamp).getTime()
-
-      return da < db ? -1 : da > db ? 1 : 0
-    })
-
-    return events.reverse()
   }
 }
