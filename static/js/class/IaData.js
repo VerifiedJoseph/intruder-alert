@@ -41,6 +41,10 @@ export class IaData {
     return this.#recentBans.reverse()
   }
 
+  getList (type) {
+    return this.#data[type].list
+  }
+
   getUpdatedDate () {
     return this.#data.updated
   }
