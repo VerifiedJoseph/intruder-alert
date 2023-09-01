@@ -1,12 +1,10 @@
 export class Filter {
   iaData
-  data = []
   settings = []
   chip
 
-  constructor (iaData, data = []) {
+  constructor (iaData) {
     this.iaData = iaData
-    this.data = data
     this.settings = []
   }
 
