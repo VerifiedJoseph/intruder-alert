@@ -445,9 +445,9 @@ fetchData()
     iaData = new IaData(data)
 
     details = new Details(data)
-    filter = new TableFilter(iaData, data, details)
+    filter = new TableFilter(iaData)
     filterPanel = new FilterPanel(iaData)
-    chartFilter = new ChartFilter(iaData, data, details)
+    chartFilter = new ChartFilter(iaData)
     chartFilterPanel = new FilterPanel(iaData, 'chart')
     display = new Display(iaData)
 
