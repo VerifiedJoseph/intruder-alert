@@ -4,6 +4,7 @@ export class Filter {
   data = []
   settings = []
   details
+  chip
 
   constructor (data = []) {
     this.data = data
@@ -66,7 +67,7 @@ export class Filter {
 
     if (index !== false) {
       this.settings[index].values.push(value)
-      this.createLabel(type, action, value, this.settings[index].id)
+      this.chip.create(type, action, value, this.settings[index].id)
     } else {
       const id = crypto.randomUUID()
 
@@ -77,7 +78,7 @@ export class Filter {
         values: [value]
       })
 
-      this.createLabel(type, action, value, id)
+      this.chip.create(type, action, value, id)
     }
   }
 
@@ -98,7 +99,7 @@ export class Filter {
     })
 
     if (id !== null) {
-      this.removeLabel(id)
+      this.chip.remove(id)
     }
   }
 
@@ -120,7 +121,7 @@ export class Filter {
       })
 
       if (id !== null) {
-        this.removeLabel(id)
+        this.chip.remove(id)
       }
     })
   }
@@ -144,7 +145,7 @@ export class Filter {
    */
   reset () {
     this.settings = []
-    document.getElementById(this.labelDiv).innerText = ''
+    this.chip.removeAll()
   }
 
   /**
@@ -231,83 +232,5 @@ export class Filter {
     })
 
     return events.reverse()
-  }
-
-  /**
-   * Create filter label
-   * @param {string} type Filter type
-   * @param {string} action Filter action
-   * @param {string} value Filter value
-   * @param {string} uuid Filter UUID
-   */
-  createLabel (type, action, value, uuid) {
-    const labelCon = document.getElementById(this.labelDiv)
-    const div = document.createElement('div')
-    const typeSpan = document.createElement('span')
-    const actionSpan = document.createElement('span')
-    const valueSpan = document.createElement('span')
-    const button = document.createElement('button')
-
-    const typeTexts = {
-      address: 'IP Address',
-      version: 'IP Version',
-      subnet: 'Subnet',
-      network: 'Network',
-      country: 'Country',
-      continent: 'Continent',
-      jail: 'Jail',
-      date: 'Date'
-    }
-
-    let valueText = value
-    if (type === 'network') {
-      const network = this.details.getNetwork(value)
-      valueText = network.name
-    }
-
-    if (type === 'country') {
-      const country = this.details.getCountry(value)
-      valueText = country.name
-    }
-
-    if (type === 'continent') {
-      const continent = this.details.getContinent(value)
-      valueText = continent.name
-    }
-
-    let actionText = 'is'
-    if (action === 'exclude') {
-      actionText = 'is not'
-    }
-
-    typeSpan.innerText = `${typeTexts[type]} `
-    actionSpan.innerText = `${actionText} `
-    valueSpan.innerText = valueText
-    actionSpan.classList.add('action')
-
-    button.innerText = 'X'
-    button.setAttribute('title', 'Remove filter')
-    button.setAttribute('data-filter-id', uuid)
-    button.setAttribute('data-filter-value', value)
-
-    div.appendChild(typeSpan)
-    div.appendChild(actionSpan)
-    div.appendChild(valueSpan)
-    div.appendChild(button)
-    div.classList.add('item')
-    div.setAttribute('title', `${typeTexts[type]} ${actionText} ${valueText}`)
-    div.setAttribute('data-label-id', uuid)
-
-    labelCon.appendChild(div)
-  }
-
-  /**
-   * Remove filter label
-   * @param {string} uuid Filter UUID
-   */
-  removeLabel (uuid) {
-    if (document.querySelector(`div[data-label-id="${uuid}"]`)) {
-      document.querySelector(`div[data-label-id="${uuid}"]`).remove()
-    }
   }
 }
