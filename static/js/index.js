@@ -441,12 +441,11 @@ fetchData()
       throw new Error(data.message)
     }
 
-    filter = new TableFilter(data)
-    filterPanel = new FilterPanel(data)
-    chartFilter = new ChartFilter(data)
-    chartFilterPanel = new FilterPanel(data, 'chart')
-
     details = new Details(data)
+    filter = new TableFilter(data, details)
+    filterPanel = new FilterPanel(data)
+    chartFilter = new ChartFilter(data, details)
+    chartFilterPanel = new FilterPanel(data, 'chart')
     display = new Display(data)
 
     document.getElementById('loading').classList.add('hide')
