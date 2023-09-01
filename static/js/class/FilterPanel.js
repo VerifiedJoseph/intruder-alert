@@ -1,11 +1,11 @@
 import { Helper } from './Helper.js'
 
 export class FilterPanel {
-  #data = []
+  #iaData
   #type = ''
 
-  constructor (data = [], type = '') {
-    this.#data = data
+  constructor (iaData, type = '') {
+    this.#iaData = iaData
     this.#type = type
   }
 
@@ -55,7 +55,7 @@ export class FilterPanel {
     if (type === 'version') {
       data = [{ number: 4 }, { number: 6 }]
     } else {
-      data = this.#data[type].list
+      data = this.#iaData.getList(type)
     }
 
     for (let index = 0; index < data.length; index++) {

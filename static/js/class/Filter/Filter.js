@@ -1,15 +1,11 @@
-import { Details } from '../Details.js'
-
 export class Filter {
-  data = []
+  iaData
   settings = []
-  details
   chip
 
-  constructor (data = []) {
-    this.data = data
+  constructor (iaData) {
+    this.iaData = iaData
     this.settings = []
-    this.details = new Details(data)
   }
 
   _getFilteredData (data) {
@@ -201,36 +197,5 @@ export class Filter {
     }
 
     return false
-  }
-
-  /**
-   * Get recent bans
-   */
-  getRecentBans () {
-    const events = []
-
-    this.data.address.list.forEach(ip => {
-      ip.events.forEach(event => {
-        events.push({
-          address: ip.address,
-          version: ip.version,
-          jail: event.jail,
-          subnet: ip.subnet,
-          network: ip.network,
-          country: ip.country,
-          continent: ip.continent,
-          timestamp: event.timestamp
-        })
-      })
-    })
-
-    events.sort(function (a, b) {
-      const da = new Date(a.timestamp).getTime()
-      const db = new Date(b.timestamp).getTime()
-
-      return da < db ? -1 : da > db ? 1 : 0
-    })
-
-    return events.reverse()
   }
 }

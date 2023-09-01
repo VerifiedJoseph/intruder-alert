@@ -7,9 +7,9 @@ export class ChartFilter extends Filter {
   #hourDisplayFormat = '{year}-{iso-month}-{date-pad} {hour-24-pad}:00'
   #dateDisplayFormat = '{year}-{iso-month}-{date-pad}'
 
-  constructor (data = []) {
-    super(data)
-    this.chip = new FilterChip('chart-applied-filters', this.details)
+  constructor (iaData) {
+    super(iaData)
+    this.chip = new FilterChip('chart-applied-filters', iaData)
   }
 
   /**
@@ -18,7 +18,7 @@ export class ChartFilter extends Filter {
    * @returns
    */
   getData (chartType) {
-    const data = this.getRecentBans()
+    const data = this.iaData.getRecentBans()
 
     if (this.settings.length > 0) {
       return this.#groupData(this._getFilteredData(data), chartType)

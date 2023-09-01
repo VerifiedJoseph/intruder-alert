@@ -1,12 +1,12 @@
 'use strict'
 
 import { } from './lib/chart.js'
+import { IaData } from './class/IaData.js'
 import { Plot } from './class/Plot.js'
 import { Table, Row, Cell } from './class/Table.js'
 import { TableFilter } from './class/Filter/TableFilter.js'
 import { ChartFilter } from './class/Filter/ChartFilter.js'
 import { FilterPanel } from './class/FilterPanel.js'
-import { Details } from './class/Details.js'
 import { Display } from './class/Display.js'
 import { Format } from './class/Format.js'
 import { Pagination } from './class/Pagination.js'
@@ -15,7 +15,7 @@ import { Button } from './class/Button.js'
 import { Helper } from './class/Helper.js'
 
 let filterPanel, filter, chartFilter, chartFilterPanel,
-  plot, details, display
+  plot, display, iaData
 let chartsDisabled = false
 
 const tableHeaders = {
@@ -125,8 +125,8 @@ function createTable (data = [], type) {
       row.addCell(new Cell(Format.Number(itemNumber), 'number'))
 
       if (type === 'address') {
-        const network = details.getNetwork(item.network)
-        const country = details.getCountry(item.country)
+        const network = iaData.getNetwork(item.network)
+        const country = iaData.getCountry(item.country)
 
         row.addCell(new Cell(item.address))
         row.addCell(new Cell(
@@ -146,7 +146,7 @@ function createTable (data = [], type) {
         ))
         row.addCell(new Cell(Format.Number(item.bans)))
         row.addCell(new Cell(
-          Button.createFilter('recentBans', type, item.address, filter),
+          Button.createView('recentBans', type, item.address),
           'view-bans-btn',
           true
         ))
@@ -177,8 +177,8 @@ function createTable (data = [], type) {
       }
 
       if (type === 'recentBans') {
-        const network = details.getNetwork(item.network)
-        const country = details.getCountry(item.country)
+        const network = iaData.getNetwork(item.network)
+        const country = iaData.getCountry(item.country)
 
         row.addCell(new Cell(item.timestamp, 'date'))
         row.addCell(new Cell(
@@ -215,8 +215,8 @@ function createTable (data = [], type) {
       }
 
       if (type === 'subnet') {
-        const network = details.getNetwork(item.network)
-        const country = details.getCountry(item.country)
+        const network = iaData.getNetwork(item.network)
+        const country = iaData.getCountry(item.country)
 
         row.addCell(new Cell(item.subnet))
         row.addCell(new Cell(
@@ -441,12 +441,12 @@ fetchData()
       throw new Error(data.message)
     }
 
-    details = new Details(data)
-    filter = new TableFilter(data, details)
-    filterPanel = new FilterPanel(data)
-    chartFilter = new ChartFilter(data, details)
-    chartFilterPanel = new FilterPanel(data, 'chart')
-    display = new Display(data)
+    iaData = new IaData(data)
+    filter = new TableFilter(iaData)
+    filterPanel = new FilterPanel(iaData)
+    chartFilter = new ChartFilter(iaData)
+    chartFilterPanel = new FilterPanel(iaData, 'chart')
+    display = new Display(iaData)
 
     document.getElementById('loading').classList.add('hide')
 
@@ -473,6 +473,7 @@ fetchData()
   }).catch(error => {
     document.getElementById('loading').classList.add('hide')
     Message.error(error.message)
+    console.log(error)
   })
 
 const body = document.querySelector('body')
