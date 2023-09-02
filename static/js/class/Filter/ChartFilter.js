@@ -58,19 +58,21 @@ export class ChartFilter extends Filter {
     const groupKeys = groupParts[0]
     const groups = groupParts[1]
 
-    const yesterday = spacetime.now().subtract('24', 'hours')
+    const yesterday = spacetime.now(this.iaData.getTimezone()).subtract('24', 'hours')
 
     for (const item of data) {
-      const timestamp = spacetime(item.timestamp)
+      const timestamp = spacetime(item.timestamp, this.iaData.getTimezone())
 
       if (timestamp.isAfter(yesterday) === true) {
         const key = groupKeys.indexOf(timestamp.format(this.#hourDisplayFormat))
 
-        groups[key].banCount++
+        if (groups[key]) {
+          groups[key].banCount++
 
-        if (groups[key].addresses.includes(item.address) === false) {
-          groups[key].ipCount++
-          groups[key].addresses.push(item.address)
+          if (groups[key].addresses.includes(item.address) === false) {
+            groups[key].ipCount++
+            groups[key].addresses.push(item.address)
+          }
         }
       } else {
         break
@@ -95,19 +97,21 @@ export class ChartFilter extends Filter {
     const groupKeys = groupParts[0]
     const groups = groupParts[1]
 
-    const date = spacetime.now().subtract(`${days - 1}`, 'days')
+    const date = spacetime.now(this.iaData.getTimezone()).subtract(`${days - 1}`, 'days')
 
     for (const item of data) {
-      const timestamp = spacetime(item.timestamp)
+      const timestamp = spacetime(item.timestamp, this.iaData.getTimezone())
 
       if (timestamp.isAfter(date) === true) {
         const key = groupKeys.indexOf(timestamp.format(this.#dateDisplayFormat))
 
-        groups[key].banCount++
+        if (groups[key]) {
+          groups[key].banCount++
 
-        if (groups[key].addresses.includes(item.address) === false) {
-          groups[key].ipCount++
-          groups[key].addresses.push(item.address)
+          if (groups[key].addresses.includes(item.address) === false) {
+            groups[key].ipCount++
+            groups[key].addresses.push(item.address)
+          }
         }
       } else {
         break
@@ -145,7 +149,7 @@ export class ChartFilter extends Filter {
   }
 
   #createHourGroups () {
-    let hour = spacetime.now().subtract('24', 'hours')
+    let hour = spacetime.now(this.iaData.getTimezone()).subtract('24', 'hours')
     const groups = []
     const keys = []
 
@@ -169,7 +173,7 @@ export class ChartFilter extends Filter {
   }
 
   #createDayGroups (days) {
-    let date = spacetime.now().subtract(days, 'days')
+    let date = spacetime.now(this.iaData.getTimezone()).subtract(days, 'days')
     const groups = []
     const keys = []
 

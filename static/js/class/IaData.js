@@ -43,6 +43,10 @@ export class IaData {
     return this.#data[type].list
   }
 
+  getTimezone () {
+    return this.#data.settings.timezone
+  }
+
   getUpdatedDate () {
     return this.#data.updated
   }

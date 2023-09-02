@@ -34,7 +34,7 @@ Alternatively, you can use `backend/config.php` (copied from [`backend/config.ex
 | `IA_MAXMIND_LICENSE_KEY` | MaxMind license key.                                                          |
 | `IA_ASN_DATABASE`        | Path of the GeoLite2 ASN database file.                                       |
 | `IA_COUNTRY_DATABASE`    | Path of the GeoLite2 Country database file.                                   |
-| `IA_TIMEZONE`            | Timezone (optional) ([php docs](https://www.php.net/manual/en/timezones.php)) |
+| `IA_TIMEZONE`            | Timezone ([php docs](https://www.php.net/manual/en/timezones.php))            |
 | `IA_SYSTEM_LOG_TIMEZONE` | Timezone of fail2ban logs (optional, default is UTC)                          |
 | `IA_DISABLE_CHARTS`      | Disable charts in frontend. (optional, charts enabled by default)             |
 
