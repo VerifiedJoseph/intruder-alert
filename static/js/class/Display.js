@@ -1,39 +1,39 @@
 import { Format } from './Format.js'
 
 export class Display {
-  #data
+  #iaData
 
   /**
    *
-   * @param {Data} data Data class instance
+   * @param {iaData} iaData iaData class instance
    */
-  constructor (data) {
-    this.#data = data
+  constructor (iaData) {
+    this.#iaData = iaData
   }
 
   headerDates () {
-    document.getElementById('last-updated').innerText = this.#data.getUpdatedDate()
-    document.getElementById('data-since').innerText = ` ${this.#data.getSinceDate()} (${Format.Number(this.#data.getTotal('date'))} days)`
+    document.getElementById('last-updated').innerText = this.#iaData.getUpdatedDate()
+    document.getElementById('data-since').innerText = ` ${this.#iaData.getSinceDate()} (${Format.Number(this.#iaData.getTotal('date'))} days)`
     document.getElementById('dates').classList.remove('hide')
   }
 
   globalStats () {
-    document.getElementById('total-bans').innerText = Format.Number(this.#data.getBans('total'))
-    document.getElementById('bans-today').innerText = Format.Number(this.#data.getBans('today'))
-    document.getElementById('bans-yesterday').innerText = Format.Number(this.#data.getBans('yesterday'))
-    document.getElementById('bans-per-day').innerText = Format.Number(this.#data.getBans('perDay'))
-    document.getElementById('total-ips').innerText = Format.Number(this.#data.getTotal('ip'))
-    document.getElementById('total-networks').innerText = Format.Number(this.#data.getTotal('network'))
-    document.getElementById('total-countries').innerText = Format.Number(this.#data.getTotal('country'))
-    document.getElementById('total-jails').innerText = Format.Number(this.#data.getTotal('jail'))
+    document.getElementById('total-bans').innerText = Format.Number(this.#iaData.getBans('total'))
+    document.getElementById('bans-today').innerText = Format.Number(this.#iaData.getBans('today'))
+    document.getElementById('bans-yesterday').innerText = Format.Number(this.#iaData.getBans('yesterday'))
+    document.getElementById('bans-per-day').innerText = Format.Number(this.#iaData.getBans('perDay'))
+    document.getElementById('total-ips').innerText = Format.Number(this.#iaData.getTotal('ip'))
+    document.getElementById('total-networks').innerText = Format.Number(this.#iaData.getTotal('network'))
+    document.getElementById('total-countries').innerText = Format.Number(this.#iaData.getTotal('country'))
+    document.getElementById('total-jails').innerText = Format.Number(this.#iaData.getTotal('jail'))
     document.getElementById('global-stats').classList.remove('hide')
   }
 
   mostBanned () {
-    const ip = this.#data.getIp(this.#data.getMostBanned('address'))
-    const network = this.#data.getNetwork(this.#data.getMostBanned('network'))
-    const country = this.#data.getCountry(this.#data.getMostBanned('country'))
-    const jail = this.#data.getJail(this.#data.getMostBanned('jail'))
+    const ip = this.#iaData.getIp(this.#iaData.getMostBanned('address'))
+    const network = this.#iaData.getNetwork(this.#iaData.getMostBanned('network'))
+    const country = this.#iaData.getCountry(this.#iaData.getMostBanned('country'))
+    const jail = this.#iaData.getJail(this.#iaData.getMostBanned('jail'))
 
     document.getElementById('most-banned-ip').innerText = ip.address
     document.getElementById('most-banned-ip-count').innerText = Format.Number(ip.bans)
@@ -55,7 +55,7 @@ export class Display {
   daemonLog () {
     const div = document.getElementById('log-entries')
 
-    this.#data.getDaemonLog().forEach(item => {
+    this.#iaData.getDaemonLog().forEach(item => {
       const entry = document.createElement('p')
       entry.innerText = item
 
