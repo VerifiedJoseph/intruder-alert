@@ -13,7 +13,7 @@ export class Display {
 
   headerDates () {
     document.getElementById('last-updated').innerText = this.#iaData.getUpdatedDate()
-    document.getElementById('data-since').innerText = ` ${this.#iaData.getSinceDate()} (${Format.Number(this.#iaData.getTotal('date'))} days)`
+    document.getElementById('date-since').innerText = ` ${this.#iaData.getSinceDate()} (${Format.Number(this.#iaData.getTotal('date'))} days)`
     document.getElementById('dates').classList.remove('hide')
   }
 
