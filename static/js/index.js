@@ -452,7 +452,7 @@ fetchData()
 
     chartsDisabled = data.settings.disableCharts
     if (data.settings.disableCharts === false) {
-      plot = new Plot(data)
+      plot = new Plot()
       plot.newChart(chartFilter.getData('last24hours'))
 
       document.getElementById('chart-options').classList.remove('hide')
