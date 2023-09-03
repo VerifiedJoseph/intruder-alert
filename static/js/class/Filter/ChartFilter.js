@@ -37,15 +37,20 @@ export class ChartFilter extends Filter {
       return { hasData: false }
     }
 
-    if (chartType === 'last24hours') {
-      return this.#groupByHour(data, chartType)
+    if (chartType === 'last30days') {
+      let days = 30
+      if (this.iaData.getTotal('date') < 30) {
+        days = this.iaData.getTotal('date')
+      }
+
+      return this.#groupByDay(data, days, chartType)
     }
 
     if (chartType === 'last7days') {
       return this.#groupByDay(data, 7, chartType)
     }
 
-    return this.#groupByDay(data, 30, chartType)
+    return this.#groupByHour(data, chartType)
   }
 
   /**
