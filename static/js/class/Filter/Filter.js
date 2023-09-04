@@ -135,6 +135,11 @@ export class Filter {
     this.settings[index].values = filter.values.filter(
       item => item !== value
     )
+
+    // Remove filter if values array is now empty
+    if (this.settings[index].values.length === 0) {
+      this.remove(this.settings[index].type)
+    }
   }
 
   /**
