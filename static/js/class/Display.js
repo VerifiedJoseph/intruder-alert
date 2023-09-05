@@ -33,7 +33,6 @@ export class Display {
     document.getElementById('total-networks').innerText = Format.Number(this.#iaData.getTotal('network'))
     document.getElementById('total-countries').innerText = Format.Number(this.#iaData.getTotal('country'))
     document.getElementById('total-jails').innerText = Format.Number(this.#iaData.getTotal('jail'))
-    document.getElementById('global-stats').classList.remove('hide')
   }
 
   #mostBanned () {
@@ -56,7 +55,6 @@ export class Display {
     document.getElementById('most-activated-jail').innerText = jail.name
     document.getElementById('most-activated-jail').setAttribute('title', jail.name)
     document.getElementById('most-activated-jail-count').innerText = Format.Number(jail.bans)
-    document.getElementById('most-banned').classList.remove('hide')
   }
 
   #daemonLog () {
@@ -69,7 +67,5 @@ export class Display {
 
       div.appendChild(entry)
     })
-
-    document.getElementById('log').classList.remove('hide')
   }
 }
