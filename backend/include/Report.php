@@ -49,8 +49,8 @@ class Report
         $data['dataSince'] = $this->getDataSinceDate();
         $data['log'] = Logger::getEntries();
         $data['log'][] = 'Last run: ' . $data['updated'];
-        $data['settings']['disableCharts'] = $this->disableCharts;
-        $data['settings']['disableUpdates'] = $this->disableDashUpdates;
+        $data['settings']['charts'] = $this->disableCharts;
+        $data['settings']['updates'] = $this->disableDashUpdates;
         $data['settings']['timezone'] = $this->timezone;
 
         File::write(
