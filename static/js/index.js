@@ -454,8 +454,7 @@ function updateDashboard (data) {
   }
 
   Helper.createMostBannedButtons(data)
-
-  displayData(filter.getData(Helper.getViewType()), Helper.getViewType(), 0)
+  displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
 }
 
 function checkForUpdate () {
