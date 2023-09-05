@@ -429,6 +429,67 @@ function changeHandler (event) {
   }
 }
 
+function updateDashboard (data) {
+  document.getElementById('updating').classList.remove('hide')
+
+  iaData = new IaData(data)
+  filter.updateIaData(iaData)
+  chartFilter.updateIaData(iaData)
+
+  filterPanel = new FilterPanel(iaData)
+  chartFilterPanel = new FilterPanel(iaData, 'chart')
+
+  display = new Display(iaData)
+  display.render()
+
+  chartsDisabled = data.settings.disableCharts
+  if (data.settings.disableCharts === false) {
+    plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
+
+    document.getElementById('chart-options').classList.remove('hide')
+    document.getElementById('chart').classList.remove('hide')
+  } else {
+    document.getElementById('chart-options').classList.add('hide')
+    document.getElementById('chart').classList.add('hide')
+  }
+
+  Helper.createMostBannedButtons(data)
+
+  displayData(filter.getData(Helper.getViewType()), Helper.getViewType(), 0)
+}
+
+function checkForUpdate () {
+  fetchData()
+    .then(response => {
+      if (response.status !== 200) {
+        throw new Error(`Failed to fetch data (${response.status} ${response.statusText})`)
+      }
+
+      return response.json()
+    }).then(data => {
+      if (data.error === true) {
+        throw new Error(data.message)
+      }
+
+      document.getElementById('content').classList.remove('hide')
+      document.getElementById('error').classList.add('hide')
+
+      if (new Date(data.updated) > new Date(iaData.getUpdatedDate())) {
+        updateDashboard(data)
+
+        setTimeout(() => {
+          document.getElementById('updating').classList.add('hide')
+        }, 1500)
+      }
+    }).catch(error => {
+      document.getElementById('updating').classList.add('hide')
+      document.getElementById('content').classList.add('hide')
+
+      Message.error(error.message)
+      console.log(error)
+    })
+}
+
 fetchData()
   .then(response => {
     if (response.status !== 200) {
@@ -446,9 +507,12 @@ fetchData()
     filterPanel = new FilterPanel(iaData)
     chartFilter = new ChartFilter(iaData)
     chartFilterPanel = new FilterPanel(iaData, 'chart')
+
     display = new Display(iaData)
+    display.render()
 
     document.getElementById('loading').classList.add('hide')
+    document.getElementById('content').classList.remove('hide')
 
     chartsDisabled = data.settings.disableCharts
     if (data.settings.disableCharts === false) {
@@ -459,17 +523,11 @@ fetchData()
       document.getElementById('chart').classList.remove('hide')
     }
 
-    document.getElementById('options').classList.remove('hide')
-    document.getElementById('data').classList.remove('hide')
-
-    display.headerDates()
-    display.globalStats()
-    display.mostBanned()
-    display.daemonLog()
-
     Helper.createMostBannedButtons(data)
 
     displayData(filter.getData('recentBans'), 'recentBans')
+
+    setInterval(checkForUpdate, 240000)
   }).catch(error => {
     document.getElementById('loading').classList.add('hide')
     Message.error(error.message)
