@@ -62,12 +62,19 @@ h3 {
 	border-bottom: unset;
 }
 
-#error {
+#error, #updating {
 	color: #fff;
 	font-weight: bold;
 	text-align: center;
 	padding: 4px;
+}
+
+#error {
 	background-color: red;
+}
+
+#updating {
+	background-color: rgb(0, 132, 255);
 }
 
 .box.margin {
