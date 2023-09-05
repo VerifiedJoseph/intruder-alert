@@ -16,8 +16,11 @@ class Report
     /** @var string $path Path to save the generated report */
     private string $path = '';
 
-    /** @var bool $disableCharts Status for disable charts in frontend */
+    /** @var bool $disableCharts Status for disabling dashboard charts */
     private bool $disableCharts = false;
+
+    /** @var bool $disableDashUpdates Status for disabling automatic dashboard updates */
+    private bool $disableDashUpdates = false;
 
     /** @var string $timezone Timezone */
     private string $timezone = '';
@@ -26,12 +29,13 @@ class Report
      * 
      * @param array<string, mixed> $lists
      */
-    public function __construct(array $lists, string $path, string $timezone, bool $disableCharts = false)
+    public function __construct(array $lists, string $path, string $timezone, bool $disableCharts = false, bool $disableDashUpdates = false)
     {
         $this->lists = $lists;
         $this->path = $path;
         $this->timezone = $timezone;
         $this->disableCharts = $disableCharts;
+        $this->disableDashUpdates = $disableDashUpdates;
     }
 
     /**
@@ -46,6 +50,7 @@ class Report
         $data['log'] = Logger::getEntries();
         $data['log'][] = 'Last run: ' . $data['updated'];
         $data['settings']['disableCharts'] = $this->disableCharts;
+        $data['settings']['disableUpdates'] = $this->disableDashUpdates;
         $data['settings']['timezone'] = $this->timezone;
 
         File::write(

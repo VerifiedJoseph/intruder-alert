@@ -10,7 +10,10 @@ export class Helper {
     const types = ['address', 'network', 'country', 'jail']
 
     types.forEach(type => {
-      document.getElementById(`most-${type}-button`).appendChild(
+      const span = document.getElementById(`most-${type}-button`)
+
+      span.innerText = ''
+      span.appendChild(
         Button.createView('recentBans', type, data[type].mostBanned, 'most-banned')
       )
     })

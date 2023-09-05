@@ -11,13 +11,20 @@ export class Display {
     this.#iaData = iaData
   }
 
-  headerDates () {
+  render () {
+    this.#headerDates()
+    this.#globalStats()
+    this.#mostBanned()
+    this.#daemonLog()
+  }
+
+  #headerDates () {
     document.getElementById('last-updated').innerText = this.#iaData.getUpdatedDate()
     document.getElementById('date-since').innerText = ` ${this.#iaData.getSinceDate()} (${Format.Number(this.#iaData.getTotal('date'))} days)`
     document.getElementById('dates').classList.remove('hide')
   }
 
-  globalStats () {
+  #globalStats () {
     document.getElementById('total-bans').innerText = Format.Number(this.#iaData.getBans('total'))
     document.getElementById('bans-today').innerText = Format.Number(this.#iaData.getBans('today'))
     document.getElementById('bans-yesterday').innerText = Format.Number(this.#iaData.getBans('yesterday'))
@@ -26,10 +33,9 @@ export class Display {
     document.getElementById('total-networks').innerText = Format.Number(this.#iaData.getTotal('network'))
     document.getElementById('total-countries').innerText = Format.Number(this.#iaData.getTotal('country'))
     document.getElementById('total-jails').innerText = Format.Number(this.#iaData.getTotal('jail'))
-    document.getElementById('global-stats').classList.remove('hide')
   }
 
-  mostBanned () {
+  #mostBanned () {
     const ip = this.#iaData.getIp(this.#iaData.getMostBanned('address'))
     const network = this.#iaData.getNetwork(this.#iaData.getMostBanned('network'))
     const country = this.#iaData.getCountry(this.#iaData.getMostBanned('country'))
@@ -49,11 +55,11 @@ export class Display {
     document.getElementById('most-activated-jail').innerText = jail.name
     document.getElementById('most-activated-jail').setAttribute('title', jail.name)
     document.getElementById('most-activated-jail-count').innerText = Format.Number(jail.bans)
-    document.getElementById('most-banned').classList.remove('hide')
   }
 
-  daemonLog () {
+  #daemonLog () {
     const div = document.getElementById('log-entries')
+    div.innerText = ''
 
     this.#iaData.getDaemonLog().forEach(item => {
       const entry = document.createElement('p')
@@ -61,7 +67,5 @@ export class Display {
 
       div.appendChild(entry)
     })
-
-    document.getElementById('log').classList.remove('hide')
   }
 }

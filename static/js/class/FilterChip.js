@@ -21,6 +21,10 @@ export class FilterChip {
     this.#iaData = iaData
   }
 
+  updateIaData (iaData) {
+    this.iaData = iaData
+  }
+
   /**
    * Create filter chip
    * @param {string} type Filter type

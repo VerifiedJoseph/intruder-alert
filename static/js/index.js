@@ -30,8 +30,18 @@ const tableHeaders = {
   date: ['Date', 'IPs', 'Bans', '']
 }
 
-function fetchData () {
-  return fetch('data.php')
+function fetchData (lastUpdate = '') {
+  let setting = {}
+
+  if (lastUpdate !== '') {
+    setting = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `lastUpdated=${lastUpdate}`
+    }
+  }
+
+  return fetch('data.php', setting)
 }
 
 function displayData (data, type, pageNumber = 0) {
@@ -429,6 +439,64 @@ function changeHandler (event) {
   }
 }
 
+function updateDashboard (data) {
+  document.getElementById('updating').classList.remove('hide')
+
+  iaData = new IaData(data)
+  filter.updateIaData(iaData)
+  chartFilter.updateIaData(iaData)
+
+  filterPanel = new FilterPanel(iaData)
+  chartFilterPanel = new FilterPanel(iaData, 'chart')
+
+  display = new Display(iaData)
+  display.render()
+
+  chartsDisabled = data.settings.disableCharts
+  if (data.settings.disableCharts === false) {
+    plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
+
+    document.getElementById('chart').classList.remove('hide')
+  } else {
+    document.getElementById('chart').classList.add('hide')
+  }
+
+  Helper.createMostBannedButtons(data)
+  displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
+}
+
+function checkForUpdate () {
+  fetchData(iaData.getUpdatedDate())
+    .then(response => {
+      if (response.status !== 200) {
+        throw new Error(`Failed to fetch data (${response.status} ${response.statusText})`)
+      }
+
+      return response.json()
+    }).then(data => {
+      if (data.error === true) {
+        throw new Error(data.message)
+      }
+
+      if (data.hasUpdates === true) {
+        updateDashboard(data)
+
+        setTimeout(() => {
+          document.getElementById('updating').classList.add('hide')
+        }, 1500)
+      }
+
+      document.getElementById('content').classList.remove('hide')
+      document.getElementById('error').classList.add('hide')
+    }).catch(error => {
+      document.getElementById('updating').classList.add('hide')
+      document.getElementById('content').classList.add('hide')
+
+      Message.error(error.message)
+      console.log(error)
+    })
+}
+
 fetchData()
   .then(response => {
     if (response.status !== 200) {
@@ -446,29 +514,26 @@ fetchData()
     filterPanel = new FilterPanel(iaData)
     chartFilter = new ChartFilter(iaData)
     chartFilterPanel = new FilterPanel(iaData, 'chart')
+
     display = new Display(iaData)
+    display.render()
 
     document.getElementById('loading').classList.add('hide')
+    document.getElementById('content').classList.remove('hide')
 
     chartsDisabled = data.settings.disableCharts
     if (data.settings.disableCharts === false) {
       plot = new Plot()
       plot.newChart(chartFilter.getData('last24hours'))
 
-      document.getElementById('chart-options').classList.remove('hide')
       document.getElementById('chart').classList.remove('hide')
     }
 
-    document.getElementById('options').classList.remove('hide')
-    document.getElementById('data').classList.remove('hide')
-
-    display.headerDates()
-    display.globalStats()
-    display.mostBanned()
-    display.daemonLog()
+    if (data.settings.disableUpdates === false) {
+      setInterval(checkForUpdate, 60000)
+    }
 
     Helper.createMostBannedButtons(data)
-
     displayData(filter.getData('recentBans'), 'recentBans')
   }).catch(error => {
     document.getElementById('loading').classList.add('hide')
