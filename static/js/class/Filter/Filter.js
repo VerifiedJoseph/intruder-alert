@@ -11,6 +11,10 @@ export class Filter {
     this.settings = []
   }
 
+  updateIaData (iaData) {
+    this.iaData = iaData
+  }
+
   _getFilteredData (data) {
     const filtered = []
 
