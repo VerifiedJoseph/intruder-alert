@@ -401,7 +401,7 @@ table td.no-data {
 	margin: 0;
 }
 
-#chart {
+.chart-canvas-wrap {
 	position: relative;
 	margin-bottom: 6px;
 	height: 250px;

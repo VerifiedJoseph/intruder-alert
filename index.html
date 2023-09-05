@@ -97,52 +97,54 @@
 						</div>
 					</div>
 				</div>
-				<div id="chart-options" class="box hide">
-					<div class="input">
-						<span class="input-text">View:</span>
-						<select id="chart-type">
-							<option value="last24hours" selected>Last 24 hours</option>
-							<option value="last7days">Last 7 days</option>
-							<option value="last30days">Last 30 days</option>
-						</select>
+				<div id="chart" class="hide">
+					<div id="chart-options" class="box">
+						<div class="input">
+							<span class="input-text">View:</span>
+							<select id="chart-type">
+								<option value="last24hours" selected>Last 24 hours</option>
+								<option value="last7days">Last 7 days</option>
+								<option value="last30days">Last 30 days</option>
+							</select>
+						</div>
+						<div id="chart-filters" class="filters input">
+							<div class="text">
+								<span class="input-text">Filters:</span>
+							</div>
+							<div class="labels">
+								<button id="chart-filter-open-panel" title="Add a filter">+ Add</button>
+							</div>
+							<div id="chart-filter-panel" class="filter-panel hide">
+								<div id="header">
+									New filter
+								</div>
+								<div class="selects">
+									<select id="chart-filter-type" class="filter-type">
+										<option value="address">IP address</option>
+										<option value="version">IP version</option>
+										<option value="subnet">Subnet</option>
+										<option value="network">Network</option>
+										<option value="country">Country</option>
+										<option value="continent">Continent</option>
+										<option value="jail">Jails</option>
+									</select>
+									<select id="chart-filter-action" class="filter-action">
+										<option value="include">is</option>
+										<option value="exclude">is not</option>
+									</select>
+									<select id="chart-filter-value" class="filter-value"></select>
+								</div>
+								<div class="buttons">
+									<button id="chart-filter-apply">Apply</button> <button id="chart-filter-close-panel">Cancel</button>
+								</div>
+							</div>
+						</div>
+						<div id="chart-applied-filters" class="applied-filters hide"></div>
 					</div>
-					<div id="chart-filters" class="filters input">
-						<div class="text">
-							<span class="input-text">Filters:</span>
-						</div>
-						<div class="labels">
-							<button id="chart-filter-open-panel" title="Add a filter">+ Add</button>
-						</div>
-						<div id="chart-filter-panel" class="filter-panel hide">
-							<div id="header">
-								New filter
-							</div>
-							<div class="selects">
-								<select id="chart-filter-type" class="filter-type">
-									<option value="address">IP address</option>
-									<option value="version">IP version</option>
-									<option value="subnet">Subnet</option>
-									<option value="network">Network</option>
-									<option value="country">Country</option>
-									<option value="continent">Continent</option>
-									<option value="jail">Jails</option>
-								</select>
-								<select id="chart-filter-action" class="filter-action">
-									<option value="include">is</option>
-									<option value="exclude">is not</option>
-								</select>
-								<select id="chart-filter-value" class="filter-value"></select>
-							</div>
-							<div class="buttons">
-								<button id="chart-filter-apply">Apply</button> <button id="chart-filter-close-panel">Cancel</button>
-							</div>
-						</div>
+					<div class="box chart-canvas-wrap">
+						<div id="chart-message" class="hide">No data found</div>
+						<canvas id="chart-canvas"></canvas>
 					</div>
-					<div id="chart-applied-filters" class="applied-filters hide"></div>
-				</div>
-				<div id="chart" class="box hide">
-					<div id="chart-message" class="hide">No data found</div>
-					<canvas id="chart-canvas"></canvas>
 				</div>
 				<div id="table">
 					<div id="options" class="box">

@@ -446,10 +446,8 @@ function updateDashboard (data) {
   if (data.settings.disableCharts === false) {
     plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
 
-    document.getElementById('chart-options').classList.remove('hide')
     document.getElementById('chart').classList.remove('hide')
   } else {
-    document.getElementById('chart-options').classList.add('hide')
     document.getElementById('chart').classList.add('hide')
   }
 
@@ -470,9 +468,6 @@ function checkForUpdate () {
         throw new Error(data.message)
       }
 
-      document.getElementById('content').classList.remove('hide')
-      document.getElementById('error').classList.add('hide')
-
       if (new Date(data.updated) > new Date(iaData.getUpdatedDate())) {
         updateDashboard(data)
 
@@ -480,6 +475,9 @@ function checkForUpdate () {
           document.getElementById('updating').classList.add('hide')
         }, 1500)
       }
+
+      document.getElementById('content').classList.remove('hide')
+      document.getElementById('error').classList.add('hide')
     }).catch(error => {
       document.getElementById('updating').classList.add('hide')
       document.getElementById('content').classList.add('hide')
@@ -518,7 +516,6 @@ fetchData()
       plot = new Plot()
       plot.newChart(chartFilter.getData('last24hours'))
 
-      document.getElementById('chart-options').classList.remove('hide')
       document.getElementById('chart').classList.remove('hide')
     }
 
