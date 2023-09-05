@@ -16,11 +16,11 @@ class Report
     /** @var string $path Path to save the generated report */
     private string $path = '';
 
-    /** @var bool $disableCharts Status for disabling dashboard charts */
-    private bool $disableCharts = false;
+    /** @var bool $enableCharts Status for dashboard charts */
+    private bool $enableCharts = true;
 
-    /** @var bool $disableDashUpdates Status for disabling automatic dashboard updates */
-    private bool $disableDashUpdates = false;
+    /** @var bool $enableUpdates Status for automatic dashboard updates */
+    private bool $enableUpdates = true;
 
     /** @var string $timezone Timezone */
     private string $timezone = '';
@@ -29,13 +29,13 @@ class Report
      * 
      * @param array<string, mixed> $lists
      */
-    public function __construct(array $lists, string $path, string $timezone, bool $disableCharts = false, bool $disableDashUpdates = false)
+    public function __construct(array $lists, string $path, string $timezone, bool $enableCharts, bool $enableUpdates)
     {
         $this->lists = $lists;
         $this->path = $path;
         $this->timezone = $timezone;
-        $this->disableCharts = $disableCharts;
-        $this->disableDashUpdates = $disableDashUpdates;
+        $this->enableCharts = $enableCharts;
+        $this->enableUpdates = $enableUpdates;
     }
 
     /**
@@ -49,8 +49,8 @@ class Report
         $data['dataSince'] = $this->getDataSinceDate();
         $data['log'] = Logger::getEntries();
         $data['log'][] = 'Last run: ' . $data['updated'];
-        $data['settings']['disableCharts'] = $this->disableCharts;
-        $data['settings']['disableUpdates'] = $this->disableDashUpdates;
+        $data['settings']['enableCharts'] = $this->enableCharts;
+        $data['settings']['enableUpdates'] = $this->enableUpdates;
         $data['settings']['timezone'] = $this->timezone;
 
         File::write(
