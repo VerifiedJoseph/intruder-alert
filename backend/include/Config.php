@@ -37,22 +37,22 @@ class Config
         return $this->path . $file;
     }
 
-    public function getDisableChartsStatus(): bool
+    public function getChartsStatus(): bool
     {
-        if ($this->getEnv('DISABLE_CHARTS') === 'true') {
-            return true;
+        if ($this->getEnv('DASH_CHARTS') === 'false') {
+            return false;
         }
 
-        return false;
+        return true;
     }
 
-    public function getDisableDashUpdates(): bool
+    public function getDashUpdatesStatus(): bool
     {
-        if ($this->getEnv('DISABLE_DASH_UPDATES') === 'true') {
-            return true;
+        if ($this->getEnv('DASH_UPDATES') === 'false') {
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     public function getLogFolder(): string
@@ -133,12 +133,12 @@ class Config
             throw new ConfigException('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
         }
 
-        if ($this->hasEnv('DISABLE_CHARTS') === true && in_array($this->getEnv('DISABLE_CHARTS'), ['true', 'false']) === false) {
-            throw new ConfigException('Disable charts environment variable must be true or false [IA_DISABLE_CHARTS]');
+        if ($this->hasEnv('DASH_CHARTS') === true && in_array($this->getEnv('DASH_CHARTS'), ['true', 'false']) === false) {
+            throw new ConfigException('Charts environment variable must be true or false [IA_DASH_CHARTS]');
         }
 
-        if ($this->hasEnv('DISABLE_DASH_UPDATES') === true && in_array($this->getEnv('DISABLE_DASH_UPDATES'), ['true', 'false']) === false) {
-            throw new ConfigException('Disable dashboard updates environment variable must be true or false [IA_DISABLE_DASH_UPDATES]');
+        if ($this->hasEnv('DASH_UPDATES') === true && in_array($this->getEnv('DASH_UPDATES'), ['true', 'false']) === false) {
+            throw new ConfigException('Dashboard updates environment variable must be true or false [IA_DASH_UPDATES]');
         }
 
         $this->checkLogPaths();
