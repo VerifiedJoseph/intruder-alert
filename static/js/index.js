@@ -514,8 +514,8 @@ fetchData()
     document.getElementById('loading').classList.add('hide')
     document.getElementById('content').classList.remove('hide')
 
-    chartsDisabled = data.settings.disableCharts
-    if (data.settings.disableCharts === false) {
+    chartsDisabled = data.settings.charts
+    if (data.settings.charts === false) {
       plot = new Plot()
       plot.newChart(chartFilter.getData('last24hours'))
 
@@ -523,7 +523,7 @@ fetchData()
       document.getElementById('chart').classList.remove('hide')
     }
 
-    if (data.settings.disableUpdates === false) {
+    if (data.settings.updates === false) {
       setInterval(checkForUpdate, 240000)
     }
 
