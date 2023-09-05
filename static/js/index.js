@@ -30,8 +30,18 @@ const tableHeaders = {
   date: ['Date', 'IPs', 'Bans', '']
 }
 
-function fetchData () {
-  return fetch('data.php')
+function fetchData (lastUpdate = '') {
+  let setting = {}
+
+  if (lastUpdate !== '') {
+    setting = {
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `lastUpdated=${lastUpdate}`
+    }
+  }
+
+  return fetch('data.php', setting)
 }
 
 function displayData (data, type, pageNumber = 0) {
@@ -456,7 +466,7 @@ function updateDashboard (data) {
 }
 
 function checkForUpdate () {
-  fetchData()
+  fetchData(iaData.getUpdatedDate())
     .then(response => {
       if (response.status !== 200) {
         throw new Error(`Failed to fetch data (${response.status} ${response.statusText})`)
@@ -468,7 +478,7 @@ function checkForUpdate () {
         throw new Error(data.message)
       }
 
-      if (new Date(data.updated) > new Date(iaData.getUpdatedDate())) {
+      if (data.hasUpdates === true) {
         updateDashboard(data)
 
         setTimeout(() => {
@@ -520,7 +530,7 @@ fetchData()
     }
 
     if (data.settings.disableUpdates === false) {
-      setInterval(checkForUpdate, 240000)
+      setInterval(checkForUpdate, 60000)
     }
 
     Helper.createMostBannedButtons(data)
