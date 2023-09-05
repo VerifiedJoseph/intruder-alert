@@ -16,7 +16,7 @@ import { Helper } from './class/Helper.js'
 
 let filterPanel, filter, chartFilter, chartFilterPanel,
   plot, display, iaData
-let chartsDisabled = false
+let chartsEnabled = true
 
 const tableHeaders = {
   address: ['Address', 'Subnet', 'Network', 'Country', 'Bans', ''],
@@ -358,7 +358,7 @@ function clickHandler (event) {
         Message.error('A filter already exists for this.', true)
       }
 
-      if (event.target.getAttribute('data-context') === 'most-banned' && chartsDisabled === false) {
+      if (event.target.getAttribute('data-context') === 'most-banned' && chartsEnabled === true) {
         if (chartFilter.hasFilter(event.target.getAttribute('data-filter-type'), event.target.getAttribute('data-filter-value')) === false) {
           chartFilter.add(
             event.target.getAttribute('data-filter-type'),
@@ -452,8 +452,8 @@ function updateDashboard (data) {
   display = new Display(iaData)
   display.render()
 
-  chartsDisabled = data.settings.disableCharts
-  if (data.settings.disableCharts === false) {
+  chartsEnabled = data.settings.chartsEnabled
+  if (data.settings.chartsEnabled === true) {
     plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
 
     document.getElementById('chart').classList.remove('hide')
@@ -521,15 +521,15 @@ fetchData()
     document.getElementById('loading').classList.add('hide')
     document.getElementById('content').classList.remove('hide')
 
-    chartsDisabled = data.settings.disableCharts
-    if (data.settings.disableCharts === false) {
+    chartsEnabled = data.settings.enableCharts
+    if (data.settings.enableCharts === true) {
       plot = new Plot()
       plot.newChart(chartFilter.getData('last24hours'))
 
       document.getElementById('chart').classList.remove('hide')
     }
 
-    if (data.settings.disableUpdates === false) {
+    if (data.settings.enableUpdates === true) {
       setInterval(checkForUpdate, 60000)
     }
 
