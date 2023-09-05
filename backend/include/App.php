@@ -116,8 +116,8 @@ class App
             $this->lists->get(),
             $this->config->getPath($this->dataFilepath),
             $this->config->getTimezone(),
-            $this->config->getDisableChartsStatus(),
-            $this->config->getDisableDashUpdates(),
+            $this->config->getChartsStatus(),
+            $this->config->getDashUpdatesStatus(),
         );
         $report->generate();
     }
