@@ -452,8 +452,8 @@ function updateDashboard (data) {
   display = new Display(iaData)
   display.render()
 
-  chartsEnabled = data.settings.chartsEnabled
-  if (data.settings.chartsEnabled === true) {
+  chartsEnabled = data.settings.enableCharts
+  if (data.settings.enableCharts === true) {
     plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
 
     document.getElementById('chart').classList.remove('hide')
