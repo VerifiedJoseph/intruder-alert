@@ -53,6 +53,18 @@ class App
             ]);
         }
 
+        $lastUpdated = $_POST['lastUpdated'] ?? '';
+        if ($lastUpdated !== '') {
+            $data = Json::decode(File::read($path));
+
+            if (strtotime($data['updated']) > strtotime($lastUpdated)) {
+                $data['hasUpdates'] = true;
+                return Json::encode($data);
+            }
+
+            return Json::encode([]);
+        }
+
         return File::read($path);
     }
 
