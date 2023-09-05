@@ -105,6 +105,7 @@ class App
             $this->config->getPath($this->dataFilepath),
             $this->config->getTimezone(),
             $this->config->getDisableChartsStatus(),
+            $this->config->getDisableDashUpdates(),
         );
         $report->generate();
     }

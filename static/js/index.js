@@ -523,11 +523,12 @@ fetchData()
       document.getElementById('chart').classList.remove('hide')
     }
 
+    if (data.settings.disableUpdates === false) {
+      setInterval(checkForUpdate, 240000)
+    }
+
     Helper.createMostBannedButtons(data)
-
     displayData(filter.getData('recentBans'), 'recentBans')
-
-    setInterval(checkForUpdate, 240000)
   }).catch(error => {
     document.getElementById('loading').classList.add('hide')
     Message.error(error.message)
