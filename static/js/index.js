@@ -35,7 +35,7 @@ function fetchData (lastUpdate = '') {
 
   if (lastUpdate !== '') {
     setting = {
-      method: 'POST', 
+      method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: `lastUpdated=${lastUpdate}`
     }
