@@ -169,11 +169,19 @@ table td.jail {
 }
 
 table td.view-btn {
-	width: 155px;
+	width: 161px;
 }
 
 table td.view-bans-btn {
-	width: 85px;
+	width: 90px;
+}
+
+table td.view-bans-btn > button {
+	height: 23px;
+}
+
+table td.view-btn > span > button {
+	height: 23px;
 }
 
 table td.view-btn > span > button:first-child {
@@ -203,6 +211,7 @@ td > span > .row-filter {
 	position: absolute;
 	top: 4px;
 	right: 10px;
+	height: 23px;
 	display: none;
 }
 
@@ -388,7 +397,7 @@ table td.no-data {
 }
 
 .applied-filters > .item > button {
-	padding: 2px;
+	padding: 3px;
 	width: 30px;
 	margin-left: 4px;
 }
@@ -416,4 +425,43 @@ table td.no-data {
 	top: 0px;
 	padding: 10px;
 	text-align: center;
+}
+
+button {
+	padding: 0 6px;
+	line-height: 20px;
+}
+
+button, select {
+	background-color: #e9e9ed;
+}
+
+button, .search, select {
+	border: 1px solid #8f8f9d;
+	height: 26px;
+}
+
+button:hover:enabled {
+	background-color: #d0d0d7;
+	cursor: pointer;
+}
+
+.page-button-small {
+	height: 24px;
+	width: 50px;
+}
+
+.selects {
+	display: flex;
+	flex-direction: row;
+}
+
+.selects > select:first-child {
+	margin-right: 4px;
+	width: 120px;
+}
+
+.selects > select:last-child {
+	margin-left: 4px;
+	width: 100%;
 }
