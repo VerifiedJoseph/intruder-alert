@@ -1,6 +1,3 @@
-/* global spacetime */
-import { } from '../../lib/spacetime.js'
-
 export class Filter {
   iaData
   settings = []
@@ -26,8 +23,8 @@ export class Filter {
 
         let value
         if (filter.type === 'date') {
-          const timestamp = spacetime(item.timestamp, this.iaData.getTimezone())
-          value = timestamp.format('{year}-{iso-month}-{date-pad}')
+          const parts = item.timestamp.split(' ')
+          value = parts[0]
         } else {
           value = item[filter.type].toString()
         }
