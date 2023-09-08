@@ -362,7 +362,7 @@ table td.no-data {
 
 .filter-panel {
 	position: absolute;
-	top: 36px;
+	top: 35px;
 	left: 64px;
 	z-index: 100;
 	padding: 10px;
@@ -458,13 +458,13 @@ table td.no-data {
 
 button {
 	padding: 0 6px;
-	line-height: 20px;
+	line-height: 13px;
 }
 
 button, select {
 	background-color: #e9e9ed;
 	border: 1px solid #8f8f9d;
-	height: 26px;
+	height: 25px;
 }
 
 button:hover:enabled {
@@ -473,7 +473,7 @@ button:hover:enabled {
 }
 
 .page-button-small {
-	height: 24px;
+	height: 23px;
 	width: 50px;
 }
 
