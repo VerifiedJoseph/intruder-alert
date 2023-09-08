@@ -39,16 +39,17 @@ export class Plot {
               align: 'inner',
               autoSkip: false,
               callback: function (val, index) {
-                const regex = /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:00/
-
                 let value = this.getLabelForValue(val)
-                if (regex.test(value) === true) {
-                  const time = new Date(value)
-                  value = time.toLocaleString('en-GB', { hour: 'numeric', minute: 'numeric', hour12: false })
+                const time = new Date(value)
+
+                if (data.type === 'last24hours') {
+                  value = time.toLocaleString(navigator.languages[0], { hour: 'numeric', minute: 'numeric', hour12: false })
+                } else {
+                  value = value.replace(/[0-9]{4}-/, '')
                 }
 
                 // Hide every x tick label
-                return index % 2 === 0 ? value.replace(/[0-9]{4}-/, '') : ''
+                return index % 2 === 0 ? value : ''
               }
             }
           }
