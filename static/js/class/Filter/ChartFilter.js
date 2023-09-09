@@ -106,24 +106,17 @@ export class ChartFilter extends Filter {
     const groupKeys = groupParts[0]
     const groups = groupParts[1]
 
-    const date = spacetime.now(this.iaData.getTimezone()).subtract(`${days - 1}`, 'days')
-
     for (const item of data) {
-      const timestamp = spacetime(item.timestamp, this.iaData.getTimezone())
+      const parts = item.timestamp.split(' ')
+      const key = groupKeys.indexOf(parts[0])
 
-      if (timestamp.isAfter(date) === true) {
-        const key = groupKeys.indexOf(timestamp.format(this.#dateDisplayFormat))
+      if (groups[key]) {
+        groups[key].banCount++
 
-        if (groups[key]) {
-          groups[key].banCount++
-
-          if (groups[key].addresses.includes(item.address) === false) {
-            groups[key].ipCount++
-            groups[key].addresses.push(item.address)
-          }
+        if (groups[key].addresses.includes(item.address) === false) {
+          groups[key].ipCount++
+          groups[key].addresses.push(item.address)
         }
-      } else {
-        break
       }
     }
 
