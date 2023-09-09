@@ -117,6 +117,8 @@ export class ChartFilter extends Filter {
           groups[key].ipCount++
           groups[key].addresses.push(item.address)
         }
+      } else {
+        break
       }
     }
 
