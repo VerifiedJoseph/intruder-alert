@@ -115,6 +115,12 @@ export class CreateTable {
     this.#table = table.get()
   }
 
+  /**
+   * Create row a for IP address table
+   * @param {object} item
+   * @param {Row} row
+   * @returns row
+   */
   #createAddressRow (item, row) {
     const network = this.#iaData.getNetwork(item.network)
     const country = this.#iaData.getCountry(item.country)
@@ -145,6 +151,12 @@ export class CreateTable {
     return row
   }
 
+  /**
+   * Create row a for recent bans table
+   * @param {object} item
+   * @param {Row} row
+   * @returns row
+   */
   #createRecentBansRow (item, row) {
     const network = this.#iaData.getNetwork(item.network)
     const country = this.#iaData.getCountry(item.country)
@@ -174,6 +186,12 @@ export class CreateTable {
     return row
   }
 
+  /**
+   * Create row a for subnet table
+   * @param {object} item
+   * @param {Row} row
+   * @returns row
+   */
   #createSubnetRow (item, row) {
     const network = this.#iaData.getNetwork(item.network)
     const country = this.#iaData.getCountry(item.country)
@@ -209,6 +227,12 @@ export class CreateTable {
     return row
   }
 
+  /**
+   * Create row a for date table
+   * @param {object} item
+   * @param {Row} row
+   * @returns row
+   */
   #createDateRow (item, row) {
     row.addCell(new Cell(item.date, 'long'))
     row.addCell(new Cell(Format.Number(item.ipCount)))
@@ -222,6 +246,12 @@ export class CreateTable {
     return row
   }
 
+  /**
+   * Create row a for jail table
+   * @param {object} item
+   * @param {Row} row
+   * @returns row
+   */
   #createJailRow (item, row) {
     row.addCell(new Cell(item.name, 'long'))
     row.addCell(new Cell(Format.Number(item.ipCount)))
