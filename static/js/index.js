@@ -42,7 +42,6 @@ function displayData (data, type, pageNumber = 0) {
   )
 
   table.display()
-
   pagination.setButtons()
 }
 
