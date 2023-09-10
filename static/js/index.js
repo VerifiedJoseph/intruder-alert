@@ -3,32 +3,18 @@
 import { } from './lib/chart.js'
 import { IaData } from './class/IaData.js'
 import { Plot } from './class/Plot.js'
-import { Table, Row, Cell } from './class/Table.js'
 import { TableFilter } from './class/Filter/TableFilter.js'
 import { ChartFilter } from './class/Filter/ChartFilter.js'
 import { FilterPanel } from './class/FilterPanel.js'
 import { Display } from './class/Display.js'
-import { Format } from './class/Format.js'
 import { Pagination } from './class/Pagination.js'
 import { Message } from './class/Message.js'
-import { Button } from './class/Button.js'
 import { Helper } from './class/Helper.js'
+import { CreateTable } from './class/CreateTable.js'
 
 let filterPanel, filter, chartFilter, chartFilterPanel,
   plot, display, iaData
 let chartsEnabled = true
-
-const tableHeaders = {
-  address: ['Address', 'Subnet', 'Network', 'Country', 'Bans', ''],
-  jail: ['Jail', 'IPs', 'Bans', ''],
-  network: ['Network', 'IPs', 'Bans', ''],
-  subnet: ['Subnet', 'Network', 'Country', 'IPs', 'Bans', ''],
-  country: ['Country', 'IPs', 'Bans', ''],
-  continent: ['Continent', 'IPs', 'Bans', ''],
-  events: ['Date', 'Jail'],
-  recentBans: ['Date', 'Address', 'Jail', 'Network', 'Country'],
-  date: ['Date', 'IPs', 'Bans', '']
-}
 
 function fetchData (lastUpdate = '') {
   let setting = {}
@@ -48,7 +34,14 @@ function displayData (data, type, pageNumber = 0) {
   const pagination = new Pagination(Helper.orderData(data))
   pagination.setPage(pageNumber)
 
-  createTable(pagination.getData(), type)
+  const table = new CreateTable(
+    pagination.getData(),
+    type,
+    iaData,
+    filter
+  )
+
+  table.display()
 
   pagination.setButtons()
 }
@@ -107,166 +100,6 @@ function createChartFilerRemoveEvents () {
       buttons[i].setAttribute('data-event', 'true')
     }
   }
-}
-
-/**
- * Create table
- * @param {array} data Table data
- * @param {string} type Table type
- */
-function createTable (data = [], type) {
-  const div = document.getElementById('data-table')
-
-  const table = new Table()
-  const header = new Row()
-  header.addCell(new Cell('#', 'number'))
-
-  tableHeaders[type].forEach(function (text) {
-    header.addCell(new Cell(text))
-  })
-
-  table.addHeader(header)
-
-  if (data.items.length > 0) {
-    data.items.forEach(function (item, index) {
-      const row = new Row()
-      const itemNumber = index + data.indexStart
-
-      row.addCell(new Cell(Format.Number(itemNumber), 'number'))
-
-      if (type === 'address') {
-        const network = iaData.getNetwork(item.network)
-        const country = iaData.getCountry(item.country)
-
-        row.addCell(new Cell(item.address))
-        row.addCell(new Cell(
-          Button.createFilter('subnet', item.subnet, item.subnet, filter),
-          null,
-          true
-        ))
-        row.addCell(new Cell(
-          Button.createFilter('network', network.number, network.name, filter),
-          'asn',
-          true
-        ))
-        row.addCell(new Cell(
-          Button.createFilter('country', country.code, country.name, filter),
-          'country',
-          true
-        ))
-        row.addCell(new Cell(Format.Number(item.bans)))
-        row.addCell(new Cell(
-          Button.createView('recentBans', type, item.address),
-          'view-bans-btn',
-          true
-        ))
-      }
-
-      if (type === 'network' || type === 'country' || type === 'continent') {
-        const span = document.createElement('span')
-        span.innerText = item.name
-        span.setAttribute('title', item.name)
-
-        row.addCell(new Cell(span, 'long', true))
-        row.addCell(new Cell(Format.Number(item.ipCount)))
-        row.addCell(new Cell(Format.Number(item.bans)))
-
-        const viewButtons = document.createElement('span')
-        viewButtons.appendChild(
-          Button.createView('address', type, item.number || item.code || item.name)
-        )
-        viewButtons.appendChild(
-          Button.createView('recentBans', type, item.number || item.code || item.name)
-        )
-
-        row.addCell(new Cell(
-          viewButtons,
-          'view-btn',
-          true
-        ))
-      }
-
-      if (type === 'recentBans') {
-        const network = iaData.getNetwork(item.network)
-        const country = iaData.getCountry(item.country)
-
-        row.addCell(new Cell(item.timestamp, 'date'))
-        row.addCell(new Cell(
-          Button.createFilter('address', item.address, item.address, filter),
-          'address',
-          true
-        ))
-        row.addCell(new Cell(
-          Button.createFilter('jail', item.jail, item.jail, filter),
-          'jail',
-          true
-        ))
-        row.addCell(new Cell(
-          Button.createFilter('network', network.number, network.name, filter),
-          'asn',
-          true
-        ))
-        row.addCell(new Cell(
-          Button.createFilter('country', country.code, country.name, filter),
-          'country',
-          true
-        ))
-      }
-
-      if (type === 'date' || type === 'jail') {
-        row.addCell(new Cell(item.date || item.name, 'long'))
-        row.addCell(new Cell(Format.Number(item.ipCount)))
-        row.addCell(new Cell(Format.Number(item.bans)))
-        row.addCell(new Cell(
-          Button.createView('recentBans', type, item.date || item.name),
-          'view-bans-btn',
-          true
-        ))
-      }
-
-      if (type === 'subnet') {
-        const network = iaData.getNetwork(item.network)
-        const country = iaData.getCountry(item.country)
-
-        row.addCell(new Cell(item.subnet))
-        row.addCell(new Cell(
-          Button.createFilter('network', network.number, network.name, filter),
-          'asn',
-          true
-        ))
-        row.addCell(new Cell(
-          Button.createFilter('country', country.code, country.name, filter),
-          'country',
-          true
-        ))
-        row.addCell(new Cell(Format.Number(item.ipCount)))
-        row.addCell(new Cell(Format.Number(item.bans)))
-
-        const viewButtons = document.createElement('span')
-        viewButtons.appendChild(
-          Button.createView('address', type, item.subnet)
-        )
-        viewButtons.appendChild(
-          Button.createView('recentBans', type, item.subnet)
-        )
-
-        row.addCell(new Cell(
-          viewButtons,
-          'view-btn',
-          true
-        ))
-      }
-
-      table.addRow(row)
-    })
-  } else {
-    const row = new Row()
-    row.addCell(new Cell('No data found', 'no-data', false, 6))
-    table.addRow(row)
-  }
-
-  div.innerText = ''
-  div.append(table.get())
 }
 
 function onViewBtnClick (viewType, filterType, filterValue) {
