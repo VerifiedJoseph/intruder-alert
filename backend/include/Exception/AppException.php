@@ -1,6 +1,6 @@
 <?php
 
-namespace Exception;
+namespace IntruderAlert\Exception;
 
 class AppException extends \Exception
 {
