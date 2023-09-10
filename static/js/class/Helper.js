@@ -43,4 +43,12 @@ export class Helper {
   static getViewType () {
     return document.getElementById('table-type').value
   }
+
+  static setTableType (value) {
+    document.getElementById('table-type').value = value
+  }
+
+  static setChartType (value) {
+    document.getElementById('chart-type').value = value
+  }
 }
