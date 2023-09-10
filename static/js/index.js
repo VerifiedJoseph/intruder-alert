@@ -269,6 +269,37 @@ function createTable (data = [], type) {
   div.append(table.get())
 }
 
+function onViewBtnClick (viewType, filterType, filterValue) {
+  filterPanel.hide()
+  chartFilterPanel.hide()
+
+  filter.reset()
+  chartFilter.reset()
+
+  Helper.setTableType(viewType)
+  Helper.setChartType('last30days')
+
+  if (filter.hasFilter(filterType, filterValue) === false) {
+    filter.add(filterType, 'include', filterValue)
+
+    document.getElementById('applied-filters').classList.remove('hide')
+    document.getElementById('filter-open-panel').disabled = false
+
+    displayData(filter.getData(viewType), viewType)
+    createFilerRemoveEvents()
+  }
+
+  if (chartsEnabled === true && chartFilter.hasFilter(filterType, filterValue) === false) {
+    chartFilter.add(filterType, 'include', filterValue)
+
+    document.getElementById('chart-applied-filters').classList.remove('hide')
+    document.getElementById('chart-filter-open-panel').disabled = false
+
+    plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
+    createChartFilerRemoveEvents()
+  }
+}
+
 function clickHandler (event) {
   switch (event.target.id || event.target.className) {
     case 'filter-open-panel':
@@ -331,48 +362,11 @@ function clickHandler (event) {
       displayData(filter.getData(Helper.getViewType()), Helper.getViewType(), Number(event.target.getAttribute('data-page')))
       break
     case 'view-button':
-      filterPanel.hide()
-      chartFilterPanel.hide()
-
-      if (event.target.getAttribute('data-context') === 'most-banned') {
-        filter.reset()
-        chartFilter.reset()
-      }
-
-      if (event.target.getAttribute('data-view-type') === 'recentBans' && Helper.getViewType() === 'address') {
-        filter.reset()
-      }
-
-      document.getElementById('table-type').value = event.target.getAttribute('data-view-type')
-      document.getElementById('chart-type').value = 'last30days'
-
-      if (filter.hasFilter(event.target.getAttribute('data-filter-type'), event.target.getAttribute('data-filter-value')) === false) {
-        filter.add(event.target.getAttribute('data-filter-type'), 'include', event.target.getAttribute('data-filter-value'))
-
-        document.getElementById('applied-filters').classList.remove('hide')
-        document.getElementById('filter-open-panel').disabled = false
-
-        displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
-        createFilerRemoveEvents()
-      } else {
-        Message.error('A filter already exists for this.', true)
-      }
-
-      if (event.target.getAttribute('data-context') === 'most-banned' && chartsEnabled === true) {
-        if (chartFilter.hasFilter(event.target.getAttribute('data-filter-type'), event.target.getAttribute('data-filter-value')) === false) {
-          chartFilter.add(
-            event.target.getAttribute('data-filter-type'),
-            'include',
-            event.target.getAttribute('data-filter-value')
-          )
-
-          document.getElementById('chart-applied-filters').classList.remove('hide')
-          document.getElementById('chart-filter-open-panel').disabled = false
-
-          plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
-          createChartFilerRemoveEvents()
-        }
-      }
+      onViewBtnClick(
+        event.target.getAttribute('data-view-type'),
+        event.target.getAttribute('data-filter-type'),
+        event.target.getAttribute('data-filter-value')
+      )
   }
 }
 
