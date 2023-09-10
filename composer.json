@@ -13,7 +13,7 @@
         }
     },
     "scripts": {
-        "lint": "phpstan "
+        "lint": "phpstan && phpcs --standard=PSR12 backend/include/"
     },
     "config": {
         "vendor-dir": "backend/vendor"
