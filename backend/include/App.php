@@ -127,7 +127,7 @@ class App
 
     /**
      * Generate error report
-     * 
+     *
      * @param string $message Error message
      */
     private function generateErrorReport(string $message): void

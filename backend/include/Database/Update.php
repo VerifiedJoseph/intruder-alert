@@ -29,7 +29,7 @@ class Update
             if (File::exists($path) === false) {
                 mkdir($path);
             }
-    
+
             if ($this->updateRequired() === true) {
                 Output::text('Updating Geoip2 databases', log: true);
 
@@ -41,12 +41,12 @@ class Update
 
                 $client->run();
 
-                foreach($client->updated() as $message) {
+                foreach ($client->updated() as $message) {
                     Output::text($message, log: true);
                 }
 
                 if ($client->errors() != []) {
-                    foreach($client->errors() as $message) {
+                    foreach ($client->errors() as $message) {
                         Output::text($message, log: true);
                     }
 
@@ -78,7 +78,7 @@ class Update
 
     /**
      * Calculate the difference between a file's last mod unix time and now
-     * 
+     *
      * @param int $lastMod Last modified unix timestamp of a file
      * @return int
      */
@@ -92,7 +92,7 @@ class Update
 
     /**
      * Get GeoIP2 database paths
-     * 
+     *
      * @return array<int, string>
      */
     private function getDatabasePaths(): array

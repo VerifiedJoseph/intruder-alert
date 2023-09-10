@@ -12,7 +12,7 @@ class Dates extends AbstractList
 
     /**
      * Add IP address
-     * 
+     *
      * @param array<string, mixed> $ip IP address details
      */
     public function addIp(array $ip): void

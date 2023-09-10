@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace IntruderAlert;
 
@@ -27,7 +27,7 @@ class Lists
 
     /**
      * Add IP address
-     * 
+     *
      * @param array<string, mixed> $ip IP address details
      */
     public function addIp(array $ip): void
@@ -43,7 +43,7 @@ class Lists
 
     /**
      * Get lists
-     * 
+     *
      * @return array<string, mixed>
      */
     public function get(): array

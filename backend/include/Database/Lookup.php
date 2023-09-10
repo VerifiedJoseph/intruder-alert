@@ -19,7 +19,7 @@ class Lookup
 
     /**
      * Set country database
-     * 
+     *
      * @param string $path Database path
      */
     public function setCountryDatabase(string $path): void
@@ -29,7 +29,7 @@ class Lookup
 
     /**
      * Set network database
-     * 
+     *
      * @param string $path Database path
      */
     public function setNetworkDatabase(string $path): void
@@ -39,7 +39,7 @@ class Lookup
 
     /**
      * Lookup country details for an IP address
-     * 
+     *
      * @param string $address IP address
      * @return array<string, array<string, string>>
      */
@@ -69,7 +69,7 @@ class Lookup
 
     /**
      * Lookup network details for an IP address
-     * 
+     *
      * @param string $address IP address
      * @return array<string, string|int>
      */
