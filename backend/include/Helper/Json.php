@@ -1,9 +1,9 @@
 <?php
 
-namespace Helper;
+namespace IntruderAlert\Helper;
 
 use JsonException;
-use Exception\AppException;
+use IntruderAlert\Exception\AppException;
 
 /**
  * Class for encoding and decoding JSON

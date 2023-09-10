@@ -1,8 +1,8 @@
 <?php
 
-namespace Helper;
+namespace IntruderAlert\Helper;
 
-use Exception\AppException;
+use IntruderAlert\Exception\AppException;
 
 final class File
 {
