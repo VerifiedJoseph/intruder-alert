@@ -15,7 +15,6 @@ try {
 
     $app = new App($config);
     $data = $app->getJsonReport();
-
 } catch (AppException $err) {
     $data = Json::encode([
         'error' => true,
