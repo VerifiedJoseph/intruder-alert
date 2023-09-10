@@ -393,9 +393,11 @@ function changeHandler (event) {
 
       // Disable/enable order by date option
       if (event.target.value === 'date') {
+        document.getElementById('data-order-by').options[2].hidden = false
         document.getElementById('data-order-by').options[2].disabled = false
         document.getElementById('data-order-by').options[2].selected = true
       } else {
+        document.getElementById('data-order-by').options[2].hidden = true
         document.getElementById('data-order-by').options[2].disabled = true
         document.getElementById('data-order-by').options[0].selected = true
       }
