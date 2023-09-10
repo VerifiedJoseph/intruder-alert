@@ -1,5 +1,7 @@
 <?php
 
+namespace IntruderAlert;
+
 class Ip
 {
     /** @var array<string, mixed> $data IP address details */

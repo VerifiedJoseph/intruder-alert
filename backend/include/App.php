@@ -1,9 +1,12 @@
 <?php
 
-use Helper\File;
-use Helper\Json;
-use Exception\ReportException;
-use Helper\Output;
+namespace IntruderAlert;
+
+use IntruderAlert\Helper\File;
+use IntruderAlert\Helper\Json;
+use IntruderAlert\Helper\Timer;
+use IntruderAlert\Helper\Output;
+use IntruderAlert\Exception\ReportException;
 
 class App
 {
