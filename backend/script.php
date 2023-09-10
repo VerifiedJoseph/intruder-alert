@@ -1,8 +1,10 @@
 <?php
 
-use Helper\Output;
-use Exception\ConfigException;
-use Exception\AppException;
+use IntruderAlert\App;
+use IntruderAlert\Config;
+use IntruderAlert\Helper\Output;
+use IntruderAlert\Exception\ConfigException;
+use IntruderAlert\Exception\AppException;
 
 require 'vendor/autoload.php';
 
