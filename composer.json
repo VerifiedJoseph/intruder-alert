@@ -14,6 +14,8 @@
     },
     "scripts": {
         "lint": "phpstan && phpcs backend/ --standard=PSR12 --ignore=backend/vendor",
+        "lint-phpstan": "phpstan",
+        "lint-phpcs": "phpcs backend/ --standard=PSR12 --ignore=backend/vendor",
         "fix": "phpcbf backend/ --standard=PSR12 --ignore=backend/vendor"
     },
     "config": {
