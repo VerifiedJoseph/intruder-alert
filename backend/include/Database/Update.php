@@ -1,11 +1,11 @@
 <?php
 
-namespace Database;
+namespace IntruderAlert\Database;
 
-use Config;
-use Helper\File;
-use Helper\Output;
-use Exception\AppException;
+use IntruderAlert\Config;
+use IntruderAlert\Helper\File;
+use IntruderAlert\Helper\Output;
+use IntruderAlert\Exception\AppException;
 
 class Update
 {

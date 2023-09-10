@@ -1,10 +1,10 @@
 <?php
 
-namespace Database;
+namespace IntruderAlert\Database;
 
-use \Helper\Output;
-use \GeoIp2\Database\Reader;
-use \GeoIp2\Exception\AddressNotFoundException;
+use IntruderAlert\Helper\Output;
+use GeoIp2\Database\Reader;
+use GeoIp2\Exception\AddressNotFoundException;
 
 /**
  * Class for looking up IP address details in GeoIP2 databases
