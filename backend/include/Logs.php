@@ -29,7 +29,13 @@ class Logs
     private $gzRegex = '/.gz$/';
 
     /** @var string $lineRegex Log line regex */
-    private $lineRegex = '/([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}),[0-9]+ fail2ban\.actions[\s]+\[[0-9]+]: [A-Z]+[\s]+\[([\w]+)] Ban ([0-9a-z.:]+)/';
+    private $lineRegex = <<<REGEX
+     /(?<timestamp>[0-9]{4}-[0-9]{2}-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2})
+     ,[0-9]+\ fail2ban*.+
+     \[(?<jail>[\w]+)]\ 
+     Ban\ (?<ip>[0-9a-z.:]+)
+     /ix
+    REGEX;
 
     public function __construct(Config $config)
     {

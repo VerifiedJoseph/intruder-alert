@@ -137,11 +137,11 @@ class Config
             throw new ConfigException('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
         }
 
-        if ($this->hasEnv('DASH_CHARTS') === true && in_array($this->getEnv('DASH_CHARTS'), ['true', 'false']) === false) {
+        if ($this->hasEnv('DASH_CHARTS') === true && $this->isEnvBoolean('DASH_CHARTS') === false) {
             throw new ConfigException('Charts environment variable must be true or false [IA_DASH_CHARTS]');
         }
 
-        if ($this->hasEnv('DASH_UPDATES') === true && in_array($this->getEnv('DASH_UPDATES'), ['true', 'false']) === false) {
+        if ($this->hasEnv('DASH_UPDATES') === true && $this->isEnvBoolean('DASH_UPDATES') === false) {
             throw new ConfigException('Dashboard updates environment variable must be true or false [IA_DASH_UPDATES]');
         }
 
@@ -297,6 +297,16 @@ class Config
         } else {
             $this->setEnv('SYSTEM_LOG_TIMEZONE', 'UTC');
         }
+    }
+
+    /**
+     * Check if a environment variable is a boolean
+     *
+     * @param string $name Variable name excluding prefix
+     */
+    private function isEnvBoolean(string $name): bool
+    {
+        return in_array($this->getEnv($name), ['true', 'false']);
     }
 
     /**

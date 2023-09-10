@@ -7,7 +7,7 @@ class Addresses extends AbstractList
     /** {@inheritDoc} */
     protected ?string $mostBannedParam = 'address';
 
-    function __construct()
+    public function __construct()
     {
         $this->data['totalBans'] = 0;
     }
