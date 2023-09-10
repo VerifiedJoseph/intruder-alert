@@ -36,13 +36,13 @@ final class Cache
         $this->load();
 
         if ($this->hasExpired() === true) {
-           $this->reset();
+            $this->reset();
         }
     }
 
     /**
      * Get item
-     * 
+     *
      * @param string $ipAddress IP address
      * @return array<mixed>
      */
@@ -57,7 +57,7 @@ final class Cache
 
     /**
      * Check cache for IP address
-     * 
+     *
      * @param string $ipAddress IP address
      */
     public function hasItem(string $ipAddress): bool
@@ -71,7 +71,7 @@ final class Cache
 
     /**
      * Add item to cache
-     * 
+     *
      * @param array<string, mixed> $ip IP address details
      */
     public function addItem(array $ip): void

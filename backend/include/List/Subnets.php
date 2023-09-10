@@ -17,7 +17,7 @@ class Subnets extends AbstractList
     public function addIp(array $ip): void
     {
         $key = array_search($ip['network']['subnet'], array_column($this->data['list'], 'subnet'));
-    
+
         if ($key === false) {
             $this->data['list'][] = [
                 'subnet' => $ip['network']['subnet'],

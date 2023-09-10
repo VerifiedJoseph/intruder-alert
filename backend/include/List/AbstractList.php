@@ -24,7 +24,7 @@ abstract class AbstractList
 
     /**
      * Get list
-     * 
+     *
      * @return array<string, mixed>
      */
     public function get(): array
@@ -43,7 +43,7 @@ abstract class AbstractList
 
     /**
      * Add IP address
-     * 
+     *
      * @param array<string, mixed> $ip IP address details
      */
     abstract public function addIp(array $ip): void;
@@ -77,7 +77,7 @@ abstract class AbstractList
      */
     protected function orderByDate(): void
     {
-        usort($this->data['list'], function($a1, $a2) {
+        usort($this->data['list'], function ($a1, $a2) {
             $v1 = strtotime($a1['date']);
             $v2 = strtotime($a2['date']);
             return $v2 - $v1;

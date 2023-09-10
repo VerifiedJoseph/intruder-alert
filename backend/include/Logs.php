@@ -7,7 +7,6 @@ use IntruderAlert\Helper\Timer;
 use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\AppException;
 use IntruderAlert\Exception\ReportException;
-
 use SplFileInfo;
 use RegexIterator;
 use RecursiveDirectoryIterator;
@@ -39,14 +38,14 @@ class Logs
 
     /**
      * Process logs
-     * 
+     *
      * @return array<int, array<string, string>>
      */
     public function process(): array
     {
         $rows = [];
 
-        foreach($this->getFiles() as $file) {
+        foreach ($this->getFiles() as $file) {
             $timer = new Timer();
             $timer->start();
 
@@ -57,7 +56,7 @@ class Logs
             }
 
             $contents = File::read($file->getPathname());
-        
+
             if (preg_match($this->gzRegex, $file->getFilename())) {
                 $contents = (string) gzdecode($contents);
             }
@@ -70,7 +69,7 @@ class Logs
                 preg_match($this->lineRegex, $line, $match);
 
                 if ($match != []) {
-                    $banCount +=1;
+                    $banCount += 1;
 
                     $rows[] = [
                         'ip' => $match[3],
@@ -105,7 +104,7 @@ class Logs
 
     /**
      * Get logs file
-     * 
+     *
      * @return RegexIterator|array<int, SplFileInfo>
      */
     private function getFiles(): RegexIterator|array
@@ -128,7 +127,7 @@ class Logs
 
     /**
      * Format timestamp (convert from system to local time zone)
-     * 
+     *
      * @param string $timestamp
      */
     private function formatTimestamp(string $timestamp): string
@@ -137,7 +136,7 @@ class Logs
             $timestamp,
             new DateTimeZone($this->config->getSystemLogTimezone())
         );
-    
+
         $date->setTimezone(new DateTimeZone($this->config->getTimezone()));
 
         return $date->format('Y-m-d H:i:s');

@@ -18,7 +18,7 @@ class Ip
 
     /**
      * Set Fail2ban jail
-     * 
+     *
      * @param string $jail
      */
     public function setJail(string $jail): void
@@ -28,7 +28,7 @@ class Ip
 
     /**
      * Set ban event timestamp
-     * 
+     *
      * @param string $timestamp
      */
     public function setTimestamp(string $timestamp): void
@@ -38,7 +38,7 @@ class Ip
 
     /**
      * Set country
-     * 
+     *
      * @param array<string, array<string, string>> $country
      */
     public function setCountry(array $country): void
@@ -48,7 +48,7 @@ class Ip
 
     /**
      * Set network
-     * 
+     *
      * @param array<string, string|int> $network
      */
     public function setNetwork(array $network): void
@@ -58,7 +58,7 @@ class Ip
 
     /**
      * Get IP address details
-     * 
+     *
      * @return array<string, mixed>
      */
     public function getDetails(): array
@@ -68,7 +68,7 @@ class Ip
 
     /**
      * Detect internet protocol address version
-     * 
+     *
      * @param string $address IP address
      * @return int Address version
      */

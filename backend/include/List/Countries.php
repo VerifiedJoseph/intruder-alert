@@ -17,7 +17,7 @@ class Countries extends AbstractList
     public function addIp(array $ip): void
     {
         $key = array_search($ip['country']['code'], array_column($this->data['list'], 'code'));
-    
+
         if ($key === false) {
             $this->data['list'][] = [
                 'code' => $ip['country']['code'],

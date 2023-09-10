@@ -17,7 +17,7 @@ class Continents extends AbstractList
     public function addIp(array $ip): void
     {
         $key = array_search($ip['continent']['code'], array_column($this->data['list'], 'code'));
-    
+
         if ($key === false) {
             $this->data['list'][] = [
                 'code' => $ip['continent']['code'],

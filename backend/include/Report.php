@@ -28,7 +28,7 @@ class Report
     private string $timezone = '';
 
     /**
-     * 
+     *
      * @param array<string, mixed> $lists
      */
     public function __construct(array $lists, string $path, string $timezone, bool $enableCharts, bool $enableUpdates)
@@ -65,7 +65,7 @@ class Report
 
     /**
      * Create stats
-     * 
+     *
      * @return array<string, mixed>
      */
     private function createStats(): array
@@ -86,7 +86,7 @@ class Report
             date('Y-m-d'),
             array_column($this->lists['date']['list'], 'date')
         );
-        
+
         if ($key !== false) {
             $data['bans']['today'] = $this->lists['date']['list'][$key]['bans'];
         }
@@ -95,7 +95,7 @@ class Report
             date('Y-m-d', strtotime('-1 days')),
             array_column($this->lists['date']['list'], 'date')
         );
-        
+
         if ($key !== false) {
             $data['bans']['yesterday'] = $this->lists['date']['list'][$key]['bans'];
         }
