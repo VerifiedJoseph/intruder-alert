@@ -35,4 +35,23 @@ jobs:
         run: composer install --prefer-dist
 
       - name: Run PHPStan
-        run: ./backend/vendor/bin/phpstan analyse
+        run: composer lint-phpstan
+
+  phpcs:
+    name: phpcs
+
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@72ae4ccbe57f82bbe08411e84e2130bd4ba1c10f # v2.25.5
+        with:
+          php-version: '8.1'
+
+      - name: Install dependencies with composer
+        run: composer install --prefer-dist
+
+      - name: Run PHPStan
+        run: composer lint-phpcs
