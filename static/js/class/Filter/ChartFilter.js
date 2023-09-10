@@ -24,8 +24,8 @@ export class ChartFilter extends Filter {
       return this.#groupData(this._getFilteredData(data), chartType)
     }
 
-    if (this.settings.length === 0 && chartType === 'last30days') {
-      return this.#createDaysFromDateList(this.iaData.getList('date'))
+    if (this.settings.length === 0 && chartType !== 'last24hours') {
+      return this.#createDaysFromDateList(this.iaData.getList('date'), chartType)
     }
 
     return this.#groupData(data, chartType)
@@ -192,33 +192,35 @@ export class ChartFilter extends Filter {
     return [keys, groups]
   }
 
-  #createDaysFromDateList (data) {
+  #createDaysFromDateList (data, chartType) {
     if (data.length === 0) {
       return { hasData: false }
     }
 
     let days = 30
-    if (data.length < days) {
-      days = data.length
+    if (chartType === 'last7days') {
+      days = 7
     }
 
-    const keys = []
-    const groups = []
+    const groupParts = this.#createDayGroups(days)
+    const groupKeys = groupParts[0]
+    const groups = groupParts[1]
 
-    for (let index = 0; index < days; index++) {
-      keys.push(data[index].date)
-      groups.push({
-        date: data[index].date,
-        banCount: data[index].bans,
-        ipCount: data[index].ipCount,
-        addresses: []
-      })
+    for (const item of data) {
+      const key = groupKeys.indexOf(item.date)
+
+      if (groups[key]) {
+        groups[key].banCount = item.bans
+        groups[key].ipCount = item.ipCount
+      } else {
+        break
+      }
     }
 
     return {
-      labels: keys.toReversed(),
-      datasets: this.#getDatasets(groups.toReversed()),
-      type: 'last30days',
+      labels: groupKeys,
+      datasets: this.#getDatasets(groups),
+      type: chartType,
       hasData: true
     }
   }
