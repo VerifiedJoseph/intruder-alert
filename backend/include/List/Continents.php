@@ -1,6 +1,6 @@
 <?php
 
-namespace List;
+namespace IntruderAlert\List;
 
 class Continents extends AbstractList
 {

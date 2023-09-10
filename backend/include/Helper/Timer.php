@@ -1,5 +1,7 @@
 <?php
 
+namespace IntruderAlert\Helper;
+
 class Timer
 {
     private float $start = 0;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Helper;
+namespace IntruderAlert\Helper;
 
 final class Output
 {

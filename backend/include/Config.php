@@ -1,6 +1,12 @@
 <?php
 
-use Exception\ConfigException;
+namespace IntruderAlert;
+
+use IntruderAlert\Exception\ConfigException;
+use GeoIp2\Database\Reader;
+use MaxMind\Db\Reader\InvalidDatabaseException;
+
+use DateTimeZone;
 
 class Config
 {
@@ -255,8 +261,8 @@ class Config
     private function checkDatabaseIsValid(string $path): void
     {
         try {
-            new GeoIp2\Database\Reader($path);
-        } catch (MaxMind\Db\Reader\InvalidDatabaseException) {
+            new Reader($path);
+        } catch (InvalidDatabaseException) {
             throw new ConfigException('GeoLite2 database is invalid: ' . $path);
         }
     }

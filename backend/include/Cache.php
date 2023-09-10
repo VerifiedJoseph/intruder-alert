@@ -1,7 +1,9 @@
 <?php
 
-use Helper\File;
-use Helper\Json;
+namespace IntruderAlert;
+
+use IntruderAlert\Helper\File;
+use IntruderAlert\Helper\Json;
 
 final class Cache
 {

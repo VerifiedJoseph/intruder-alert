@@ -1,9 +1,19 @@
 <?php
 
-use Helper\File;
-use Helper\Output;
-use Exception\AppException;
-use Exception\ReportException;
+namespace IntruderAlert;
+
+use IntruderAlert\Helper\File;
+use IntruderAlert\Helper\Timer;
+use IntruderAlert\Helper\Output;
+use IntruderAlert\Exception\AppException;
+use IntruderAlert\Exception\ReportException;
+
+use SplFileInfo;
+use RegexIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use DateTime;
+use DateTimeZone;
 
 /**
  * Class for processing Fail2ban logs

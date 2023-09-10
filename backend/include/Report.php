@@ -1,9 +1,11 @@
 <?php
 
-use Helper\File;
-use Helper\Json;
-use Helper\Logger;
-use Helper\Output;
+namespace IntruderAlert;
+
+use IntruderAlert\Helper\File;
+use IntruderAlert\Helper\Json;
+use IntruderAlert\Helper\Logger;
+use IntruderAlert\Helper\Output;
 
 /**
  * Class for generating the report JSON

@@ -1,5 +1,9 @@
 <?php 
 
+namespace IntruderAlert;
+
+use IntruderAlert\List;
+
 class Lists
 {
     private List\Addresses $addresses;

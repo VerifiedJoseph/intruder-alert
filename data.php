@@ -1,7 +1,9 @@
 <?php
 
-use Exception\AppException;
-use Helper\Json;
+use IntruderAlert\App;
+use IntruderAlert\Config;
+use IntruderAlert\Exception\AppException;
+use IntruderAlert\Helper\Json;
 
 require 'backend/vendor/autoload.php';
 

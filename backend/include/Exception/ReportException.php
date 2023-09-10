@@ -1,6 +1,6 @@
 <?php
 
-namespace Exception;
+namespace IntruderAlert\Exception;
 
 class ReportException extends \Exception
 {
