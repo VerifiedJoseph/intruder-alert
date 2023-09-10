@@ -13,7 +13,8 @@
         }
     },
     "scripts": {
-        "lint": "phpstan && phpcs --standard=PSR12 backend/include/"
+        "lint": "phpstan && phpcs backend/ --standard=PSR12 --ignore=backend/vendor",
+        "fix": "phpcbf backend/ --standard=PSR12 --ignore=backend/vendor"
     },
     "config": {
         "vendor-dir": "backend/vendor"
