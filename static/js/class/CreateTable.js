@@ -1,6 +1,6 @@
 
 import { Table, Row, Cell } from './Table.js'
-import { Format } from './Format.js'
+import { Helper } from './Helper.js'
 import { Button } from './Button.js'
 
 export class CreateTable {
@@ -57,7 +57,7 @@ export class CreateTable {
         const itemNumber = index + data.indexStart
 
         let row = new Row()
-        row.addCell(new Cell(Format.Number(itemNumber), 'number'))
+        row.addCell(new Cell(Helper.formatNumber(itemNumber), 'number'))
 
         switch (this.#type) {
           case 'recentBans':
@@ -112,7 +112,7 @@ export class CreateTable {
     row.addCell(new Cell(subnetFilterBtn, null, true))
     row.addCell(new Cell(networkFilterBtn, 'asn', true))
     row.addCell(new Cell(countryFilterBtn, 'country', true))
-    row.addCell(new Cell(Format.Number(item.bans)))
+    row.addCell(new Cell(Helper.formatNumber(item.bans)))
     row.addCell(new Cell(viewBtn, 'view-bans-btn', true))
     return row
   }
@@ -158,8 +158,8 @@ export class CreateTable {
     row.addCell(new Cell(item.subnet))
     row.addCell(new Cell(networkFilterBtn, 'asn', true))
     row.addCell(new Cell(countryFilterBtn, 'country', true))
-    row.addCell(new Cell(Format.Number(item.ipCount)))
-    row.addCell(new Cell(Format.Number(item.bans)))
+    row.addCell(new Cell(Helper.formatNumber(item.ipCount)))
+    row.addCell(new Cell(Helper.formatNumber(item.bans)))
 
     const viewButtons = document.createElement('span')
     viewButtons.appendChild(addressViewBtn)
@@ -179,8 +179,8 @@ export class CreateTable {
     const viewBtn = Button.createView('recentBans', this.#type, item.date)
 
     row.addCell(new Cell(item.date, 'long'))
-    row.addCell(new Cell(Format.Number(item.ipCount)))
-    row.addCell(new Cell(Format.Number(item.bans)))
+    row.addCell(new Cell(Helper.formatNumber(item.ipCount)))
+    row.addCell(new Cell(Helper.formatNumber(item.bans)))
     row.addCell(new Cell(viewBtn, 'view-bans-btn', true))
     return row
   }
@@ -195,8 +195,8 @@ export class CreateTable {
     const viewBtn = Button.createView('recentBans', this.#type, item.name)
 
     row.addCell(new Cell(item.name, 'long'))
-    row.addCell(new Cell(Format.Number(item.ipCount)))
-    row.addCell(new Cell(Format.Number(item.bans)))
+    row.addCell(new Cell(Helper.formatNumber(item.ipCount)))
+    row.addCell(new Cell(Helper.formatNumber(item.bans)))
     row.addCell(new Cell(viewBtn, 'view-bans-btn', true))
     return row
   }
@@ -213,8 +213,8 @@ export class CreateTable {
     span.setAttribute('title', item.name)
 
     row.addCell(new Cell(span, 'long', true))
-    row.addCell(new Cell(Format.Number(item.ipCount)))
-    row.addCell(new Cell(Format.Number(item.bans)))
+    row.addCell(new Cell(Helper.formatNumber(item.ipCount)))
+    row.addCell(new Cell(Helper.formatNumber(item.bans)))
 
     const filterValue = item.number || item.code
     const addressViewBtn = Button.createView('address', this.#type, filterValue)
