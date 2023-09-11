@@ -68,4 +68,13 @@ export class Helper {
       }, 5000)
     }
   }
+
+  /**
+   * Format a number using Intl.NumberFormat
+   * @param {int} number
+   * @returns {string}
+   */
+  static formatNumber (number) {
+    return new Intl.NumberFormat().format(number)
+  }
 }
