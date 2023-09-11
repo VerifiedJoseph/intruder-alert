@@ -13,7 +13,6 @@ import { CreateTable } from './class/CreateTable.js'
 
 let filterPanel, filter, chartFilter, chartFilterPanel,
   plot, display, iaData
-let chartsEnabled = true
 
 function fetchData (lastUpdate = '') {
   let setting = {}
@@ -144,7 +143,7 @@ function onViewBtnClick (viewType, filterType, filterValue) {
     createFilerRemoveEvents()
   }
 
-  if (chartsEnabled === true && chartFilter.hasFilter(filterType, filterValue) === false) {
+  if (iaData.isChartEnabled() === true && chartFilter.hasFilter(filterType, filterValue) === false) {
     chartFilter.add(filterType, 'include', filterValue)
 
     document.getElementById('chart-applied-filters').classList.remove('hide')
@@ -303,8 +302,7 @@ function updateDashboard (data) {
   display = new Display(iaData)
   display.render()
 
-  chartsEnabled = data.settings.enableCharts
-  if (data.settings.enableCharts === true) {
+  if (iaData.isChartEnabled() === true) {
     plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
 
     document.getElementById('chart').classList.remove('hide')
@@ -372,8 +370,7 @@ fetchData()
     document.getElementById('loading').classList.add('hide')
     document.getElementById('content').classList.remove('hide')
 
-    chartsEnabled = data.settings.enableCharts
-    if (data.settings.enableCharts === true) {
+    if (iaData.isChartEnabled() === true) {
       plot = new Plot()
       plot.newChart(chartFilter.getData('last24hours'))
 
