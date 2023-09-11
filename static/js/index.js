@@ -8,7 +8,6 @@ import { ChartFilter } from './class/Filter/ChartFilter.js'
 import { FilterPanel } from './class/FilterPanel.js'
 import { Display } from './class/Display.js'
 import { Pagination } from './class/Pagination.js'
-import { Message } from './class/Message.js'
 import { Helper } from './class/Helper.js'
 import { CreateTable } from './class/CreateTable.js'
 
