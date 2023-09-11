@@ -8,6 +8,7 @@ export class IaData {
 
   /**
    * Get recent bans
+   * @returns {array}
    */
   getRecentBans () {
     if (this.#recentBans.length > 0) {
@@ -39,18 +40,35 @@ export class IaData {
     return this.#recentBans.reverse()
   }
 
+  /**
+   * Get data list
+   * @param {string} type List type
+   * @returns {array}
+   */
   getList (type) {
     return this.#data[type].list
   }
 
+  /**
+   * Get timezone
+   * @returns {string}
+   */
   getTimezone () {
     return this.#data.settings.timezone
   }
 
+  /**
+   * Get last updated date
+   * @returns {string}
+   */
   getUpdatedDate () {
     return this.#data.updated
   }
 
+  /**
+   * Get data since date
+   * @returns {string}
+   */
   getSinceDate () {
     return this.#data.dataSince
   }
@@ -63,34 +81,73 @@ export class IaData {
     return this.#data.settings.enableCharts
   }
 
+  /**
+   * Get total count for a list
+   * @param {string} type List type
+   * @returns {int}
+   */
   getTotal (type) {
     return this.#data.stats.totals[type]
   }
 
+  /**
+   * Get ban count for a list
+   * @param {string} type List type
+   * @returns {int}
+   */
   getBans (type) {
     return this.#data.stats.bans[type]
   }
 
+  /**
+   * Get most banned for a list
+   * @param {string} type List type
+   * @returns {mixed}
+   */
   getMostBanned (type) {
     return this.#data[type].mostBanned
   }
 
+  /**
+   * Get backend daemon log
+   * @returns {array}
+   */
   getDaemonLog () {
     return this.#data.log
   }
 
+  /**
+   * Get a network name
+   * @param {int} number Network number (ASN)
+   * @returns {string}
+   */
   getNetworkName (number) {
     return this.getNetwork(number).name
   }
 
+  /**
+   * Get a country name
+   * @param {string} code Two letter country code
+   * @returns {string}
+   */
   getCountryName (code) {
     return this.getCountry(code).name
   }
 
+  /**
+   * Get a continent name
+   * @param {string} code Two letter continent code
+   * @returns {string}
+   */
   getContinentName (code) {
     return this.getContinent(code).name
   }
 
+  /**
+   * Get IP address details
+   * @param {string} address IP address
+   * @returns {object}
+   */
   getIp (address) {
     for (let i = 0; i < this.#data.address.list.length; i++) {
       if (this.#data.address.list[i].address === address) {
@@ -99,6 +156,11 @@ export class IaData {
     }
   }
 
+  /**
+   * Get network details
+   * @param {int} number Network number (ASN)
+   * @returns {object}
+   */
   getNetwork (number) {
     for (let i = 0; i < this.#data.network.list.length; i++) {
       if (this.#data.network.list[i].number.toString() === number.toString()) {
@@ -107,6 +169,11 @@ export class IaData {
     }
   }
 
+  /**
+   * Get country details
+   * @param {string} code Two letter country code
+   * @returns {object}
+   */
   getCountry (code) {
     for (let i = 0; i < this.#data.country.list.length; i++) {
       if (this.#data.country.list[i].code === code) {
@@ -115,6 +182,11 @@ export class IaData {
     }
   }
 
+  /**
+   * Get continent details
+   * @param {string} code Two letter continent code
+   * @returns {object}
+   */
   getContinent (code) {
     for (let i = 0; i < this.#data.continent.list.length; i++) {
       if (this.#data.continent.list[i].code === code) {
@@ -123,6 +195,11 @@ export class IaData {
     }
   }
 
+  /**
+   * Get jail details
+   * @param {string} name Jail name
+   * @returns {object}
+   */
   getJail (name) {
     for (let i = 0; i < this.#data.jail.list.length; i++) {
       if (this.#data.jail.list[i].name === name) {
