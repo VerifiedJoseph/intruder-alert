@@ -51,4 +51,21 @@ export class Helper {
   static setChartType (value) {
     document.getElementById('chart-type').value = value
   }
+
+  /**
+   * Display a error message
+   * @param {string} text Message
+   * @param {boolean} hideAfter Hide message after 5 seconds
+   */
+  static errorMessage (text, hideAfter = false) {
+    const error = document.getElementById('error')
+    error.classList.remove('hide')
+    error.innerText = text
+
+    if (hideAfter === true) {
+      setTimeout(() => {
+        error.classList.add('hide')
+      }, 5000)
+    }
+  }
 }
