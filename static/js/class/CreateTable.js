@@ -46,7 +46,7 @@ export class CreateTable {
     const header = new Row()
     header.addCell(new Cell('#', 'number'))
 
-    this.#tableHeaders[this.#type].forEach(function (text) {
+    this.#tableHeaders[this.#type].forEach(text => {
       header.addCell(new Cell(text))
     })
 
@@ -54,53 +54,32 @@ export class CreateTable {
 
     if (data.items.length > 0) {
       data.items.forEach((item, index) => {
-        let row = new Row()
         const itemNumber = index + data.indexStart
 
+        let row = new Row()
         row.addCell(new Cell(Format.Number(itemNumber), 'number'))
 
-        if (this.#type === 'address') {
-          row = this.#createAddressRow(item, row)
-        }
-
-        if (this.#type === 'network' || this.#type === 'country' || this.#type === 'continent') {
-          const span = document.createElement('span')
-          span.innerText = item.name
-          span.setAttribute('title', item.name)
-
-          row.addCell(new Cell(span, 'long', true))
-          row.addCell(new Cell(Format.Number(item.ipCount)))
-          row.addCell(new Cell(Format.Number(item.bans)))
-
-          const viewButtons = document.createElement('span')
-          viewButtons.appendChild(
-            Button.createView('address', this.#type, item.number || item.code || item.name)
-          )
-          viewButtons.appendChild(
-            Button.createView('recentBans', this.#type, item.number || item.code || item.name)
-          )
-
-          row.addCell(new Cell(
-            viewButtons,
-            'view-btn',
-            true
-          ))
-        }
-
-        if (this.#type === 'recentBans') {
-          row = this.#createRecentBansRow(item, row)
-        }
-
-        if (this.#type === 'date') {
-          row = this.#createDateRow(item, row)
-        }
-
-        if (this.#type === 'jail') {
-          row = this.#createJailRow(item, row)
-        }
-
-        if (this.#type === 'subnet') {
-          row = this.#createSubnetRow(item, row)
+        switch (this.#type) {
+          case 'recentBans':
+            row = this.#createRecentBansRow(item, row)
+            break
+          case 'address':
+            row = this.#createAddressRow(item, row)
+            break
+          case 'subnet':
+            row = this.#createSubnetRow(item, row)
+            break
+          case 'network':
+          case 'country':
+          case 'continent':
+            row = this.#createGenericRow(item, row)
+            break
+          case 'jail':
+            row = this.#createJailRow(item, row)
+            break
+          case 'date':
+            row = this.#createDateRow(item, row)
+            break
         }
 
         table.addRow(row)
@@ -124,29 +103,17 @@ export class CreateTable {
     const network = this.#iaData.getNetwork(item.network)
     const country = this.#iaData.getCountry(item.country)
 
-    row.addCell(new Cell(item.address))
-    row.addCell(new Cell(
-      Button.createFilter('subnet', item.subnet, item.subnet, this.#filter),
-      null,
-      true
-    ))
-    row.addCell(new Cell(
-      Button.createFilter('network', network.number, network.name, this.#filter),
-      'asn',
-      true
-    ))
-    row.addCell(new Cell(
-      Button.createFilter('country', country.code, country.name, this.#filter),
-      'country',
-      true
-    ))
-    row.addCell(new Cell(Format.Number(item.bans)))
-    row.addCell(new Cell(
-      Button.createView('recentBans', this.#type, item.address),
-      'view-bans-btn',
-      true
-    ))
+    const subnetFilterBtn = Button.createFilter('subnet', item.subnet, item.subnet, this.#filter)
+    const networkFilterBtn = Button.createFilter('network', network.number, network.name, this.#filter)
+    const countryFilterBtn = Button.createFilter('country', country.code, country.name, this.#filter)
+    const viewBtn = Button.createView('recentBans', this.#type, item.address)
 
+    row.addCell(new Cell(item.address))
+    row.addCell(new Cell(subnetFilterBtn, null, true))
+    row.addCell(new Cell(networkFilterBtn, 'asn', true))
+    row.addCell(new Cell(countryFilterBtn, 'country', true))
+    row.addCell(new Cell(Format.Number(item.bans)))
+    row.addCell(new Cell(viewBtn, 'view-bans-btn', true))
     return row
   }
 
@@ -160,28 +127,16 @@ export class CreateTable {
     const network = this.#iaData.getNetwork(item.network)
     const country = this.#iaData.getCountry(item.country)
 
-    row.addCell(new Cell(item.timestamp, 'date'))
-    row.addCell(new Cell(
-      Button.createFilter('address', item.address, item.address, this.#filter),
-      'address',
-      true
-    ))
-    row.addCell(new Cell(
-      Button.createFilter('jail', item.jail, item.jail, this.#filter),
-      'jail',
-      true
-    ))
-    row.addCell(new Cell(
-      Button.createFilter('network', network.number, network.name, this.#filter),
-      'asn',
-      true
-    ))
-    row.addCell(new Cell(
-      Button.createFilter('country', country.code, country.name, this.#filter),
-      'country',
-      true
-    ))
+    const addressFilterBtn = Button.createFilter('address', item.address, item.address, this.#filter)
+    const jailFilterBtn = Button.createFilter('jail', item.jail, item.jail, this.#filter)
+    const networkFilterBtn = Button.createFilter('network', network.number, network.name, this.#filter)
+    const countryFilterBtn = Button.createFilter('country', country.code, country.name, this.#filter)
 
+    row.addCell(new Cell(item.timestamp, 'date'))
+    row.addCell(new Cell(addressFilterBtn, 'address', true))
+    row.addCell(new Cell(jailFilterBtn, 'jail', true))
+    row.addCell(new Cell(networkFilterBtn, 'asn', true))
+    row.addCell(new Cell(countryFilterBtn, 'country', true))
     return row
   }
 
@@ -195,34 +150,22 @@ export class CreateTable {
     const network = this.#iaData.getNetwork(item.network)
     const country = this.#iaData.getCountry(item.country)
 
+    const networkFilterBtn = Button.createFilter('network', network.number, network.name, this.#filter)
+    const countryFilterBtn = Button.createFilter('country', country.code, country.name, this.#filter)
+    const addressViewBtn = Button.createView('address', this.#type, item.subnet)
+    const recentBansViewBtn = Button.createView('recentBans', this.#type, item.subnet)
+
     row.addCell(new Cell(item.subnet))
-    row.addCell(new Cell(
-      Button.createFilter('network', network.number, network.name, this.#filter),
-      'asn',
-      true
-    ))
-    row.addCell(new Cell(
-      Button.createFilter('country', country.code, country.name, this.#filter),
-      'country',
-      true
-    ))
+    row.addCell(new Cell(networkFilterBtn, 'asn', true))
+    row.addCell(new Cell(countryFilterBtn, 'country', true))
     row.addCell(new Cell(Format.Number(item.ipCount)))
     row.addCell(new Cell(Format.Number(item.bans)))
 
     const viewButtons = document.createElement('span')
-    viewButtons.appendChild(
-      Button.createView('address', this.#type, item.subnet)
-    )
-    viewButtons.appendChild(
-      Button.createView('recentBans', this.#type, item.subnet)
-    )
+    viewButtons.appendChild(addressViewBtn)
+    viewButtons.appendChild(recentBansViewBtn)
 
-    row.addCell(new Cell(
-      viewButtons,
-      'view-btn',
-      true
-    ))
-
+    row.addCell(new Cell(viewButtons, 'view-btn', true))
     return row
   }
 
@@ -233,15 +176,12 @@ export class CreateTable {
    * @returns row
    */
   #createDateRow (item, row) {
+    const viewBtn = Button.createView('recentBans', this.#type, item.date)
+
     row.addCell(new Cell(item.date, 'long'))
     row.addCell(new Cell(Format.Number(item.ipCount)))
     row.addCell(new Cell(Format.Number(item.bans)))
-    row.addCell(new Cell(
-      Button.createView('recentBans', this.#type, item.date),
-      'view-bans-btn',
-      true
-    ))
-
+    row.addCell(new Cell(viewBtn, 'view-bans-btn', true))
     return row
   }
 
@@ -252,15 +192,39 @@ export class CreateTable {
    * @returns row
    */
   #createJailRow (item, row) {
+    const viewBtn = Button.createView('recentBans', this.#type, item.name)
+
     row.addCell(new Cell(item.name, 'long'))
     row.addCell(new Cell(Format.Number(item.ipCount)))
     row.addCell(new Cell(Format.Number(item.bans)))
-    row.addCell(new Cell(
-      Button.createView('recentBans', this.#type, item.name),
-      'view-bans-btn',
-      true
-    ))
+    row.addCell(new Cell(viewBtn, 'view-bans-btn', true))
+    return row
+  }
 
+  /**
+   * Create row a for network, country or continent table
+   * @param {object} item
+   * @param {Row} row
+   * @returns row
+   */
+  #createGenericRow (item, row, type) {
+    const span = document.createElement('span')
+    span.innerText = item.name
+    span.setAttribute('title', item.name)
+
+    row.addCell(new Cell(span, 'long', true))
+    row.addCell(new Cell(Format.Number(item.ipCount)))
+    row.addCell(new Cell(Format.Number(item.bans)))
+
+    const filterValue = item.number || item.code
+    const addressViewBtn = Button.createView('address', this.#type, filterValue)
+    const recentBansViewBtn = Button.createView('recentBans', this.#type, filterValue)
+
+    const viewButtons = document.createElement('span')
+    viewButtons.appendChild(addressViewBtn)
+    viewButtons.appendChild(recentBansViewBtn)
+
+    row.addCell(new Cell(viewButtons, 'view-btn', true))
     return row
   }
 }
