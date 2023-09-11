@@ -29,8 +29,32 @@ function fetchData (lastUpdate = '') {
   return fetch('data.php', setting)
 }
 
+/**
+ * Order table data by date or ip count
+ */
+function orderTableData (data) {
+  if (document.getElementById('data-order-by').disabled === true) {
+    return data
+  }
+
+  let orderBy = document.getElementById('data-order-by').value
+  if (document.getElementById('data-order-by').value === 'ips') {
+    orderBy = 'ipCount'
+  }
+
+  data.sort(function (a, b) {
+    if (orderBy === 'date') {
+      return new Date(b.date) - new Date(a.date)
+    }
+
+    return b[orderBy] - a[orderBy]
+  })
+
+  return data
+}
+
 function displayData (data, type, pageNumber = 0) {
-  const pagination = new Pagination(Helper.orderData(data))
+  const pagination = new Pagination(orderTableData(data))
   pagination.setPage(pageNumber)
 
   const table = new CreateTable(
