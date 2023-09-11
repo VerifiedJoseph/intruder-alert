@@ -55,6 +55,14 @@ export class IaData {
     return this.#data.dataSince
   }
 
+  /**
+   * Check if charts are enabled
+   * @returns {boolean}
+   */
+  isChartEnabled () {
+    return this.#data.settings.enableCharts
+  }
+
   getTotal (type) {
     return this.#data.stats.totals[type]
   }
