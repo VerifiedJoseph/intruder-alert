@@ -320,7 +320,7 @@ function checkForUpdate () {
       document.getElementById('updating').classList.add('hide')
       document.getElementById('content').classList.add('hide')
 
-      Message.error(error.message)
+      Helper.errorMessage(error.message)
       console.log(error)
     })
 }
@@ -365,8 +365,7 @@ fetchData()
     displayData(filter.getData('recentBans'), 'recentBans')
   }).catch(error => {
     document.getElementById('loading').classList.add('hide')
-    Message.error(error.message)
-    console.log(error)
+    Helper.errorMessage(error.message)
   })
 
 const body = document.querySelector('body')
