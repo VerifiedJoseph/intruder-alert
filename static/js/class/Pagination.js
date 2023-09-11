@@ -1,4 +1,4 @@
-import { Format } from './Format.js'
+import { Helper } from './Helper.js'
 
 export class Pagination {
   #data = []
@@ -79,7 +79,7 @@ export class Pagination {
     }
 
     document.getElementById('total-pages').innerText = displayPageCount
-    document.getElementById('total-page-count').innerText = Format.Number(this.#totalItems)
+    document.getElementById('total-page-count').innerText = Helper.formatNumber(this.#totalItems)
 
     const select = document.getElementById('page-number')
     select.innerText = ''
