@@ -52,13 +52,13 @@ function orderTableData (data) {
   return data
 }
 
-function displayData (data, type, pageNumber = 0) {
+function displayData (data, pageNumber = 0) {
   const pagination = new Pagination(orderTableData(data))
   pagination.setPage(pageNumber)
 
   const table = new CreateTable(
     pagination.getData(),
-    type,
+    Helper.getTableType(),
     iaData,
     filter
   )
@@ -83,10 +83,10 @@ function createFilerRemoveEvents () {
 
         e.target.parentElement.remove()
 
-        displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
+        displayData(filter.getData(Helper.getTableType()))
 
-        if (document.getElementById('applied-filters').hasChildNodes() === false) {
-          document.getElementById('applied-filters').classList.add('hide')
+        if (document.getElementById('table-applied-filters').hasChildNodes() === false) {
+          document.getElementById('table-applied-filters').classList.add('hide')
         }
       })
 
@@ -111,7 +111,7 @@ function createChartFilerRemoveEvents () {
           e.target.getAttribute('data-filter-value')
         )
 
-        plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
+        plot.newChart(chartFilter.getData(Helper.getChartType()))
 
         if (document.getElementById('chart-applied-filters').hasChildNodes() === false) {
           document.getElementById('chart-applied-filters').classList.add('hide')
@@ -136,10 +136,10 @@ function onViewBtnClick (viewType, filterType, filterValue) {
   if (filter.hasFilter(filterType, filterValue) === false) {
     filter.add(filterType, 'include', filterValue)
 
-    document.getElementById('applied-filters').classList.remove('hide')
-    document.getElementById('filter-open-panel').disabled = false
+    document.getElementById('table-applied-filters').classList.remove('hide')
+    document.getElementById('table-filter-open-panel').disabled = false
 
-    displayData(filter.getData(viewType), viewType)
+    displayData(filter.getData(viewType))
     createFilerRemoveEvents()
   }
 
@@ -149,31 +149,31 @@ function onViewBtnClick (viewType, filterType, filterValue) {
     document.getElementById('chart-applied-filters').classList.remove('hide')
     document.getElementById('chart-filter-open-panel').disabled = false
 
-    plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
+    plot.newChart(chartFilter.getData(Helper.getChartType()))
     createChartFilerRemoveEvents()
   }
 }
 
 function clickHandler (event) {
   switch (event.target.id || event.target.className) {
-    case 'filter-open-panel':
+    case 'table-filter-open-panel':
       filterPanel.setup(filter)
       filterPanel.show()
       break
-    case 'filter-close-panel':
+    case 'table-filter-close-panel':
       filterPanel.hide()
       break
-    case 'filter-apply':
-      document.getElementById('applied-filters').classList.remove('hide')
+    case 'table-filter-apply':
+      document.getElementById('table-applied-filters').classList.remove('hide')
 
       filterPanel.hide()
       filter.add(
-        document.getElementById('filter-type').value,
-        document.getElementById('filter-action').value,
-        document.getElementById('filter-value').value
+        document.getElementById('table-filter-type').value,
+        document.getElementById('table-filter-action').value,
+        document.getElementById('table-filter-value').value
       )
 
-      displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
+      displayData(filter.getData(Helper.getTableType()))
       createFilerRemoveEvents()
       break
     case 'chart-filter-open-panel':
@@ -193,7 +193,7 @@ function clickHandler (event) {
         document.getElementById('chart-filter-value').value
       )
 
-      plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
+      plot.newChart(chartFilter.getData(Helper.getChartType()))
       createChartFilerRemoveEvents()
       break
     case 'row-filter':
@@ -204,16 +204,16 @@ function clickHandler (event) {
         event.target.getAttribute('data-value')
       )
 
-      document.getElementById('applied-filters').classList.remove('hide')
+      document.getElementById('table-applied-filters').classList.remove('hide')
 
-      displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
+      displayData(filter.getData(Helper.getTableType()))
       createFilerRemoveEvents()
       break
     case 'load-first-page':
     case 'load-prev-page':
     case 'load-next-page':
     case 'load-last-page':
-      displayData(filter.getData(Helper.getViewType()), Helper.getViewType(), Number(event.target.getAttribute('data-page')))
+      displayData(filter.getData(Helper.getTableType()), Number(event.target.getAttribute('data-page')))
       break
     case 'view-button':
       onViewBtnClick(
@@ -269,10 +269,10 @@ function changeHandler (event) {
         document.getElementById('applied-filters').classList.add('hide')
       }
 
-      displayData(filter.getData(event.target.value), event.target.value)
+      displayData(filter.getData(event.target.value))
       break
     case 'data-order-by':
-      displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
+      displayData(filter.getData(Helper.getTableType()))
       break
     case 'filter-type':
       filterPanel.setFilterValues(event.target.value, filter)
@@ -281,10 +281,10 @@ function changeHandler (event) {
       chartFilterPanel.setFilterValues(event.target.value, chartFilter)
       break
     case 'page-number':
-      displayData(filter.getData(Helper.getViewType()), Helper.getViewType(), Number(event.target.value))
+      displayData(filter.getData(Helper.getTableType()), Number(event.target.value))
       break
     case 'page-size':
-      displayData(filter.getData(Helper.getViewType()), Helper.getViewType(), 0)
+      displayData(filter.getData(Helper.getTableType()))
       break
   }
 }
@@ -303,7 +303,7 @@ function updateDashboard (data) {
   display.render()
 
   if (iaData.isChartEnabled() === true) {
-    plot.newChart(chartFilter.getData(document.getElementById('chart-type').value))
+    plot.newChart(chartFilter.getData(Helper.getChartType()))
 
     document.getElementById('chart').classList.remove('hide')
   } else {
@@ -311,7 +311,7 @@ function updateDashboard (data) {
   }
 
   Helper.createMostBannedButtons(data)
-  displayData(filter.getData(Helper.getViewType()), Helper.getViewType())
+  displayData(filter.getData(Helper.getTableType()))
 }
 
 function checkForUpdate () {
@@ -382,7 +382,7 @@ fetchData()
     }
 
     Helper.createMostBannedButtons(data)
-    displayData(filter.getData('recentBans'), 'recentBans')
+    displayData(filter.getData('recentBans'))
   }).catch(error => {
     document.getElementById('loading').classList.add('hide')
     Helper.errorMessage(error.message)
