@@ -77,16 +77,15 @@ export class FilterPanel {
    * Show filter panel
    */
   show () {
-    document.getElementById(this.#getId('filter-panel')).classList.remove('hide')
-    document.getElementById(this.#getId('filter-open-panel')).disabled = true
+    document.getElementById(this.#getId('filter-panel')).showModal()
   }
 
   /**
    * Hide filter panel
    */
   hide () {
-    document.getElementById(this.#getId('filter-panel')).classList.add('hide')
-    document.getElementById(this.#getId('filter-open-panel')).disabled = false
+    document.getElementById(this.#getId('filter-panel')).close()
+    document.getElementById(this.#getId('filter-open-panel')).focus = true
   }
 
   /**
