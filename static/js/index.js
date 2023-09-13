@@ -382,7 +382,7 @@ fetchData()
     }
 
     Helper.createMostBannedButtons(data)
-    displayData(filter.getData('recentBans'), 'recentBans')
+    displayData(filter.getData('recentBans'))
   }).catch(error => {
     document.getElementById('loading').classList.add('hide')
     Helper.errorMessage(error.message)
