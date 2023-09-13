@@ -174,14 +174,14 @@
 								<span class="input-text">Filters:</span>
 							</div>
 							<div class="labels">
-								<button id="filter-open-panel" title="Add a filter">+ Add</button>
+								<button id="table-filter-open-panel" title="Add a filter">+ Add</button>
 							</div>
-							<div id="filter-panel" class="filter-panel hide">
+							<div id="table-filter-panel" class="filter-panel hide">
 								<div id="header">
 									New filter
 								</div>
 								<div class="selects">
-									<select id="filter-type" class="filter-type">
+									<select id="table-filter-type" class="filter-type">
 										<option value="address">IP address</option>
 										<option value="version">IP version</option>
 										<option value="subnet">Subnet</option>
@@ -191,19 +191,19 @@
 										<option value="jail">Jails</option>
 										<option value="date">Date</option>
 									</select>
-									<select id="filter-action" class="filter-action">
+									<select id="table-filter-action" class="filter-action">
 										<option value="include">is</option>
 										<option value="exclude">is not</option>
 									</select>
-									<select id="filter-value" class="filter-value"></select>
+									<select id="table-filter-value" class="filter-value"></select>
 								</div>
 								<div class="buttons">
-									<button id="filter-apply">Apply</button>
-									<button id="filter-close-panel">Cancel</button>
+									<button id="table-filter-apply">Apply</button>
+									<button id="table-filter-close-panel">Cancel</button>
 								</div>
 							</div>
 						</div>
-						<div id="applied-filters" class="applied-filters hide"></div>
+						<div id="table-applied-filters" class="applied-filters hide"></div>
 					</div>
 					<div id="data">
 						<div id="data-table"></div>

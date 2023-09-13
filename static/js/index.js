@@ -71,7 +71,7 @@ function displayData (data, pageNumber = 0) {
  * Create click events for removing table filters
  */
 function createFilerRemoveEvents () {
-  const buttons = document.querySelectorAll('button[data-filter-id]')
+  const buttons = document.querySelectorAll('#table-applied-filters > .item > button[data-filter-id]')
 
   for (let i = 0; i < buttons.length; i++) {
     if (buttons[i].getAttribute('data-event') !== 'true') {
@@ -251,7 +251,7 @@ function changeHandler (event) {
       }
 
       if (event.target.value === 'address' || event.target.value === 'recentBans' || event.target.value === 'subnet') {
-        document.getElementById('filter-open-panel').disabled = false
+        document.getElementById('table-filter-open-panel').disabled = false
 
         if (event.target.value === 'address') {
           filter.removeMany(['date', 'jail'])
@@ -261,12 +261,12 @@ function changeHandler (event) {
           filter.removeMany(['address', 'continent', 'date', 'jail'])
         }
       } else {
-        document.getElementById('filter-open-panel').disabled = true
+        document.getElementById('table-filter-open-panel').disabled = true
         filter.reset()
       }
 
-      if (document.getElementById('applied-filters').hasChildNodes() === false) {
-        document.getElementById('applied-filters').classList.add('hide')
+      if (document.getElementById('table-applied-filters').hasChildNodes() === false) {
+        document.getElementById('table-applied-filters').classList.add('hide')
       }
 
       displayData(filter.getData(event.target.value))
@@ -274,7 +274,7 @@ function changeHandler (event) {
     case 'data-order-by':
       displayData(filter.getData(Helper.getTableType()))
       break
-    case 'filter-type':
+    case 'table-filter-type':
       filterPanel.setFilterValues(event.target.value, filter)
       break
     case 'chart-filter-type':
@@ -360,7 +360,7 @@ fetchData()
 
     iaData = new IaData(data)
     filter = new TableFilter(iaData)
-    filterPanel = new FilterPanel(iaData)
+    filterPanel = new FilterPanel(iaData, 'table')
     chartFilter = new ChartFilter(iaData)
     chartFilterPanel = new FilterPanel(iaData, 'chart')
 

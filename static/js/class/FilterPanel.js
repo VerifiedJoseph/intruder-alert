@@ -2,11 +2,11 @@ import { Helper } from './Helper.js'
 
 export class FilterPanel {
   #iaData
-  #type = ''
+  #panelType
 
-  constructor (iaData, type = '') {
+  constructor (iaData, panelType) {
     this.#iaData = iaData
-    this.#type = type
+    this.#panelType = panelType
   }
 
   /**
@@ -98,18 +98,18 @@ export class FilterPanel {
 
     this.#enableAllFilters()
 
-    if (this.#type === '') {
-      if (Helper.getViewType() !== 'recentBans') {
+    if (this.#panelType === 'table') {
+      if (Helper.getTableType() !== 'recentBans') {
         this.#disableFilter('address')
         this.#disableFilter('jail')
         this.#disableFilter('date')
 
-        if (Helper.getViewType() === 'address') {
+        if (Helper.getTableType() === 'address') {
           this.#setSelectedFilter('version')
           this.setFilterValues('version', filter)
         }
 
-        if (Helper.getViewType() === 'subnet') {
+        if (Helper.getTableType() === 'subnet') {
           this.#setSelectedFilter('subnet')
           this.setFilterValues('subnet', filter)
           this.#disableFilter('continent')
@@ -169,8 +169,8 @@ export class FilterPanel {
    * @param {string} name
    */
   #getId (name) {
-    if (this.#type !== '') {
-      return `${this.#type}-${name}`
+    if (this.#panelType !== '') {
+      return `${this.#panelType}-${name}`
     }
 
     return name
