@@ -112,11 +112,11 @@
 								<span class="input-text">Filters:</span>
 							</div>
 							<div class="labels">
-								<button id="chart-filter-open-panel" title="Add a filter">+ Add</button>
+								<button id="chart-filter-open-panel" title="Add chart filter">+ Add</button>
 							</div>
-							<div id="chart-filter-panel" class="filter-panel hide">
+							<dialog id="chart-filter-panel" class="filter-panel">
 								<div id="header">
-									New filter
+									New chart filter
 								</div>
 								<div class="selects">
 									<select id="chart-filter-type" class="filter-type">
@@ -137,7 +137,7 @@
 								<div class="buttons">
 									<button id="chart-filter-apply">Apply</button> <button id="chart-filter-close-panel">Cancel</button>
 								</div>
-							</div>
+							</dialog>
 						</div>
 						<div id="chart-applied-filters" class="applied-filters hide"></div>
 					</div>
@@ -174,11 +174,11 @@
 								<span class="input-text">Filters:</span>
 							</div>
 							<div class="labels">
-								<button id="table-filter-open-panel" title="Add a filter">+ Add</button>
+								<button id="table-filter-open-panel" title="Add table filter">+ Add</button>
 							</div>
-							<div id="table-filter-panel" class="filter-panel hide">
+							<dialog id="table-filter-panel" class="filter-panel">
 								<div id="header">
-									New filter
+									New table filter
 								</div>
 								<div class="selects">
 									<select id="table-filter-type" class="filter-type">
@@ -201,7 +201,7 @@
 									<button id="table-filter-apply">Apply</button>
 									<button id="table-filter-close-panel">Cancel</button>
 								</div>
-							</div>
+							</dialog>
 						</div>
 						<div id="table-applied-filters" class="applied-filters hide"></div>
 					</div>
