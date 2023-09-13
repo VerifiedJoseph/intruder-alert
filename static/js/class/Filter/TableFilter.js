@@ -6,7 +6,7 @@ export class TableFilter extends Filter {
 
   constructor (iaData) {
     super(iaData)
-    this.chip = new FilterChip('applied-filters', iaData)
+    this.chip = new FilterChip('table-applied-filters', iaData)
   }
 
   /**
