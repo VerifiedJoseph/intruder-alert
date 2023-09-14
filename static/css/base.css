@@ -362,6 +362,7 @@ table td.no-data {
 
 .input > select {
 	display: inline-block;
+	width: 112px;
 }
 
 .filter-panel {
@@ -390,7 +391,15 @@ table td.no-data {
 
 .filter-panel > .buttons {
 	margin-top: 6px;
-	text-align: end;
+	float: right;
+}
+
+.filter-panel > .buttons > button {
+	float: left;
+}
+
+.filter-panel > .buttons > button:first-child {
+	margin-right: 6px;
 }
 
 .filter-panel > .option-btns > button {
@@ -479,6 +488,10 @@ button {
 	line-height: 13px;
 }
 
+select {
+	padding: 0px 6px;
+}
+
 button, select {
 	background-color: #e9e9ed;
 	border: 1px solid #8f8f9d;
@@ -501,11 +514,11 @@ button:hover:enabled {
 }
 
 .selects > select:first-child {
-	margin-right: 4px;
+	margin-right: 6px;
 	width: 120px;
 }
 
 .selects > select:last-child {
-	margin-left: 4px;
+	margin-left: 6px;
 	width: 100%;
 }
