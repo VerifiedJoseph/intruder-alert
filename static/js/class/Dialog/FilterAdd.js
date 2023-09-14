@@ -1,12 +1,49 @@
-import { Helper } from './Helper.js'
+import { Dialog } from './Dialog.js'
+import { Helper } from '../Helper.js'
 
-export class FilterPanel {
+export class FilterAddDialog extends Dialog {
+  dialogType = 'filter-add'
   #iaData
-  #panelType
 
-  constructor (iaData, panelType) {
+  constructor (viewType, iaData) {
+    super(viewType)
     this.#iaData = iaData
-    this.#panelType = panelType
+    this.setElement()
+  }
+
+  /**
+   * Setup dialog
+   * @param {Filter|ChartFilter} filter Filter class instance
+   */
+  setup (filter) {
+    document.getElementById(this.#getId('filter-action'))[0].selected = true
+
+    this.#enableAllFilters()
+
+    if (this.viewType === 'table') {
+      if (Helper.getTableType() !== 'recentBans') {
+        this.#disableFilter('address')
+        this.#disableFilter('jail')
+        this.#disableFilter('date')
+
+        if (Helper.getTableType() === 'address') {
+          this.#setSelectedFilter('version')
+          this.setFilterValues('version', filter)
+        }
+
+        if (Helper.getTableType() === 'subnet') {
+          this.#setSelectedFilter('subnet')
+          this.setFilterValues('subnet', filter)
+          this.#disableFilter('continent')
+        }
+      } else {
+        this.#setSelectedFilter('address')
+        this.setFilterValues('address', filter)
+      }
+    } else {
+      this.#setSelectedFilter('address')
+      this.setFilterValues('address', filter)
+    }
   }
 
   /**
@@ -74,56 +111,6 @@ export class FilterPanel {
   }
 
   /**
-   * Show filter panel
-   */
-  show () {
-    document.getElementById(this.#getId('filter-panel')).showModal()
-  }
-
-  /**
-   * Hide filter panel
-   */
-  hide () {
-    document.getElementById(this.#getId('filter-panel')).close()
-    document.getElementById(this.#getId('filter-open-panel')).focus = true
-  }
-
-  /**
-   * Setup filter panel
-   * @param {Filter|ChartFilter} filter Filter class instance
-   */
-  setup (filter) {
-    document.getElementById(this.#getId('filter-action'))[0].selected = true
-
-    this.#enableAllFilters()
-
-    if (this.#panelType === 'table') {
-      if (Helper.getTableType() !== 'recentBans') {
-        this.#disableFilter('address')
-        this.#disableFilter('jail')
-        this.#disableFilter('date')
-
-        if (Helper.getTableType() === 'address') {
-          this.#setSelectedFilter('version')
-          this.setFilterValues('version', filter)
-        }
-
-        if (Helper.getTableType() === 'subnet') {
-          this.#setSelectedFilter('subnet')
-          this.setFilterValues('subnet', filter)
-          this.#disableFilter('continent')
-        }
-      } else {
-        this.#setSelectedFilter('address')
-        this.setFilterValues('address', filter)
-      }
-    } else {
-      this.#setSelectedFilter('address')
-      this.setFilterValues('address', filter)
-    }
-  }
-
-  /**
    * Disable a filter type
    * @param {string} name
    */
@@ -164,14 +151,10 @@ export class FilterPanel {
   }
 
   /**
-   * Get element Id with prefix
+   * Get element Id with dialog type prefix
    * @param {string} name
    */
   #getId (name) {
-    if (this.#panelType !== '') {
-      return `${this.#panelType}-${name}`
-    }
-
-    return name
+    return `${this.viewType}-${name}`
   }
 }

@@ -389,6 +389,11 @@ table td.no-data {
 	text-align: end;
 }
 
+.filter-panel > .option-btns > button {
+	display: block;
+	margin-top: 6px;
+}
+
 .filters {
 	display: flow-root;
 	position: relative;
@@ -398,6 +403,14 @@ table td.no-data {
 
 .filters > .text, .filters > .labels {
 	display: inline-block;
+}
+
+.filters > .buttons {
+	display: inline-flex;
+}
+
+.filters > .buttons > button {
+	margin-right: 6px;
 }
 
 .applied-filters {
@@ -425,6 +438,11 @@ table td.no-data {
 	padding: 3px;
 	width: 30px;
 	margin-left: 4px;
+}
+
+.filter-options-close {
+	position: absolute;
+	right: 10px;
 }
 
 #log {

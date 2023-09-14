@@ -111,10 +111,11 @@
 							<div class="text">
 								<span class="input-text">Filters:</span>
 							</div>
-							<div class="labels">
+							<div class="buttons">
 								<button id="chart-filter-open-panel" title="Add a new chart filter">+ Add</button>
+								<button id="chart-filter-options-dialog-open" title="Chart filter options">Options</button>
 							</div>
-							<dialog id="chart-filter-panel" class="filter-panel">
+							<dialog id="chart-filter-add-dialog" class="filter-panel">
 								<div id="header">
 									New chart filter
 								</div>
@@ -136,6 +137,17 @@
 								</div>
 								<div class="buttons">
 									<button id="chart-filter-apply">Apply</button> <button id="chart-filter-close-panel">Cancel</button>
+								</div>
+							</dialog>
+							<dialog id="chart-filter-options-dialog" class="filter-panel">
+								<button id="chart-filter-options-close" class="filter-options-close">Close</button>
+								<div id="header">
+									Chart filter options
+								</div>
+								<div class="option-btns">
+									<button id="chart-filters-reverse" disabled>Reverse filters</button>
+									<button id="chart-filters-remove" disabled>Remove filters</button>
+									<!--<button id="chart-filter-a" disabled>Apply filters to table</button>-->
 								</div>
 							</dialog>
 						</div>
@@ -173,10 +185,11 @@
 							<div class="text">
 								<span class="input-text">Filters:</span>
 							</div>
-							<div class="labels">
+							<div class="buttons">
 								<button id="table-filter-open-panel" title="Add a new table filter">+ Add</button>
+								<button id="table-filter-options-dialog-open" title="Table filter options">Options</button>
 							</div>
-							<dialog id="table-filter-panel" class="filter-panel">
+							<dialog id="table-filter-add-dialog" class="filter-panel">
 								<div id="header">
 									New table filter
 								</div>
@@ -200,6 +213,17 @@
 								<div class="buttons">
 									<button id="table-filter-apply">Apply</button>
 									<button id="table-filter-close-panel">Cancel</button>
+								</div>
+							</dialog>
+							<dialog id="table-filter-options-dialog" class="filter-panel">
+								<button id="table-filter-options-close" class="filter-options-close">Close</button>
+								<div id="header">
+									Table filter options
+								</div>
+								<div class="option-btns">
+									<button id="table-filters-reverse" disabled>Reverse filters</button>
+									<button id="table-filters-remove" disabled>Remove filters</button>
+									<!--<button id="table-filter-a" disabled>Apply filters to chart</button>-->
 								</div>
 							</dialog>
 						</div>
