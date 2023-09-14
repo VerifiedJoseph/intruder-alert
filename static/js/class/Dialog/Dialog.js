@@ -25,10 +25,16 @@ export class Dialog {
     this.element.close()
   }
 
+  /**
+   * Enable dialog open button
+   */
   enableBtn () {
     document.getElementById(`${this.viewType}-${this.dialogType}-dialog-open`).disabled = false
   }
 
+  /**
+   * Disable dialog open button
+   */
   disableBtn () {
     document.getElementById(`${this.viewType}-${this.dialogType}-dialog-open`).disabled = true
   }
