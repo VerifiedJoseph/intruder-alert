@@ -152,6 +152,24 @@ export class Filter {
   }
 
   /**
+   * Reverse action value of applied filters
+   */
+  reverse () {
+    this.settings.forEach((filter, index) => {
+      let newAction = 'include'
+      if (filter.action === 'include') {
+        newAction = 'exclude'
+      }
+
+      filter.values.forEach(value => {
+        this.chip.update(filter.type, newAction, value, filter.id)
+      })
+
+      this.settings[index].action = newAction
+    })
+  }
+
+  /**
    * Check if filter has a value
    * @param {string} type Filter type
    * @param {string} value Filter value
