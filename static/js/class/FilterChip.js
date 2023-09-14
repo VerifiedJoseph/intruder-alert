@@ -4,6 +4,9 @@ export class FilterChip {
   /** @var {HTMLElement} */
   #container = null
 
+  /** @var {string} */
+  #viewGroup
+
   /** @var {object} typeTexts */
   #typeTexts = {
     address: 'IP Address',
@@ -16,8 +19,9 @@ export class FilterChip {
     date: 'Date'
   }
 
-  constructor (containerId, iaData) {
-    this.#container = document.getElementById(containerId)
+  constructor (viewGroup, iaData) {
+    this.#container = document.getElementById(`${viewGroup}-applied-filters`)
+    this.#viewGroup = viewGroup
     this.#iaData = iaData
   }
 
@@ -91,9 +95,11 @@ export class FilterChip {
   #createButton (uuid, value) {
     const button = document.createElement('button')
     button.innerText = 'X'
+    button.classList.add('filter-remove')
     button.setAttribute('title', 'Remove filter')
     button.setAttribute('data-filter-id', uuid)
     button.setAttribute('data-filter-value', value)
+    button.setAttribute('data-view-group', this.#viewGroup)
 
     return button
   }

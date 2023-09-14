@@ -69,62 +69,6 @@ function displayData (data, pageNumber = 0) {
   pagination.setButtons()
 }
 
-/**
- * Create click events for removing table filters
- */
-function createFilerRemoveEvents () {
-  const buttons = document.querySelectorAll('#table-applied-filters > .item > button[data-filter-id]')
-
-  for (let i = 0; i < buttons.length; i++) {
-    if (buttons[i].getAttribute('data-event') !== 'true') {
-      buttons[i].addEventListener('click', function (e) {
-        table.filter.removeValue(
-          e.target.getAttribute('data-filter-id'),
-          e.target.getAttribute('data-filter-value')
-        )
-
-        e.target.parentElement.remove()
-
-        displayData(table.filter.getData(Helper.getTableType()))
-
-        if (document.getElementById('table-applied-filters').hasChildNodes() === false) {
-          document.getElementById('table-applied-filters').classList.add('hide')
-        }
-      })
-
-      buttons[i].setAttribute('data-event', 'true')
-    }
-  }
-}
-
-/**
- * Create click events for removing chart filters
- */
-function createChartFilerRemoveEvents () {
-  const buttons = document.querySelectorAll('#chart-applied-filters > .item > button[data-filter-id]')
-
-  for (let i = 0; i < buttons.length; i++) {
-    if (buttons[i].getAttribute('data-event') !== 'true') {
-      buttons[i].addEventListener('click', function (e) {
-        e.target.parentElement.remove()
-
-        chart.filter.removeValue(
-          e.target.getAttribute('data-filter-id'),
-          e.target.getAttribute('data-filter-value')
-        )
-
-        chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
-
-        if (document.getElementById('chart-applied-filters').hasChildNodes() === false) {
-          document.getElementById('chart-applied-filters').classList.add('hide')
-        }
-      })
-
-      buttons[i].setAttribute('data-event', 'true')
-    }
-  }
-}
-
 function onViewBtnClick (viewType, filterType, filterValue) {
   table.dialog.filterAdd.close()
   chart.dialog.filterAdd.close()
@@ -142,7 +86,6 @@ function onViewBtnClick (viewType, filterType, filterValue) {
     document.getElementById('table-filter-open-panel').disabled = false
 
     displayData(table.filter.getData(viewType))
-    createFilerRemoveEvents()
   }
 
   if (iaData.isChartEnabled() === true && chart.filter.hasFilter(filterType, filterValue) === false) {
@@ -152,7 +95,34 @@ function onViewBtnClick (viewType, filterType, filterValue) {
     document.getElementById('chart-filter-open-panel').disabled = false
 
     chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
-    createChartFilerRemoveEvents()
+  }
+}
+
+function onRemoveFilterBtnClick (event) {
+  const viewGroup = event.target.getAttribute('data-view-group')
+
+  if (viewGroup === 'chart') {
+    chart.filter.removeValue(
+      event.target.getAttribute('data-filter-id'),
+      event.target.getAttribute('data-filter-value')
+    )
+
+    chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
+  }
+
+  if (viewGroup === 'table') {
+    table.filter.removeValue(
+      event.target.getAttribute('data-filter-id'),
+      event.target.getAttribute('data-filter-value')
+    )
+
+    displayData(table.filter.getData(Helper.getTableType()))
+  }
+
+  event.target.parentElement.remove()
+
+  if (document.getElementById(`${viewGroup}-applied-filters`).hasChildNodes() === false) {
+    document.getElementById(`${viewGroup}-applied-filters`).classList.add('hide')
   }
 }
 
@@ -176,7 +146,6 @@ function clickHandler (event) {
       )
 
       displayData(table.filter.getData(Helper.getTableType()))
-      createFilerRemoveEvents()
       break
     case 'chart-filter-open-panel':
       chart.dialog.filterAdd.setup(chart.filter)
@@ -196,7 +165,6 @@ function clickHandler (event) {
       )
 
       chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
-      createChartFilerRemoveEvents()
       break
     case 'chart-filter-options-dialog-open':
       chart.dialog.filterOptions.setup(chart.filter)
@@ -234,6 +202,9 @@ function clickHandler (event) {
       table.filter.reset()
       displayData(table.filter.getData(Helper.getTableType()))
       break
+    case 'filter-remove':
+      onRemoveFilterBtnClick(event)
+      break
     case 'row-filter':
       table.dialog.filterAdd.close()
       table.filter.add(
@@ -245,7 +216,6 @@ function clickHandler (event) {
       document.getElementById('table-applied-filters').classList.remove('hide')
 
       displayData(table.filter.getData(Helper.getTableType()))
-      createFilerRemoveEvents()
       break
     case 'load-first-page':
     case 'load-prev-page':
