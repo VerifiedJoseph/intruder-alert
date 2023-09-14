@@ -5,7 +5,6 @@ export class FilterOptionsDialog extends Dialog {
 
   constructor (viewType) {
     super(viewType)
-
     this.setElement()
   }
 
