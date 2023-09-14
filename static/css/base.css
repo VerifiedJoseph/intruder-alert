@@ -135,128 +135,6 @@ input {
 	max-width: 280px;
 }
 
-table {
-	width: 100%;
-	background-color: white;
-	border-spacing: 0;
-	border-collapse: collapse;
-}
-
-table th {
-	text-align: left;
-}
-
-table th, table th:hover {
-	background: #000000;
-	color: #f1f1f1;
-}
-
-table tr:hover{
-	background: #f1f1f1;
-}
-
-table th, table td {
-	padding: 4px;
-	border-bottom: 1px solid #8f8f9d;
-	padding-right: 10px;
-}
-
-table th.number, table td.number {
-	width: 40px !important;
-	text-align: center;
-}
-
-table tr {
-	height: 32px;
-}
-
-table td.ip {
-	width: 120px !important;
-}
-
-table td.ban {
-	width: 50px !important;
-}
-
-table td.country {
-	min-width: 190px !important;
-}
-
-table th.date, table td.date {
-	width: 140px !important;
-}
-
-table td {
-	position: relative;
-}
-
-table td.asn {
-	width: 300px;
-}
-
-table td.long {
-	width: 500px;
-}
-
-table td.jail {
-	width: 110px;
-}
-
-table td.view-btn {
-	width: 161px;
-}
-
-table td.view-bans-btn {
-	width: 90px;
-}
-
-table td.view-bans-btn > button {
-	height: 23px;
-}
-
-table td.view-btn > span > button {
-	height: 23px;
-}
-
-table td.view-btn > span > button:first-child {
-	margin-right: 6px;
-}
-
-table td:hover > span > .row-filter {
-	display: unset;
-}
-
-td.asn > span, td.long > span {
-	display: inherit;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-}
-
-td.asn > span {
-	max-width: 285px;
-}
-
-td.long > span {
-	max-width: 485px;
-}
-
-td > span > .row-filter {
-	position: absolute;
-	top: 4px;
-	right: 10px;
-	height: 23px;
-	display: none;
-}
-
-table td.button {
-	width: 100px;
-}
-
-table td.no-data {
-	text-align: center;
-}
-
 .input-text, .input-text-small {
 	display: inline-block;
 }
@@ -267,21 +145,6 @@ table td.no-data {
 
 .input-text-small {
 	width: 40px;
-}
-
-.info {
-	display: flex;
-}
-
-.info > .box {
-	width: 100%;
-	padding: 4px;
-	margin: 0 auto 4px;
-}
-
-.info > .box > .big {
-	font-weight: bold;
-	font-size: 15px;
 }
 
 .page-button {
@@ -317,48 +180,6 @@ table td.no-data {
 .input > select {
 	display: inline-block;
 	width: 112px;
-}
-
-.filter-panel {
-	padding: 10px;
-	width: 350px;
-	background-color: white;
-	border: 1px solid #8f8f9d;
-}
-
-.filter-panel > #header {
-	font-weight: bold;
-	margin-bottom: 6px;
-}
-
-.filter-panel > .selects > div {
-	display: inline-block;
-}
-
-.filter-action {
-	width: 70px;
-}
-
-.filter-value {
-	width: 159px;
-}
-
-.filter-panel > .buttons {
-	margin-top: 6px;
-	float: right;
-}
-
-.filter-panel > .buttons > button {
-	float: left;
-}
-
-.filter-panel > .buttons > button:first-child {
-	margin-right: 6px;
-}
-
-.filter-panel > .option-btns > button {
-	display: block;
-	margin-top: 6px;
 }
 
 .filters {
@@ -407,11 +228,6 @@ table td.no-data {
 	margin-left: 4px;
 }
 
-.filter-options-close {
-	position: absolute;
-	right: 10px;
-}
-
 #log {
 	margin-top: 6px;
 }
@@ -437,6 +253,10 @@ table td.no-data {
 	text-align: center;
 }
 
+.bold {
+	font-weight: bold;
+}
+
 button {
 	padding: 0 6px;
 	line-height: 13px;
@@ -460,19 +280,4 @@ button:hover:enabled {
 .page-button-small {
 	height: 23px;
 	width: 50px;
-}
-
-.selects {
-	display: flex;
-	flex-direction: row;
-}
-
-.selects > select:first-child {
-	margin-right: 6px;
-	width: 120px;
-}
-
-.selects > select:last-child {
-	margin-left: 6px;
-	width: 100%;
 }

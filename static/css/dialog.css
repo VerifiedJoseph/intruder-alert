@@ -1,0 +1,57 @@
+dialog {
+	padding: 10px;
+	width: 350px;
+	background-color: white;
+	border: 1px solid #8f8f9d;
+}
+
+dialog > #header {
+	font-weight: bold;
+	margin-bottom: 6px;
+}
+
+dialog > .selects > div {
+	display: inline-block;
+}
+
+dialog > .buttons {
+	margin-top: 6px;
+	float: right;
+}
+
+dialog > .buttons > button {
+	float: left;
+}
+
+dialog > .buttons > button:first-child {
+	margin-right: 6px;
+}
+
+dialog > .option-btns > button {
+	display: block;
+	margin-top: 6px;
+}
+
+dialog > .filter-action {
+	width: 70px;
+}
+
+dialog > .filter-options-close {
+	position: absolute;
+	right: 10px;
+}
+
+dialog > .selects {
+	display: flex;
+	flex-direction: row;
+}
+
+dialog > .selects > select:first-child {
+	margin-right: 6px;
+	width: 120px;
+}
+
+dialog > .selects > select:last-child {
+	margin-left: 6px;
+	width: 100%;
+}
