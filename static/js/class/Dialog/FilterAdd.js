@@ -1,7 +1,7 @@
 import { Dialog } from './Dialog.js'
 import { Helper } from '../Helper.js'
 
-export class AddFilterDialog extends Dialog {
+export class FilterAddDialog extends Dialog {
   dialogType = 'filter-add'
   #iaData
 
