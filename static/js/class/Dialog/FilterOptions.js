@@ -13,8 +13,6 @@ export class FilterOptionsDialog extends Dialog {
    * @param {Filter|ChartFilter} filter Filter class instance
    */
   setup (filter) {
-    console.log(filter.hasFilters())
-
     if (filter.hasFilters() === true) {
       document.getElementById(`${this.viewType}-filters-reverse`).disabled = false
       document.getElementById(`${this.viewType}-filters-remove`).disabled = false
