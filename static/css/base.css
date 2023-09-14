@@ -62,11 +62,15 @@ h3 {
 	border-bottom: unset;
 }
 
-#error, #updating {
+#error, #updating, #no-js {
 	color: #fff;
 	font-weight: bold;
 	text-align: center;
 	padding: 4px;
+}
+
+#no-js {
+	background-color: #000;
 }
 
 #error {
