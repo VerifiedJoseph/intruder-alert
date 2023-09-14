@@ -427,6 +427,11 @@ table td.no-data {
 	margin-left: 4px;
 }
 
+.filter-options-close {
+	position: absolute;
+	right: 10px;
+}
+
 #log {
 	margin-top: 6px;
 }
