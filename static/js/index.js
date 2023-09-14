@@ -6,6 +6,7 @@ import { Plot } from './class/Plot.js'
 import { TableFilter } from './class/Filter/TableFilter.js'
 import { ChartFilter } from './class/Filter/ChartFilter.js'
 import { FilterAddDialog } from './class/Dialog/FilterAdd.js'
+import { FilterOptionsDialog } from './class/Dialog/FilterOptions.js'
 import { Display } from './class/Display.js'
 import { Pagination } from './class/Pagination.js'
 import { Helper } from './class/Helper.js'
@@ -14,13 +15,15 @@ import { CreateTable } from './class/CreateTable.js'
 const table = {
   filter: TableFilter,
   dialog: {
-    filterAdd: FilterAddDialog
+    filterAdd: FilterAddDialog,
+    filterOptions: FilterOptionsDialog
   }
 }
 const chart = {
   filter: ChartFilter,
   dialog: {
-    filterAdd: FilterAddDialog
+    filterAdd: FilterAddDialog,
+    filterOptions: FilterOptionsDialog
   },
   plot: Plot
 }
@@ -210,18 +213,21 @@ function clickHandler (event) {
       createChartFilerRemoveEvents()
       break
     case 'chart-filter-options-open':
-      document.getElementById('chart-filter-options').showModal()
+      chart.dialog.filterOptions.setup(chart.filter)
+      chart.dialog.filterOptions.open()
       break
     case 'chart-filter-options-close':
-      document.getElementById('chart-filter-options').close()
+      chart.dialog.filterOptions.close()
       break
     case 'chart-filters-reverse':
-      document.getElementById('chart-filter-options').close()
+      chart.dialog.filterOptions.close()
+
       chart.filter.reverse()
       chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
       break
     case 'chart-filters-remove':
-      document.getElementById('chart-filter-options').close()
+      chart.dialog.filterOptions.close()
+
       chart.filter.reset()
       chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
       break
@@ -389,9 +395,12 @@ fetchData()
 
     iaData = new IaData(data)
     table.filter = new TableFilter(iaData)
-    chart.filter = new ChartFilter(iaData)
     table.dialog.filterAdd = new FilterAddDialog('table', iaData)
+    table.dialog.filterOptions = new FilterOptionsDialog('table')
+
+    chart.filter = new ChartFilter(iaData)
     chart.dialog.filterAdd = new FilterAddDialog('chart', iaData)
+    chart.dialog.filterOptions = new FilterOptionsDialog('chart')
 
     display = new Display(iaData)
     display.render()
