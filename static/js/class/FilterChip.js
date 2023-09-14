@@ -33,24 +33,8 @@ export class FilterChip {
    * @param {string} uuid Filter UUID
    */
   create (type, action, value, uuid) {
-    let valueText = value
-
-    switch (type) {
-      case 'network':
-        valueText = this.#iaData.getNetworkName(value)
-        break
-      case 'country':
-        valueText = this.#iaData.getCountryName(value)
-        break
-      case 'continent':
-        valueText = this.#iaData.getContinentName(value)
-        break
-    }
-
-    let actionText = 'is'
-    if (action === 'exclude') {
-      actionText = 'is not'
-    }
+    const valueText = this.#getValueText(type, value)
+    const actionText = this.#getActionText(action)
 
     const div = document.createElement('div')
     div.appendChild(this.#createSpan(this.#typeTexts[type]))
@@ -62,6 +46,22 @@ export class FilterChip {
     div.classList.add('item')
 
     this.#container.appendChild(div)
+  }
+
+  /**
+   * Update filter chip
+   * @param {string} type Filter type
+   * @param {string} action Filter action
+   * @param {string} value Filter value
+   * @param {string} uuid Filter UUID
+   */
+  update (type, action, value, uuid) {
+    const valueText = this.#getValueText(type, value)
+    const actionText = this.#getActionText(action)
+
+    const div = document.querySelector(`div[data-label-id="${uuid}"]`)
+    div.setAttribute('title', `${this.#typeTexts[type]} ${actionText} ${valueText}`)
+    div.childNodes[1].innerText = ` ${actionText} `
   }
 
   /**
@@ -112,5 +112,37 @@ export class FilterChip {
     }
 
     return span
+  }
+
+  /**
+   * Get value text
+   * @param {string} type Filter type
+   * @param {string} value Filter value
+   * @returns {string}
+   */
+  #getValueText (type, value) {
+    switch (type) {
+      case 'network':
+        return this.#iaData.getNetworkName(value)
+      case 'country':
+        return this.#iaData.getCountryName(value)
+      case 'continent':
+        return this.#iaData.getContinentName(value)
+    }
+
+    return value
+  }
+
+  /**
+   * Get action text
+   * @param {string} action Filter action
+   * @returns {string}
+   */
+  #getActionText (action) {
+    if (action === 'exclude') {
+      return 'is not'
+    }
+
+    return 'is'
   }
 }
