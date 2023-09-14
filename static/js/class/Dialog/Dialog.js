@@ -26,7 +26,6 @@ export class Dialog {
   }
 
   setElement () {
-    console.log(`${this.viewType}-${this.dialogType}-dialog`)
     this.element = document.getElementById(`${this.viewType}-${this.dialogType}-dialog`)
   }
 }
