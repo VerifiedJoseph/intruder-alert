@@ -212,7 +212,7 @@ function clickHandler (event) {
       chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
       createChartFilerRemoveEvents()
       break
-    case 'chart-filter-options-open':
+    case 'chart-filter-options-dialog-open':
       chart.dialog.filterOptions.setup(chart.filter)
       chart.dialog.filterOptions.open()
       break
