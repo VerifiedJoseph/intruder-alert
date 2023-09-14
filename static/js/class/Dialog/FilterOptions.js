@@ -22,7 +22,7 @@ export class FilterOptionsDialog extends Dialog {
     } else {
       document.getElementById('chart-filters-reverse').disabled = true
       document.getElementById('chart-filters-remove').disabled = true
-      document.getElementById('chart-filter-a').disabled = true
+      // document.getElementById('chart-filter-a').disabled = true
     }
   }
 }
