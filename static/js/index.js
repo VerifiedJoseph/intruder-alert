@@ -196,6 +196,22 @@ function clickHandler (event) {
       plot.newChart(chartFilter.getData(Helper.getChartType()))
       createChartFilerRemoveEvents()
       break
+    case 'chart-filter-options-open':
+      document.getElementById('chart-filter-options').showModal()
+      break
+    case 'chart-filter-options-close':
+      document.getElementById('chart-filter-options').close()
+      break
+    case 'chart-filters-reverse':
+      document.getElementById('chart-filter-options').close()
+      chartFilter.reverse()
+      plot.newChart(chartFilter.getData(Helper.getChartType()))
+      break
+    case 'chart-filters-remove':
+      document.getElementById('chart-filter-options').close()
+      chartFilter.reset()
+      plot.newChart(chartFilter.getData(Helper.getChartType()))
+      break
     case 'row-filter':
       filterPanel.hide()
       filter.add(
