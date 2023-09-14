@@ -6,17 +6,18 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" type="text/css" href="static/css/normalize.css" />
 		<link rel="stylesheet" type="text/css" href="static/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="static/css/dialog.css" />
 	</head>
 	<body>
 		<div id="main">
 			<div class="header">
 				<div>
 					<h2>Intruder Alert</h2>
-					<p><strong>Fail2ban incident dashboard</strong></p>
+					<p class="bold">Fail2ban incident dashboard</p>
 				</div>
 				<div id="dates" class="hide">
-					<p>Last updated: <strong><span id="last-updated"></span></strong></p>
-					<p>Data since: <strong><span id="date-since"></span></strong></p>
+					<p>Last updated: <span id="last-updated" class="bold"></span></p>
+					<p>Data since: <span id="date-since" class="bold"></span></p>
 				</div>
 			</div>
 			<noscript>
@@ -67,25 +68,25 @@
 						<div class="cell">
 							<span>Most banned IP address</span>
 							<div id="most-banned-ip" class="big"></div>
-							<strong><span id="most-banned-ip-count"></span></strong> bans
+							<span id="most-banned-ip-count" class="bold"></span> bans
 							<span id="most-address-button"></span>
 						</div>
 						<div class="cell">
 							<span>Most seen network</span>
 							<div id="most-seen-network" class="big ellipsis-text"></div>
-							<strong><span id="most-seen-network-count"></span></strong> bans
+							<span id="most-seen-network-count" class="bold"></span> bans
 							<span id="most-network-button"></span>
 						</div>
 						<div class="cell">
 							<span>Most seen country</span>
 							<div id="most-seen-country" class="big ellipsis-text"></div>
-							<strong><span id="most-seen-country-count"></span></strong> bans 
+							<span id="most-seen-country-count" class="bold"></span> bans 
 							<span id="most-country-button"></span>
 						</div>
 						<div class="cell">
 							<span>Most activated jail</span>
 							<div id="most-activated-jail" class="big ellipsis-text"></div>
-							<strong><span id="most-activated-jail-count"></span></strong> bans 
+							<span id="most-activated-jail-count" class="bold"></span> bans 
 							<span id="most-jail-button"></span>
 						</div>
 					</div>
