@@ -142,10 +142,6 @@ table {
 	border-collapse: collapse;
 }
 
-table.modal {
-	width: 838px;
-}
-
 table th {
 	text-align: left;
 }
@@ -271,48 +267,6 @@ table td.no-data {
 
 .input-text-small {
 	width: 40px;
-}
-
-#modal {
-	position: fixed;
-	background-color: rgba(0, 0, 0, .65);
-	width: 100%;
-	height: 100%;
-	z-index: 999999;
-	top: 0;
-	left: 0;
-}
-
-#modal > .inner {
-	position: fixed; 
-	top: 40px; 
-	left: 50%;
-	transform: translateX(-50%);
-	width: 850px;
-	background-color: #fff;
-}
-
-#modal-header {
-	margin: 0 auto 0;
-	background-color: #000;
-	color: #fff;
-	border-bottom: 1px solid #8f8f9d;
-	font-weight: bold;
-}
-
-#modal-title {
-	float: left;
-	padding: 6px;
-}
-
-#modal-close {
-	float: right;
-	margin: 5px;
-}
-
-#modal-body {
-	padding: 6px;
-	max-height: calc(100vh - 100px);
 }
 
 .info {
