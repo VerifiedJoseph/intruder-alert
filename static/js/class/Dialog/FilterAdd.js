@@ -7,9 +7,7 @@ export class FilterAddDialog extends Dialog {
 
   constructor (viewType, iaData) {
     super(viewType)
-
     this.#iaData = iaData
-
     this.setElement()
   }
 
