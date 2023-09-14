@@ -14,7 +14,7 @@ export class FilterAddDialog extends Dialog {
   }
 
   /**
-   * Setup filter panel
+   * Setup dialog
    * @param {Filter|ChartFilter} filter Filter class instance
    */
   setup (filter) {
