@@ -188,6 +188,18 @@ export class Filter {
   }
 
   /**
+   * Check if filter are set
+   * @returns {boolean}
+   */
+  hasFilters () {
+    if (this.settings.length > 0) {
+      return true
+    }
+
+    return false
+  }
+
+  /**
    * Find filter array index by a filter's unique identifier
    * @param {string} uuid Unique identifier
    * @returns Array index of filter
