@@ -356,6 +356,8 @@ function checkForUpdate () {
     })
 }
 
+document.getElementById('loading').classList.remove('hide')
+
 fetchData()
   .then(response => {
     if (response.status !== 200) {
