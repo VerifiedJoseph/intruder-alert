@@ -79,6 +79,7 @@ export class FilterChip {
    */
   removeAll () {
     this.#container.innerText = ''
+    this.#container.classList.add('hide')
   }
 
   /**
