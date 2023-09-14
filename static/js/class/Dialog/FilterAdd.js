@@ -28,21 +28,21 @@ export class FilterAddDialog extends Dialog {
 
         if (Helper.getTableType() === 'address') {
           this.#setSelectedFilter('version')
-          this.#setFilterValues('version', filter)
+          this.setFilterValues('version', filter)
         }
 
         if (Helper.getTableType() === 'subnet') {
           this.#setSelectedFilter('subnet')
-          this.#setFilterValues('subnet', filter)
+          this.setFilterValues('subnet', filter)
           this.#disableFilter('continent')
         }
       } else {
         this.#setSelectedFilter('address')
-        this.#setFilterValues('address', filter)
+        this.setFilterValues('address', filter)
       }
     } else {
       this.#setSelectedFilter('address')
-      this.#setFilterValues('address', filter)
+      this.setFilterValues('address', filter)
     }
   }
 
@@ -50,7 +50,7 @@ export class FilterAddDialog extends Dialog {
    * Set select options for a filter type
    * @param {string} type Filter type
    */
-  #setFilterValues (type, filter) {
+  setFilterValues (type, filter) {
     const select = document.getElementById(this.#getId('filter-value'))
     select.innerText = ''
 
