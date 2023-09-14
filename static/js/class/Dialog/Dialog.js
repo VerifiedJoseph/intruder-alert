@@ -25,6 +25,14 @@ export class Dialog {
     this.element.close()
   }
 
+  enableBtn () {
+    document.getElementById(`${this.viewType}-${this.dialogType}-dialog-open`).disabled = false
+  }
+
+  disableBtn () {
+    document.getElementById(`${this.viewType}-${this.dialogType}-dialog-open`).disabled = true
+  }
+
   setElement () {
     this.element = document.getElementById(`${this.viewType}-${this.dialogType}-dialog`)
   }
