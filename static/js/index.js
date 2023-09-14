@@ -12,22 +12,8 @@ import { Pagination } from './class/Pagination.js'
 import { Helper } from './class/Helper.js'
 import { CreateTable } from './class/CreateTable.js'
 
-const table = {
-  filter: TableFilter,
-  dialog: {
-    filterAdd: FilterAddDialog,
-    filterOptions: FilterOptionsDialog
-  }
-}
-const chart = {
-  filter: ChartFilter,
-  dialog: {
-    filterAdd: FilterAddDialog,
-    filterOptions: FilterOptionsDialog
-  },
-  plot: Plot
-}
-
+let table = {}
+let chart = {}
 let display, iaData
 
 function fetchData (lastUpdate = '') {
@@ -231,6 +217,23 @@ function clickHandler (event) {
       chart.filter.reset()
       chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
       break
+    case 'table-filter-options-dialog-open':
+      table.dialog.filterOptions.setup(table.filter)
+      table.dialog.filterOptions.open()
+      break
+    case 'table-filter-options-close':
+      table.dialog.filterOptions.close()
+      break
+    case 'table-filters-reverse':
+      table.dialog.filterOptions.close()
+      table.filter.reverse()
+      displayData(table.filter.getData(Helper.getTableType()))
+      break
+    case 'table-filters-remove':
+      table.dialog.filterOptions.close()
+      table.filter.reset()
+      displayData(table.filter.getData(Helper.getTableType()))
+      break
     case 'row-filter':
       table.dialog.filterAdd.close()
       table.filter.add(
@@ -287,6 +290,7 @@ function changeHandler (event) {
 
       if (event.target.value === 'address' || event.target.value === 'recentBans' || event.target.value === 'subnet') {
         document.getElementById('table-filter-open-panel').disabled = false
+        table.dialog.filterOptions.enableBtn()
 
         if (event.target.value === 'address') {
           table.filter.removeMany(['date', 'jail'])
@@ -297,6 +301,7 @@ function changeHandler (event) {
         }
       } else {
         document.getElementById('table-filter-open-panel').disabled = true
+        table.dialog.filterOptions.disableBtn()
         table.filter.reset()
       }
 
@@ -394,9 +399,20 @@ fetchData()
     }
 
     iaData = new IaData(data)
-    table.filter = new TableFilter(iaData)
-    table.dialog.filterAdd = new FilterAddDialog('table', iaData)
-    table.dialog.filterOptions = new FilterOptionsDialog('table')
+    table = {
+      filter: new TableFilter(iaData),
+      dialog: {
+        filterAdd: new FilterAddDialog('table', iaData),
+        filterOptions: new FilterOptionsDialog('table')
+      }
+    }
+    chart = {
+      filter: new ChartFilter(iaData),
+      dialog: {
+        filterAdd: new FilterAddDialog('chart', iaData),
+        filterOptions: new FilterOptionsDialog('chart')
+      }
+    }
 
     chart.filter = new ChartFilter(iaData)
     chart.dialog.filterAdd = new FilterAddDialog('chart', iaData)
