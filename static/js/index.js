@@ -5,7 +5,7 @@ import { IaData } from './class/IaData.js'
 import { Plot } from './class/Plot.js'
 import { TableFilter } from './class/Filter/TableFilter.js'
 import { ChartFilter } from './class/Filter/ChartFilter.js'
-import { FilterPanel } from './class/FilterPanel.js'
+import { AddFilterDialog } from './class/Dialog/AddFilter.js'
 import { Display } from './class/Display.js'
 import { Pagination } from './class/Pagination.js'
 import { Helper } from './class/Helper.js'
@@ -124,8 +124,8 @@ function createChartFilerRemoveEvents () {
 }
 
 function onViewBtnClick (viewType, filterType, filterValue) {
-  filterPanel.hide()
-  chartFilterPanel.hide()
+  filterPanel.close()
+  chartFilterPanel.close()
 
   filter.reset()
   chartFilter.reset()
@@ -158,15 +158,15 @@ function clickHandler (event) {
   switch (event.target.id || event.target.className) {
     case 'table-filter-open-panel':
       filterPanel.setup(filter)
-      filterPanel.show()
+      filterPanel.open()
       break
     case 'table-filter-close-panel':
-      filterPanel.hide()
+      filterPanel.close()
       break
     case 'table-filter-apply':
       document.getElementById('table-applied-filters').classList.remove('hide')
 
-      filterPanel.hide()
+      filterPanel.close()
       filter.add(
         document.getElementById('table-filter-type').value,
         document.getElementById('table-filter-action').value,
@@ -178,13 +178,13 @@ function clickHandler (event) {
       break
     case 'chart-filter-open-panel':
       chartFilterPanel.setup(chartFilter)
-      chartFilterPanel.show()
+      chartFilterPanel.open()
       break
     case 'chart-filter-close-panel':
-      chartFilterPanel.hide()
+      chartFilterPanel.close()
       break
     case 'chart-filter-apply':
-      chartFilterPanel.hide()
+      chartFilterPanel.close()
       document.getElementById('chart-applied-filters').classList.remove('hide')
 
       chartFilter.add(
@@ -213,7 +213,7 @@ function clickHandler (event) {
       plot.newChart(chartFilter.getData(Helper.getChartType()))
       break
     case 'row-filter':
-      filterPanel.hide()
+      filterPanel.close()
       filter.add(
         event.target.getAttribute('data-type'),
         'include',
@@ -246,7 +246,7 @@ function changeHandler (event) {
       plot.newChart(chartFilter.getData(event.target.value))
       break
     case 'table-type':
-      filterPanel.hide()
+      filterPanel.close()
 
       // Disable/enable order by select
       if (event.target.value === 'address' || event.target.value === 'recentBans') {
@@ -312,8 +312,8 @@ function updateDashboard (data) {
   filter.updateIaData(iaData)
   chartFilter.updateIaData(iaData)
 
-  filterPanel = new FilterPanel(iaData)
-  chartFilterPanel = new FilterPanel(iaData, 'chart')
+  filterPanel = new AddFilterDialog('table', iaData)
+  chartFilterPanel = new AddFilterDialog('chart', iaData)
 
   display = new Display(iaData)
   display.render()
@@ -376,9 +376,9 @@ fetchData()
 
     iaData = new IaData(data)
     filter = new TableFilter(iaData)
-    filterPanel = new FilterPanel(iaData, 'table')
+    filterPanel = new AddFilterDialog('table', iaData)
     chartFilter = new ChartFilter(iaData)
-    chartFilterPanel = new FilterPanel(iaData, 'chart')
+    chartFilterPanel = new AddFilterDialog('chart', iaData)
 
     display = new Display(iaData)
     display.render()
