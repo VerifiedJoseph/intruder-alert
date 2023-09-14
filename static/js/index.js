@@ -5,7 +5,7 @@ import { IaData } from './class/IaData.js'
 import { Plot } from './class/Plot.js'
 import { TableFilter } from './class/Filter/TableFilter.js'
 import { ChartFilter } from './class/Filter/ChartFilter.js'
-import { AddFilterDialog } from './class/Dialog/AddFilter.js'
+import { FilterAddDialog } from './class/Dialog/FilterAdd.js'
 import { Display } from './class/Display.js'
 import { Pagination } from './class/Pagination.js'
 import { Helper } from './class/Helper.js'
@@ -312,8 +312,8 @@ function updateDashboard (data) {
   filter.updateIaData(iaData)
   chartFilter.updateIaData(iaData)
 
-  filterPanel = new AddFilterDialog('table', iaData)
-  chartFilterPanel = new AddFilterDialog('chart', iaData)
+  filterPanel = new FilterAddDialog('table', iaData)
+  chartFilterPanel = new FilterAddDialog('chart', iaData)
 
   display = new Display(iaData)
   display.render()
@@ -376,9 +376,9 @@ fetchData()
 
     iaData = new IaData(data)
     filter = new TableFilter(iaData)
-    filterPanel = new AddFilterDialog('table', iaData)
+    filterPanel = new FilterAddDialog('table', iaData)
     chartFilter = new ChartFilter(iaData)
-    chartFilterPanel = new AddFilterDialog('chart', iaData)
+    chartFilterPanel = new FilterAddDialog('chart', iaData)
 
     display = new Display(iaData)
     display.render()
