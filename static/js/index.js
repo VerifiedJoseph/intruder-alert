@@ -414,10 +414,6 @@ fetchData()
       }
     }
 
-    chart.filter = new ChartFilter(iaData)
-    chart.dialog.filterAdd = new FilterAddDialog('chart', iaData)
-    chart.dialog.filterOptions = new FilterOptionsDialog('chart')
-
     display = new Display(iaData)
     display.render()
 
