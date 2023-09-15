@@ -34,14 +34,20 @@ class Report
      *
      * @param array<string, mixed> $lists
      */
-    public function __construct(array $lists, string $path, string $timezone, string $version, bool $enableCharts, bool $enableUpdates)
-    {
+    public function __construct(
+        array $lists,
+        string $path,
+        string $timezone,
+        string $version,
+        bool $charts,
+        bool $updates
+    ) {
         $this->lists = $lists;
         $this->path = $path;
         $this->timezone = $timezone;
         $this->version = $version;
-        $this->enableCharts = $enableCharts;
-        $this->enableUpdates = $enableUpdates;
+        $this->enableCharts = $charts;
+        $this->enableUpdates = $updates;
     }
 
     /**
