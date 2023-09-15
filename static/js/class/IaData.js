@@ -58,6 +58,14 @@ export class IaData {
   }
 
   /**
+   * Get version
+   * @returns {string}
+   */
+  getVersion () {
+    return this.#data.settings.version
+  }
+
+  /**
    * Get last updated date
    * @returns {string}
    */

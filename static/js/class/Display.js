@@ -13,6 +13,7 @@ export class Display {
 
   render () {
     this.#headerDates()
+    this.#headerVersion()
     this.#globalStats()
     this.#mostBanned()
     this.#daemonLog()
@@ -22,6 +23,24 @@ export class Display {
     document.getElementById('last-updated').innerText = this.#iaData.getUpdatedDate()
     document.getElementById('date-since').innerText = ` ${this.#iaData.getSinceDate()} (${Helper.formatNumber(this.#iaData.getTotal('date'))} days)`
     document.getElementById('dates').classList.remove('hide')
+  }
+
+  #headerVersion () {
+    let version = this.#iaData.getVersion()
+
+    if (version !== '') {
+      if (version.charAt(0) !== 'v') {
+        version = `v${version}`
+      }
+
+      const link = document.createElement('a')
+      link.setAttribute('href', `https://github.com/VerifiedJoseph/intruder-alert/releases/tag/${version}`)
+      link.setAttribute('title', `View release notes for ${version} on Github`)
+      link.setAttribute('target', '_blank')
+      link.innerText = version
+
+      document.getElementById('version').appendChild(link)
+    }
   }
 
   #globalStats () {

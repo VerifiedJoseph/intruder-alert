@@ -119,6 +119,7 @@ class App
             $this->lists->get(),
             $this->config->getPath($this->dataFilepath),
             $this->config->getTimezone(),
+            $this->config->getVersion(),
             $this->config->getChartsStatus(),
             $this->config->getDashUpdatesStatus(),
         );
