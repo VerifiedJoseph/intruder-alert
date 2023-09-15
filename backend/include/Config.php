@@ -41,6 +41,15 @@ class Config
         return $this->path . $file;
     }
 
+    public function getVersion(): string
+    {
+        if ($this->hasEnv('VERSION') === true) {
+            return $this->getEnv('VERSION');
+        }
+
+        return '';
+    }
+
     public function getChartsStatus(): bool
     {
         if ($this->getEnv('DASH_CHARTS') === 'false') {
