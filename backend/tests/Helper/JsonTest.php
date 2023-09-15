@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
 use IntruderAlert\Helper\Json;
 use IntruderAlert\Exception\AppException;
@@ -12,8 +13,7 @@ class JsonTest extends TestCase
 
     public function testDecodeValid(): void
     {
-        $expected = new stdClass();
-        $expected->foo = 'bar';
+        $expected = ['foo' => 'bar'];
         self::assertEquals($expected, Json::decode('{"foo": "bar"}'));
     }
 
