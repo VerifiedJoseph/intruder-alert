@@ -15,7 +15,7 @@ while (true) {
         $config = new Config();
         $config->setDir(__DIR__);
         $config->check();
-    
+
         $app = new App($config);
         $app->run();
     } catch (AppException $err) {
