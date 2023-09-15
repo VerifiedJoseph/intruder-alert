@@ -8,5 +8,5 @@
 !/data.php
 !/composer.json
 !/composer.lock
-!/docker/scripts/entrypoint.sh
 !/docker/config/nginx.conf
+!/docker/config/supervisord.conf
