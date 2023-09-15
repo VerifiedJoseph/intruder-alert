@@ -20,9 +20,6 @@ FROM php:8.2.10-fpm-alpine3.18
   nginx \
   supervisor
 
-# Copy entrypoint script
-COPY --chown=nobody /docker/scripts/entrypoint.sh /etc/entrypoint.sh
-
 # Copy nginx config
 COPY --chown=nobody /docker/config/nginx.conf /etc/nginx/nginx.conf
 
