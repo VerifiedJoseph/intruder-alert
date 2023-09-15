@@ -9,11 +9,11 @@ services:
       - IA_MAXMIND_LICENSE_KEY=
       - IA_LOG_FOLDER=/app/backend/logs
     volumes:
-      - "path/to/fail2ban.log:/app/backend/logs/fail2ban.log"
-      - "path/to/fail2ban.log.1:/app/backend/logs/fail2ban.log.1"
-      - "path/to/fail2ban.log.2.gz:/app/backend/logs/fail2ban.log.2.gz"
-      - "path/to/fail2ban.log.3.gz:/app/backend/logs/fail2ban.log.3.gz"
-      - "path/to/fail2ban.log.4.gz:/app/backend/logs/fail2ban.log.4.gz"
+      - path/to/fail2ban.log:/app/backend/logs/fail2ban.log:ro
+      - path/to/fail2ban.log.1:/app/backend/logs/fail2ban.log.1:ro
+      - path/to/fail2ban.log.2.gz:/app/backend/logs/fail2ban.log.2.gz:ro
+      - path/to/fail2ban.log.3.gz:/app/backend/logs/fail2ban.log.3.gz:ro
+      - path/to/fail2ban.log.4.gz:/app/backend/logs/fail2ban.log.4.gz:ro
     ports:
       - '127.0.0l.1:8080:8080'
     cap_drop:
