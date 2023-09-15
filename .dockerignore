@@ -1,0 +1,12 @@
+# Ignore everything
+*
+
+# Allow files and directories
+!/backend
+!/static
+!/index.html
+!/data.php
+!/composer.json
+!/composer.lock
+!/docker/scripts/entrypoint.sh
+!/docker/config/nginx.conf
