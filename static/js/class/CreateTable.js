@@ -1,4 +1,3 @@
-
 import { Table, Row, Cell } from './Table.js'
 import { Helper } from './Helper.js'
 import { Button } from './Button.js'
