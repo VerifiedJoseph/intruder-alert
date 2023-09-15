@@ -34,7 +34,7 @@ final class Output
     public static function text(string $text = '', bool $log = false): void
     {
         if (self::$quiet === false) {
-            echo $text . "\n";
+            echo sprintf("[intruder-alert] %s \n", $text);
         }
 
         if ($log === true) {
