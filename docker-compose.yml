@@ -15,7 +15,7 @@ services:
       - path/to/fail2ban.log.3.gz:/app/backend/logs/fail2ban.log.3.gz:ro
       - path/to/fail2ban.log.4.gz:/app/backend/logs/fail2ban.log.4.gz:ro
     ports:
-      - '127.0.0l.1:8080:8080'
+      - '127.0.0.1:8080:8080'
     cap_drop:
       - ALL
     security_opt:
