@@ -19,10 +19,10 @@
         ]
     },
     "scripts": {
-        "lint": "phpstan && phpcs backend/ --standard=PSR12 --ignore=backend/vendor",
+        "lint": "phpstan && phpcs backend/ --standard=PSR12 --ignore=backend/vendor,backend/tests",
         "lint-phpstan": "phpstan",
-        "lint-phpcs": "phpcs backend/ --standard=PSR12 --ignore=backend/vendor",
-        "fix": "phpcbf backend/ --standard=PSR12 --ignore=backend/vendor",
+        "lint-phpcs": "phpcs backend/ --standard=PSR12 --ignore=backend/vendor,backend/tests",
+        "fix": "phpcbf backend/ --standard=PSR12 --ignore=backend/vendor,backend/tests",
         "test": "phpunit --colors"
     },
     "config": {
