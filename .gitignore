@@ -2,5 +2,4 @@ node_modules/*
 backend/vendor/*
 backend/data/*
 backend/config.php
-logs/*
-database/*
+docker/docker-compose.override.yml
