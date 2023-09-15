@@ -254,20 +254,21 @@
         },
         {
             "name": "tronovav/geoip2-update",
-            "version": "v2.1.24",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tronovav/geoip2-update.git",
-                "reference": "6b91582eb11d4c39cfe66b3178ac0a6c67839cf9"
+                "reference": "b039210b40883f4e3470b367cfd9b538c4fbc469"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tronovav/geoip2-update/zipball/6b91582eb11d4c39cfe66b3178ac0a6c67839cf9",
-                "reference": "6b91582eb11d4c39cfe66b3178ac0a6c67839cf9",
+                "url": "https://api.github.com/repos/tronovav/geoip2-update/zipball/b039210b40883f4e3470b367cfd9b538c4fbc469",
+                "reference": "b039210b40883f4e3470b367cfd9b538c4fbc469",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
+                "ext-json": "*",
                 "php": ">=5.3"
             },
             "suggest": {
@@ -300,19 +301,9 @@
             "support": {
                 "email": "newtronov@gmail.com",
                 "issues": "https://github.com/tronovav/geoip2-update/issues",
-                "source": "https://github.com/tronovav/geoip2-update/tree/v2.1.24"
+                "source": "https://github.com/tronovav/geoip2-update/tree/v2.2.0"
             },
-            "funding": [
-                {
-                    "url": "https://donate.stream/tronovav",
-                    "type": "other"
-                },
-                {
-                    "url": "https://yoomoney.ru/to/410016198845596",
-                    "type": "other"
-                }
-            ],
-            "time": "2023-03-13T11:43:07+00:00"
+            "time": "2023-09-14T22:00:55+00:00"
         }
     ],
     "packages-dev": [
