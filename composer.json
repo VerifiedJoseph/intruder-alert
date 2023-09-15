@@ -13,6 +13,11 @@
             "IntruderAlert\\": "backend/include/"
         }
     },
+    "autoload-dev": {
+        "classmap": [
+            "backend/tests/"
+        ]
+    },
     "scripts": {
         "lint": "phpstan && phpcs backend/ --standard=PSR12 --ignore=backend/vendor",
         "lint-phpstan": "phpstan",
