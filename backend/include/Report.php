@@ -27,15 +27,19 @@ class Report
     /** @var string $timezone Timezone */
     private string $timezone = '';
 
+    /** @var string $version Intruder alert version */
+    private string $version = '';
+
     /**
      *
      * @param array<string, mixed> $lists
      */
-    public function __construct(array $lists, string $path, string $timezone, bool $enableCharts, bool $enableUpdates)
+    public function __construct(array $lists, string $path, string $timezone, string $version, bool $enableCharts, bool $enableUpdates)
     {
         $this->lists = $lists;
         $this->path = $path;
         $this->timezone = $timezone;
+        $this->version = $version;
         $this->enableCharts = $enableCharts;
         $this->enableUpdates = $enableUpdates;
     }
@@ -54,6 +58,7 @@ class Report
         $data['settings']['enableCharts'] = $this->enableCharts;
         $data['settings']['enableUpdates'] = $this->enableUpdates;
         $data['settings']['timezone'] = $this->timezone;
+        $data['settings']['version'] = $this->version;
 
         File::write(
             $this->path,
