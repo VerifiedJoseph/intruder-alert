@@ -26,12 +26,17 @@ export class Display {
   }
 
   #headerVersion () {
-    const version = this.#iaData.getVersion()
+    let version = this.#iaData.getVersion()
 
     if (version !== '') {
+      if (version.charAt(0) !== 'v') {
+        version = `v${version}`
+      }
+
       const link = document.createElement('a')
       link.setAttribute('href', `https://github.com/VerifiedJoseph/intruder-alert/releases/tag/${version}`)
       link.setAttribute('title', `View release notes for ${version} on Github`)
+      link.setAttribute('target', '_blank')
       link.innerText = version
 
       document.getElementById('version').appendChild(link)
