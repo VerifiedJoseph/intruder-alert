@@ -1,0 +1,69 @@
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #252b30;
+		color: #c9d1d9;
+	}
+
+	.header > .title > #version > a {
+		color: #c9d1d9;
+	}
+
+	.row-wrap > .row > .cell {
+		background-color: #1f2328;
+	}
+
+	.box, #data-note, #loading {
+		background-color: #1f2328;
+	}
+
+	dialog {
+		color: #c9d1d9;
+		background-color:#1f2328;
+		border: 1px solid #3B444C;
+	}
+
+	table {
+		background-color: #1f2328;
+	}
+
+	table th, table th:hover {
+		background: #13181E;
+		color: #c9d1d9;
+	}
+
+	table tr:hover {
+		background: #13181E;
+	}
+
+	#error {
+		background-color: #FF6384;
+	}
+
+	#updating {
+		background-color: #36A2EB;
+	}
+
+	.applied-filters > .item {
+		color: #c9d1d9;
+		background-color: #1F2328;
+  		border: 1px solid #3B444C;
+	}
+
+	.applied-filters > .item > .action {
+		color: #ffffff;
+	}
+
+	button, select {
+		color: #c9d1d9;
+		background-color: #1F2328;
+		border: 1px solid #3B444C;
+	}
+
+	button:disabled {
+		color: #777;
+	}
+
+	button:hover:enabled, select:enabled:hover {
+		background-color: #13181E;
+	}
+}
