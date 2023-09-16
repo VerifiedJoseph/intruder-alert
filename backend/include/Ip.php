@@ -39,11 +39,21 @@ class Ip
     /**
      * Set country
      *
-     * @param array<string, array<string, string>> $country
+     * @param array<string, string> $country
      */
     public function setCountry(array $country): void
     {
-        $this->data = array_merge($this->data, $country);
+        $this->data['country'] = $country;
+    }
+
+    /**
+     * Set continent
+     *
+     * @param array<string, string> $continent
+     */
+    public function setContinent(array $continent): void
+    {
+        $this->data['continent'] = $continent;
     }
 
     /**
