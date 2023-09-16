@@ -1,15 +1,13 @@
-name: Code quality
+name: Code quality (php)
 
 on:
   pull_request:
     paths:
       - "**.php"
-      - ".github/workflows/php-code-quality.yml"
   push:
     branches: main
     paths:
       - "**.php"
-      - ".github/workflows/php-code-quality.yml"
 
 permissions:
   contents: read

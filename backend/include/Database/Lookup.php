@@ -38,12 +38,12 @@ class Lookup
     }
 
     /**
-     * Lookup country details for an IP address
+     * Lookup region (country & continent) details for an IP address
      *
      * @param string $address IP address
      * @return array<string, array<string, string>>
      */
-    public function country(string $address): array
+    public function region(string $address): array
     {
         $data = [
             'country' => ['name' => 'Unknown', 'code' => 'Unknown'],

@@ -43,6 +43,25 @@ h3 {
 	position: relative;
 }
 
+.header > .title {
+	display: inline-flex;
+}
+
+.header > .title > #version {
+	font-size: 12px;
+	margin-left: 10px;
+	margin-top: 9px;
+}
+
+.header > .title > #version > a {
+	color: #000;
+	text-decoration: none;
+}
+
+.header > .title > #version > a:hover {
+	text-decoration: underline;
+}
+
 .header > #dates {
 	position: absolute;
 	top: 6px;

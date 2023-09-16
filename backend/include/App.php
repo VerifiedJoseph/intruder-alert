@@ -94,11 +94,15 @@ class App
                     array_merge($cache->getItem($line['ip']), $line)
                 );
             } else {
+                $region = $lookup->region($line['ip']);
+                $network = $lookup->network($line['ip']);
+
                 $ip = new Ip($line['ip']);
                 $ip->setJail($line['jail']);
                 $ip->setTimestamp($line['timestamp']);
-                $ip->setCountry($lookup->country($line['ip']));
-                $ip->setNetwork($lookup->network($line['ip']));
+                $ip->setCountry($region['country']);
+                $ip->setContinent($region['continent']);
+                $ip->setNetwork($network);
 
                 $cache->addItem($ip->getDetails());
                 $this->lists->addIp($ip->getDetails());
@@ -119,6 +123,7 @@ class App
             $this->lists->get(),
             $this->config->getPath($this->dataFilepath),
             $this->config->getTimezone(),
+            $this->config->getVersion(),
             $this->config->getChartsStatus(),
             $this->config->getDashUpdatesStatus(),
         );

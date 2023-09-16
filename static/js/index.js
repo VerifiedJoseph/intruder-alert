@@ -70,14 +70,15 @@ function displayData (data, pageNumber = 0) {
 }
 
 function onViewBtnClick (viewType, filterType, filterValue) {
-  table.dialog.filterAdd.close()
-  chart.dialog.filterAdd.close()
-
   table.filter.reset()
   chart.filter.reset()
 
   Helper.setTableType(viewType)
   Helper.setChartType('last30days')
+
+  table.dialog.filterOptions.enableBtn()
+  document.getElementById('data-order-by').disabled = true
+  document.getElementById('data-order-by').options[0].selected = true
 
   if (table.filter.hasFilter(filterType, filterValue) === false) {
     table.filter.add(filterType, 'include', filterValue)
