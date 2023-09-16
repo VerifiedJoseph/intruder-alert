@@ -38,10 +38,8 @@ class IpTest extends TestCase
         $ip = new Ip($ipv4['address']);
         $ip->setJail($ipv4['jail']);
         $ip->setTimestamp($ipv4['timestamp']);
-        $ip->setCountry([
-            'country' => $ipv4['country'],
-            'continent' => $ipv4['continent']
-        ]);
+        $ip->setCountry($ipv4['country']);
+        $ip->setContinent($ipv4['continent']);
         $ip->setNetwork($ipv4['network']);
 
         $this->assertEquals($ipv4, $ip->getDetails());
@@ -60,10 +58,8 @@ class IpTest extends TestCase
         $ip = new Ip($ipv6['address']);
         $ip->setJail($ipv6['jail']);
         $ip->setTimestamp($ipv6['timestamp']);
-        $ip->setCountry([
-            'country' => $ipv6['country'],
-            'continent' => $ipv6['continent']
-        ]);
+        $ip->setCountry($ipv6['country']);
+        $ip->setContinent($ipv6['continent']);
         $ip->setNetwork($ipv6['network']);
 
         $this->assertEquals($ipv6, $ip->getDetails());
