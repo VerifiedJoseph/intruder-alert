@@ -1,15 +1,13 @@
-name: Code quality
+name: Code quality (js)
 
 on:
   pull_request:
     paths:
       - "**.js"
-      - ".github/workflows/js-code-quality.yml"
   push:
     branches: main
     paths:
       - "**.js"
-      - ".github/workflows/js-code-quality.yml"
 
 permissions:
   contents: read
