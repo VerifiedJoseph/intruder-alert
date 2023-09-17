@@ -121,6 +121,7 @@ class App
     {
         $report = new Report(
             $this->lists->get(),
+            $this->lists->getCounts(),
             $this->config->getPath($this->dataFilepath),
             $this->config->getTimezone(),
             $this->config->getVersion(),
