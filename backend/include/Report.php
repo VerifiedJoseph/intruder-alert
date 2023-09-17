@@ -15,6 +15,9 @@ class Report
     /** @var array<string, mixed> $lists */
     private array $lists = [];
 
+    /** @var array<string, int> $counts List item counts */
+    private array $counts = [];
+
     /** @var string $path Path to save the generated report */
     private string $path = '';
 
@@ -33,9 +36,11 @@ class Report
     /**
      *
      * @param array<string, mixed> $lists
+     * @param array<string, mixed> $counts
      */
     public function __construct(
         array $lists,
+        array $counts,
         string $path,
         string $timezone,
         string $version,
@@ -43,6 +48,7 @@ class Report
         bool $updates
     ) {
         $this->lists = $lists;
+        $this->counts = $counts;
         $this->path = $path;
         $this->timezone = $timezone;
         $this->version = $version;
@@ -82,13 +88,13 @@ class Report
     private function createStats(): array
     {
         $data = [];
-        $data['totals']['ip'] = count($this->lists['address']['list']);
-        $data['totals']['network'] = count($this->lists['network']['list']);
-        $data['totals']['country'] = count($this->lists['country']['list']);
-        $data['totals']['date'] = count($this->lists['date']['list']);
-        $data['totals']['jail'] = count($this->lists['jail']['list']);
+        $data['totals']['ip'] = $this->counts['address'];
+        $data['totals']['network'] = $this->counts['network'];
+        $data['totals']['country'] = $this->counts['country'];
+        $data['totals']['date'] = $this->counts['date'];
+        $data['totals']['jail'] = $this->counts['jail'];
 
-        $data['bans']['total'] = $this->lists['address']['totalBans'];
+        $data['bans']['total'] = $this->counts['totalBans'];
         $data['bans']['today'] = 0;
         $data['bans']['yesterday'] = 0;
         $data['bans']['perDay'] = 0;
@@ -111,8 +117,7 @@ class Report
             $data['bans']['yesterday'] = $this->lists['date']['list'][$key]['bans'];
         }
 
-        $dayCount = count($this->lists['date']['list']);
-        $data['bans']['perDay'] = floor($this->lists['address']['totalBans'] / $dayCount);
+        $data['bans']['perDay'] = floor($this->counts['totalBans'] / $this->counts['date']);
 
         return $data;
     }
