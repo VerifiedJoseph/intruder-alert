@@ -1,7 +1,7 @@
 @media (prefers-color-scheme: dark) {
 	body {
-		background-color: #252b30;
-		color: #c9d1d9;
+		background-color: #010409;
+		color: #9da1a5;
 	}
 
 	.header > .title > #version > a {
@@ -9,30 +9,30 @@
 	}
 
 	.row-wrap > .row > .cell {
-		background-color: #1f2328;
+		background-color: #161b22;
 	}
 
 	.box, #data-note, #loading {
-		background-color: #1f2328;
+		background-color: #161b22;
 	}
 
 	dialog {
 		color: #c9d1d9;
-		background-color:#1f2328;
+		background-color: #161b22;
 		border: 1px solid #3B444C;
 	}
 
 	table {
-		background-color: #1f2328;
+		background-color: #161b22;
 	}
 
 	table th, table th:hover {
-		background: #13181E;
 		color: #c9d1d9;
+		background-color: #0d1117;
 	}
 
 	table tr:hover {
-		background: #13181E;
+		background-color: #0d1117;
 	}
 
 	#error {
@@ -45,7 +45,7 @@
 
 	.applied-filters > .item {
 		color: #c9d1d9;
-		background-color: #1F2328;
+		background-color: #21262d;
   		border: 1px solid #3B444C;
 	}
 
@@ -55,8 +55,12 @@
 
 	button, select {
 		color: #c9d1d9;
-		background-color: #1F2328;
+		background-color: #21262d;
 		border: 1px solid #3B444C;
+	}
+
+	.filter-remove {
+		color: #ff6384;
 	}
 
 	button:disabled {
@@ -64,6 +68,6 @@
 	}
 
 	button:hover:enabled, select:enabled:hover {
-		background-color: #13181E;
+		background-color: #30363D;
 	}
 }
