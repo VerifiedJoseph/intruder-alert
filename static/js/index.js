@@ -71,10 +71,7 @@ function displayData (data, pageNumber = 0) {
 
 function onViewBtnClick (viewType, filterType, filterValue) {
   table.filter.reset()
-  chart.filter.reset()
-
   Helper.setTableType(viewType)
-  Helper.setChartType('last30days')
 
   table.dialog.filterOptions.enableBtn()
   document.getElementById('data-order-by').disabled = true
@@ -89,11 +86,13 @@ function onViewBtnClick (viewType, filterType, filterValue) {
     displayData(table.filter.getData(viewType))
   }
 
-  if (iaData.isChartEnabled() === true && chart.filter.hasFilter(filterType, filterValue) === false) {
+  if (iaData.isChartEnabled() === true && filterType !== 'date' && chart.filter.hasFilter(filterType, filterValue) === false) {
+    chart.filter.reset()
+    Helper.setChartType('last30days')
+
     chart.filter.add(filterType, 'include', filterValue)
 
     document.getElementById('chart-applied-filters').classList.remove('hide')
-    document.getElementById('chart-filter-open-panel').disabled = false
 
     chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
   }
