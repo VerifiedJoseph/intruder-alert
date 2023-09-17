@@ -5,10 +5,7 @@ namespace IntruderAlert\List;
 class Dates extends AbstractList
 {
     /** {@inheritDoc} */
-    protected bool $calculateMostBanned = false;
-
-    /** {@inheritDoc} */
-    protected string $orderItemsBy = 'date';
+    protected ?string $mostBannedParam = 'date';
 
     /**
      * Add IP address
