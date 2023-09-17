@@ -58,4 +58,23 @@ class Lists
             'continent' => $this->continents->get()
         ];
     }
+
+    /**
+     * Get item count for lists
+     *
+     * @return array<string, int>
+     */
+    public function getCounts(): array
+    {
+        return [
+            'totalBans' => $this->addresses->getTotalBans(),
+            'address' => $this->addresses->getCount(),
+            'date' => $this->dates->getCount(),
+            'jail' => $this->jails->getCount(),
+            'network' => $this->networks->getCount(),
+            'subnet' => $this->subnets->getCount(),
+            'country' => $this->countries->getCount(),
+            'continent' => $this->continents->getCount()
+        ];
+    }
 }
