@@ -59,7 +59,7 @@ services:
 	cp backend/config.example.php backend/config.php
 	```
 
-4) Create a scheduled task with cron (example below) or similar that runs `backend\script.php` at least once an hour.
+4) Create a scheduled task with cron (below) or similar that runs `backend\script.php` at least once an hour.
 
 	```
 	1 * * * * php path/to/intruder-alert/backend/script.php
