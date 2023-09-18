@@ -5,7 +5,7 @@ use IntruderAlert\Ip;
 
 class IpTest extends TestCase
 {
-    private array $template = [
+    private array $ipTemplate = [
         'address' => null,
         'version' => 0,
         'jail' => 'sshd',
@@ -30,7 +30,7 @@ class IpTest extends TestCase
      */
     public function testIpClassWithIpv4(): void
     {
-        $ipv4 = $this->template;
+        $ipv4 = $this->ipTemplate;
         $ipv4['address'] = '127.0.0.1';
         $ipv4['version'] = 4;
         $ipv4['network']['subnet'] = '127.0.0.0/8';
@@ -50,7 +50,7 @@ class IpTest extends TestCase
      */
     public function testIpClassWithIpv6(): void
     {
-        $ipv6 = $this->template;
+        $ipv6 = $this->ipTemplate;
         $ipv6['address'] = '2001:67c:930::1';
         $ipv6['version'] = 6;
         $ipv6['network']['subnet'] = '2001:67c:930::/48';
