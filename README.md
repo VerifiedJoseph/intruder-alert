@@ -26,7 +26,7 @@ services:
       - IA_MAXMIND_LICENSE_KEY=
       - IA_LOG_FOLDER=/app/backend/data/logs
     volumes:
-      - <path/to/fail2ban.log>:/app/backend/data/logs/fail2ban.log:ro
+      - path/to/fail2ban.log:/app/backend/data/logs/fail2ban.log:ro
       - path/to/fail2ban.log.1:/app/backend/data/logs/fail2ban.log.1:ro
       - path/to/fail2ban.log.2.gz:/app/backend/data/logs/fail2ban.log.2.gz:ro
       - path/to/fail2ban.log.3.gz:/app/backend/data/logs/fail2ban.log.3.gz:ro
