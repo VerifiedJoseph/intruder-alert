@@ -108,7 +108,7 @@ git clone https://github.com/VerifiedJoseph/intruder-alert
 Install dependencies with composer.
 
 ```
-composer install --no-dev
+composer install
 ```
 
 ## Dependencies
