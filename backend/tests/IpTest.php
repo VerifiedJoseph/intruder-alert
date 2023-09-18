@@ -5,9 +5,10 @@ use IntruderAlert\Ip;
 
 class IpTest extends TestCase
 {
+    /** @var array<string, mixed> */
     private array $ipTemplate = [
         'address' => null,
-        'version' => 0,
+        'version' => null,
         'jail' => 'sshd',
         'timestamp' => '1970-01-01 00:00:00',
         'country' => [
