@@ -30,6 +30,9 @@ COPY --chown=nobody /docker/config/supervisord.conf /etc/supervisor/conf.d/super
 # Copy code
 COPY --chown=nobody --from=composer /app/ /app/
 
+# Create needed folders
+RUN mkdir -p /app/backend/data/geoip2 /app/backend/data/logs
+
 # Make files accessable to nobody user
 RUN chown -R nobody.nobody /run /app/ /var/lib/nginx/logs/
 
