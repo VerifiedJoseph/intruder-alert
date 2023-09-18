@@ -10,7 +10,7 @@ export class CreateTable {
     subnet: ['Subnet', 'Network', 'Country', 'IPs', 'Bans', ''],
     country: ['Country', 'IPs', 'Bans', ''],
     continent: ['Continent', 'IPs', 'Bans', ''],
-    recentBans: ['Date', 'Address', 'Jail', 'Network', 'Country'],
+    recentBans: ['Timestamp', 'Address', 'Jail', 'Network', 'Country'],
     date: ['Date', 'IPs', 'Bans', '']
   }
 
