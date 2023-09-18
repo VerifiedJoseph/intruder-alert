@@ -9,23 +9,75 @@ A demo is [available](https://verifiedjoseph.github.io/intruder-alert/demo/). It
 
 ## Installation
 
-Clone the repository.
+### docker-compose (recommended)
 
-```
-git clone https://github.com/VerifiedJoseph/intruder-alert
+<details>
+<summary>Show/hide details</summary>
+
+```yaml
+version: '3'
+
+services:
+  app:
+    image: ghcr.io/verifiedjoseph/intruder-alert:1.0.0
+    container_name: intruder-alert
+    environment:
+      - IA_TIMEZONE=Europe/London
+      - IA_MAXMIND_LICENSE_KEY=
+      - IA_LOG_FOLDER=/app/backend/logs
+    volumes:
+      - <path/to/fail2ban.log>:/app/backend/logs/fail2ban.log:ro
+      - path/to/fail2ban.log.1:/app/backend/logs/fail2ban.log.1:ro
+      - path/to/fail2ban.log.2.gz:/app/backend/logs/fail2ban.log.2.gz:ro
+      - path/to/fail2ban.log.3.gz:/app/backend/logs/fail2ban.log.3.gz:ro
+      - path/to/fail2ban.log.4.gz:/app/backend/logs/fail2ban.log.4.gz:ro
+    ports:
+      - '127.0.0.1:8080:8080'
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
 ```
 
-Install dependencies with composer.
+</details>
 
-```
-composer install --no-dev
-```
+### Manual
+
+<details>
+<summary>Show/hide install details</summary>
+
+1) Download the latest release to your web server.
+
+	```
+	wget https://github.com/VerifiedJoseph/intruder-alert/releases/download/v1.0.0/intruder-alert-v1.0.0.zip
+	```
+
+2) Extract the zip archive.
+
+	```
+	unzip intruder-alert-v1.0.0.zip
+	```
+
+3) Configure the application using `backend/config.php` copied from [`backend/config.example.php`](backend/config.example.php).
+	
+	```
+	cp backend/config.example.php backend/config.php
+	```
+
+4) Create a scheduled task with cron (below) or similar that runs `backend\script.php` at least once an hour.
+
+	```
+	1 * * * * php path/to/intruder-alert/backend/script.php
+	```
+
+**Notes**
+
+The backend folder does not need to be reachable in the browser and access should blocked with a reverse proxy rule.
+</details>
 
 ## Configuration
 
-The preferred method to adjust the configuration is with environment variables.
-
-Alternatively, you can use `backend/config.php` (copied from [`backend/config.example.php`](backend/config.example.php)) to set the variables.
+Environment variables are used to adjust the configuration.
 
 | Name                    | Type      | Description                                                                   |
 | ------------------------| --------- | ----------------------------------------------------------------------------- |
@@ -45,13 +97,19 @@ GeoLite2 databases will be automatically downloaded and updated if a [MaxMind li
 
 Alternatively, the databases can be manually [downloaded](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data?lang=en) and set using the environment variables `IA_ASN_DATABASE` and `IA_COUNTRY_DATABASE`.
 
-## Running
+## Development
 
-The backend script `backend\script.php` is designed to be used with a task scheduler like cron.
+Clone the repository.
 
-Cron example:
+```
+git clone https://github.com/VerifiedJoseph/intruder-alert
+```
 
-`1 * * * * php path/to/intruder-alert/backend/script.php`
+Install dependencies with composer.
+
+```
+composer install --no-dev
+```
 
 ## Dependencies
 
