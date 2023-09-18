@@ -11,6 +11,9 @@ A demo is [available](https://verifiedjoseph.github.io/intruder-alert/demo/). It
 
 ### docker-compose (recommended)
 
+<details>
+<summary>Show/hide details</summary>
+
 ```yaml
 version: '3'
 
@@ -35,6 +38,8 @@ services:
     security_opt:
       - no-new-privileges:true
 ```
+
+</details>
 
 ### Manual
 
