@@ -1,6 +1,7 @@
 parameters:
 	level: 8
 	paths:
-		- backend/include/
-		- backend/script.php
+		- backend/
 		- data.php
+	excludePaths:
+		- backend/vendor/
