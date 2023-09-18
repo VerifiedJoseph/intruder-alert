@@ -9,7 +9,7 @@ A demo is [available](https://verifiedjoseph.github.io/intruder-alert/demo/). It
 
 ## Installation
 
-### docker-compose (recommended)
+### docker-compose
 
 <details>
 <summary>Show/hide details</summary>
