@@ -67,7 +67,7 @@ services:
 
 **Notes**
 
-The backend folder does not need to be reachable in the browser and access should blocked with a reverse proxy rule .
+The backend folder does not need to be reachable in the browser and access should blocked with a reverse proxy rule.
 </details>
 
 ## Configuration
