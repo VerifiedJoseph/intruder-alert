@@ -105,10 +105,16 @@ Clone the repository.
 git clone https://github.com/VerifiedJoseph/intruder-alert
 ```
 
-Install dependencies with composer.
+Install PHP dependencies with composer.
 
 ```
 composer install
+```
+
+Install JavaScript dependencies with npm.
+
+```
+npm install
 ```
 
 ## Dependencies
