@@ -67,12 +67,14 @@ services:
 4) Create a scheduled task with cron (below) or similar that runs `backend\cron.php` at least once an hour.
 
 	```
-	1 * * * * php path/to/intruder-alert/backend/script.php
+	1 * * * * php path/to/intruder-alert/backend/cron.php
 	```
 
 **Notes**
 
-The backend folder does not need to be reachable in the browser and access should blocked with a reverse proxy rule.
+The backend folder does not need to be reachable in the browser and access should blocked. 
+
+Depending on fail2ban log file permissions, the scheduled task may need to be run as root or a user with the required read permissions.
 </details>
 
 ## Configuration
