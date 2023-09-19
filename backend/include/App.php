@@ -60,12 +60,11 @@ class App
 
         $lastUpdated = $_POST['lastUpdated'] ?? '';
         if ($lastUpdated !== '') {
-
-            if (strtotime($data['updated']) < strtotime($lastUpdated)) {
+            if (strtotime($data['updated']) > strtotime($lastUpdated)) {
+                $data['hasUpdates'] = true;
+            } else {
                 return Json::encode([]);
             }
-
-            $data['hasUpdates'] = true;
         }
 
         $data['settings'] = [
