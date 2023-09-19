@@ -56,19 +56,25 @@ class App
             ]);
         }
 
+        $data = Json::decode(File::read($path));
+
         $lastUpdated = $_POST['lastUpdated'] ?? '';
         if ($lastUpdated !== '') {
-            $data = Json::decode(File::read($path));
-
             if (strtotime($data['updated']) > strtotime($lastUpdated)) {
                 $data['hasUpdates'] = true;
-                return Json::encode($data);
+            } else {
+                return Json::encode([]);
             }
-
-            return Json::encode([]);
         }
 
-        return File::read($path);
+        $data['settings'] = [
+            'enableCharts' => $this->config->getChartsStatus(),
+            'enableUpdates' => $this->config->getDashUpdatesStatus(),
+            'timezone' => $this->config->getTimezone(),
+            'version' => $this->config->getVersion()
+        ];
+
+        return Json::encode($data);
     }
 
     /**
@@ -123,10 +129,6 @@ class App
             $this->lists->get(),
             $this->lists->getCounts(),
             $this->config->getPath($this->dataFilepath),
-            $this->config->getTimezone(),
-            $this->config->getVersion(),
-            $this->config->getChartsStatus(),
-            $this->config->getDashUpdatesStatus(),
         );
         $report->generate();
     }

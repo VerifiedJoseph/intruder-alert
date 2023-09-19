@@ -1,5 +1,4 @@
 FROM composer:2.6.3 AS composer
-ENV IA_VERSION=1.0.0
 
 # Copy application
 COPY ./ /app
