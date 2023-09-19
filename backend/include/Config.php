@@ -43,11 +43,7 @@ class Config
 
     public function getVersion(): string
     {
-        if ($this->hasEnv('VERSION') === true) {
-            return $this->getEnv('VERSION');
-        }
-
-        return '';
+        return (string) constant('VERSION');
     }
 
     public function getChartsStatus(): bool
@@ -120,9 +116,20 @@ class Config
     }
 
     /**
-     * Check config
+     * Check the command-line
      *
      * @throws ConfigException if script not run via the command-line.
+     */
+    public function checkCli(): void
+    {
+        if (php_sapi_name() !== 'cli') {
+            throw new ConfigException('Intruder Alert script must be run via the command-line.');
+        }
+    }
+
+    /**
+     * Check config
+     *
      * @throws ConfigException if PHP version not supported.
      * @throws ConfigException if environment variable `IA_LOG_FOLDER` or `IA_LOG_PATHS` is not set.
      * @throws ConfigException if environment variable `IA_DISABLE_CHARTS` is not `true` or `false`.
@@ -130,10 +137,6 @@ class Config
      */
     public function check(): void
     {
-        if (php_sapi_name() !== 'cli') {
-            throw new ConfigException('Intruder Alert script must be run via the command-line.');
-        }
-
         if (version_compare(PHP_VERSION, $this->minPhpVersion) === -1) {
             throw new ConfigException('Intruder Alert requires at least PHP version ' . $this->minPhpVersion);
         }
