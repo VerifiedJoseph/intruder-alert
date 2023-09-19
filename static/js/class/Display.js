@@ -39,6 +39,7 @@ export class Display {
       link.setAttribute('target', '_blank')
       link.innerText = version
 
+      document.getElementById('version').innerText = ''
       document.getElementById('version').appendChild(link)
     }
   }
