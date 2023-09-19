@@ -116,22 +116,9 @@ class Config
     }
 
     /**
-     * Check the command-line
-     *
-     * @throws ConfigException if script not run via the command-line.
-     */
-    public function checkCli(): void
-    {
-        if (php_sapi_name() !== 'cli') {
-            throw new ConfigException('Intruder Alert script must be run via the command-line.');
-        }
-    }
-
-    /**
      * Check config
      *
      * @throws ConfigException if PHP version not supported.
-     * @throws ConfigException if environment variable `IA_LOG_FOLDER` or `IA_LOG_PATHS` is not set.
      * @throws ConfigException if environment variable `IA_DISABLE_CHARTS` is not `true` or `false`.
      * @throws ConfigException if environment variable `IA_DISABLE_DASH_UPDATES` is not `true` or `false`.
      */
@@ -145,10 +132,6 @@ class Config
             require $this->getPath('config.php');
         }
 
-        if ($this->hasEnv('LOG_PATHS') === false && $this->hasEnv('LOG_FOLDER') === false) {
-            throw new ConfigException('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
-        }
-
         if ($this->hasEnv('DASH_CHARTS') === true && $this->isEnvBoolean('DASH_CHARTS') === false) {
             throw new ConfigException('Charts environment variable must be true or false [IA_DASH_CHARTS]');
         }
@@ -157,11 +140,29 @@ class Config
             throw new ConfigException('Dashboard updates environment variable must be true or false [IA_DASH_UPDATES]');
         }
 
+        $this->checkTimeZones();
+    }
+
+    /**
+     * Check config for command-line
+     *
+     * @throws ConfigException if script not run via the command-line.
+     * @throws ConfigException if environment variable `IA_LOG_FOLDER` or `IA_LOG_PATHS` is not set.
+     */
+    public function checkCli(): void
+    {
+        if (php_sapi_name() !== 'cli') {
+            throw new ConfigException('Intruder Alert script must be run via the command-line.');
+        }
+
+        if ($this->hasEnv('LOG_PATHS') === false && $this->hasEnv('LOG_FOLDER') === false) {
+            throw new ConfigException('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
+        }
+
         $this->checkLogPaths();
         $this->checkLogFolder();
         $this->checkMaxMindLicenseKey();
         $this->checkDatabases();
-        $this->checkTimeZones();
     }
 
     /**
