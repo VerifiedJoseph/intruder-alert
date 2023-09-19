@@ -9,4 +9,5 @@
 !/composer.json
 !/composer.lock
 !/docker/config/nginx.conf
+!/docker/config/fpm-pool.conf
 !/docker/config/supervisord.conf
