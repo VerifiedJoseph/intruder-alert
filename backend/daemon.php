@@ -15,8 +15,8 @@ while (true) {
     try {
         $config = new Config();
         $config->setDir(__DIR__);
-        $config->checkCli();
         $config->check();
+        $config->checkCli();
 
         $app = new App($config);
         $app->run();
