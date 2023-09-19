@@ -38,15 +38,15 @@ jobs:
           tags: |
             type=semver,pattern={{version}}
 
-#      - name: Build and push Docker image
-#        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
-#        with:
-#          context: .
-#          platforms: linux/amd64,linux/arm64
-#          push: true
-#          tags: ${{ steps.meta.outputs.tags }}
-#          labels: ${{ steps.meta.outputs.labels }}
-#          outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=${{ env.DESCRIPTION }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=${{ env.DESCRIPTION }}
 
   zip:
     name: Zip archive
