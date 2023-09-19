@@ -21,18 +21,6 @@ class Report
     /** @var string $path Path to save the generated report */
     private string $path = '';
 
-    /** @var bool $enableCharts Status for dashboard charts */
-    private bool $enableCharts = true;
-
-    /** @var bool $enableUpdates Status for automatic dashboard updates */
-    private bool $enableUpdates = true;
-
-    /** @var string $timezone Timezone */
-    private string $timezone = '';
-
-    /** @var string $version Intruder alert version */
-    private string $version = '';
-
     /**
      *
      * @param array<string, mixed> $lists
@@ -42,18 +30,10 @@ class Report
         array $lists,
         array $counts,
         string $path,
-        string $timezone,
-        string $version,
-        bool $charts,
-        bool $updates
     ) {
         $this->lists = $lists;
         $this->counts = $counts;
         $this->path = $path;
-        $this->timezone = $timezone;
-        $this->version = $version;
-        $this->enableCharts = $charts;
-        $this->enableUpdates = $updates;
     }
 
     /**
@@ -67,10 +47,6 @@ class Report
         $data['dataSince'] = $this->getDataSinceDate();
         $data['log'] = Logger::getEntries();
         $data['log'][] = 'Last run: ' . $data['updated'];
-        $data['settings']['enableCharts'] = $this->enableCharts;
-        $data['settings']['enableUpdates'] = $this->enableUpdates;
-        $data['settings']['timezone'] = $this->timezone;
-        $data['settings']['version'] = $this->version;
 
         File::write(
             $this->path,
