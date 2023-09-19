@@ -74,7 +74,7 @@ services:
 
 The backend folder does not need to be reachable in the browser and access should blocked. 
 
-Depending on fail2ban log file permissions, the scheduled task may need to be run as root or a user with the required read permissions.
+The scheduled task may need to be run as root or a user with the required read permissions depending on fail2ban log permissions.
 </details>
 
 ## Configuration
