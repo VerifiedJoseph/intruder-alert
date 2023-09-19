@@ -3,19 +3,22 @@
 use IntruderAlert\App;
 use IntruderAlert\Config;
 use IntruderAlert\Exception\AppException;
+use IntruderAlert\Exception\ConfigException;
 use IntruderAlert\Helper\Json;
 
 require 'backend/vendor/autoload.php';
+require 'backend/include/version.php';
 
 $data = '';
 
 try {
     $config = new Config();
     $config->setDir(__DIR__ . DIRECTORY_SEPARATOR . 'backend');
+    $config->check();
 
     $app = new App($config);
     $data = $app->getJsonReport();
-} catch (AppException $err) {
+} catch (AppException | ConfigException $err) {
     $data = Json::encode([
         'error' => true,
         'message' => $err->getMessage()
