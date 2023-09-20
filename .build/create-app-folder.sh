@@ -7,4 +7,5 @@ cp -r ./backend/ ./app/backend/
 cp -r ./static/ ./app/static/
 cp ./index.html ./app/index.html
 cp ./data.php ./app/data.php
-
+cp ./README.md ./app/README.md
+cp ./LICENSE ./app/LICENSE.md
