@@ -7,10 +7,7 @@ class Addresses extends AbstractList
     /** {@inheritDoc} */
     protected ?string $mostBannedParam = 'address';
 
-    public function __construct()
-    {
-        $this->data['totalBans'] = 0;
-    }
+    protected int $totalBans = 0;
 
     /** {@inheritDoc} */
     public function addIp(array $ip): void
@@ -18,7 +15,7 @@ class Addresses extends AbstractList
         $key = array_search($ip['address'], array_column($this->data['list'], 'address'));
 
         if ($key === false) {
-            $this->data['totalBans']++;
+            $this->totalBans++;
             $this->data['list'][] = [
                 'address' => $ip['address'],
                 'version' => $ip['version'],
@@ -33,13 +30,21 @@ class Addresses extends AbstractList
                 ]]
             ];
         } else {
-            $this->data['totalBans']++;
+            $this->totalBans++;
             $this->data['list'][$key]['bans']++;
             $this->data['list'][$key]['events'][] = [
                 'timestamp' => $ip['timestamp'],
                 'jail' => $ip['jail']
             ];
         }
+    }
+
+    /**
+     * Get total number of bans
+     */
+    public function getTotalBans(): int
+    {
+        return $this->totalBans;
     }
 
     /**

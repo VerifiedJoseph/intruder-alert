@@ -254,16 +254,16 @@
         },
         {
             "name": "tronovav/geoip2-update",
-            "version": "v2.2.0",
+            "version": "v2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tronovav/geoip2-update.git",
-                "reference": "b039210b40883f4e3470b367cfd9b538c4fbc469"
+                "reference": "fca030e9fb2ceb0ec5590e160d0995ee62bcce08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tronovav/geoip2-update/zipball/b039210b40883f4e3470b367cfd9b538c4fbc469",
-                "reference": "b039210b40883f4e3470b367cfd9b538c4fbc469",
+                "url": "https://api.github.com/repos/tronovav/geoip2-update/zipball/fca030e9fb2ceb0ec5590e160d0995ee62bcce08",
+                "reference": "fca030e9fb2ceb0ec5590e160d0995ee62bcce08",
                 "shasum": ""
             },
             "require": {
@@ -301,9 +301,9 @@
             "support": {
                 "email": "newtronov@gmail.com",
                 "issues": "https://github.com/tronovav/geoip2-update/issues",
-                "source": "https://github.com/tronovav/geoip2-update/tree/v2.2.0"
+                "source": "https://github.com/tronovav/geoip2-update/tree/v2.2.3"
             },
-            "time": "2023-09-14T22:00:55+00:00"
+            "time": "2023-09-18T09:27:30+00:00"
         }
     ],
     "packages-dev": [

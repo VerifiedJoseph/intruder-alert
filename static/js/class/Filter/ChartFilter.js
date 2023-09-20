@@ -210,8 +210,6 @@ export class ChartFilter extends Filter {
       if (groups[key]) {
         groups[key].banCount = item.bans
         groups[key].ipCount = item.ipCount
-      } else {
-        break
       }
     }
 

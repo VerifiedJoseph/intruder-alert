@@ -13,9 +13,6 @@ abstract class AbstractList
     /** @var array<int, array<int, string>> $ipList  IP addresses for this list */
     protected array $ipList = [];
 
-    /** @var bool $calculateMostBanned Calculate most banned value for a list */
-    protected bool $calculateMostBanned = true;
-
     /** @var ?string $mostBannedParam Data list parameter to use when calculating the most banned */
     protected ?string $mostBannedParam = null;
 
@@ -29,9 +26,7 @@ abstract class AbstractList
      */
     public function get(): array
     {
-        if ($this->calculateMostBanned === true) {
-            $this->calculateMostBanned();
-        }
+        $this->calculateMostBanned();
 
         match ($this->orderItemsBy) {
             'bans' => $this->orderByBans(),
@@ -47,6 +42,14 @@ abstract class AbstractList
      * @param array<string, mixed> $ip IP address details
      */
     abstract public function addIp(array $ip): void;
+
+    /**
+     * Get item count for list
+     */
+    final public function getCount(): int
+    {
+        return count($this->data['list']);
+    }
 
     /**
      * Calculate most banned

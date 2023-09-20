@@ -71,10 +71,7 @@ function displayData (data, pageNumber = 0) {
 
 function onViewBtnClick (viewType, filterType, filterValue) {
   table.filter.reset()
-  chart.filter.reset()
-
   Helper.setTableType(viewType)
-  Helper.setChartType('last30days')
 
   table.dialog.filterOptions.enableBtn()
   document.getElementById('data-order-by').disabled = true
@@ -84,16 +81,18 @@ function onViewBtnClick (viewType, filterType, filterValue) {
     table.filter.add(filterType, 'include', filterValue)
 
     document.getElementById('table-applied-filters').classList.remove('hide')
-    document.getElementById('table-filter-open-panel').disabled = false
+    table.dialog.filterAdd.enableBtn()
 
     displayData(table.filter.getData(viewType))
   }
 
-  if (iaData.isChartEnabled() === true && chart.filter.hasFilter(filterType, filterValue) === false) {
+  if (iaData.isChartEnabled() === true && filterType !== 'date' && chart.filter.hasFilter(filterType, filterValue) === false) {
+    chart.filter.reset()
+    Helper.setChartType('last30days')
+
     chart.filter.add(filterType, 'include', filterValue)
 
     document.getElementById('chart-applied-filters').classList.remove('hide')
-    document.getElementById('chart-filter-open-panel').disabled = false
 
     chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
   }
@@ -129,7 +128,7 @@ function onRemoveFilterBtnClick (event) {
 
 function clickHandler (event) {
   switch (event.target.id || event.target.className) {
-    case 'table-filter-open-panel':
+    case 'table-filter-add-dialog-open':
       table.dialog.filterAdd.setup(table.filter)
       table.dialog.filterAdd.open()
       break
@@ -148,7 +147,7 @@ function clickHandler (event) {
 
       displayData(table.filter.getData(Helper.getTableType()))
       break
-    case 'chart-filter-open-panel':
+    case 'chart-filter-add-dialog-open':
       chart.dialog.filterAdd.setup(chart.filter)
       chart.dialog.filterAdd.open()
       break
@@ -260,7 +259,7 @@ function changeHandler (event) {
       }
 
       if (event.target.value === 'address' || event.target.value === 'recentBans' || event.target.value === 'subnet') {
-        document.getElementById('table-filter-open-panel').disabled = false
+        table.dialog.filterAdd.enableBtn()
         table.dialog.filterOptions.enableBtn()
 
         if (event.target.value === 'address') {
@@ -271,7 +270,7 @@ function changeHandler (event) {
           table.filter.removeMany(['address', 'continent', 'date', 'jail'])
         }
       } else {
-        document.getElementById('table-filter-open-panel').disabled = true
+        table.dialog.filterAdd.disableBtn()
         table.dialog.filterOptions.disableBtn()
         table.filter.reset()
       }

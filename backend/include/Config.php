@@ -43,11 +43,7 @@ class Config
 
     public function getVersion(): string
     {
-        if ($this->hasEnv('VERSION') === true) {
-            return $this->getEnv('VERSION');
-        }
-
-        return '';
+        return (string) constant('VERSION');
     }
 
     public function getChartsStatus(): bool
@@ -122,28 +118,18 @@ class Config
     /**
      * Check config
      *
-     * @throws ConfigException if script not run via the command-line.
      * @throws ConfigException if PHP version not supported.
-     * @throws ConfigException if environment variable `IA_LOG_FOLDER` or `IA_LOG_PATHS` is not set.
      * @throws ConfigException if environment variable `IA_DISABLE_CHARTS` is not `true` or `false`.
      * @throws ConfigException if environment variable `IA_DISABLE_DASH_UPDATES` is not `true` or `false`.
      */
     public function check(): void
     {
-        if (php_sapi_name() !== 'cli') {
-            throw new ConfigException('Intruder Alert script must be run via the command-line.');
-        }
-
         if (version_compare(PHP_VERSION, $this->minPhpVersion) === -1) {
             throw new ConfigException('Intruder Alert requires at least PHP version ' . $this->minPhpVersion);
         }
 
         if (file_exists($this->getPath('config.php')) === true) {
             require $this->getPath('config.php');
-        }
-
-        if ($this->hasEnv('LOG_PATHS') === false && $this->hasEnv('LOG_FOLDER') === false) {
-            throw new ConfigException('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
         }
 
         if ($this->hasEnv('DASH_CHARTS') === true && $this->isEnvBoolean('DASH_CHARTS') === false) {
@@ -154,11 +140,29 @@ class Config
             throw new ConfigException('Dashboard updates environment variable must be true or false [IA_DASH_UPDATES]');
         }
 
+        $this->checkTimeZones();
+    }
+
+    /**
+     * Check config for command-line
+     *
+     * @throws ConfigException if script not run via the command-line.
+     * @throws ConfigException if environment variable `IA_LOG_FOLDER` or `IA_LOG_PATHS` is not set.
+     */
+    public function checkCli(): void
+    {
+        if (php_sapi_name() !== 'cli') {
+            throw new ConfigException('Intruder Alert script must be run via the command-line.');
+        }
+
+        if ($this->hasEnv('LOG_PATHS') === false && $this->hasEnv('LOG_FOLDER') === false) {
+            throw new ConfigException('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
+        }
+
         $this->checkLogPaths();
         $this->checkLogFolder();
         $this->checkMaxMindLicenseKey();
         $this->checkDatabases();
-        $this->checkTimeZones();
     }
 
     /**

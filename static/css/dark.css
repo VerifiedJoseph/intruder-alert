@@ -1,0 +1,73 @@
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #010409;
+		color: #9da1a5;
+	}
+
+	.header > .title > #version > a {
+		color: #c9d1d9;
+	}
+
+	.row-wrap > .row > .cell {
+		background-color: #161b22;
+	}
+
+	.box, #data-note, #loading {
+		background-color: #161b22;
+	}
+
+	dialog {
+		color: #c9d1d9;
+		background-color: #161b22;
+		border: 1px solid #3B444C;
+	}
+
+	table {
+		background-color: #161b22;
+	}
+
+	table th, table th:hover {
+		color: #c9d1d9;
+		background-color: #0d1117;
+	}
+
+	table tr:hover {
+		background-color: #0d1117;
+	}
+
+	#error {
+		background-color: #FF6384;
+	}
+
+	#updating {
+		background-color: #36A2EB;
+	}
+
+	.applied-filters > .item {
+		color: #c9d1d9;
+		background-color: #21262d;
+  		border: 1px solid #3B444C;
+	}
+
+	.applied-filters > .item > .action {
+		color: #ffffff;
+	}
+
+	button, select {
+		color: #c9d1d9;
+		background-color: #21262d;
+		border: 1px solid #3B444C;
+	}
+
+	.filter-remove {
+		color: #ff6384;
+	}
+
+	button:disabled {
+		color: #777;
+	}
+
+	button:hover:enabled, select:enabled:hover {
+		background-color: #30363D;
+	}
+}

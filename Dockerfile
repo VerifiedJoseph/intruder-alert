@@ -1,5 +1,4 @@
-FROM composer:2.6.2 AS composer
-ENV IA_VERSION=1.0.0
+FROM composer:2.6.3 AS composer
 
 # Copy application
 COPY ./ /app
@@ -24,14 +23,23 @@ FROM php:8.2.10-fpm-alpine3.18
 # Copy nginx config
 COPY --chown=nobody /docker/config/nginx.conf /etc/nginx/nginx.conf
 
+# Copy php-fpm config
+COPY --chown=nobody /docker/config/fpm-pool.conf /usr/local/etc/php-fpm.d/www.conf
+
+# Remove zz-docker.conf
+RUN rm /usr/local/etc/php-fpm.d/zz-docker.conf
+
 # Copy supervisord config
 COPY --chown=nobody /docker/config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Copy code
 COPY --chown=nobody --from=composer /app/ /app/
 
+# Create needed folders
+RUN mkdir -p /app/backend/data/geoip2 /app/backend/data/logs
+
 # Make files accessable to nobody user
-RUN chown -R nobody.nobody /run /app/ /var/lib/nginx/logs/
+RUN chown -R nobody.nobody /run /app /var/lib/nginx /var/log/nginx
 
 # Remove setup files
 RUN rm -r /app/docker
