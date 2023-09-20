@@ -1,0 +1,41 @@
+name: Tests
+on:
+  pull_request:
+    paths:
+      - "**.php"
+      - ".github/workflows/test.yml"
+  push:
+    branches: [main]
+    paths:
+      - "**.php"
+      - ".github/workflows/test.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: PHPUnit
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@72ae4ccbe57f82bbe08411e84e2130bd4ba1c10f # v2.25.5
+      with:
+        php-version: '8.2'
+        coverage: none
+    
+    - name: Setup problem matchers for PHP
+      run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+
+    - name: Setup problem matchers for PHPUnit
+      run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+    - name: Install dependencies with composer
+      run: composer install --prefer-dist
+
+    - name: Run phpunit
+      run: composer test
