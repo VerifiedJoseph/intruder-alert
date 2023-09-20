@@ -133,3 +133,11 @@ npm install
 - PHP >= 8.1
 - Composer
 - Node.js >= 18.0 (development only)
+
+## Changelog
+
+All notable changes to this project are documented in the [CHANGELOG](CHANGELOG.md).
+
+## License
+
+MIT License. Please see [LICENSE](LICENSE) for more information.
