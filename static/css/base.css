@@ -235,16 +235,33 @@ input {
 	margin-right: 5px;
 	background-color: #f1f1f1;
 	border: 1px solid #8f8f9d;
+
+	flex-direction: row;
+	display: flex;
 }
 
-.applied-filters > .item > .action {
+.applied-filters > .item > div {
+	margin: 3px 6px 3px 3px;
+	flex-direction: row;
+	display: flex;
+}
+
+.applied-filters > .item > div > .action {
+	margin-left: 4px;
+	margin-right: 4px;
 	font-weight: bold;
+}
+
+.applied-filters > .item > div > .ellipsis {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	max-width: 250px;
 }
 
 .applied-filters > .item > button {
 	padding: 3px;
 	width: 30px;
-	margin-left: 4px;
 }
 
 #log {
