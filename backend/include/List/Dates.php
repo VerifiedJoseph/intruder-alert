@@ -7,6 +7,9 @@ class Dates extends AbstractList
     /** {@inheritDoc} */
     protected ?string $mostBannedParam = 'date';
 
+    /** {@inheritDoc} */
+    protected string $orderItemsBy = 'date';
+
     /**
      * Add IP address
      *
