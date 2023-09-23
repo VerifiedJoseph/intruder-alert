@@ -300,6 +300,7 @@ button {
 
 select {
 	padding: 0px 6px;
+	text-overflow: ellipsis;
 }
 
 button, select {
