@@ -27,6 +27,7 @@ export class TableFilter extends Filter {
       return this._getFilteredData(data)
     }
 
-    return data
+    // Clone array and return
+    return [...data]
   }
 }
