@@ -43,13 +43,16 @@ export class FilterChip {
     const div = document.createElement('div')
     div.appendChild(this.#createSpan(this.#typeTexts[type]))
     div.appendChild(this.#createSpan(` ${actionText} `, 'action'))
-    div.appendChild(this.#createSpan(valueText))
-    div.appendChild(this.#createButton(uuid, value))
+    div.appendChild(this.#createSpan(valueText, 'ellipsis'))
     div.setAttribute('title', `${this.#typeTexts[type]} ${actionText} ${valueText}`)
-    div.setAttribute('data-label-id', uuid)
-    div.classList.add('item')
 
-    this.#container.appendChild(div)
+    const item = document.createElement('div')
+    item.appendChild(div)
+    item.appendChild(this.#createButton(uuid, value))
+    item.setAttribute('data-label-id', uuid)
+    item.classList.add('item')
+
+    this.#container.appendChild(item)
   }
 
   /**
