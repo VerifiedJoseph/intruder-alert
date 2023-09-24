@@ -49,7 +49,7 @@ services:
 1) Download the latest release to your web server.
 
 	```
-	wget https://github.com/VerifiedJoseph/intruder-alert/releases/download/v1.0.0/intruder-alert-v1.1.0.zip
+	wget https://github.com/VerifiedJoseph/intruder-alert/releases/download/v1.1.0/intruder-alert-v1.1.0.zip
 	```
 
 2) Extract the zip archive.
