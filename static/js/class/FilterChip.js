@@ -68,7 +68,9 @@ export class FilterChip {
 
     const div = document.querySelector(`div[data-label-id="${uuid}"]`)
     div.setAttribute('title', `${this.#typeTexts[type]} ${actionText} ${valueText}`)
-    div.childNodes[1].innerText = ` ${actionText} `
+
+    const divInner = div.childNodes[0]
+    divInner.childNodes[1].innerText = ` ${actionText} `
   }
 
   /**
