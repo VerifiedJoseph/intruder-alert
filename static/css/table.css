@@ -37,12 +37,12 @@ table td.ip {
 	width: 120px !important;
 }
 
-table td.ban {
-	width: 50px !important;
+table td.bans, table td.ipCount {
+	width: 55px;
 }
 
 table td.country {
-	min-width: 190px !important;
+	width: 160px;
 }
 
 table th.date, table td.date {
