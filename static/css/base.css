@@ -44,13 +44,17 @@ h3 {
 }
 
 .header > .title {
+	width: 165px;
+	position: relative;
 	display: inline-flex;
 }
 
 .header > .title > #version {
 	font-size: 12px;
-	margin-left: 10px;
-	margin-top: 9px;
+	position: absolute;
+	border: 0;
+	right: 0px;
+	bottom: 4px;
 }
 
 .header > .title > #version > a {
