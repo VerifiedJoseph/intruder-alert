@@ -16,7 +16,6 @@ FROM php:8.2.10-fpm-alpine3.18
 
 # Install packages
  RUN apk add --no-cache \
-  curl=~8.2.1-r0 \
   nginx=~1.24.0-r6 \
   supervisor=~4.2.5-r2
 
