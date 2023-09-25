@@ -111,7 +111,7 @@ export class CreateTable {
     row.addCell(new Cell(subnetFilterBtn, null, true))
     row.addCell(new Cell(networkFilterBtn, 'asn', true))
     row.addCell(new Cell(countryFilterBtn, 'country', true))
-    row.addCell(new Cell(Helper.formatNumber(item.bans)))
+    row.addCell(new Cell(Helper.formatNumber(item.bans), 'bans'))
     row.addCell(new Cell(viewBtn, 'view-bans-btn', true))
     return row
   }
@@ -157,8 +157,8 @@ export class CreateTable {
     row.addCell(new Cell(item.subnet))
     row.addCell(new Cell(networkFilterBtn, 'asn', true))
     row.addCell(new Cell(countryFilterBtn, 'country', true))
-    row.addCell(new Cell(Helper.formatNumber(item.ipCount)))
-    row.addCell(new Cell(Helper.formatNumber(item.bans)))
+    row.addCell(new Cell(Helper.formatNumber(item.ipCount)), 'ipCount')
+    row.addCell(new Cell(Helper.formatNumber(item.bans), 'bans'))
 
     const viewButtons = document.createElement('span')
     viewButtons.appendChild(addressViewBtn)
