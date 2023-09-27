@@ -10,6 +10,11 @@ dialog > #header {
 	margin-bottom: 6px;
 }
 
+dialog > #header > .dialog-close {
+	position: absolute;
+	right: 10px;
+}
+
 dialog > .selects > div {
 	display: inline-block;
 }
@@ -34,11 +39,6 @@ dialog > .option-btns > button {
 
 dialog > .filter-action {
 	width: 70px;
-}
-
-dialog > .filter-options-close {
-	position: absolute;
-	right: 10px;
 }
 
 dialog > .selects {
