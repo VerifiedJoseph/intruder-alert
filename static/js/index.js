@@ -177,7 +177,6 @@ function clickHandler (event) {
 
       if (event.target.getAttribute('data-view-type') === 'chart') {
         chart.dialog.filterAdd.close()
-
         chart.filter.add(
           document.getElementById('chart-filter-type').value,
           document.getElementById('chart-filter-action').value,
