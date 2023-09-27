@@ -77,7 +77,7 @@ export class FilterAddDialog extends Dialog {
    * @param {Filter|ChartFilter} filter Filter class instance
    */
   setup (filter) {
-    this.#setupDom()
+    this.#setupElements()
 
     if (this.viewType === 'table') {
       if (Helper.getTableType() !== 'recentBans') {
@@ -105,7 +105,7 @@ export class FilterAddDialog extends Dialog {
     }
   }
 
-  #setupDom () {
+  #setupElements () {
     const dialog = document.getElementById('main-dialog')
     dialog.innerText = ''
 

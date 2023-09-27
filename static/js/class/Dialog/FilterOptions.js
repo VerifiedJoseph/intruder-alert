@@ -8,7 +8,7 @@ export class FilterOptionsDialog extends Dialog {
    * @param {Filter|ChartFilter} filter Filter class instance
    */
   setup (filter) {
-    this.#setupDom()
+    this.#setupElements()
 
     if (filter.hasFilters() === true) {
       document.getElementById('dialog-filters-reverse').disabled = false
@@ -19,7 +19,7 @@ export class FilterOptionsDialog extends Dialog {
     }
   }
 
-  #setupDom () {
+  #setupElements () {
     const dialog = document.getElementById('main-dialog')
     dialog.innerText = ''
 
