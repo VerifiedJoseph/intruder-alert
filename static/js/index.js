@@ -132,39 +132,9 @@ function clickHandler (event) {
       table.dialog.filterAdd.setup(table.filter)
       table.dialog.filterAdd.open()
       break
-    case 'table-filter-close-panel':
-      table.dialog.filterAdd.close()
-      break
-    case 'table-filter-apply':
-      document.getElementById('table-applied-filters').classList.remove('hide')
-
-      table.dialog.filterAdd.close()
-      table.filter.add(
-        document.getElementById('table-filter-type').value,
-        document.getElementById('table-filter-action').value,
-        document.getElementById('table-filter-value').value
-      )
-
-      displayData(table.filter.getData(Helper.getTableType()))
-      break
     case 'chart-filter-add-dialog-open':
       chart.dialog.filterAdd.setup(chart.filter)
       chart.dialog.filterAdd.open()
-      break
-    case 'chart-filter-close-panel':
-      chart.dialog.filterAdd.close()
-      break
-    case 'chart-filter-apply':
-      chart.dialog.filterAdd.close()
-      document.getElementById('chart-applied-filters').classList.remove('hide')
-
-      chart.filter.add(
-        document.getElementById('chart-filter-type').value,
-        document.getElementById('chart-filter-action').value,
-        document.getElementById('chart-filter-value').value
-      )
-
-      chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
       break
     case 'chart-filter-options-dialog-open':
       chart.dialog.filterOptions.setup(chart.filter)
