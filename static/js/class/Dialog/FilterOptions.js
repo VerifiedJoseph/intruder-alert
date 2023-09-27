@@ -30,19 +30,11 @@ export class FilterOptionsDialog extends Dialog {
     dialog.innerText = ''
 
     // Dialog header
-    const header = document.createElement('div')
-    header.setAttribute('id', 'header')
-
-    // Header title
-    const title = document.createElement('span')
-    title.innerText = `${Helper.capitalizeFirstChar(this.viewType)} filter options`
-
-    // Close button
-    const closeBtn = document.createElement('button')
-    closeBtn.classList.add('dialog-close')
-    closeBtn.setAttribute('id', 'dialog-close')
-    closeBtn.setAttribute('data-close-dialog', `${this.viewType}-filter-options`)
-    closeBtn.innerText = 'Close'
+    const header = this.createHeader(
+      `${this.viewType} filter options`,
+      true,
+      `${this.viewType}-filter-options`
+    )
 
     // Button group
     const optionButtons = document.createElement('div')
@@ -60,10 +52,9 @@ export class FilterOptionsDialog extends Dialog {
     removeFiltersBtn.setAttribute('id', 'dialog-filters-remove')
     removeFiltersBtn.setAttribute('data-view-type', this.viewType)
 
-    header.appendChild(title)
-    header.appendChild(closeBtn)
     optionButtons.appendChild(reverseFiltersBtn)
     optionButtons.appendChild(removeFiltersBtn)
+
     dialog.appendChild(header)
     dialog.appendChild(optionButtons)
   }
