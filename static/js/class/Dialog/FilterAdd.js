@@ -54,7 +54,7 @@ export class FilterAddDialog extends Dialog {
       table: true
     },
     {
-      value: 'jails',
+      value: 'jail',
       name: 'Jails',
       chart: true,
       table: true
