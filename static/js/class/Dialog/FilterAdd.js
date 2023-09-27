@@ -159,7 +159,7 @@ export class FilterAddDialog extends Dialog {
     // Apply button
     const applyBtn = document.createElement('button')
     applyBtn.innerText = 'Apply'
-    applyBtn.setAttribute('id', 'filter-apply')
+    applyBtn.setAttribute('id', 'dialog-filter-apply')
     applyBtn.setAttribute('data-view-type', this.viewType)
 
     buttonGroup.appendChild(applyBtn)
