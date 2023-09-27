@@ -1,5 +1,3 @@
-import { Button } from './Button.js'
-
 export class Helper {
   /**
    * Create most banned buttons
@@ -14,9 +12,29 @@ export class Helper {
 
       span.innerText = ''
       span.appendChild(
-        Button.createView('recentBans', type, data[type].mostBanned, 'most-banned')
+        Helper.createViewBtn('recentBans', type, data[type].mostBanned, 'most-banned')
       )
     })
+  }
+
+  /**
+   * Create a data view button
+   * @param {string} viewType Data view type
+   * @param {string} filterType Filter type
+   * @param {string} filterValue Filter value
+   * @param {string} context Context the button is being used
+   * @returns HTMLButtonElement
+   */
+  static createViewBtn (viewType, filterType, filterValue, context = 'table') {
+    const button = document.createElement('button')
+
+    button.innerText = (viewType === 'address') ? 'View IPs' : 'View Bans'
+    button.classList.add('view-button')
+    button.setAttribute('data-view-type', viewType)
+    button.setAttribute('data-filter-type', filterType)
+    button.setAttribute('data-filter-value', filterValue)
+    button.setAttribute('data-context', context)
+    return button
   }
 
   static setTableType (value) {
