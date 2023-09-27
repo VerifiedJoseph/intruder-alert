@@ -53,11 +53,20 @@ export class Helper {
   }
 
   /**
-   * Format a number using Intl.NumberFormat
+   * Format a number using `Intl.NumberFormat`
    * @param {int} number
    * @returns {string}
    */
   static formatNumber (number) {
     return new Intl.NumberFormat().format(number)
+  }
+
+  /**
+   * Capitalize first character of a string
+   * @param {string} text
+   * @returns {string}
+   */
+  static capitalizeFirstChar (text) {
+    return text.charAt(0).toUpperCase() + text.slice(1)
   }
 }
