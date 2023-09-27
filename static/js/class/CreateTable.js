@@ -206,7 +206,7 @@ export class CreateTable {
    * @param {Row} row
    * @returns row
    */
-  #createGenericRow (item, row, type) {
+  #createGenericRow (item, row) {
     const span = document.createElement('span')
     span.innerText = item.name
     span.setAttribute('title', item.name)
