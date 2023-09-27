@@ -1,5 +1,4 @@
 import { Dialog } from './Dialog.js'
-import { Helper } from '../Helper.js'
 
 export class FilterOptionsDialog extends Dialog {
   dialogType = 'filter-options'
