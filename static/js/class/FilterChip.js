@@ -99,7 +99,7 @@ export class FilterChip {
    */
   #createButton (uuid, value) {
     const button = document.createElement('button')
-    button.innerText = 'X'
+    button.innerHTML = '&#x2715;'
     button.classList.add('filter-remove')
     button.setAttribute('title', 'Remove filter')
     button.setAttribute('data-filter-id', uuid)
