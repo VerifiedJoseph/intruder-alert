@@ -3,11 +3,6 @@ import { Dialog } from './Dialog.js'
 export class FilterOptionsDialog extends Dialog {
   dialogType = 'filter-options'
 
-  constructor (viewType) {
-    super(viewType)
-    this.element = document.getElementById('main-dialog')
-  }
-
   /**
    * Setup dialog
    * @param {Filter|ChartFilter} filter Filter class instance
