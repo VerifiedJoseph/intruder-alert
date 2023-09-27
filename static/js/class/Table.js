@@ -1,15 +1,19 @@
 export class Table {
+  #html
+  #header
+  #body
+
   constructor () {
-    this.html = document.createElement('table')
-    this.header = document.createElement('thead')
-    this.body = document.createElement('tbody')
+    this.#html = document.createElement('table')
+    this.#header = document.createElement('thead')
+    this.#body = document.createElement('tbody')
   }
 
   get () {
-    this.html.appendChild(this.header)
-    this.html.appendChild(this.body)
+    this.#html.appendChild(this.#header)
+    this.#html.appendChild(this.#body)
 
-    return this.html
+    return this.#html
   }
 
   /**
@@ -31,7 +35,7 @@ export class Table {
       tr.appendChild(th)
     })
 
-    this.header.appendChild(tr)
+    this.#header.appendChild(tr)
   }
 
   /**
@@ -61,7 +65,7 @@ export class Table {
       tr.appendChild(td)
     })
 
-    this.body.appendChild(tr)
+    this.#body.appendChild(tr)
   }
 }
 
@@ -82,17 +86,22 @@ export class Row {
 }
 
 export class Cell {
+  #value
+  #cssClass
+  #html
+  #colSpan
+
   /**
-   * @param {*} value
+   * @param {*} value Cell value
    * @param {null|string} cssClass CSS class of the cell
    * @param {boolean} html Is cell value an HTML element?
    * @param {int} colSpan Number columns the cell should span
    */
   constructor (value, cssClass = null, html = false, colSpan = 0) {
-    this.value = value
-    this.cssClass = cssClass
-    this.html = html
-    this.colSpan = colSpan
+    this.#value = value
+    this.#cssClass = cssClass
+    this.#html = html
+    this.#colSpan = colSpan
   }
 
   /**
@@ -100,10 +109,10 @@ export class Cell {
    */
   get () {
     return {
-      value: this.value,
-      cssClass: this.cssClass,
-      html: this.html,
-      colSpan: this.colSpan
+      value: this.#value,
+      cssClass: this.#cssClass,
+      html: this.#html,
+      colSpan: this.#colSpan
     }
   }
 }
