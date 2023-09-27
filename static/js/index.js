@@ -200,7 +200,43 @@ function clickHandler (event) {
         displayData(table.filter.getData(Helper.getTableType()))
       }
       break
+    case 'dialog-filter-apply':
+      document.getElementById(
+        `${event.target.getAttribute('data-view-type')}-applied-filters`
+      ).classList.remove('hide')
+
+      if (event.target.getAttribute('data-view-type') === 'chart') {
+        chart.dialog.filterAdd.close()
+
+        chart.filter.add(
+          document.getElementById('chart-filter-type').value,
+          document.getElementById('chart-filter-action').value,
+          document.getElementById('chart-filter-value').value
+        )
+
+        chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
+      }
+
+      if (event.target.getAttribute('data-view-type') === 'table') {
+        table.dialog.filterAdd.close()
+        table.filter.add(
+          document.getElementById('table-filter-type').value,
+          document.getElementById('table-filter-action').value,
+          document.getElementById('table-filter-value').value
+        )
+
+        displayData(table.filter.getData(Helper.getTableType()))
+      }
+      break
     case 'dialog-close':
+      if (event.target.getAttribute('data-close-dialog') === 'chart-filter-add') {
+        chart.dialog.filterAdd.close()
+      }
+
+      if (event.target.getAttribute('data-close-dialog') === 'table-filter-add') {
+        table.dialog.filterAdd.close()
+      }
+
       if (event.target.getAttribute('data-close-dialog') === 'chart-filter-options') {
         chart.dialog.filterOptions.close()
       }
