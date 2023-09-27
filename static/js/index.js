@@ -189,20 +189,6 @@ function clickHandler (event) {
       table.dialog.filterOptions.setup(table.filter)
       table.dialog.filterOptions.open()
       break
-    case 'table-filter-options-close':
-      table.dialog.filterOptions.close()
-      break
-    case 'table-filters-reverse':
-      table.dialog.filterOptions.close()
-      table.filter.reverse()
-      displayData(table.filter.getData(Helper.getTableType()))
-      break
-    case 'table-filters-remove':
-      table.dialog.filterOptions.close()
-      table.filter.reset()
-      displayData(table.filter.getData(Helper.getTableType()))
-      break
-
     case 'dialog-filters-reverse':
       if (event.target.getAttribute('data-view-type') === 'chart') {
         chart.dialog.filterOptions.close()
