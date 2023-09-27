@@ -202,6 +202,42 @@ function clickHandler (event) {
       table.filter.reset()
       displayData(table.filter.getData(Helper.getTableType()))
       break
+
+    case 'dialog-filters-reverse':
+      if (event.target.getAttribute('data-view-type') === 'chart') {
+        chart.dialog.filterOptions.close()
+        chart.filter.reverse()
+        chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
+      }
+
+      if (event.target.getAttribute('data-view-type') === 'table') {
+        table.dialog.filterOptions.close()
+        table.filter.reverse()
+        displayData(table.filter.getData(Helper.getTableType()))
+      }
+      break
+    case 'dialog-filters-remove':
+      if (event.target.getAttribute('data-view-type') === 'chart') {
+        chart.dialog.filterOptions.close()
+        chart.filter.reset()
+        chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
+      }
+
+      if (event.target.getAttribute('data-view-type') === 'table') {
+        table.dialog.filterOptions.close()
+        table.filter.reset()
+        displayData(table.filter.getData(Helper.getTableType()))
+      }
+      break
+    case 'dialog-close':
+      if (event.target.getAttribute('data-close-dialog') === 'chart-filter-options') {
+        chart.dialog.filterOptions.close()
+      }
+
+      if (event.target.getAttribute('data-close-dialog') === 'table-filter-options') {
+        table.dialog.filterOptions.close()
+      }
+      break
     case 'filter-remove':
       onRemoveFilterBtnClick(event)
       break
