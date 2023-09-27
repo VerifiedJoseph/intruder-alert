@@ -170,21 +170,6 @@ function clickHandler (event) {
       chart.dialog.filterOptions.setup(chart.filter)
       chart.dialog.filterOptions.open()
       break
-    case 'chart-filter-options-close':
-      chart.dialog.filterOptions.close()
-      break
-    case 'chart-filters-reverse':
-      chart.dialog.filterOptions.close()
-
-      chart.filter.reverse()
-      chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
-      break
-    case 'chart-filters-remove':
-      chart.dialog.filterOptions.close()
-
-      chart.filter.reset()
-      chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
-      break
     case 'table-filter-options-dialog-open':
       table.dialog.filterOptions.setup(table.filter)
       table.dialog.filterOptions.open()
