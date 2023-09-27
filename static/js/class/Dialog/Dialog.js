@@ -62,15 +62,31 @@ export class Dialog {
     header.appendChild(span)
 
     if (showCloseBtn === true) {
-      const closeBtn = document.createElement('button')
-      closeBtn.classList.add('dialog-close')
-      closeBtn.setAttribute('id', 'dialog-close')
-      closeBtn.setAttribute('data-close-dialog', btnDataValue)
-      closeBtn.innerText = 'Close'
-
+      const closeBtn = this.createCloseButton('Close', btnDataValue, 'dialog-close')
       header.appendChild(closeBtn)
     }
 
     return header
+  }
+
+  /**
+   * Create close button
+   * @param {string} text Button text
+   * @param {string} dataValue Value of the button's `data-close-dialog` attribute
+   * @param {string} cssClass Button CSS class
+   * @returns HTMLButtonElement
+   */
+  createCloseButton (text, dataValue, cssClass = null) {
+    const button = document.createElement('button')
+
+    if (cssClass !== null) {
+      button.classList.add(cssClass)
+    }
+
+    button.setAttribute('id', 'dialog-close')
+    button.setAttribute('data-close-dialog', dataValue)
+    button.innerText = text
+
+    return button
   }
 }
