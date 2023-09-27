@@ -1,6 +1,5 @@
 import { Table, Row, Cell } from './Table.js'
 import { Helper } from './Helper.js'
-import { Button } from './Button.js'
 
 export class CreateTable {
   #tableHeaders = {
@@ -102,10 +101,10 @@ export class CreateTable {
     const network = this.#iaData.getNetwork(item.network)
     const country = this.#iaData.getCountry(item.country)
 
-    const subnetFilterBtn = Button.createFilter('subnet', item.subnet, item.subnet, this.#filter)
-    const networkFilterBtn = Button.createFilter('network', network.number, network.name, this.#filter)
-    const countryFilterBtn = Button.createFilter('country', country.code, country.name, this.#filter)
-    const viewBtn = Button.createView('recentBans', this.#type, item.address)
+    const subnetFilterBtn = this.#createFilterBtn('subnet', item.subnet, item.subnet, this.#filter)
+    const networkFilterBtn = this.#createFilterBtn('network', network.number, network.name, this.#filter)
+    const countryFilterBtn = this.#createFilterBtn('country', country.code, country.name, this.#filter)
+    const viewBtn = Helper.createViewBtn('recentBans', this.#type, item.address)
 
     row.addCell(new Cell(item.address))
     row.addCell(new Cell(subnetFilterBtn, null, true))
@@ -126,10 +125,10 @@ export class CreateTable {
     const network = this.#iaData.getNetwork(item.network)
     const country = this.#iaData.getCountry(item.country)
 
-    const addressFilterBtn = Button.createFilter('address', item.address, item.address, this.#filter)
-    const jailFilterBtn = Button.createFilter('jail', item.jail, item.jail, this.#filter)
-    const networkFilterBtn = Button.createFilter('network', network.number, network.name, this.#filter)
-    const countryFilterBtn = Button.createFilter('country', country.code, country.name, this.#filter)
+    const addressFilterBtn = this.#createFilterBtn('address', item.address, item.address, this.#filter)
+    const jailFilterBtn = this.#createFilterBtn('jail', item.jail, item.jail, this.#filter)
+    const networkFilterBtn = this.#createFilterBtn('network', network.number, network.name, this.#filter)
+    const countryFilterBtn = this.#createFilterBtn('country', country.code, country.name, this.#filter)
 
     row.addCell(new Cell(item.timestamp, 'date'))
     row.addCell(new Cell(addressFilterBtn, 'address', true))
@@ -149,10 +148,10 @@ export class CreateTable {
     const network = this.#iaData.getNetwork(item.network)
     const country = this.#iaData.getCountry(item.country)
 
-    const networkFilterBtn = Button.createFilter('network', network.number, network.name, this.#filter)
-    const countryFilterBtn = Button.createFilter('country', country.code, country.name, this.#filter)
-    const addressViewBtn = Button.createView('address', this.#type, item.subnet)
-    const recentBansViewBtn = Button.createView('recentBans', this.#type, item.subnet)
+    const networkFilterBtn = this.#createFilterBtn('network', network.number, network.name, this.#filter)
+    const countryFilterBtn = this.#createFilterBtn('country', country.code, country.name, this.#filter)
+    const addressViewBtn = Helper.createViewBtn('address', this.#type, item.subnet)
+    const recentBansViewBtn = Helper.createViewBtn('recentBans', this.#type, item.subnet)
 
     row.addCell(new Cell(item.subnet))
     row.addCell(new Cell(networkFilterBtn, 'asn', true))
@@ -175,7 +174,7 @@ export class CreateTable {
    * @returns row
    */
   #createDateRow (item, row) {
-    const viewBtn = Button.createView('recentBans', this.#type, item.date)
+    const viewBtn = Helper.createViewBtn('recentBans', this.#type, item.date)
 
     row.addCell(new Cell(item.date, 'long'))
     row.addCell(new Cell(Helper.formatNumber(item.ipCount)))
@@ -191,7 +190,7 @@ export class CreateTable {
    * @returns row
    */
   #createJailRow (item, row) {
-    const viewBtn = Button.createView('recentBans', this.#type, item.name)
+    const viewBtn = Helper.createViewBtn('recentBans', this.#type, item.name)
 
     row.addCell(new Cell(item.name, 'long'))
     row.addCell(new Cell(Helper.formatNumber(item.ipCount)))
@@ -216,8 +215,8 @@ export class CreateTable {
     row.addCell(new Cell(Helper.formatNumber(item.bans)))
 
     const filterValue = item.number || item.code
-    const addressViewBtn = Button.createView('address', this.#type, filterValue)
-    const recentBansViewBtn = Button.createView('recentBans', this.#type, filterValue)
+    const addressViewBtn = Helper.createViewBtn('address', this.#type, filterValue)
+    const recentBansViewBtn = Helper.createViewBtn('recentBans', this.#type, filterValue)
 
     const viewButtons = document.createElement('span')
     viewButtons.appendChild(addressViewBtn)
@@ -225,5 +224,33 @@ export class CreateTable {
 
     row.addCell(new Cell(viewButtons, 'view-btn', true))
     return row
+  }
+
+  /**
+   * Create data filter button for a table cell
+   * @param {string} dataType Data type
+   * @param {string} dataValue Data value
+   * @param {string} text Span text
+   * @param {Filter} Filter Filter class instance
+   * @returns HTMLSpanElement
+   */
+  #createFilterBtn (dataType, dataValue, text, filter) {
+    const span = document.createElement('span')
+
+    span.innerText = text
+    span.setAttribute('title', text)
+
+    if (filter.hasFilter(dataType, dataValue) === false) {
+      const button = document.createElement('button')
+
+      button.innerText = 'Filter'
+      button.classList.add('row-filter')
+      button.setAttribute('title', `Filter ${dataType} to ${text}`)
+      button.setAttribute('data-type', dataType)
+      button.setAttribute('data-value', dataValue)
+      span.append(button)
+    }
+
+    return span
   }
 }
