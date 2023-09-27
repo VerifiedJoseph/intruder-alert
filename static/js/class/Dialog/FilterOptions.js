@@ -10,20 +10,13 @@ export class FilterOptionsDialog extends Dialog {
   setup (filter) {
     this.#setupElements()
 
-    if (filter.hasFilters() === true) {
-      document.getElementById('dialog-filters-reverse').disabled = false
-      document.getElementById('dialog-filters-remove').disabled = false
-    } else {
+    if (filter.hasFilters() === false) {
       document.getElementById('dialog-filters-reverse').disabled = true
       document.getElementById('dialog-filters-remove').disabled = true
     }
   }
 
   #setupElements () {
-    const dialog = document.getElementById('main-dialog')
-    dialog.innerText = ''
-
-    // Dialog header
     const header = this.createHeader(
       `${this.viewType} filter options`,
       true,
@@ -49,6 +42,8 @@ export class FilterOptionsDialog extends Dialog {
     optionButtons.appendChild(reverseFiltersBtn)
     optionButtons.appendChild(removeFiltersBtn)
 
+    const dialog = document.getElementById('main-dialog')
+    dialog.innerText = ''
     dialog.appendChild(header)
     dialog.appendChild(optionButtons)
   }

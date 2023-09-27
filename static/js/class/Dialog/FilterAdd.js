@@ -106,10 +106,6 @@ export class FilterAddDialog extends Dialog {
   }
 
   #setupElements () {
-    const dialog = document.getElementById('main-dialog')
-    dialog.innerText = ''
-
-    // Dialog header
     const header = this.createHeader(`New ${this.viewType} filter`)
 
     // Select group
@@ -130,7 +126,7 @@ export class FilterAddDialog extends Dialog {
 
     // Type select options
     this.#typeSelectOptions.forEach(item => {
-      if ((this.viewType === 'chart' && item.chart === true) || (this.viewType === 'table' && item.table === true)) {
+      if (item[this.viewType] === true) {
         const opt = document.createElement('option')
         opt.value = item.value
         opt.innerText = item.name
@@ -152,21 +148,21 @@ export class FilterAddDialog extends Dialog {
     selectGroup.appendChild(actionSelect)
     selectGroup.appendChild(valueSelect)
 
-    // Button group
-    const buttonGroup = document.createElement('div')
-    buttonGroup.classList.add('buttons')
-
     // Apply button
     const applyBtn = document.createElement('button')
     applyBtn.innerText = 'Apply'
     applyBtn.setAttribute('id', 'dialog-filter-apply')
     applyBtn.setAttribute('data-view-type', this.viewType)
 
+    const buttonGroup = document.createElement('div')
+    buttonGroup.classList.add('buttons')
     buttonGroup.appendChild(applyBtn)
     buttonGroup.appendChild(
       this.createCloseButton('Cancel', `${this.viewType}-filter-add`)
     )
 
+    const dialog = document.getElementById('main-dialog')
+    dialog.innerText = ''
     dialog.appendChild(header)
     dialog.appendChild(selectGroup)
     dialog.appendChild(buttonGroup)
