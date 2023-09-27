@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.3.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.3.0) - 2023-09-??
+
+* Add Changes
+
 ## [1.2.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.2.0) - 2023-09-24
 
 * FilterChip(js): Fixed updating chip action text. ([#141](https://github.com/VerifiedJoseph/intruder-alert/pull/141), [`83e2f94`](https://github.com/VerifiedJoseph/intruder-alert/commit/83e2f94f59b2f7c27af2032f6f94769c80b7e4b0))
