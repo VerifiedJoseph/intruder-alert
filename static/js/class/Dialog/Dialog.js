@@ -11,6 +11,7 @@ export class Dialog {
    */
   constructor (viewType) {
     this.viewType = viewType
+    this.element = document.getElementById('main-dialog')
   }
 
   /**
@@ -39,10 +40,6 @@ export class Dialog {
    */
   disableBtn () {
     document.getElementById(`${this.viewType}-${this.dialogType}-dialog-open`).disabled = true
-  }
-
-  setElement () {
-    this.element = document.getElementById(`${this.viewType}-${this.dialogType}-dialog`)
   }
 
   /**
