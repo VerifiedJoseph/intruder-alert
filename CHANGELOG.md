@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.3.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.3.1) - 2023-09-28
+
+* Config: Added method `checkDataFolder()`. ([#159](https://github.com/VerifiedJoseph/intruder-alert/pull/157), [`acde564`](https://github.com/VerifiedJoseph/intruder-alert/commit/acde56472941f7386e5ec6ec73e69cb3c6e470dc))
+
 ## [1.3.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.3.0) - 2023-09-28
 
 * Button(js): Removed class. ([#157](https://github.com/VerifiedJoseph/intruder-alert/pull/157), [`ebf22a5`](https://github.com/VerifiedJoseph/intruder-alert/commit/ebf22a54749281b249459138e659a434c2fd546e))
