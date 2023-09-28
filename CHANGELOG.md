@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.3.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.3.0) - 2023-09-28
+
+* Button(js): Removed class. ([#157](https://github.com/VerifiedJoseph/intruder-alert/pull/157), [`ebf22a5`](https://github.com/VerifiedJoseph/intruder-alert/commit/ebf22a54749281b249459138e659a434c2fd546e))
+* Dialog(js): Minor changes to sub classes `FilterAdd` & `FilterOptions`. ([#155](https://github.com/VerifiedJoseph/intruder-alert/pull/155), [`1f67579`](https://github.com/VerifiedJoseph/intruder-alert/commit/1f675790b9a9e0afb079d108c2c9cf2c56d38020))
+* Table(js): Use private class properties in `Table` & `Cell`. ([#154](https://github.com/VerifiedJoseph/intruder-alert/pull/154), [`001f1e1`](https://github.com/VerifiedJoseph/intruder-alert/commit/001f1e18e1f3dfd362d767c149fbcae9c2f3eee0))
+* Dialog(js): Dynamically create dialog contents. ([#153](https://github.com/VerifiedJoseph/intruder-alert/pull/153), [`6cbff3d`](https://github.com/VerifiedJoseph/intruder-alert/commit/6cbff3d8be4892f18a17fe94cd583bf0befd7a1d))
+* CreateTable(js): Removed unused parameter from `#createGenericRow()`. ([#152](https://github.com/VerifiedJoseph/intruder-alert/pull/152), [`f1a3d26`](https://github.com/VerifiedJoseph/intruder-alert/commit/f1a3d26b0506d798f7e98676edb79ab66781db80))
+* FilterChip(js): Use Unicode character as close icon. ([#151](https://github.com/VerifiedJoseph/intruder-alert/pull/151), [`74d2028`](https://github.com/VerifiedJoseph/intruder-alert/commit/74d202843fdd46f55e89c55817c2de3f70232a17))
+* css: Changed width for table column country, bans & IP. ([#150](https://github.com/VerifiedJoseph/intruder-alert/pull/150), [`5cd3394`](https://github.com/VerifiedJoseph/intruder-alert/commit/5cd3394c4888fba0f0d8ed535d17ee0c27ee37a9))
+* css: Updated header version text position. ([#148](https://github.com/VerifiedJoseph/intruder-alert/pull/148), [`ab808d0`](https://github.com/VerifiedJoseph/intruder-alert/commit/ab808d0d3bd674d0ab257bb54a341ae3e5337326))
+* Dockerfile: Removed installing curl package. ([#149](https://github.com/VerifiedJoseph/intruder-alert/pull/149), [`c8f847c`](https://github.com/VerifiedJoseph/intruder-alert/commit/c8f847c58b87a261350a68fe596e06cb4176470c))
+
 ## [1.2.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.2.0) - 2023-09-24
 
 * FilterChip(js): Fixed updating chip action text. ([#141](https://github.com/VerifiedJoseph/intruder-alert/pull/141), [`83e2f94`](https://github.com/VerifiedJoseph/intruder-alert/commit/83e2f94f59b2f7c27af2032f6f94769c80b7e4b0))
