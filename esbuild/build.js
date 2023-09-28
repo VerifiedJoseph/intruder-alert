@@ -1,8 +1,7 @@
 const esbuild = require('esbuild')
-
 const BuildHelper = require('./buildHelper.js')
-const Helper = new BuildHelper()
 
+const Helper = new BuildHelper()
 Helper.removeBackendSymlink()
 Helper.removeBackendFolder()
 Helper.copyBackendFolder()
