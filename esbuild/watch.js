@@ -1,4 +1,18 @@
 const esbuild = require('esbuild')
+const fs = require('fs')
+const path = require('path')
+
+fs.readlink(path.resolve('./dist/backend'), (err, target) => {
+  if (target === undefined) {
+    fs.symlink(
+      path.resolve('./backend'),
+      path.resolve('./dist/backend'),
+      'dir', (err) => err && console.log(err)
+    )
+  } else if (err) {
+    console.log(err)
+  }
+})
 
 async function watchJs () {
   const ctx = await esbuild.context({
