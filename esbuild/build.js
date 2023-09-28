@@ -3,34 +3,12 @@ const fs = require('fs')
 const fsExtra = require('fs-extra')
 const path = require('path')
 
-const backendSource = path.resolve('./backend')
-const backendDestination = path.resolve('./dist/backend')
+const BuildHelper = require('./buildHelper.js')
+const Helper = new BuildHelper()
 
-function copyBackend () {
-  console.log(`Copying ${backendSource} to ${backendDestination}`)
-
-  fsExtra.copy(backendSource, backendDestination, function (err) {
-    if (err) return console.error(err)
-    console.log(`Copied backend folder to ${backendDestination}`)
-  })
-}
-
-// Remove symlink and copy backend folder
-fs.readlink(backendDestination, (err, target) => {
-  if (target !== undefined) {
-    fs.unlink(backendDestination, err => {
-      if (err) console.log(err)
-    })
-
-    copyBackend()
-  } else if (err) {
-    // console.log(err)
-  }
-})
-
-if (fs.existsSync(backendDestination) === false) {
-  copyBackend()
-}
+Helper.removeBackendSymlink()
+Helper.removeBackendFolder()
+Helper.copyBackendFolder()
 
 esbuild.build({
   entryPoints: ['./frontend/js/index.js'],
