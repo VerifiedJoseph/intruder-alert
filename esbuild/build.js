@@ -1,7 +1,4 @@
 const esbuild = require('esbuild')
-const fs = require('fs')
-const fsExtra = require('fs-extra')
-const path = require('path')
 
 const BuildHelper = require('./buildHelper.js')
 const Helper = new BuildHelper()
