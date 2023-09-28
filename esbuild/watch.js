@@ -2,17 +2,20 @@ const esbuild = require('esbuild')
 const fs = require('fs')
 const path = require('path')
 
-fs.readlink(path.resolve('./dist/backend'), (err, target) => {
-  if (target === undefined) {
-    fs.symlink(
-      path.resolve('./backend'),
-      path.resolve('./dist/backend'),
-      'dir', (err) => err && console.log(err)
-    )
-  } else if (err) {
-    console.log(err)
-  }
-})
+const backendSource = path.resolve('./backend')
+const backendDestination = path.resolve('./dist/backend')
+
+// Remove dist/backend folder
+if (fs.existsSync(backendDestination) === true) {
+  fs.rmSync(backendDestination, { recursive: true })
+}
+
+// Create symlink to backend in dist/backend
+fs.symlink(
+  backendSource,
+  backendDestination,
+  'dir', (err) => err && console.log(err)
+)
 
 async function watchJs () {
   const ctx = await esbuild.context({
