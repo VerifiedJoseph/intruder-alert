@@ -161,8 +161,25 @@ class Config
 
         $this->checkLogPaths();
         $this->checkLogFolder();
+        $this->checkDataFolder();
         $this->checkMaxMindLicenseKey();
         $this->checkDatabases();
+    }
+
+    /**
+     * Check data folder
+     *
+     * @throws ConfigException if data folder could not be created.
+     */
+    private function checkDataFolder(): void
+    {
+        $folderPath = $this->getPath('data');
+
+        if (file_exists($folderPath) === false) {
+            if (mkdir($folderPath, 0660) === false) {
+                throw new ConfigException('Failed to create data folder');
+            }
+        }
     }
 
     /**
@@ -174,10 +191,8 @@ class Config
      */
     private function checkLogPaths(): void
     {
-        if ($this->hasEnv('LOG_PATHS') === true) {
-            if ($this->getEnv('LOG_PATHS') === '') {
-                throw new ConfigException('fail2ban logs environment variable can not be empty [IA_LOG_PATHS]');
-            }
+        if ($this->hasEnv('LOG_PATHS') === true && $this->getEnv('LOG_PATHS') === '') {
+            throw new ConfigException('fail2ban logs environment variable can not be empty [IA_LOG_PATHS]');
         }
     }
 
@@ -212,10 +227,8 @@ class Config
      */
     private function checkMaxMindLicenseKey(): void
     {
-        if ($this->hasEnv('MAXMIND_LICENSE_KEY') === true) {
-            if ($this->getEnv('MAXMIND_LICENSE_KEY') === '') {
-                throw new ConfigException('MaxMind license key can not be empty [IA_MAXMIND_LICENSE_KEY]');
-            }
+        if ($this->hasEnv('MAXMIND_LICENSE_KEY') === true && $this->getEnv('MAXMIND_LICENSE_KEY') === '') {
+            throw new ConfigException('MaxMind license key can not be empty [IA_MAXMIND_LICENSE_KEY]');
         }
     }
 
