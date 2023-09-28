@@ -1,4 +1,5 @@
-/* global Chart */
+import Chart from 'chart.js/auto'
+
 export class Plot {
   #chart
 
