@@ -11,8 +11,8 @@ All notable changes to this project are documented in this file.
 * CreateTable(js): Removed unused parameter from `#createGenericRow()`. ([#152](https://github.com/VerifiedJoseph/intruder-alert/pull/152), [`f1a3d26`](https://github.com/VerifiedJoseph/intruder-alert/commit/f1a3d26b0506d798f7e98676edb79ab66781db80))
 * FilterChip(js): Use Unicode character as close icon. ([#151](https://github.com/VerifiedJoseph/intruder-alert/pull/151), [`74d2028`](https://github.com/VerifiedJoseph/intruder-alert/commit/74d202843fdd46f55e89c55817c2de3f70232a17))
 * css: Changed width for table column country, bans & IP. ([#150](https://github.com/VerifiedJoseph/intruder-alert/pull/150), [`5cd3394`](https://github.com/VerifiedJoseph/intruder-alert/commit/5cd3394c4888fba0f0d8ed535d17ee0c27ee37a9))
-* Dockerfile: Removed installing curl package. ([#149](https://github.com/VerifiedJoseph/intruder-alert/pull/149), [`c8f847c`](https://github.com/VerifiedJoseph/intruder-alert/commit/c8f847c58b87a261350a68fe596e06cb4176470c))
 * css: Updated header version text position. ([#148](https://github.com/VerifiedJoseph/intruder-alert/pull/148), [`ab808d0`](https://github.com/VerifiedJoseph/intruder-alert/commit/ab808d0d3bd674d0ab257bb54a341ae3e5337326))
+* Dockerfile: Removed installing curl package. ([#149](https://github.com/VerifiedJoseph/intruder-alert/pull/149), [`c8f847c`](https://github.com/VerifiedJoseph/intruder-alert/commit/c8f847c58b87a261350a68fe596e06cb4176470c))
 
 ## [1.2.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.2.0) - 2023-09-24
 
