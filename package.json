@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "esbuild": "0.19.4",
     "eslint": "^8.50.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.28.1",
@@ -9,5 +10,9 @@
   "scripts": {
     "lint": "eslint ./static/js",
     "fix": "eslint ./static/js --fix"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0",
+    "spacetime": "^7.4.7"
   }
 }
