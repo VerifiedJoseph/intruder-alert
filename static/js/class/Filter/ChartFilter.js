@@ -1,7 +1,6 @@
-/* global spacetime */
 import { Filter } from './Filter.js'
 import { FilterChip } from '../FilterChip.js'
-import { } from '../../lib/spacetime.js'
+import spacetime from 'spacetime'
 
 export class ChartFilter extends Filter {
   #hourDisplayFormat = '{year}-{iso-month}-{date-pad} {hour-24-pad}:00'
