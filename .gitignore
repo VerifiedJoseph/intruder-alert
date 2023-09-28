@@ -4,3 +4,4 @@ backend/vendor/*
 backend/data/*
 backend/config.php
 docker/docker-compose.override.yml
+dist/*
