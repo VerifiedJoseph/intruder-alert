@@ -46,25 +46,15 @@ services:
 <details>
 <summary>Show/hide install details</summary>
 
-1) Download the latest release to your web server.
+1) Download the [latest release](https://github.com/VerifiedJoseph/intruder-alert/releases/latest) to your web server and extract the zip archive.
 
-	```
-	wget https://github.com/VerifiedJoseph/intruder-alert/releases/download/v1.3.0/intruder-alert-v1.3.0.zip
-	```
-
-2) Extract the zip archive.
-
-	```
-	unzip intruder-alert-v1.3.0.zip
-	```
-
-3) Configure the application using `backend/config.php` copied from [`backend/config.example.php`](backend/config.example.php).
+2) Configure the application using `backend/config.php` copied from [`backend/config.example.php`](backend/config.example.php).
 	
 	```
 	cp backend/config.example.php backend/config.php
 	```
 
-4) Create a scheduled task with cron (below) or similar that runs `backend\cron.php` at least once an hour.
+3) Create a scheduled task with cron (below) or similar that runs `backend\cron.php` at least once an hour.
 
 	```
 	1 * * * * php path/to/intruder-alert/backend/cron.php
