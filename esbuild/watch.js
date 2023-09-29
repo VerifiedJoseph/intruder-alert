@@ -1,21 +1,11 @@
 const esbuild = require('esbuild')
-const fs = require('fs')
-const path = require('path')
+const BuildHelper = require('./buildHelper.js')
+const Helper = new BuildHelper()
 
-const backendSource = path.resolve('./backend')
-const backendDestination = path.resolve('./dist/backend')
-
-// Remove dist/backend folder
-if (fs.existsSync(backendDestination) === true) {
-  fs.rmSync(backendDestination, { recursive: true })
+async function setup () {
+  await Helper.removeFolder('./dist/backend')
+  await Helper.createSymlink('./backend', './dist/backend')
 }
-
-// Create symlink to backend in dist/backend
-fs.symlink(
-  backendSource,
-  backendDestination,
-  'dir', (err) => err && console.log(err)
-)
 
 async function watchJs () {
   const ctx = await esbuild.context({
@@ -39,5 +29,6 @@ async function watchCss () {
   console.log('watching CSS files...')
 }
 
+setup()
 watchJs()
 watchCss()
