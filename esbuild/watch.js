@@ -4,7 +4,12 @@ const Helper = new BuildHelper()
 
 async function setup () {
   await Helper.removeFolder('./dist/backend')
-  await Helper.createSymlink('./backend', './dist/backend')
+  await Helper.removeFile('./dist/data.php')
+  await Helper.removeFile('./dist/index.html')
+
+  Helper.createSymlink('./backend', './dist/backend', 'dir')
+  Helper.createSymlink('./frontend/data.php', './dist/data.php')
+  Helper.createSymlink('./frontend/index.html', './dist/index.html')
 }
 
 async function watchJs () {
