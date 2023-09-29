@@ -11,7 +11,7 @@ class Config
     /** @var string $minPhpVersion Minimum PHP version */
     private string $minPhpVersion = '8.1.0';
 
-    private string $path;
+    private string $path = 'backend/';
 
     private string $envPrefix = 'IA_';
 
@@ -20,16 +20,6 @@ class Config
         'GeoLite2-ASN' => 'data/geoip2/GeoLite2-ASN/GeoLite2-ASN.mmdb',
         'GeoLite2-Country' => 'data/geoip2/GeoLite2-Country/GeoLite2-Country.mmdb'
     ];
-
-    /**
-     * Set backend directory
-     *
-     * @param string $path
-     */
-    public function setDir(string $path): void
-    {
-        $this->path = $path . DIRECTORY_SEPARATOR;
-    }
 
     /**
      * Get absolute path of a file
