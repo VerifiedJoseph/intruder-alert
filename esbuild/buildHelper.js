@@ -18,7 +18,7 @@ module.exports = class buildHelper {
     try {
       await fsExtra.copy(source, destination)
     } catch (err) {
-      console.error(err)
+      throw new Error('Copy failed', { cause: err })
     }
   }
 
@@ -33,7 +33,7 @@ module.exports = class buildHelper {
         await fsp.rm(folder, { recursive: true })
       }
     } catch (err) {
-      console.error(err)
+      throw new Error('Folder remove failed', { cause: err })
     }
   }
 
@@ -48,7 +48,7 @@ module.exports = class buildHelper {
         await fsp.rm(file)
       }
     } catch (err) {
-      console.error(err)
+      throw new Error('File remove failed', { cause: err })
     }
   }
 
@@ -80,7 +80,7 @@ module.exports = class buildHelper {
           if (err) console.log(err)
         })
       } else if (err) {
-        // console.log(err)
+        throw new Error('Symlink remove failed', { cause: err })
       }
     })
   }
