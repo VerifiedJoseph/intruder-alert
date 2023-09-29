@@ -3,8 +3,8 @@ const BuildHelper = require('./buildHelper.js')
 const Helper = new BuildHelper()
 
 async function setup () {
-  await Helper.remove('./dist/backend')
-  await Helper.remove('./dist/index.html')
+  await Helper.removeFolder('./dist/backend')
+  await Helper.removeFile('./dist/index.html')
 
   await Helper.copy('./frontend/data.php', './dist/data.php')
 
