@@ -67,14 +67,23 @@ jobs:
         with:
           php-version: '8.1'
 
+      - name: Setup node
+        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
+        with:
+          node-version: 20.7.0
+          cache: 'npm'
+
       - name: Run composer
         run: composer install --no-dev
 
-      - name: Create app folder
-        run: bash .build/create-app-folder.sh
+      - name: Run npm
+        run: npm ci
+
+      - name: Run Build (esbuild)
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: intruder-alert-${{ github.REF_NAME }}
-          path: app/
+          path: dist/
