@@ -11,6 +11,8 @@ async function setup () {
 
   await Helper.copy('./frontend/index.html', './dist/index.html')
   await Helper.copy('./frontend/data.php', './dist/data.php')
+  await Helper.copy('./README.md', './dist/README.md')
+  await Helper.copy('./LICENSE', './dist/LICENSE.md')
   await Helper.copy('./backend', './dist/backend')
 }
 
