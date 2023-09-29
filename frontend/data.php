@@ -13,6 +13,7 @@ $data = '';
 
 try {
     $config = new Config();
+    $config->setDir('backend/');
     $config->check();
 
     $app = new App($config);

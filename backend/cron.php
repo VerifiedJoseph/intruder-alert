@@ -13,6 +13,7 @@ Output::text('Starting intruder alert cron task...');
 
 try {
     $config = new Config();
+    $config->setDir(__DIR__);
     $config->check();
     $config->checkCli();
 
