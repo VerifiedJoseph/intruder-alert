@@ -43,7 +43,7 @@ jobs:
         run: npm run build
 
       - name: Copy .pages/data.json
-        run: cp .pages/data.json ./app/data.json
+        run: cp .pages/data.json ./dist/data.json
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@a753861a5debcf57bf8b404356158c8e1e33150c # v2.0.0
