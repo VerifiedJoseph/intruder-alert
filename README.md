@@ -109,6 +109,40 @@ Install JavaScript dependencies with npm.
 npm install
 ```
 
+### Commands
+
+<details>
+<summary>Show/hide xommands</summary>
+
+Lint code:
+```
+composer lint
+npm run lint
+```
+
+Fix code:
+```
+composer fix
+npm run fix
+```
+
+Build code:
+```
+npm run build
+```
+
+Live code build:
+```
+npm run watch
+```
+
+Test code:
+```
+composer test
+```
+
+</details>
+
 ## Dependencies
 
 - PHP
