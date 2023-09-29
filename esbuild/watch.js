@@ -6,7 +6,7 @@ async function setup () {
   await Helper.removeFolder('./dist/backend')
   await Helper.removeFile('./dist/index.html')
 
-  await Helper.copyFile('./frontend/data.php', './dist/data.php')
+  await Helper.copy('./frontend/data.php', './dist/data.php')
 
   Helper.createSymlink('./backend', './dist/backend', 'dir')
   Helper.createSymlink('./frontend/index.html', './dist/index.html')
