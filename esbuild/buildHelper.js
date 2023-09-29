@@ -4,9 +4,6 @@ const fsp = require('fs/promises')
 const fsExtra = require('fs-extra')
 
 module.exports = class buildHelper {
-  #backendSource = path.resolve('./backend')
-  #backendDestination = path.resolve('./dist/backend')
-
   /**
    * Copy file
    */
@@ -59,9 +56,24 @@ module.exports = class buildHelper {
   }
 
   /**
+   * Remove file
+   */
+  async removeFile (file) {
+    file = path.resolve(file)
+
+    try {
+      if (fs.existsSync(file) === true) {
+        await fsp.rm(file)
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  /**
    * Create symlink
    */
-  async createSymlink (source, destination) {
+  createSymlink (source, destination, type = 'file') {
     source = path.resolve(source)
     destination = path.resolve(destination)
 
@@ -69,7 +81,7 @@ module.exports = class buildHelper {
       fs.symlink(
         source,
         destination,
-        'dir', (err) => err && console.log(err)
+        type, (err) => err && console.log(err)
       )
     }
   }
