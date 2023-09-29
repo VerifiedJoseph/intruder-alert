@@ -1,6 +1,5 @@
 'use strict'
 
-import { } from './lib/chart.js'
 import { IaData } from './class/IaData.js'
 import { Plot } from './class/Plot.js'
 import { TableFilter } from './class/Filter/TableFilter.js'

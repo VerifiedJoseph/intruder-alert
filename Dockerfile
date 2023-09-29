@@ -1,8 +1,6 @@
 FROM composer:2.6.3 AS composer
 
-# Copy application
 COPY ./ /app
-
 WORKDIR /app
 
 # Run composer to install dependencies
@@ -11,6 +9,17 @@ RUN composer install \
   --no-interaction \
   --no-progress \
   --no-dev
+
+FROM node:20.7.0-alpine3.18 AS node
+
+COPY --from=composer ./app /app/
+WORKDIR /app
+
+# Install dependencies with npm
+RUN npm ci
+
+# Build (esbuild)
+RUN npm run build
 
 FROM php:8.2.10-fpm-alpine3.18
 
@@ -32,17 +41,13 @@ RUN rm /usr/local/etc/php-fpm.d/zz-docker.conf
 COPY --chown=nobody /docker/config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Copy code
-COPY --chown=nobody --from=composer /app/ /app/
+COPY --chown=nobody --from=node /app/dist/ /app/
 
 # Create needed folders
 RUN mkdir -p /app/backend/data/geoip2 /app/backend/data/logs
 
 # Make files accessable to nobody user
 RUN chown -R nobody.nobody /run /app /var/lib/nginx /var/log/nginx
-
-# Remove setup files
-RUN rm -r /app/docker
-RUN rm /app/composer.*
 
 USER nobody
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

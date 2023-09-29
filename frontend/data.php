@@ -13,7 +13,7 @@ $data = '';
 
 try {
     $config = new Config();
-    $config->setDir(__DIR__ . DIRECTORY_SEPARATOR . 'backend');
+    $config->setDir('backend/');
     $config->check();
 
     $app = new App($config);

@@ -11,7 +11,7 @@ class Config
     /** @var string $minPhpVersion Minimum PHP version */
     private string $minPhpVersion = '8.1.0';
 
-    private string $path;
+    private string $path = '';
 
     private string $envPrefix = 'IA_';
 
@@ -128,6 +128,8 @@ class Config
             throw new ConfigException('Intruder Alert requires at least PHP version ' . $this->minPhpVersion);
         }
 
+        //echo $this->getPath('config.php');
+
         if (file_exists($this->getPath('config.php')) === true) {
             require $this->getPath('config.php');
         }
@@ -174,6 +176,8 @@ class Config
     private function checkDataFolder(): void
     {
         $folderPath = $this->getPath('data');
+
+        var_dump($folderPath);
 
         if (file_exists($folderPath) === false) {
             if (mkdir($folderPath, 0660) === false) {
