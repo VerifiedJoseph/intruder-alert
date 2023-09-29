@@ -23,9 +23,24 @@ module.exports = class buildHelper {
   }
 
   /**
-   * Remove file or folder
+   * Remove folder
    */
-  async remove (file) {
+  async removeFolder (folder) {
+    folder = path.resolve(folder)
+
+    try {
+      if (fs.existsSync(folder) === true) {
+        await fsp.rm(folder, { recursive: true })
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  /**
+   * Remove file
+   */
+  async removeFile (file) {
     file = path.resolve(file)
 
     try {
