@@ -8,14 +8,20 @@ async function setup () {
   await Helper.removeFile('./dist/index.html')
 
   Helper.createSymlink('./backend', './dist/backend', 'dir')
-  Helper.createSymlink('./frontend/data.php', './dist/data.php')
+  await Helper.copyFile('data.php')
   Helper.createSymlink('./frontend/index.html', './dist/index.html')
+
+  console.log('Running esbuild watcher...')
+
+  watchJs()
+  watchCss()
 }
 
 async function watchJs () {
   const ctx = await esbuild.context({
     entryPoints: ['frontend/js/index.js'],
     bundle: true,
+    sourcemap: true,
     outdir: 'dist/static'
   })
 
@@ -35,5 +41,3 @@ async function watchCss () {
 }
 
 setup()
-watchJs()
-watchCss()
