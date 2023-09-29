@@ -18,7 +18,7 @@ WORKDIR /app
 # Install dependencies with npm
 RUN npm ci
 
-# Build
+# Build (esbuild)
 RUN npm run build
 
 FROM php:8.2.10-fpm-alpine3.18
