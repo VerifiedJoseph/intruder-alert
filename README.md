@@ -112,7 +112,7 @@ npm install
 ### Commands
 
 <details>
-<summary>Show/hide xommands</summary>
+<summary>Show/hide commands</summary>
 
 Lint code:
 ```
