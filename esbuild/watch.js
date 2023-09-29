@@ -4,17 +4,12 @@ const Helper = new BuildHelper()
 
 async function setup () {
   await Helper.removeFolder('./dist/backend')
-  await Helper.removeFile('./dist/data.php')
   await Helper.removeFile('./dist/index.html')
 
+  await Helper.copyFile('./frontend/data.php', './dist/data.php')
+
   Helper.createSymlink('./backend', './dist/backend', 'dir')
-  await Helper.copyFile('data.php')
   Helper.createSymlink('./frontend/index.html', './dist/index.html')
-
-  console.log('Running esbuild watcher...')
-
-  watchJs()
-  watchCss()
 }
 
 async function watchJs () {
@@ -40,4 +35,9 @@ async function watchCss () {
   console.log('watching CSS files...')
 }
 
-setup()
+setup().then(() => {
+  console.log('Running esbuild watcher...')
+
+  watchJs()
+  watchCss()
+})
