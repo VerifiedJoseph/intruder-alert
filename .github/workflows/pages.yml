@@ -45,7 +45,7 @@ jobs:
       - name: Copy .pages/data.json
         run: cp .pages/data.json ./dist/data.json
 
-      - name: Create website demo folder
+      - name: Create website folder
         run: mkdir ./website
 
       - name: Copy dist to demo folder
