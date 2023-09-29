@@ -2,6 +2,6 @@ parameters:
 	level: 8
 	paths:
 		- backend/
-		- data.php
+		- frontend/data.php
 	excludePaths:
 		- backend/vendor/
