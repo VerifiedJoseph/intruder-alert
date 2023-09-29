@@ -3,7 +3,7 @@
 # Update fetch file path in index.js to use data.json.
 #
 $jsonFilepath = './.pages/data.json';
-$jsFilepath = './static/js/index.js';
+$jsFilepath = './frontend/js/app.js';
 
 $data = file_get_contents($jsFilepath);
 
