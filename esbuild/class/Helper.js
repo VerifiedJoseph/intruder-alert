@@ -3,7 +3,7 @@ const fs = require('fs')
 const fsp = require('fs/promises')
 const fsExtra = require('fs-extra')
 
-module.exports = class buildHelper {
+module.exports = class Helper {
   /**
    * Copy file or folder
    * @param {string} source Source

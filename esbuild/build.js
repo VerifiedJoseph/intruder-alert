@@ -1,19 +1,19 @@
 const esbuild = require('esbuild')
-const BuildHelper = require('./buildHelper.js')
+const Helper = require('./class/Helper.js')
 
-const Helper = new BuildHelper()
+const helper = new Helper()
 
 async function setup () {
   console.log('Copying files...')
 
-  await Helper.removeSymlink('./dist/backend')
-  await Helper.removeFolder('./dist/backend')
+  await helper.removeSymlink('./dist/backend')
+  await helper.removeFolder('./dist/backend')
 
-  await Helper.copy('./frontend/index.html', './dist/index.html')
-  await Helper.copy('./frontend/data.php', './dist/data.php')
-  await Helper.copy('./README.md', './dist/README.md')
-  await Helper.copy('./LICENSE', './dist/LICENSE.md')
-  await Helper.copy('./backend', './dist/backend')
+  await helper.copy('./frontend/index.html', './dist/index.html')
+  await helper.copy('./frontend/data.php', './dist/data.php')
+  await helper.copy('./README.md', './dist/README.md')
+  await helper.copy('./LICENSE', './dist/LICENSE.md')
+  await helper.copy('./backend', './dist/backend')
 }
 
 setup().then(() => {

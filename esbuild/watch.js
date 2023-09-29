@@ -1,15 +1,15 @@
 const esbuild = require('esbuild')
-const BuildHelper = require('./buildHelper.js')
-const Helper = new BuildHelper()
+const Helper = require('./class/Helper.js')
+const helper = new Helper()
 
 async function setup () {
-  await Helper.removeFolder('./dist/backend')
-  await Helper.removeFile('./dist/index.html')
-  await Helper.removeFile('./dist/data.php')
+  await helper.removeFolder('./dist/backend')
+  await helper.removeFile('./dist/index.html')
+  await helper.removeFile('./dist/data.php')
 
-  Helper.createSymlink('./backend', './dist/backend', 'dir')
-  Helper.createSymlink('./frontend/data.php', './dist/data.php')
-  Helper.createSymlink('./frontend/index.html', './dist/index.html')
+  helper.createSymlink('./backend', './dist/backend', 'dir')
+  helper.createSymlink('./frontend/data.php', './dist/data.php')
+  helper.createSymlink('./frontend/index.html', './dist/index.html')
 }
 
 async function watchJs () {
