@@ -45,10 +45,13 @@ jobs:
       - name: Copy .pages/data.json
         run: cp .pages/data.json ./dist/data.json
 
+      - name: Copy dist to demo folder
+        run: cp -r ./dist ./website/demo
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@a753861a5debcf57bf8b404356158c8e1e33150c # v2.0.0
         with:
-          path: './dist'
+          path: './website'
 
       - name: Deploy to GitHub Pages
         id: deployment
