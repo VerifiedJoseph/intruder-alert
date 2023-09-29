@@ -4,6 +4,8 @@ const BuildHelper = require('./buildHelper.js')
 const Helper = new BuildHelper()
 
 async function setup () {
+  console.log('Copying files...')
+
   await Helper.removeSymlink('./dist/backend')
   await Helper.removeFolder('./dist/backend')
 
@@ -13,6 +15,8 @@ async function setup () {
 }
 
 setup()
+
+console.log('Running esbuild...')
 
 esbuild.build({
   entryPoints: ['./frontend/js/index.js'],
