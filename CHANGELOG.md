@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.4.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.4.0) - 2023-09-29
+
+* Add esbuild ([#162](https://github.com/VerifiedJoseph/intruder-alert/pull/162), [`7e571b6`](https://github.com/VerifiedJoseph/intruder-alert/commit/7e571b6d49dd6b3149810794d082be7e44e36d32))
+
 ## [1.3.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.3.1) - 2023-09-28
 
 * Config: Added method `checkDataFolder()`. ([#159](https://github.com/VerifiedJoseph/intruder-alert/pull/159), [`acde564`](https://github.com/VerifiedJoseph/intruder-alert/commit/acde56472941f7386e5ec6ec73e69cb3c6e470dc))
