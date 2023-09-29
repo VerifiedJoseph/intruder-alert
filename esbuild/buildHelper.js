@@ -77,10 +77,12 @@ module.exports = class buildHelper {
     fs.readlink(symlink, (err, target) => {
       if (target !== undefined) {
         fs.unlink(symlink, err => {
-          if (err) console.log(err)
+          if (err) {
+            throw new Error('Symlink remove failed', { cause: err })
+          }
         })
       } else if (err) {
-        throw new Error('Symlink remove failed', { cause: err })
+        // console.log(err)
       }
     })
   }
