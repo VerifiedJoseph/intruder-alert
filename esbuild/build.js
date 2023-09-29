@@ -9,25 +9,25 @@ async function setup () {
   await Helper.removeSymlink('./dist/backend')
   await Helper.removeFolder('./dist/backend')
 
-  await Helper.copyFile('index.html')
-  await Helper.copyFile('data.php')
+  await Helper.copyFile('./frontend/index.html', './dist/index.html')
+  await Helper.copyFile('./frontend/data.php', './dist/data.php')
   await Helper.copyFolder('./backend', './dist/backend')
 }
 
-setup()
+setup().then(() => {
+  console.log('Running esbuild...')
 
-console.log('Running esbuild...')
+  esbuild.build({
+    entryPoints: ['./frontend/js/index.js'],
+    bundle: true,
+    minify: true,
+    outdir: 'dist/static'
+  })
 
-esbuild.build({
-  entryPoints: ['./frontend/js/index.js'],
-  bundle: true,
-  minify: true,
-  outdir: 'dist/static'
-})
-
-esbuild.build({
-  entryPoints: ['./frontend/css/base.css'],
-  bundle: true,
-  minify: true,
-  outdir: 'dist/static'
+  esbuild.build({
+    entryPoints: ['./frontend/css/base.css'],
+    bundle: true,
+    minify: true,
+    outdir: 'dist/static'
+  })
 })
