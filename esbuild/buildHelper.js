@@ -6,10 +6,12 @@ const fsExtra = require('fs-extra')
 module.exports = class buildHelper {
   /**
    * Copy file
+   * @param {string} source File Source file
+   * @param {string} destination File destination
    */
-  async copyFile (filename) {
-    const source = path.resolve(`./frontend/${filename}`)
-    const destination = path.resolve(`./dist/${filename}`)
+  async copyFile (source, destination) {
+    source = path.resolve(source)
+    destination = path.resolve(destination)
 
     console.log(`Copying ${source} to ${destination}`)
 
@@ -23,8 +25,8 @@ module.exports = class buildHelper {
 
   /**
    * Copy folder
-   * @param {string} source Source folder
-   * @param {string} destination Destination folder
+   * @param {string} source Folder source
+   * @param {string} destination Folder destination
    */
   async copyFolder (source, destination) {
     source = path.resolve(source)
