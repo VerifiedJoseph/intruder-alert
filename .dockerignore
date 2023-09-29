@@ -1,13 +1,10 @@
-# Ignore everything
-*
+/.git
+/.build
+/.github
+/.pages
+/dist
 
-# Allow files and directories
-!/backend
-!/static
-!/index.html
-!/data.php
-!/composer.json
-!/composer.lock
-!/docker/config/nginx.conf
-!/docker/config/fpm-pool.conf
-!/docker/config/supervisord.conf
+/backend/data
+/backend/tests
+/backend/config.php
+/backend/config.example.php
