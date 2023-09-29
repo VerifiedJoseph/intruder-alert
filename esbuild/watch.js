@@ -14,7 +14,7 @@ async function setup () {
 
 async function watchJs () {
   const ctx = await esbuild.context({
-    entryPoints: ['frontend/js/index.js'],
+    entryPoints: ['frontend/js/app.js'],
     bundle: true,
     sourcemap: true,
     outdir: 'dist/static'
@@ -26,7 +26,7 @@ async function watchJs () {
 
 async function watchCss () {
   const ctx = await esbuild.context({
-    entryPoints: ['frontend/css/base.css'],
+    entryPoints: ['frontend/css/app.css'],
     bundle: true,
     outdir: 'dist/static'
   })
