@@ -20,14 +20,14 @@ setup().then(() => {
   console.log('Running esbuild...')
 
   esbuild.build({
-    entryPoints: ['./frontend/js/index.js'],
+    entryPoints: ['./frontend/js/app.js'],
     bundle: true,
     minify: true,
     outdir: 'dist/static'
   })
 
   esbuild.build({
-    entryPoints: ['./frontend/css/base.css'],
+    entryPoints: ['./frontend/css/app.css'],
     bundle: true,
     minify: true,
     outdir: 'dist/static'
