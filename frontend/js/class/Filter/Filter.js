@@ -25,6 +25,9 @@ export class Filter {
         if (filter.type === 'date') {
           const parts = item.timestamp.split(' ')
           value = parts[0]
+        } else if (filter.type === 'hour') {
+          const parts = item.timestamp.split(' ')
+          value = parts[1].split(':')[0]
         } else {
           value = item[filter.type].toString()
         }
