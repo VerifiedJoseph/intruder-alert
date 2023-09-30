@@ -3,9 +3,9 @@ const Helper = require('./class/Helper.js')
 const helper = new Helper()
 
 async function setup () {
-  await helper.removeFolder('./dist/backend')
-  await helper.removeFile('./dist/index.html')
-  await helper.removeFile('./dist/data.php')
+  // Remove and recreate dist folder
+  await helper.removeFolder('./dist')
+  await helper.createFolder('./dist')
 
   helper.createSymlink('./backend', './dist/backend', 'dir')
   helper.createSymlink('./frontend/data.php', './dist/data.php')
