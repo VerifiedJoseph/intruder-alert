@@ -23,7 +23,7 @@ class LogsTest extends TestCase
         ]
     ];
 
-    private function createConfigStub()
+    private function createConfigStub(): \IntruderAlert\Config
     {
         $config = $this->createStub(Config::class);
         $config->method('getTimezone')->willReturn('UTC');
@@ -43,7 +43,7 @@ class LogsTest extends TestCase
     public function testLogsClassWithLogsFolder(): void
     {
         $config = $this->createConfigStub();
-        $config->method('getLogFolder')->willReturn('./backend/tests/files/logs/');
+        $config->method('getLogFolder')->willReturn('./backend/tests/files/logs');
 
         $logs = new Logs($config);
         $rows = $logs->process();
@@ -63,7 +63,7 @@ class LogsTest extends TestCase
     public function testLogsClassWithHasBansFiles(): void
     {
         $config = $this->createConfigStub();
-        $config->method('getLogPaths')->willReturn('./backend/tests/files/logs/has-bans.log');
+        $config->method('getLogPaths')->willReturn('./backend/tests/files/logs/has-bans/fail2ban.log');
 
         $logs = new Logs($config);
         $rows = $logs->process();
@@ -83,7 +83,7 @@ class LogsTest extends TestCase
     public function testLogsClassWithNoBansFile(): void
     {
         $config = $this->createConfigStub();
-        $config->method('getLogPaths')->willReturn('./backend/tests/files/logs/no-bans.log');
+        $config->method('getLogPaths')->willReturn('./backend/tests/files/logs/no-bans/fail2ban.log');
 
         $this->expectException(ReportException::class);
         $this->expectExceptionMessage('No bans found');
