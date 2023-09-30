@@ -71,16 +71,15 @@ class Logs
             $lineCount = count($lines);
             $banCount = 0;
 
-            foreach ($lines as $line) {
-                preg_match($this->lineRegex, $line, $match);
+            foreach ($lines as $currentLine) {
+                $line = new LogLine($currentLine);
 
-                if ($match != []) {
+                if ($line->hasBan() === true) {
                     $banCount += 1;
-
                     $rows[] = [
-                        'ip' => $match[3],
-                        'jail' => $match[2],
-                        'timestamp' => $this->formatTimestamp($match[1])
+                        'ip' => $line->getIp(),
+                        'jail' => $line->getJail(),
+                        'timestamp' => $this->formatTimestamp($line->getTimestamp())
                     ];
                 }
             }
