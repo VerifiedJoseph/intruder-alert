@@ -19,14 +19,14 @@ class LogLine
     /** @var boolean $matched Regex match status */
     private bool $matched = false;
 
-    /** @var string|null $ip IP address */
-    private ?string $ip = null;
+    /** @var string $ip IP address */
+    private ?string $ip = '';
 
-    /** @var string|null $jail Jail */
-    private ?string $jail = null;
+    /** @var string $jail Jail */
+    private ?string $jail = '';
 
-    /** @var string|null $timestamp Timestamp */
-    private ?string $timestamp = null;
+    /** @var string $timestamp Timestamp */
+    private ?string $timestamp = '';
 
     public function __construct(string $line)
     {
@@ -36,7 +36,7 @@ class LogLine
     /**
      * Get IP address found by the regex
      */
-    public function getIp(): string|null
+    public function getIp(): string
     {
         return $this->ip;
     }
@@ -44,7 +44,7 @@ class LogLine
     /**
      * Get jail found by the regex
      */
-    public function getJail(): string|null
+    public function getJail(): string
     {
         return $this->jail;
     }
@@ -52,7 +52,7 @@ class LogLine
     /**
      * Get timestamp found by the regex
      */
-    public function getTimestamp(): string|null
+    public function getTimestamp(): string
     {
         return $this->timestamp;
     }
