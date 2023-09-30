@@ -9,7 +9,6 @@ async function setup () {
   await helper.createFolder('./dist')
 
   console.log('Copying files...')
-  // Copy frontend and backend files
   helper.copy('./frontend/index.html', './dist/index.html')
   helper.copy('./frontend/data.php', './dist/data.php')
   helper.copy('./README.md', './dist/README.md')
