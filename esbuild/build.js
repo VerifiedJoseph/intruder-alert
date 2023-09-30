@@ -4,22 +4,20 @@ const Helper = require('./class/Helper.js')
 const helper = new Helper()
 
 async function setup () {
+  // Remove and recreate dist folder
+  await helper.removeFolder('./dist')
+  await helper.createFolder('./dist')
+
   console.log('Copying files...')
-
-  // Remove symlinks
-  await helper.removeSymlink('./dist/backend')
-  await helper.removeFolder('./dist/backend')
-
-  // Copy frontend and backend files
-  await helper.copy('./frontend/index.html', './dist/index.html')
-  await helper.copy('./frontend/data.php', './dist/data.php')
-  await helper.copy('./README.md', './dist/README.md')
-  await helper.copy('./LICENSE', './dist/LICENSE.md')
+  helper.copy('./frontend/index.html', './dist/index.html')
+  helper.copy('./frontend/data.php', './dist/data.php')
+  helper.copy('./README.md', './dist/README.md')
+  helper.copy('./LICENSE', './dist/LICENSE.md')
   await helper.copy('./backend', './dist/backend')
 
   // Remove tests and data folders
-  await helper.removeFolder('./dist/backend/tests')
-  await helper.removeFolder('./dist/backend/data')
+  helper.removeFolder('./dist/backend/tests')
+  helper.removeFolder('./dist/backend/data')
 }
 
 setup().then(() => {
