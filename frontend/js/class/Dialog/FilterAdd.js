@@ -97,7 +97,7 @@ export class FilterAddDialog extends Dialog {
         this.#disableFilter('jail')
         this.#disableFilter('date')
         this.#disableFilter('hour')
-        this.#disableFilter('minute')
+        this.#disableFilter('minutes')
 
         if (Helper.getTableType() === 'address') {
           this.#setSelectedFilter('version')
@@ -225,7 +225,7 @@ export class FilterAddDialog extends Dialog {
 
     let data = []
     if (type === 'version') {
-      data = [{ time: 4 }, { number: 6 }]
+      data = [{ number: 4 }, { number: 6 }]
     } else if (type === 'hour') {
       data = this.#getHourList()
     } else if (type === 'minutes') {
