@@ -23,7 +23,10 @@ class LogsTest extends TestCase
         ]
     ];
 
-    private function createConfigStub(): \IntruderAlert\Config
+    /**
+     * @return Config&PHPUnit\Framework\MockObject\Stub
+     */
+    private function createConfigStub(): Config
     {
         $config = $this->createStub(Config::class);
         $config->method('getTimezone')->willReturn('UTC');
