@@ -23,6 +23,17 @@ module.exports = class Helper {
   }
 
   /**
+   * Create folder
+   */
+  async createFolder (folder) {
+    folder = path.resolve(folder)
+
+    if (fs.existsSync(folder) === false) {
+      await fsp.mkdir(folder, { recursive: true })
+    }
+  }
+
+  /**
    * Remove folder
    */
   async removeFolder (folder) {
@@ -30,7 +41,7 @@ module.exports = class Helper {
 
     try {
       if (fs.existsSync(folder) === true) {
-        await fsp.rm(folder, { recursive: true })
+        await fsp.rm(folder, { recursive: true, force: true })
       }
     } catch (err) {
       throw new Error('Folder remove failed', { cause: err })
