@@ -28,15 +28,6 @@ class Logs
     /** @var string $gzRegex Gzip file extension regex */
     private $gzRegex = '/.gz$/';
 
-    /** @var string $lineRegex Log line regex */
-    private $lineRegex = <<<REGEX
-     /(?<timestamp>[0-9]{4}-[0-9]{2}-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2})
-     ,[0-9]+\ fail2ban*.+
-     \[(?<jail>[\w]+)]\ 
-     Ban\ (?<ip>[0-9a-z.:]+)
-     /ix
-    REGEX;
-
     public function __construct(Config $config)
     {
         $this->config = $config;
@@ -71,16 +62,15 @@ class Logs
             $lineCount = count($lines);
             $banCount = 0;
 
-            foreach ($lines as $line) {
-                preg_match($this->lineRegex, $line, $match);
+            foreach ($lines as $currentLine) {
+                $line = new LogLine($currentLine);
 
-                if ($match != []) {
+                if ($line->hasBan() === true) {
                     $banCount += 1;
-
                     $rows[] = [
-                        'ip' => $match[3],
-                        'jail' => $match[2],
-                        'timestamp' => $this->formatTimestamp($match[1])
+                        'ip' => $line->getIp(),
+                        'jail' => $line->getJail(),
+                        'timestamp' => $this->formatTimestamp($line->getTimestamp())
                     ];
                 }
             }
