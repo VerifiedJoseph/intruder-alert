@@ -20,14 +20,10 @@ export class Filter {
 
       for (let index = 0; index < this.settings.length; index++) {
         const filter = this.settings[index]
-
         let value
-        if (filter.type === 'date') {
-          const parts = item.timestamp.split(' ')
-          value = parts[0]
-        } else if (filter.type === 'hour') {
-          const parts = item.timestamp.split(' ')
-          value = parts[1].split(':')[0]
+
+        if (filter.type === 'date' || filter.type === 'hour' || filter.type === 'minutes') {
+          value = this.#getTimestampPart(item.timestamp, filter.type)
         } else {
           value = item[filter.type].toString()
         }
@@ -237,5 +233,32 @@ export class Filter {
     }
 
     return false
+  }
+
+  /**
+   * Get part of a timestamp
+   * @param {string} timestamp Timestamp
+   * @param {string} part Timestamp part (date, hour, minutes or seconds)
+   * @returns {string}
+   */
+  #getTimestampPart (timestamp, part) {
+    const parts = timestamp.split(' ')
+    const timeParts = parts[1].split(':')
+
+    if (part === 'date') {
+      return parts[0]
+    }
+
+    if (part === 'hour') {
+      return timeParts[0]
+    }
+
+    if (part === 'minutes') {
+      return timeParts[1]
+    }
+
+    if (part === 'seconds') {
+      return timeParts[2]
+    }
   }
 }
