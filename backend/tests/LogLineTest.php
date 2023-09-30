@@ -5,6 +5,7 @@ use IntruderAlert\LogLine;
 
 class LogLineTest extends TestCase
 {
+	/** @var array<string, array<string, string>> $lines Test log lines */
 	private array $lines = [
 		'ipv4Ban' => [
 			'line' => '2023-02-05 00:06:57,449 fail2ban.actions        [40619]: NOTICE  [sshd] Ban 127.0.0.1',
