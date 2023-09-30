@@ -64,6 +64,12 @@ export class FilterAddDialog extends Dialog {
       name: 'Date',
       chart: false,
       table: true
+    },
+    {
+      value: 'hour',
+      name: 'Time / Hour',
+      chart: false,
+      table: true
     }
   ]
 
@@ -84,6 +90,7 @@ export class FilterAddDialog extends Dialog {
         this.#disableFilter('address')
         this.#disableFilter('jail')
         this.#disableFilter('date')
+        this.#disableFilter('hour')
 
         if (Helper.getTableType() === 'address') {
           this.#setSelectedFilter('version')
@@ -208,11 +215,17 @@ export class FilterAddDialog extends Dialog {
         valueName = 'date'
         textValueName = 'date'
         break
+      case 'hour':
+        valueName = 'hour'
+        textValueName = 'hour'
+        break
     }
 
     let data = []
     if (type === 'version') {
-      data = [{ number: 4 }, { number: 6 }]
+      data = [{ time: 4 }, { number: 6 }]
+    } else if (type === 'hour') {
+      data = this.#getHourList()
     } else {
       data = this.#iaData.getList(type)
     }
@@ -266,5 +279,25 @@ export class FilterAddDialog extends Dialog {
    */
   #getId (name) {
     return `${this.viewType}-${name}`
+  }
+
+  /**
+   * Get list of hours in 24 hour format
+   * @returns {array}
+   */
+  #getHourList () {
+    const hours = []
+
+    for (let i = 0; i <= 23; i++) {
+      let value = i.toString()
+
+      if (i <= 9) {
+        value = `0${i}`
+      }
+
+      hours.push({ hour: value })
+    }
+
+    return hours
   }
 }
