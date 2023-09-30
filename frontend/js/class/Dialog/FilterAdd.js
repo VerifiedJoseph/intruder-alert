@@ -70,6 +70,12 @@ export class FilterAddDialog extends Dialog {
       name: 'Time / Hour',
       chart: false,
       table: true
+    },
+    {
+      value: 'minutes',
+      name: 'Time / Minutes',
+      chart: false,
+      table: true
     }
   ]
 
@@ -91,6 +97,7 @@ export class FilterAddDialog extends Dialog {
         this.#disableFilter('jail')
         this.#disableFilter('date')
         this.#disableFilter('hour')
+        this.#disableFilter('minute')
 
         if (Helper.getTableType() === 'address') {
           this.#setSelectedFilter('version')
@@ -211,14 +218,9 @@ export class FilterAddDialog extends Dialog {
         valueName = 'name'
         textValueName = 'name'
         break
-      case 'date':
-        valueName = 'date'
-        textValueName = 'date'
-        break
-      case 'hour':
-        valueName = 'hour'
-        textValueName = 'hour'
-        break
+      default:
+        valueName = type
+        textValueName = type
     }
 
     let data = []
@@ -226,6 +228,8 @@ export class FilterAddDialog extends Dialog {
       data = [{ time: 4 }, { number: 6 }]
     } else if (type === 'hour') {
       data = this.#getHourList()
+    } else if (type === 'minutes') {
+      data = this.#getMinutesList()
     } else {
       data = this.#iaData.getList(type)
     }
@@ -299,5 +303,25 @@ export class FilterAddDialog extends Dialog {
     }
 
     return hours
+  }
+
+  /**
+   * @returns Get list of minutes (00 to 60)
+   * @returns {array}
+   */
+  #getMinutesList () {
+    const minutes = []
+
+    for (let i = 0; i <= 60; i++) {
+      let value = i.toString()
+
+      if (i <= 9) {
+        value = `0${i}`
+      }
+
+      minutes.push({ minutes: value })
+    }
+
+    return minutes
   }
 }
