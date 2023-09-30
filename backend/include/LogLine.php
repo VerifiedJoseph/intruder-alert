@@ -20,13 +20,13 @@ class LogLine
     private bool $matched = false;
 
     /** @var string $ip IP address */
-    private ?string $ip = '';
+    private string $ip = '';
 
     /** @var string $jail Jail */
-    private ?string $jail = '';
+    private string $jail = '';
 
     /** @var string $timestamp Timestamp */
-    private ?string $timestamp = '';
+    private string $timestamp = '';
 
     public function __construct(string $line)
     {
