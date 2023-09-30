@@ -5,3 +5,6 @@ parameters:
 		- frontend/data.php
 	excludePaths:
 		- backend/vendor/
+includes:
+	- backend/vendor/phpstan/phpstan-phpunit/extension.neon
+	- backend/vendor/phpstan/phpstan-phpunit/rules.neon
