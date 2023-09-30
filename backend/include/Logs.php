@@ -28,15 +28,6 @@ class Logs
     /** @var string $gzRegex Gzip file extension regex */
     private $gzRegex = '/.gz$/';
 
-    /** @var string $lineRegex Log line regex */
-    private $lineRegex = <<<REGEX
-     /(?<timestamp>[0-9]{4}-[0-9]{2}-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2})
-     ,[0-9]+\ fail2ban*.+
-     \[(?<jail>[\w]+)]\ 
-     Ban\ (?<ip>[0-9a-z.:]+)
-     /ix
-    REGEX;
-
     public function __construct(Config $config)
     {
         $this->config = $config;
