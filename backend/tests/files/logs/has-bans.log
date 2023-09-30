@@ -1,0 +1,3 @@
+2023-02-05 00:06:57,449 fail2ban.actions        [40619]: NOTICE  [sshd] Ban 127.0.0.1
+2023-02-05 00:06:57,449 fail2ban.actions        [40619]: NOTICE  [nginx] Ban 2001:67c:930::1
+2023-02-05 00:28:13,052 fail2ban.filter         [40619]: INFO    [sshd] Found 127.0.0.1 - 2023-02-05 00:28:13
