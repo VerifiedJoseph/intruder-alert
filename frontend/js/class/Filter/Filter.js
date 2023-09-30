@@ -14,6 +14,7 @@ export class Filter {
 
   _getFilteredData (data) {
     const filtered = []
+    const timestampFilterTypes = ['date', 'hour', 'minute']
 
     data.forEach(item => {
       const addStatus = []
@@ -22,7 +23,7 @@ export class Filter {
         const filter = this.settings[index]
         let value
 
-        if (filter.type === 'date' || filter.type === 'hour' || filter.type === 'minute') {
+        if (timestampFilterTypes.includes(filter.type) === true) {
           value = this.#getTimestampPart(item.timestamp, filter.type)
         } else {
           value = item[filter.type].toString()
