@@ -18,7 +18,7 @@ export class FilterChip {
     jail: 'Jail',
     date: 'Date',
     hour: 'Hour',
-    minutes: 'Minutes'
+    minute: 'Minute'
   }
 
   constructor (viewGroup, iaData) {

@@ -22,7 +22,7 @@ export class Filter {
         const filter = this.settings[index]
         let value
 
-        if (filter.type === 'date' || filter.type === 'hour' || filter.type === 'minutes') {
+        if (filter.type === 'date' || filter.type === 'hour' || filter.type === 'minute') {
           value = this.#getTimestampPart(item.timestamp, filter.type)
         } else {
           value = item[filter.type].toString()
