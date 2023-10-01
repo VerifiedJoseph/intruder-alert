@@ -23,6 +23,7 @@
         "lint": "phpstan && phpcs backend/ --standard=PSR12 --ignore=backend/vendor,backend/tests",
         "lint-phpstan": "phpstan",
         "lint-phpcs": "phpcs backend/ --standard=PSR12 --ignore=backend/vendor,backend/tests",
+        "lint-phpcs-gh-action": "phpcs . --standard=PSR12 --ignore=backend/vendor,backend/tests --report=checkstyle | cs2pr",
         "fix": "phpcbf backend/ --standard=PSR12 --ignore=backend/vendor,backend/tests",
         "test": "phpunit --colors"
     },
