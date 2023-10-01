@@ -9,14 +9,13 @@ use IntruderAlert\Exception\ReportException;
 
 class LogsTest extends TestCase
 {
-    /** @var array<string, object> $lines Test log lines */
+    /** @var array<int, array<string, string>> $lines Test log lines */
     private array $lines = [];
 
     public function setUp(): void
     {
-        $this->lines = json_decode(
-            file_get_contents('./backend/tests/files/log-lines.json')
-        );
+        $data = (string) file_get_contents('./backend/tests/files/log-lines.json');
+        $this->lines = json_decode($data, associative: true);
 
         Output::quiet();
     }
@@ -47,9 +46,9 @@ class LogsTest extends TestCase
         $this->assertCount(2, $rows);
 
         foreach ($rows as $index => $row) {
-            $this->assertEquals($this->lines[$index]->ip, $row['ip']);
-            $this->assertEquals($this->lines[$index]->jail, $row['jail']);
-            $this->assertEquals($this->lines[$index]->timestamp, $row['timestamp']);
+            $this->assertEquals($this->lines[$index]['ip'], $row['ip']);
+            $this->assertEquals($this->lines[$index]['jail'], $row['jail']);
+            $this->assertEquals($this->lines[$index]['timestamp'], $row['timestamp']);
         }
     }
 
@@ -67,9 +66,9 @@ class LogsTest extends TestCase
         $this->assertCount(2, $rows);
 
         foreach ($rows as $index => $row) {
-            $this->assertEquals($this->lines[$index]->ip, $row['ip']);
-            $this->assertEquals($this->lines[$index]->jail, $row['jail']);
-            $this->assertEquals($this->lines[$index]->timestamp, $row['timestamp']);
+            $this->assertEquals($this->lines[$index]['ip'], $row['ip']);
+            $this->assertEquals($this->lines[$index]['jail'], $row['jail']);
+            $this->assertEquals($this->lines[$index]['timestamp'], $row['timestamp']);
         }
     }
 
