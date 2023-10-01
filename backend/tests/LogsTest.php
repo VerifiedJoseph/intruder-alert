@@ -10,18 +10,15 @@ use IntruderAlert\Exception\ReportException;
 class LogsTest extends TestCase
 {
     /** @var array<int, array<string, string>> $lines Test log lines */
-    private array $lines = [
-        [
-            'ip' => '127.0.0.1',
-            'jail' => 'sshd',
-            'timestamp' => '2023-02-05 00:06:57'
-        ],
-        [
-            'ip' => '2001:67c:930::1',
-            'jail' => 'nginx',
-            'timestamp' => '2023-02-05 00:06:57'
-        ]
-    ];
+    private array $lines = [];
+
+    public function setUp(): void
+    {
+        $data = (string) file_get_contents('./backend/tests/files/log-lines.json');
+        $this->lines = json_decode($data, associative: true);
+
+        Output::quiet();
+    }
 
     /**
      * @return Config&PHPUnit\Framework\MockObject\Stub
@@ -35,18 +32,13 @@ class LogsTest extends TestCase
         return $config;
     }
 
-    public function setUp(): void
-    {
-        Output::quiet();
-    }
-
     /**
      * Test class with the logs folder
      */
     public function testLogsClassWithLogsFolder(): void
     {
         $config = $this->createConfigStub();
-        $config->method('getLogFolder')->willReturn('./backend/tests/files/logs');
+        $config->method('getLogFolder')->willReturn('./backend/tests/files/logs/has-bans');
 
         $logs = new Logs($config);
         $rows = $logs->process();
