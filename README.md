@@ -5,7 +5,7 @@
 
 Intruder Alert is an event dashboard for [Fail2ban](https://github.com/fail2ban/fail2ban).
 
-![screenshot](screenshot.png)
+![screenshot](screenshots/screenshot_readme.png)
 
 [More screenshots](./docs/screenshots.md)
 
