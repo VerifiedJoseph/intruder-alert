@@ -3,7 +3,7 @@
 [![Latest Version](https://img.shields.io/github/release/VerifiedJoseph/intruder-alert.svg?style=flat-square)](https://github.com/VerifiedJoseph/intruder-alert/releases/latest)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
-Intruder Alert is an incident dashboard for [Fail2ban](https://github.com/fail2ban/fail2ban).
+Intruder Alert is an event dashboard for [Fail2ban](https://github.com/fail2ban/fail2ban).
 
 ![screenshot](screenshot.png)
 
@@ -45,7 +45,7 @@ services:
 
 </details>
 
-### Manual
+### Manually
 
 <details>
 <summary>Show/hide install details</summary>
@@ -111,6 +111,12 @@ Install JavaScript dependencies with npm.
 
 ```
 npm install
+```
+
+Start [esbuild](https://esbuild.github.io/) watcher
+
+```
+npm run watch
 ```
 
 ### Commands
