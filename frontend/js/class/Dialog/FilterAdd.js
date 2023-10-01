@@ -76,6 +76,12 @@ export class FilterAddDialog extends Dialog {
       name: 'Time / Minute',
       chart: false,
       table: true
+    },
+    {
+      value: 'second',
+      name: 'Time / Second',
+      chart: false,
+      table: true
     }
   ]
 
@@ -98,6 +104,7 @@ export class FilterAddDialog extends Dialog {
         this.#disableFilter('date')
         this.#disableFilter('hour')
         this.#disableFilter('minute')
+        this.#disableFilter('second')
 
         if (Helper.getTableType() === 'address') {
           this.#setSelectedFilter('version')
@@ -230,6 +237,8 @@ export class FilterAddDialog extends Dialog {
       data = this.#getHourList()
     } else if (type === 'minute') {
       data = this.#getMinuteList()
+    } else if (type === 'second') {
+      data = this.#getSecondList()
     } else {
       data = this.#iaData.getList(type)
     }
@@ -320,6 +329,26 @@ export class FilterAddDialog extends Dialog {
       }
 
       minutes.push({ minute: value })
+    }
+
+    return minutes
+  }
+
+  /**
+   * @returns Get list of seconds (00 to 60)
+   * @returns {array}
+   */
+  #getSecondList () {
+    const minutes = []
+
+    for (let i = 0; i <= 60; i++) {
+      let value = i.toString()
+
+      if (i <= 9) {
+        value = `0${i}`
+      }
+
+      minutes.push({ second: value })
     }
 
     return minutes

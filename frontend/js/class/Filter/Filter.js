@@ -14,7 +14,7 @@ export class Filter {
 
   _getFilteredData (data) {
     const filtered = []
-    const timestampFilterTypes = ['date', 'hour', 'minute']
+    const timestampFilterTypes = ['date', 'hour', 'minute', 'second']
 
     data.forEach(item => {
       const addStatus = []
@@ -254,11 +254,11 @@ export class Filter {
       return timeParts[0]
     }
 
-    if (part === 'minutes') {
+    if (part === 'minute') {
       return timeParts[1]
     }
 
-    if (part === 'seconds') {
+    if (part === 'second') {
       return timeParts[2]
     }
   }
