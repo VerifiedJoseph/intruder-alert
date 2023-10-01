@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="intruder-alert">
+  <file>./backend/</file>
+  <exclude-pattern>./backend/vendor</exclude-pattern>
+
+  <rule ref="PSR12"/>
+  <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+    <exclude-pattern>./backend/tests/*</exclude-pattern>
+  </rule>
+</ruleset>
