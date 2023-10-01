@@ -9,19 +9,17 @@ use IntruderAlert\Exception\ReportException;
 
 class LogsTest extends TestCase
 {
-    /** @var array<int, array<string, string>> $lines Test log lines */
-    private array $lines = [
-        [
-            'ip' => '127.0.0.1',
-            'jail' => 'sshd',
-            'timestamp' => '2023-02-05 00:06:57'
-        ],
-        [
-            'ip' => '2001:67c:930::1',
-            'jail' => 'nginx',
-            'timestamp' => '2023-02-05 00:06:57'
-        ]
-    ];
+    /** @var array<string, object> $lines Test log lines */
+    private array $lines = [];
+
+    public function setUp(): void
+    {
+        $this->lines = json_decode(
+            file_get_contents('./backend/tests/files/log-lines.json')
+        );
+
+        Output::quiet();
+    }
 
     /**
      * @return Config&PHPUnit\Framework\MockObject\Stub
@@ -35,18 +33,13 @@ class LogsTest extends TestCase
         return $config;
     }
 
-    public function setUp(): void
-    {
-        Output::quiet();
-    }
-
     /**
      * Test class with the logs folder
      */
     public function testLogsClassWithLogsFolder(): void
     {
         $config = $this->createConfigStub();
-        $config->method('getLogFolder')->willReturn('./backend/tests/files/logs');
+        $config->method('getLogFolder')->willReturn('./backend/tests/files/logs/has-bans');
 
         $logs = new Logs($config);
         $rows = $logs->process();
@@ -54,9 +47,9 @@ class LogsTest extends TestCase
         $this->assertCount(2, $rows);
 
         foreach ($rows as $index => $row) {
-            $this->assertEquals($this->lines[$index]['ip'], $row['ip']);
-            $this->assertEquals($this->lines[$index]['jail'], $row['jail']);
-            $this->assertEquals($this->lines[$index]['timestamp'], $row['timestamp']);
+            $this->assertEquals($this->lines[$index]->ip, $row['ip']);
+            $this->assertEquals($this->lines[$index]->jail, $row['jail']);
+            $this->assertEquals($this->lines[$index]->timestamp, $row['timestamp']);
         }
     }
 
@@ -74,9 +67,9 @@ class LogsTest extends TestCase
         $this->assertCount(2, $rows);
 
         foreach ($rows as $index => $row) {
-            $this->assertEquals($this->lines[$index]['ip'], $row['ip']);
-            $this->assertEquals($this->lines[$index]['jail'], $row['jail']);
-            $this->assertEquals($this->lines[$index]['timestamp'], $row['timestamp']);
+            $this->assertEquals($this->lines[$index]->ip, $row['ip']);
+            $this->assertEquals($this->lines[$index]->jail, $row['jail']);
+            $this->assertEquals($this->lines[$index]->timestamp, $row['timestamp']);
         }
     }
 
