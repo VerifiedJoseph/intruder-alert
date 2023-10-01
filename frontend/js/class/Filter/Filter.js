@@ -14,17 +14,17 @@ export class Filter {
 
   _getFilteredData (data) {
     const filtered = []
+    const timestampFilterTypes = ['date', 'hour', 'minute', 'second']
 
     data.forEach(item => {
       const addStatus = []
 
       for (let index = 0; index < this.settings.length; index++) {
         const filter = this.settings[index]
-
         let value
-        if (filter.type === 'date') {
-          const parts = item.timestamp.split(' ')
-          value = parts[0]
+
+        if (timestampFilterTypes.includes(filter.type) === true) {
+          value = this.#getTimestampPart(item.timestamp, filter.type)
         } else {
           value = item[filter.type].toString()
         }
@@ -234,5 +234,32 @@ export class Filter {
     }
 
     return false
+  }
+
+  /**
+   * Get part of a timestamp
+   * @param {string} timestamp Timestamp
+   * @param {string} part Timestamp part (date, hour, minutes or seconds)
+   * @returns {string}
+   */
+  #getTimestampPart (timestamp, part) {
+    const parts = timestamp.split(' ')
+    const timeParts = parts[1].split(':')
+
+    if (part === 'date') {
+      return parts[0]
+    }
+
+    if (part === 'hour') {
+      return timeParts[0]
+    }
+
+    if (part === 'minute') {
+      return timeParts[1]
+    }
+
+    if (part === 'second') {
+      return timeParts[2]
+    }
   }
 }

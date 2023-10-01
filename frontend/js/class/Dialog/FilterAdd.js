@@ -64,6 +64,24 @@ export class FilterAddDialog extends Dialog {
       name: 'Date',
       chart: false,
       table: true
+    },
+    {
+      value: 'hour',
+      name: 'Time / Hour',
+      chart: false,
+      table: true
+    },
+    {
+      value: 'minute',
+      name: 'Time / Minute',
+      chart: false,
+      table: true
+    },
+    {
+      value: 'second',
+      name: 'Time / Second',
+      chart: false,
+      table: true
     }
   ]
 
@@ -84,6 +102,9 @@ export class FilterAddDialog extends Dialog {
         this.#disableFilter('address')
         this.#disableFilter('jail')
         this.#disableFilter('date')
+        this.#disableFilter('hour')
+        this.#disableFilter('minute')
+        this.#disableFilter('second')
 
         if (Helper.getTableType() === 'address') {
           this.#setSelectedFilter('version')
@@ -204,15 +225,20 @@ export class FilterAddDialog extends Dialog {
         valueName = 'name'
         textValueName = 'name'
         break
-      case 'date':
-        valueName = 'date'
-        textValueName = 'date'
-        break
+      default:
+        valueName = type
+        textValueName = type
     }
 
     let data = []
     if (type === 'version') {
       data = [{ number: 4 }, { number: 6 }]
+    } else if (type === 'hour') {
+      data = this.#getHourList()
+    } else if (type === 'minute') {
+      data = this.#getMinuteList()
+    } else if (type === 'second') {
+      data = this.#getSecondList()
     } else {
       data = this.#iaData.getList(type)
     }
@@ -266,5 +292,65 @@ export class FilterAddDialog extends Dialog {
    */
   #getId (name) {
     return `${this.viewType}-${name}`
+  }
+
+  /**
+   * Get list of hours in 24 hour format
+   * @returns {array}
+   */
+  #getHourList () {
+    const hours = []
+
+    for (let i = 0; i <= 23; i++) {
+      let value = i.toString()
+
+      if (i <= 9) {
+        value = `0${i}`
+      }
+
+      hours.push({ hour: value })
+    }
+
+    return hours
+  }
+
+  /**
+   * @returns Get list of minutes (00 to 60)
+   * @returns {array}
+   */
+  #getMinuteList () {
+    const minutes = []
+
+    for (let i = 0; i <= 60; i++) {
+      let value = i.toString()
+
+      if (i <= 9) {
+        value = `0${i}`
+      }
+
+      minutes.push({ minute: value })
+    }
+
+    return minutes
+  }
+
+  /**
+   * @returns Get list of seconds (00 to 60)
+   * @returns {array}
+   */
+  #getSecondList () {
+    const minutes = []
+
+    for (let i = 0; i <= 60; i++) {
+      let value = i.toString()
+
+      if (i <= 9) {
+        value = `0${i}`
+      }
+
+      minutes.push({ second: value })
+    }
+
+    return minutes
   }
 }
