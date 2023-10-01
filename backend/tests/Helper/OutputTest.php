@@ -9,11 +9,11 @@ class OutputTest extends TestCase
      * @var string $text
      */
     private string $text = 'Hello World';
-	
+
     /**
      * @var string $outputText
      */
-	private $outputText = "[intruder-alert] Hello World \n";
+    private $outputText = "[intruder-alert] Hello World \n";
 
     public function setUp(): void
     {
