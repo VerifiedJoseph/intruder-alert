@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.5.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.5.0) - 2023-10-01
+
+* css: Fixed dark mode. ([#185](https://github.com/VerifiedJoseph/intruder-alert/pull/185), [`c378f33`](https://github.com/VerifiedJoseph/intruder-alert/commit/c378f330b42c99dc6022ec3d8f097f6af577954d))
+* docs: Added screenshots. ([#183](https://github.com/VerifiedJoseph/intruder-alert/pull/183), [`515ed40`](https://github.com/VerifiedJoseph/intruder-alert/commit/515ed40a6c2744565f3fe72a2e8099bf64c73b27))
+* Filter(js): Added time filters. ([#174](https://github.com/VerifiedJoseph/intruder-alert/pull/174), [`a8b1219`](https://github.com/VerifiedJoseph/intruder-alert/commit/a8b1219bb684418153a98d3852a4b79efc45ee7b))
+* Added LogLine class. ([#169](https://github.com/VerifiedJoseph/intruder-alert/pull/169), [`b9df6f4`](https://github.com/VerifiedJoseph/intruder-alert/commit/b9df6f4706492a10b0b77b4a7819728870e23ae3))
+* Dockerfile: Updated node from 20.7.0-alpine3.18 to 20.8.0-alpine3.18. ([#182](https://github.com/VerifiedJoseph/intruder-alert/pull/182), [`fad1160`](https://github.com/VerifiedJoseph/intruder-alert/commit/fad11606a7df0b4aeda2d31f6f4565c859fe9003))
+* Dockerfile: Updated php from 8.2.10-fpm-alpine3.18 to 8.2.11-fpm-alpine3.18. ([#181](https://github.com/VerifiedJoseph/intruder-alert/pull/181), [`a4bc80d`](https://github.com/VerifiedJoseph/intruder-alert/commit/a4bc80d6566f4d1d617818e628e189c1eb278d95))
+* Dockerfile: Updated composer from 2.6.3 to 2.6.4. ([#180](https://github.com/VerifiedJoseph/intruder-alert/pull/180), [`b95a0ed`](https://github.com/VerifiedJoseph/intruder-alert/commit/b95a0eddfbd7f91b2e0291c25fdca62316f73b71))
+
 ## [1.4.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.4.0) - 2023-09-29
 
 * Added esbuild ([#162](https://github.com/VerifiedJoseph/intruder-alert/pull/162), [`7e571b6`](https://github.com/VerifiedJoseph/intruder-alert/commit/7e571b6d49dd6b3149810794d082be7e44e36d32))
