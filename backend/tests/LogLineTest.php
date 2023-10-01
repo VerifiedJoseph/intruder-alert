@@ -5,14 +5,13 @@ use IntruderAlert\LogLine;
 
 class LogLineTest extends TestCase
 {
-    /** @var array<string, object> $lines Test log lines */
+    /** @var array<int, array<string, string>> $lines Test log lines */
     private array $lines = [];
 
     public function setUp(): void
     {
-        $this->lines = json_decode(
-            file_get_contents('./backend/tests/files/log-lines.json')
-        );
+        $data = (string) file_get_contents('./backend/tests/files/log-lines.json');
+        $this->lines = json_decode($data, associative: true);
     }
 
     /**
@@ -20,12 +19,12 @@ class LogLineTest extends TestCase
      */
     public function testIpv4Ban(): void
     {
-        $line = new LogLine($this->lines[0]->line);
+        $line = new LogLine($this->lines[0]['line']);
 
         $this->assertTrue($line->hasBan());
-        $this->assertEquals($this->lines[0]->ip, $line->getIp());
-        $this->assertEquals($this->lines[0]->jail, $line->getJail());
-        $this->assertEquals($this->lines[0]->timestamp, $line->getTimestamp());
+        $this->assertEquals($this->lines[0]['ip'], $line->getIp());
+        $this->assertEquals($this->lines[0]['jail'], $line->getJail());
+        $this->assertEquals($this->lines[0]['timestamp'], $line->getTimestamp());
     }
 
     /**
@@ -33,12 +32,12 @@ class LogLineTest extends TestCase
      */
     public function testIpv6Ban(): void
     {
-        $line = new LogLine($this->lines[1]->line);
+        $line = new LogLine($this->lines[1]['line']);
 
         $this->assertTrue($line->hasBan());
-        $this->assertEquals($this->lines[1]->ip, $line->getIp());
-        $this->assertEquals($this->lines[1]->jail, $line->getJail());
-        $this->assertEquals($this->lines[1]->timestamp, $line->getTimestamp());
+        $this->assertEquals($this->lines[1]['ip'], $line->getIp());
+        $this->assertEquals($this->lines[1]['jail'], $line->getJail());
+        $this->assertEquals($this->lines[1]['timestamp'], $line->getTimestamp());
     }
 
     /**
@@ -46,7 +45,7 @@ class LogLineTest extends TestCase
      */
     public function testNoBanLine(): void
     {
-        $line = new LogLine($this->lines[2]->line);
+        $line = new LogLine($this->lines[2]['line']);
 
         $this->assertFalse($line->hasBan());
     }
