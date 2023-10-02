@@ -41,6 +41,8 @@ class Update
                         $this->downloadDatabase($edition, $archivePath);
                         $this->checkIntegrity($checksum['hash'], $archivePath);
                         $this->extractDatabase($archivePath, $edition, $path);
+
+                        Output::text('Updated Geoip2 database: ' . $edition, log: true);
                     }
                 }
             } catch (\Exception $err) {
