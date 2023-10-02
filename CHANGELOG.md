@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.6.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.6.0) - 2023-10-02
+
+* Replaced `tronovav/geoip2-update` with custom update logic. ([#188](https://github.com/VerifiedJoseph/intruder-alert/pull/188), [`d7e3aca`](https://github.com/VerifiedJoseph/intruder-alert/commit/d7e3acaa96ccd649027a5581eca129ae2b001544))
+
 ## [1.5.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.5.0) - 2023-10-01
 
 * css: Fixed dark mode. ([#185](https://github.com/VerifiedJoseph/intruder-alert/pull/185), [`c378f33`](https://github.com/VerifiedJoseph/intruder-alert/commit/c378f330b42c99dc6022ec3d8f097f6af577954d))
