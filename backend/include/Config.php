@@ -49,7 +49,7 @@ class Config
     public function getUseragent(): string
     {
         return sprintf(
-            'Intruder Alert/$s (+https://github.com/VerifiedJoseph/intruder-alert)',
+            'Intruder Alert/%s (+https://github.com/VerifiedJoseph/intruder-alert)',
             $this->getVersion()
         );
     }
@@ -184,8 +184,6 @@ class Config
     private function checkDataFolder(): void
     {
         $folderPath = $this->getPath('data');
-
-        var_dump($folderPath);
 
         if (file_exists($folderPath) === false) {
             if (mkdir($folderPath, 0660) === false) {
