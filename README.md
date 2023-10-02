@@ -159,7 +159,6 @@ composer test
 
 - PHP
 	- [`geoip2/geoip2`](https://github.com/maxmind/GeoIP2-php)
-	- [`tronovav/geoip2-update`](https://github.com/tronovav/geoip2-update)
 - JavaScript
 	- [Chart.js](https://github.com/chartjs/Chart.js/)
 	- [Spacetime](https://github.com/spencermountain/spacetime)

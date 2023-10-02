@@ -17,8 +17,8 @@ class Config
 
     /** @var array<string, string> $defaultGeoLite2Paths Default GeoLite2 database paths */
     private array $defaultGeoLite2Paths = [
-        'GeoLite2-ASN' => 'data/geoip2/GeoLite2-ASN/GeoLite2-ASN.mmdb',
-        'GeoLite2-Country' => 'data/geoip2/GeoLite2-Country/GeoLite2-Country.mmdb'
+        'GeoLite2-ASN' => 'data/geoip2/GeoLite2-ASN.mmdb',
+        'GeoLite2-Country' => 'data/geoip2/GeoLite2-Country.mmdb'
     ];
 
     /**
@@ -44,6 +44,14 @@ class Config
     public function getVersion(): string
     {
         return (string) constant('VERSION');
+    }
+
+    public function getUseragent(): string
+    {
+        return sprintf(
+            'Intruder Alert/%s (+https://github.com/VerifiedJoseph/intruder-alert)',
+            $this->getVersion()
+        );
     }
 
     public function getChartsStatus(): bool
@@ -176,8 +184,6 @@ class Config
     private function checkDataFolder(): void
     {
         $folderPath = $this->getPath('data');
-
-        var_dump($folderPath);
 
         if (file_exists($folderPath) === false) {
             if (mkdir($folderPath, 0660) === false) {
