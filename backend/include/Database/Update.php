@@ -110,6 +110,7 @@ class Update
      */
     private function downloadChecksum(string $edition): array
     {
+        $regex = '/^([A-Za-z0-9]+)\ \ (GeoLite2-(?:[A-Za-z]+)_(?:[0-9]{8})\.tar\.gz)$/';
         $url = sprintf(
             $this->apiUrl,
             $edition,
@@ -118,11 +119,14 @@ class Update
         );
 
         $data = $this->fetch($url);
-        $parts = explode('  ', trim($data));
+
+        if (preg_match($regex, $data, $matches) !== 1) {
+            throw new Exception('Failed extract checksum from downloaded file.');
+        }
 
         return [
-            'hash' => $parts[0],
-            'filename' => $parts[1]
+            'hash' => $matches[1],
+            'filename' => $matches[2]
         ];
     }
 
