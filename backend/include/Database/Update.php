@@ -10,17 +10,26 @@ use Exception;
 
 class Update
 {
+    /** @var Config $config */
     private Config $config;
 
+    /** @var string $folder Folder to save database downloads */
     private string $folder = 'data/geoip2';
 
-    private string $apiUrl = 'https://download.maxmind.com/app/geoip_download?edition_id=%s&license_key=%s&suffix=%s';
+    /** @var string $baseUrl Base URL for MaxMind downloads */
+    private string $baseUrl = 'https://download.maxmind.com/app/geoip_download?';
+
+    /** @var string $checksumRegex Regex for extracting checksum details */
+    private string $checksumRegex = '/^([A-Za-z0-9]+)\ \ (GeoLite2-(?:[A-Za-z]+)_(?:[0-9]{8})\.tar\.gz)$/';
 
     public function __construct(Config $config)
     {
         $this->config = $config;
     }
 
+    /**
+     * Run updater
+    */
     public function run(): void
     {
         if ($this->config->getMaxMindLicenseKey() !== '') {
@@ -47,7 +56,7 @@ class Update
                 }
             } catch (\Exception $err) {
                 throw new AppException(sprintf(
-                    'Update database failed. %s',
+                    'Geoip2 database update failed. %s',
                     $err->getMessage()
                 ));
             }
@@ -76,7 +85,7 @@ class Update
     }
 
     /**
-     * Calculate the difference between a file's last mod unix time and now
+     * Calculate the difference between last modified time of a file and unix time now
      *
      * @param int $lastMod Last modified unix timestamp of a file
      * @return int
@@ -107,12 +116,12 @@ class Update
      *
      * @param string $edition Database edition
      * @return array<string, string> Database checksum and filename
+     *
+     * @throws Exception if regex failed to extract checksum details from download file
      */
     private function downloadChecksum(string $edition): array
     {
-        $regex = '/^([A-Za-z0-9]+)\ \ (GeoLite2-(?:[A-Za-z]+)_(?:[0-9]{8})\.tar\.gz)$/';
-        $url = sprintf(
-            $this->apiUrl,
+        $url = $this->buildUrl(
             $edition,
             $this->config->getMaxMindLicenseKey(),
             'tar.gz.sha256'
@@ -120,8 +129,8 @@ class Update
 
         $data = $this->fetch($url);
 
-        if (preg_match($regex, $data, $matches) !== 1) {
-            throw new Exception('Failed extract checksum from downloaded file.');
+        if (preg_match($this->checksumRegex, $data, $matches) !== 1) {
+            throw new Exception('Checksum details extraction failed');
         }
 
         return [
@@ -138,8 +147,7 @@ class Update
      */
     private function downloadDatabase(string $edition, string $path): void
     {
-        $url = sprintf(
-            $this->apiUrl,
+        $url = $this->buildUrl(
             $edition,
             $this->config->getMaxMindLicenseKey(),
             'tar.gz'
@@ -173,6 +181,9 @@ class Update
      * @param string $archivePath Path of archive file
      * @param string $edition Database edition
      * @param string $path Path to save the database
+     *
+     * @throws Exception if database not found archive.
+     * @throws Exception if moving database failed.
      */
     private function extractDatabase(string $archivePath, string $edition, string $path): void
     {
@@ -186,7 +197,21 @@ class Update
             if ($directory->isDir() && preg_match($regex, $directory->getBasename())) {
                 $filepath = $directory->getPathname() . DIRECTORY_SEPARATOR . $edition . '.mmdb';
 
-                rename($filepath, $path);
+                if (file_exists($filepath) === false) {
+                    throw new Exception(sprintf(
+                        '%s database not found archive: %s',
+                        $edition,
+                        $archivePath
+                    ));
+                }
+
+                if (rename($filepath, $path) === false) {
+                    throw new Exception(sprintf(
+                        'Failed to move database from %s to %s',
+                        $filepath,
+                        $path
+                    ));
+                }
 
                 $this->removeDir($directory->getPathname());
             }
@@ -232,6 +257,25 @@ class Update
         }
 
         return (string) $response;
+    }
+
+    /**
+     * Build MaxMind download Url
+     *
+     * @param string $edition Database edition
+     * @param string $key License key
+     * @param string $suffix Suffix
+     * @return string
+     */
+    private function buildUrl(string $edition, string $key, string $suffix): string
+    {
+        $parts = [
+            'edition_id' => $edition,
+            'license_key' => $key,
+            'suffix' => $suffix
+        ];
+
+        return $this->baseUrl . http_build_query($parts);
     }
 
     /**
