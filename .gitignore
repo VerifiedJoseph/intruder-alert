@@ -4,4 +4,5 @@ backend/vendor/*
 backend/data/*
 backend/config.php
 docker/docker-compose.override.yml
+.devcontainer/fail2ban-logs/fail2ban.*
 dist/*
