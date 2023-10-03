@@ -19,3 +19,17 @@ updates:
     ignore:
       - dependency-name: "node"
         update-types: ["version-update:semver-major"]
+
+  # dev container
+  - package-ecosystem: "docker"
+    directory: "/.devcontainer/nginx/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/.devcontainer/php/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/.devcontainer/workspace/"
+    schedule:
+      interval: "weekly"
