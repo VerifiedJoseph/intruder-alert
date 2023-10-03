@@ -1,0 +1,26 @@
+services:
+  workspace:
+    build:
+      context: ./workspace
+    tty: true
+    volumes:
+      - ../:/intruder-alert
+    working_dir: /intruder-alert
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - 8080:8080
+    volumes:
+      - ../:/intruder-alert
+    working_dir: /intruder-alert
+
+  php:
+    build:
+      context: ./php
+    expose:
+      - "9000"
+    volumes:
+      - ../:/intruder-alert
+    working_dir: /intruder-alert
