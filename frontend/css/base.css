@@ -276,6 +276,11 @@ input {
 	margin: 0;
 }
 
+#log-entries > p {
+	font-family: monospace;
+	font-size: 1em;
+}
+
 .chart-canvas-wrap {
 	position: relative;
 	margin-bottom: 6px;
