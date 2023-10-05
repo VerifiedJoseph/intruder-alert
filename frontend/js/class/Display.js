@@ -82,7 +82,7 @@ export class Display {
     div.innerText = ''
 
     this.#iaData.getDaemonLog().forEach(item => {
-      const entry = document.createElement('p')
+      const entry = document.createElement('div')
       entry.innerText = item
 
       div.appendChild(entry)
