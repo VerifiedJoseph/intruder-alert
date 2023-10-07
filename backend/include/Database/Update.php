@@ -25,6 +25,7 @@ class Update
     public function __construct(Config $config)
     {
         $this->config = $config;
+        $this->folder = $this->config->getPath($this->folder);
     }
 
     /**
@@ -33,10 +34,8 @@ class Update
     public function run(): void
     {
         if ($this->config->getMaxMindLicenseKey() !== '') {
-            $folder = $this->config->getPath($this->folder);
-
-            if (File::exists($folder) === false) {
-                mkdir($folder);
+            if (File::exists($this->folder) === false) {
+                mkdir($this->folder);
             }
 
             try {
