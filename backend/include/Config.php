@@ -11,6 +11,9 @@ class Config
     /** @var string $minPhpVersion Minimum PHP version */
     private string $minPhpVersion = '8.1.0';
 
+    /** @var array<int, string> $extensions Required PHP extensions */
+    private static array $extensions = ['curl', 'json', 'phar', 'openssl', 'pcre'];
+
     private string $path = '';
 
     private string $envPrefix = 'IA_';
@@ -127,6 +130,7 @@ class Config
      * Check config
      *
      * @throws ConfigException if PHP version not supported.
+     * @throws ConfigException if a required PHP extension is not loaded.
      * @throws ConfigException if environment variable `IA_DISABLE_CHARTS` is not `true` or `false`.
      * @throws ConfigException if environment variable `IA_DISABLE_DASH_UPDATES` is not `true` or `false`.
      */
@@ -136,7 +140,11 @@ class Config
             throw new ConfigException('Intruder Alert requires at least PHP version ' . $this->minPhpVersion);
         }
 
-        //echo $this->getPath('config.php');
+        foreach (self::$extensions as $ext) {
+            if (extension_loaded($ext) === false) {
+                throw new ConfigException(sprintf('PHP extension error: %s extension not loaded.', $ext));
+            }
+        }
 
         if (file_exists($this->getPath('config.php')) === true) {
             require $this->getPath('config.php');
