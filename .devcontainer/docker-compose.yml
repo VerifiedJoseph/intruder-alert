@@ -3,6 +3,8 @@ services:
     build:
       context: ./workspace
     tty: true
+    expose:
+      - "9000"
     environment:
       - IA_LOG_FOLDER=/intruder-alert/backend/data/logs
     volumes:
@@ -17,16 +19,4 @@ services:
       - 8080:8080
     volumes:
       - ../:/intruder-alert:ro
-    working_dir: /intruder-alert
-
-  php:
-    build:
-      context: ./php
-    expose:
-      - "9000"
-    environment:
-      - IA_LOG_FOLDER=/intruder-alert/backend/data/logs
-    volumes:
-      - ../:/intruder-alert
-      - ./fail2ban-logs:/intruder-alert/backend/data/logs:ro
     working_dir: /intruder-alert
