@@ -16,16 +16,18 @@ export class IaData {
     }
 
     this.#data.address.list.forEach(ip => {
-      ip.events.forEach(event => {
-        this.#recentBans.push({
-          address: ip.address,
-          version: ip.version,
-          jail: event.jail,
-          subnet: ip.subnet,
-          network: ip.network,
-          country: ip.country,
-          continent: ip.continent,
-          timestamp: event.timestamp
+      Object.keys(ip.events).forEach(jail => {
+        ip.events[jail].forEach(timestamp => {
+          this.#recentBans.push({
+            address: ip.address,
+            version: ip.version,
+            jail,
+            subnet: ip.subnet,
+            network: ip.network,
+            country: ip.country,
+            continent: ip.continent,
+            timestamp
+          })
         })
       })
     })
