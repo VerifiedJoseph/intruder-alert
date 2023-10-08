@@ -35,5 +35,8 @@ class Continents extends AbstractList
                 $this->data['list'][$code]['ipCount']++;
             }
         }
+
+        var_dump($this->ipList);
+        exit();
     }
 }
