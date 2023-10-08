@@ -10,7 +10,7 @@ abstract class AbstractList
         'list' => []
     ];
 
-    /** @var array<int, array<int, string>> $ipList  IP addresses for this list */
+    /** @var array<int, array<int|string, string>> $ipList  IP addresses for this list */
     protected array $ipList = [];
 
     /** @var ?string $mostBannedParam Data list parameter to use when calculating the most banned */
@@ -32,6 +32,8 @@ abstract class AbstractList
             'bans' => $this->orderByBans(),
             'date' => $this->orderByDate()
         };
+
+        $this->data['list'] = array_values($this->data['list']);
 
         return $this->data;
     }
