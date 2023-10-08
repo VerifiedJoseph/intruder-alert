@@ -12,11 +12,11 @@ class Addresses extends AbstractList
     /** {@inheritDoc} */
     public function addIp(array $ip): void
     {
-        $key = array_search($ip['address'], array_column($this->data['list'], 'address'));
+        $address = $ip['address'];
 
-        if ($key === false) {
+        if (array_key_exists($address, $this->data['list']) === false) {
             $this->totalBans++;
-            $this->data['list'][] = [
+            $this->data['list'][$address] = [
                 'address' => $ip['address'],
                 'version' => $ip['version'],
                 'bans' => 1,
@@ -31,8 +31,8 @@ class Addresses extends AbstractList
             ];
         } else {
             $this->totalBans++;
-            $this->data['list'][$key]['bans']++;
-            $this->data['list'][$key]['events'][] = [
+            $this->data['list'][$address]['bans']++;
+            $this->data['list'][$address]['events'][] = [
                 'timestamp' => $ip['timestamp'],
                 'jail' => $ip['jail']
             ];
