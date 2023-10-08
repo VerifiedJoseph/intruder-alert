@@ -12,7 +12,7 @@ class Config
     private string $minPhpVersion = '8.1.0';
 
     /** @var array<int, string> $extensions Required PHP extensions */
-    private static array $extensions = ['curl', 'json', 'phar', 'openssl', 'pcre'];
+    private static array $extensions = ['curl', 'json', 'phar', 'pcre'];
 
     private string $path = '';
 
