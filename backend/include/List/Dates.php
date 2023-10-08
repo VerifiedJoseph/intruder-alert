@@ -18,22 +18,21 @@ class Dates extends AbstractList
     public function addIp(array $ip): void
     {
         $date = date('Y-m-d', strtotime($ip['timestamp']));
-        $key = array_search($date, array_column($this->data['list'], 'date'));
 
-        if ($key === false) {
-            $this->data['list'][] = [
+        if (array_key_exists($date, $this->data['list']) === false) {
+            $this->data['list'][$date] = [
                 'date' => $date,
                 'bans' => 1,
                 'ipCount' => 1,
             ];
 
-            $this->ipList[][] = $ip['address'];
+            $this->ipList[$date][] = $ip['address'];
         } else {
-            $this->data['list'][$key]['bans']++;
+            $this->data['list'][$date]['bans']++;
 
-            if (in_array($ip['address'], $this->ipList[$key]) === false) {
-                $this->ipList[$key][] = $ip['address'];
-                $this->data['list'][$key]['ipCount']++;
+            if (in_array($ip['address'], $this->ipList[$date]) === false) {
+                $this->ipList[$date][] = $ip['address'];
+                $this->data['list'][$date]['ipCount']++;
             }
         }
     }
