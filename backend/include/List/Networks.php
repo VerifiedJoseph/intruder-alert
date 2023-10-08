@@ -16,23 +16,23 @@ class Networks extends AbstractList
     /** {@inheritDoc} */
     public function addIp(array $ip): void
     {
-        $key = array_search($ip['network']['number'], array_column($this->data['list'], 'number'));
+        $number = $ip['network']['number'];
 
-        if ($key === false) {
-            $this->data['list'][] = [
+        if (array_key_exists($number, $this->data['list']) === false) {
+            $this->data['list'][$number] = [
                 'name' => $ip['network']['name'],
                 'number' => $ip['network']['number'],
                 'bans' => 1,
                 'ipCount' => 1,
             ];
 
-            $this->ipList[][] = $ip['address'];
+            $this->ipList[$number][] = $ip['address'];
         } else {
-            $this->data['list'][$key]['bans']++;
+            $this->data['list'][$number]['bans']++;
 
-            if (in_array($ip['address'], $this->ipList[$key]) === false) {
-                $this->ipList[$key][] = $ip['address'];
-                $this->data['list'][$key]['ipCount']++;
+            if (in_array($ip['address'], $this->ipList[$number]) === false) {
+                $this->ipList[$number][] = $ip['address'];
+                $this->data['list'][$number]['ipCount']++;
             }
         }
     }
