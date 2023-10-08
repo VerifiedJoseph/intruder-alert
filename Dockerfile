@@ -39,9 +39,6 @@ COPY --chown=nobody /docker/config/nginx.conf /etc/nginx/nginx.conf
 # Copy php-fpm config
 COPY --chown=nobody /docker/config/fpm-pool.conf /etc/php82/php-fpm.d/www.conf
 
-# Remove zz-docker.conf
-#RUN rm /usr/local/etc/php-fpm.d/zz-docker.conf
-
 # Copy supervisord config
 COPY --chown=nobody /docker/config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
