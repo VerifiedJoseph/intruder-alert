@@ -16,10 +16,10 @@ class Subnets extends AbstractList
     /** {@inheritDoc} */
     public function addIp(array $ip): void
     {
-        $key = array_search($ip['network']['subnet'], array_column($this->data['list'], 'subnet'));
+        $subnet = $ip['network']['subnet'];
 
-        if ($key === false) {
-            $this->data['list'][] = [
+        if (array_key_exists($subnet, $this->data['list']) === false) {
+            $this->data['list'][$subnet] = [
                 'subnet' => $ip['network']['subnet'],
                 'version' => $ip['version'],
                 'network' => $ip['network']['number'],
@@ -28,13 +28,13 @@ class Subnets extends AbstractList
                 'ipCount' => 1,
             ];
 
-            $this->ipList[][] = $ip['address'];
+            $this->ipList[$subnet][] = $ip['address'];
         } else {
-            $this->data['list'][$key]['bans']++;
+            $this->data['list'][$subnet]['bans']++;
 
-            if (in_array($ip['address'], $this->ipList[$key]) === false) {
-                $this->ipList[$key][] = $ip['address'];
-                $this->data['list'][$key]['ipCount']++;
+            if (in_array($ip['address'], $this->ipList[$subnet]) === false) {
+                $this->ipList[$subnet][] = $ip['address'];
+                $this->data['list'][$subnet]['ipCount']++;
             }
         }
     }
