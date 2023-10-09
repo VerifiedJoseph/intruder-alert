@@ -330,6 +330,10 @@ button:hover:disabled, select:hover:disabled {
 	cursor: not-allowed;
 }
 
+.filter-add-dialog-btn::before {
+	content: "+ ";
+}
+
 .page-button-small {
 	height: 23px;
 	width: 50px;
