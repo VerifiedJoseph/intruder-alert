@@ -51,5 +51,11 @@ RUN mkdir -p /app/backend/data/geoip2 /app/backend/data/logs
 # Make files accessable to nobody user
 RUN chown -R nobody.nobody /run /app /var/lib/nginx /var/log/nginx
 
+# Create symlink for php
+RUN ln -s /usr/bin/php82 /usr/bin/php
+
+# Create symlink for php-fpm
+RUN ln -s /usr/sbin/php-fpm82 /usr/sbin/php-fpm
+
 USER nobody
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
