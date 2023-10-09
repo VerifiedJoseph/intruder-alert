@@ -26,8 +26,8 @@ FROM alpine:3.18.4
 # Install packages
  RUN apk add --no-cache \
   curl \
-  nginx=~1.24.0-r6 \
-  supervisor=~4.2.5-r2 \
+  nginx \
+  supervisor \
   php82 \
   php82-curl \
   php82-phar \
