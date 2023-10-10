@@ -81,11 +81,17 @@ export class Display {
     const div = document.getElementById('log-entries')
     div.innerText = ''
 
-    this.#iaData.getDaemonLog().forEach(item => {
-      const entry = document.createElement('div')
-      entry.innerText = item
+    if (this.#iaData.isDaemonLogEnabled() === true) {
+      this.#iaData.getDaemonLog().forEach(item => {
+        const entry = document.createElement('div')
+        entry.innerText = item
 
-      div.appendChild(entry)
-    })
+        div.appendChild(entry)
+      })
+
+      document.getElementById('log').classList.remove('hide')
+    } else {
+      document.getElementById('log').classList.add('hide')
+    }
   }
 }
