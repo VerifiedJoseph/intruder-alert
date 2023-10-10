@@ -169,7 +169,9 @@ class Config
         }
 
         if ($this->hasEnv('DASH_DAEMON_LOG') === true && $this->isEnvBoolean('DASH_DAEMON_LOG') === false) {
-            throw new ConfigException('Dashboard daemon log environment variable must be true or false [DASH_DAEMON_LOG]');
+            throw new ConfigException(
+                'Dashboard daemon log environment variable must be true or false [DASH_DAEMON_LOG]'
+            );
         }
 
         $this->checkTimeZones();
