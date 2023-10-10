@@ -90,6 +90,14 @@ export class IaData {
   }
 
   /**
+   * Check if displaying the daemon log is enabled
+   * @returns {boolean}
+   */
+  isDaemonLogEnabled () {
+    return this.#data.settings.enableDaemonLog
+  }
+
+  /**
    * Get total count for a list
    * @param {string} type List type
    * @returns {int}
