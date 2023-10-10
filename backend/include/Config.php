@@ -75,6 +75,15 @@ class Config
         return true;
     }
 
+    public function getDashDaemonLogStatus(): bool
+    {
+        if ($this->getEnv('DASH_DAEMON_LOG') === 'false') {
+            return false;
+        }
+
+        return true;
+    }
+
     public function getLogFolder(): string
     {
         return $this->getEnv('LOG_FOLDER');
@@ -133,6 +142,7 @@ class Config
      * @throws ConfigException if a required PHP extension is not loaded.
      * @throws ConfigException if environment variable `IA_DISABLE_CHARTS` is not `true` or `false`.
      * @throws ConfigException if environment variable `IA_DISABLE_DASH_UPDATES` is not `true` or `false`.
+     * @throws ConfigException if environment variable `IA_DASH_DAEMON_LOG` is not `true` or `false`.
      */
     public function check(): void
     {
@@ -156,6 +166,10 @@ class Config
 
         if ($this->hasEnv('DASH_UPDATES') === true && $this->isEnvBoolean('DASH_UPDATES') === false) {
             throw new ConfigException('Dashboard updates environment variable must be true or false [IA_DASH_UPDATES]');
+        }
+
+        if ($this->hasEnv('DASH_DAEMON_LOG') === true && $this->isEnvBoolean('DASH_DAEMON_LOG') === false) {
+            throw new ConfigException('Dashboard daemon log environment variable must be true or false [DASH_DAEMON_LOG]');
         }
 
         $this->checkTimeZones();
