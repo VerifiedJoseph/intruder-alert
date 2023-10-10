@@ -26,11 +26,12 @@ export class Table {
     row.get().forEach(cell => {
       const th = document.createElement('th')
 
+      th.setAttribute('scope', 'col')
+      th.innerText = cell.value
+
       if (cell.cssClass !== null) {
         th.classList.add(cell.cssClass)
       }
-
-      th.innerText = cell.value
 
       tr.appendChild(th)
     })
