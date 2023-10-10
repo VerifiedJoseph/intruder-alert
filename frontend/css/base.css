@@ -310,6 +310,10 @@ button {
 	line-height: 13px;
 }
 
+button.filter-remove::after {
+	content: '✕'
+}
+
 select {
 	padding: 0px 6px;
 	text-overflow: ellipsis;
