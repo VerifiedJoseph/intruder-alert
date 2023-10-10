@@ -67,9 +67,14 @@ class App
             }
         }
 
+        if ($this->config->getDashDaemonLogStatus() === false) {
+            unset($data['log']);
+        }
+
         $data['settings'] = [
             'enableCharts' => $this->config->getChartsStatus(),
             'enableUpdates' => $this->config->getDashUpdatesStatus(),
+            'enableDaemonLog' => $this->config->getDashDaemonLogStatus(),
             'timezone' => $this->config->getTimezone(),
             'version' => $this->config->getVersion()
         ];
