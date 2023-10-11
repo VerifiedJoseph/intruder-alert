@@ -86,7 +86,15 @@ export class IaData {
    * @returns {boolean}
    */
   isChartEnabled () {
-    return this.#data.settings.enableCharts
+    return this.#data.settings.features.charts
+  }
+
+  /**
+   * Check if dashboard updating is enabled
+   * @returns {boolean}
+   */
+  isUpdatingEnabled () {
+    return this.#data.settings.features.charts
   }
 
   /**
@@ -94,7 +102,7 @@ export class IaData {
    * @returns {boolean}
    */
   isDaemonLogEnabled () {
-    return this.#data.settings.enableDaemonLog
+    return this.#data.settings.features.daemonLog
   }
 
   /**

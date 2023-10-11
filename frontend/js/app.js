@@ -410,7 +410,7 @@ fetchData()
       document.getElementById('chart').classList.remove('hide')
     }
 
-    if (data.settings.enableUpdates === true) {
+    if (iaData.isUpdatingEnabled() === true) {
       setInterval(checkForUpdate, 60000)
     }
 
