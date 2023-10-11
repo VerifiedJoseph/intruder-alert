@@ -72,9 +72,11 @@ class App
         }
 
         $data['settings'] = [
-            'enableCharts' => $this->config->getChartsStatus(),
-            'enableUpdates' => $this->config->getDashUpdatesStatus(),
-            'enableDaemonLog' => $this->config->getDashDaemonLogStatus(),
+            'features' => [
+                'charts' => $this->config->getChartsStatus(),
+                'updates' => $this->config->getDashUpdatesStatus(),
+                'daemonLog' => $this->config->getDashDaemonLogStatus()
+            ],
             'timezone' => $this->config->getTimezone(),
             'version' => $this->config->getVersion()
         ];
