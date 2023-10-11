@@ -90,6 +90,14 @@ export class IaData {
   }
 
   /**
+   * Check if dashboard updating is enabled
+   * @returns {boolean}
+   */
+  isUpdatingEnabled () {
+    return this.#data.settings.features.charts
+  }
+
+  /**
    * Check if displaying the daemon log is enabled
    * @returns {boolean}
    */
