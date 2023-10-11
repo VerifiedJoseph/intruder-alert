@@ -13,10 +13,10 @@ All notable changes to this project are documented in this file.
 - Removed `array_search()` from List classes. ([#209](https://github.com/VerifiedJoseph/intruder-alert/pull/209), [`18746ea`](https://github.com/VerifiedJoseph/intruder-alert/commit/18746eacafb515d5f8db6911b36e5dee2d2dadfa))
 - composer: Specify php version. ([#207](https://github.com/VerifiedJoseph/intruder-alert/pull/207), [`06b45cf`](https://github.com/VerifiedJoseph/intruder-alert/commit/06b45cf073f44d68cae27bee89709f02de5e12f3))
 - Config: Check for required PHP extensions. ([#205](https://github.com/VerifiedJoseph/intruder-alert/pull/205), [`6927734`](https://github.com/VerifiedJoseph/intruder-alert/commit/692773413b89db7ae2163459852d1880af02d2be))
-- Database\Update: Fixed geoip folder path. ([#204](https://github.com/VerifiedJoseph/intruder-alert/pull/204), [`2ffdffe`](https://github.com/VerifiedJoseph/intruder-alert/commit/2ffdffebb9378b0dab41711381ef3777348c1f79))
 - css: Changed font-family to 'Arial, sans-serif'. ([#197](https://github.com/VerifiedJoseph/intruder-alert/pull/197), [`a67771b`](https://github.com/VerifiedJoseph/intruder-alert/commit/a67771b441747718af77ba7978ee99dabeb4cd46))
 - Added Dev Container. ([#194](https://github.com/VerifiedJoseph/intruder-alert/pull/194), [`e9be39d`](https://github.com/VerifiedJoseph/intruder-alert/commit/e9be39d5429fe2fe07def87b64a6dd7b65792579))
 - Downgraded node.js version to 18 (LTS). ([#193](https://github.com/VerifiedJoseph/intruder-alert/pull/193), [`5868dfd`](https://github.com/VerifiedJoseph/intruder-alert/commit/5868dfdb0f50f86fe8a61ec8ea6dd6349e7ce661))
+- Database\Update: Fixed geoip folder path. ([#204](https://github.com/VerifiedJoseph/intruder-alert/pull/204), [`2ffdffe`](https://github.com/VerifiedJoseph/intruder-alert/commit/2ffdffebb9378b0dab41711381ef3777348c1f79))
 - Database\Update: Improved error handling & add `buildUrl()`. ([#192](https://github.com/VerifiedJoseph/intruder-alert/pull/192), [`d1e5469`](https://github.com/VerifiedJoseph/intruder-alert/commit/d1e5469b4531c48ce140516c8275ec860339e407))
 
 ## [1.6.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.6.0) - 2023-10-02
