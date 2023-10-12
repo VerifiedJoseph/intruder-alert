@@ -55,7 +55,7 @@ export class FilterAddDialog extends ViewGroup {
     },
     {
       value: 'jail',
-      name: 'Jails',
+      name: 'Jail',
       chart: true,
       table: true
     },
