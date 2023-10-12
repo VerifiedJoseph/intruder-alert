@@ -4,8 +4,8 @@ import { IaData } from './class/IaData.js'
 import { Plot } from './class/Plot.js'
 import { TableFilter } from './class/Filter/TableFilter.js'
 import { ChartFilter } from './class/Filter/ChartFilter.js'
-import { FilterAddDialog } from './class/Dialog/FilterAdd.js'
-import { FilterOptionsDialog } from './class/Dialog/FilterOptions.js'
+import { FilterAddDialog } from './class/Dialog/Dialogs/FilterAdd.js'
+import { FilterOptionsDialog } from './class/Dialog/Dialogs/FilterOptions.js'
 import { Display } from './class/Display.js'
 import { Pagination } from './class/Pagination.js'
 import { Helper } from './class/Helper.js'
@@ -144,26 +144,26 @@ function clickHandler (event) {
       table.dialog.filterOptions.open()
       break
     case 'dialog-filters-reverse':
-      if (event.target.getAttribute('data-view-type') === 'chart') {
+      if (event.target.getAttribute('data-view-group') === 'chart') {
         chart.dialog.filterOptions.close()
         chart.filter.reverse()
         chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
       }
 
-      if (event.target.getAttribute('data-view-type') === 'table') {
+      if (event.target.getAttribute('data-view-group') === 'table') {
         table.dialog.filterOptions.close()
         table.filter.reverse()
         displayData(table.filter.getData(Helper.getTableType()))
       }
       break
     case 'dialog-filters-remove':
-      if (event.target.getAttribute('data-view-type') === 'chart') {
+      if (event.target.getAttribute('data-view-group') === 'chart') {
         chart.dialog.filterOptions.close()
         chart.filter.reset()
         chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
       }
 
-      if (event.target.getAttribute('data-view-type') === 'table') {
+      if (event.target.getAttribute('data-view-group') === 'table') {
         table.dialog.filterOptions.close()
         table.filter.reset()
         displayData(table.filter.getData(Helper.getTableType()))
@@ -171,10 +171,10 @@ function clickHandler (event) {
       break
     case 'dialog-filter-apply':
       document.getElementById(
-        `${event.target.getAttribute('data-view-type')}-applied-filters`
+        `${event.target.getAttribute('data-view-group')}-applied-filters`
       ).classList.remove('hide')
 
-      if (event.target.getAttribute('data-view-type') === 'chart') {
+      if (event.target.getAttribute('data-view-group') === 'chart') {
         chart.dialog.filterAdd.close()
         chart.filter.add(
           document.getElementById('chart-filter-type').value,
@@ -185,7 +185,7 @@ function clickHandler (event) {
         chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
       }
 
-      if (event.target.getAttribute('data-view-type') === 'table') {
+      if (event.target.getAttribute('data-view-group') === 'table') {
         table.dialog.filterAdd.close()
         table.filter.add(
           document.getElementById('table-filter-type').value,

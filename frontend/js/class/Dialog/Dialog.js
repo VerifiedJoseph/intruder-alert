@@ -2,15 +2,9 @@ import { Helper } from '../Helper.js'
 
 export class Dialog {
   element
-  dialogType
-  viewType
+  dialogId
 
-  /**
-   * @param {string} id Dialog element ID
-   * @param {string} type Dialog type (chart or table)
-   */
-  constructor (viewType) {
-    this.viewType = viewType
+  constructor () {
     this.element = document.getElementById('main-dialog')
   }
 
@@ -29,17 +23,25 @@ export class Dialog {
   }
 
   /**
+   *
+   * @returns
+   */
+  getButtonId () {
+    return `${this.dialogId}-dialog-open`
+  }
+
+  /**
    * Enable dialog open button
    */
   enableBtn () {
-    document.getElementById(`${this.viewType}-${this.dialogType}-dialog-open`).disabled = false
+    document.getElementById(this.getButtonId()).disabled = false
   }
 
   /**
    * Disable dialog open button
    */
   disableBtn () {
-    document.getElementById(`${this.viewType}-${this.dialogType}-dialog-open`).disabled = true
+    document.getElementById(this.getButtonId()).disabled = true
   }
 
   /**
