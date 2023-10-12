@@ -1,7 +1,7 @@
-import { Dialog } from './Dialog.js'
+import { ViewGroup } from '../ViewGroup.js'
 
-export class FilterOptionsDialog extends Dialog {
-  dialogType = 'filter-options'
+export class FilterOptionsDialog extends ViewGroup {
+  dialogId = 'filter-options'
 
   /**
    * Setup dialog
@@ -18,9 +18,9 @@ export class FilterOptionsDialog extends Dialog {
 
   #setupElements () {
     const header = this.createHeader(
-      `${this.viewType} filter options`,
+      `${this.viewGroup} filter options`,
       true,
-      `${this.viewType}-filter-options`
+      `${this.viewGroup}-filter-options`
     )
 
     // Button group
@@ -31,13 +31,13 @@ export class FilterOptionsDialog extends Dialog {
     const reverseFiltersBtn = document.createElement('button')
     reverseFiltersBtn.innerText = 'Reverse filters'
     reverseFiltersBtn.setAttribute('id', 'dialog-filters-reverse')
-    reverseFiltersBtn.setAttribute('data-view-type', this.viewType)
+    reverseFiltersBtn.setAttribute('data-view-group', this.viewGroup)
 
     // Remove filters button
     const removeFiltersBtn = document.createElement('button')
     removeFiltersBtn.innerText = 'Remove filters'
     removeFiltersBtn.setAttribute('id', 'dialog-filters-remove')
-    removeFiltersBtn.setAttribute('data-view-type', this.viewType)
+    removeFiltersBtn.setAttribute('data-view-group', this.viewGroup)
 
     optionButtons.appendChild(reverseFiltersBtn)
     optionButtons.appendChild(removeFiltersBtn)

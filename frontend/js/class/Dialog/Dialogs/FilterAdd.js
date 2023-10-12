@@ -1,8 +1,8 @@
-import { Dialog } from './Dialog.js'
-import { Helper } from '../Helper.js'
+import { ViewGroup } from '../ViewGroup.js'
+import { Helper } from '../../Helper.js'
 
-export class FilterAddDialog extends Dialog {
-  dialogType = 'filter-add'
+export class FilterAddDialog extends ViewGroup {
+  dialogId = 'filter-add'
   #iaData
 
   #actionSelectOptions = [
@@ -85,8 +85,8 @@ export class FilterAddDialog extends Dialog {
     }
   ]
 
-  constructor (viewType, iaData) {
-    super(viewType)
+  constructor (viewGroup, iaData) {
+    super(viewGroup)
     this.#iaData = iaData
   }
 
@@ -127,27 +127,27 @@ export class FilterAddDialog extends Dialog {
   }
 
   #setupElements () {
-    const header = this.createHeader(`New ${this.viewType} filter`)
+    const header = this.createHeader(`New ${this.viewGroup} filter`)
 
     // Select group
     const selectGroup = document.createElement('div')
     selectGroup.classList.add('selects')
 
     const typeSelect = document.createElement('select')
-    typeSelect.setAttribute('id', `${this.viewType}-filter-type`)
+    typeSelect.setAttribute('id', `${this.viewGroup}-filter-type`)
     typeSelect.classList.add('filter-type')
 
     const actionSelect = document.createElement('select')
-    actionSelect.setAttribute('id', `${this.viewType}-filter-action`)
+    actionSelect.setAttribute('id', `${this.viewGroup}-filter-action`)
     actionSelect.classList.add('filter-action')
 
     const valueSelect = document.createElement('select')
-    valueSelect.setAttribute('id', `${this.viewType}-filter-value`)
+    valueSelect.setAttribute('id', `${this.viewGroup}-filter-value`)
     valueSelect.classList.add('filter-value')
 
     // Type select options
     this.#typeSelectOptions.forEach(item => {
-      if (item[this.viewType] === true) {
+      if (item[this.viewGroup] === true) {
         const opt = document.createElement('option')
         opt.value = item.value
         opt.innerText = item.name
@@ -173,13 +173,13 @@ export class FilterAddDialog extends Dialog {
     const applyBtn = document.createElement('button')
     applyBtn.innerText = 'Apply'
     applyBtn.setAttribute('id', 'dialog-filter-apply')
-    applyBtn.setAttribute('data-view-type', this.viewType)
+    applyBtn.setAttribute('data-view-group', this.viewGroup)
 
     const buttonGroup = document.createElement('div')
     buttonGroup.classList.add('buttons')
     buttonGroup.appendChild(applyBtn)
     buttonGroup.appendChild(
-      this.createCloseButton('Cancel', `${this.viewType}-filter-add`)
+      this.createCloseButton('Cancel', `${this.viewGroup}-filter-add`)
     )
 
     const dialog = document.getElementById('main-dialog')
@@ -287,11 +287,13 @@ export class FilterAddDialog extends Dialog {
   }
 
   /**
-   * Get element Id with dialog type prefix
+   * Get element Id with view group prefix
    * @param {string} name
    */
   #getId (name) {
-    return `${this.viewType}-${name}`
+    console.log(`${this.viewGroup}-${name}`)
+
+    return `${this.viewGroup}-${name}`
   }
 
   /**
