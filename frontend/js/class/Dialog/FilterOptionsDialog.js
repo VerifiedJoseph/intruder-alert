@@ -1,6 +1,6 @@
-import { ViewGroup } from '../ViewGroup.js'
+import { ViewGroupDialogs } from './ViewGroupDialogs.js'
 
-export class FilterOptionsDialog extends ViewGroup {
+export class FilterOptionsDialog extends ViewGroupDialogs {
   dialogId = 'filter-options'
 
   /**
