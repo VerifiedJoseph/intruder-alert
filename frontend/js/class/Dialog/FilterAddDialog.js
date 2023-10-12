@@ -1,7 +1,7 @@
-import { ViewGroup } from '../ViewGroup.js'
-import { Helper } from '../../Helper.js'
+import { ViewGroupDialogs } from './ViewGroupDialogs.js'
+import { Helper } from '../Helper.js'
 
-export class FilterAddDialog extends ViewGroup {
+export class FilterAddDialog extends ViewGroupDialogs {
   dialogId = 'filter-add'
   #iaData
 
