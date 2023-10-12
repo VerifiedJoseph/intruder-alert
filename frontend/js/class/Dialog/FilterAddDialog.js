@@ -97,7 +97,7 @@ export class FilterAddDialog extends ViewGroupDialogs {
   setup (filter) {
     this.#setupElements()
 
-    if (this.viewType === 'table') {
+    if (this.viewGroup === 'table') {
       if (Helper.getTableType() !== 'recentBans') {
         this.#disableFilter('address')
         this.#disableFilter('jail')
