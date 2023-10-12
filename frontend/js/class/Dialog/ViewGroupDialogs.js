@@ -1,6 +1,6 @@
 import { Dialog } from './Dialog.js'
 
-export class ViewGroup extends Dialog {
+export class ViewGroupDialogs extends Dialog {
   viewGroup
 
   /**
