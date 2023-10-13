@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.8.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.0) - 2023-10-13
+
+- Dialog(js): Refactored to allow for dialogs not tied to data groups. ([#220](https://github.com/VerifiedJoseph/intruder-alert/pull/220), [`b76279a`](https://github.com/VerifiedJoseph/intruder-alert/commit/b76279a95ea66a3bd3b623dcfba4343195cc3eec))
+- Dialog(js) Rename & move dialog sub classes. ([#223](https://github.com/VerifiedJoseph/intruder-alert/pull/223), [`43b8884`](https://github.com/VerifiedJoseph/intruder-alert/commit/43b888486ed501d1602ee18e15b729acf411bf46))
+- FilterAddDialog(js): Fixed jail filter name. ([#222](https://github.com/VerifiedJoseph/intruder-alert/pull/222), [`d55afaa`](https://github.com/VerifiedJoseph/intruder-alert/commit/d55afaa3500b20456ecc0564bfc87327cc29c82d))
+- FilterAddDialog(js): Fixed filter list always showing every filter. ([#224](https://github.com/VerifiedJoseph/intruder-alert/pull/224), [`1b5fd38`](https://github.com/VerifiedJoseph/intruder-alert/commit/1b5fd38f6951c59f1ad893d868eadf5c2a33ff50))
+
 ## [1.7.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.7.0) - 2023-10-11
 
 - App: Added features array to settings in `getJsonReport()` ([#217](https://github.com/VerifiedJoseph/intruder-alert/pull/217), [`a1d7deb`](https://github.com/VerifiedJoseph/intruder-alert/commit/a1d7deb6d2e0af74fa7bc544c1d8f8447e8bfcba))
