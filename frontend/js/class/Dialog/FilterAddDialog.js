@@ -133,41 +133,37 @@ export class FilterAddDialog extends ViewGroupDialogs {
     const selectGroup = document.createElement('div')
     selectGroup.classList.add('selects')
 
-    const typeSelect = document.createElement('select')
-    typeSelect.setAttribute('id', `${this.viewGroup}-filter-type`)
-    typeSelect.classList.add('filter-type')
+    // Each select elements
+    const selectTypes = ['type', 'action', 'value']
+    selectTypes.forEach(id => {
+      const select = document.createElement('select')
+      select.setAttribute('id', `${this.viewGroup}-filter-${id}`)
+      select.classList.add(`filter-${id}`)
 
-    const actionSelect = document.createElement('select')
-    actionSelect.setAttribute('id', `${this.viewGroup}-filter-action`)
-    actionSelect.classList.add('filter-action')
+      if (id === 'type') {
+        this.#typeSelectOptions.forEach(item => {
+          if (item[this.viewGroup] === true) {
+            const opt = document.createElement('option')
+            opt.value = item.value
+            opt.innerText = item.name
 
-    const valueSelect = document.createElement('select')
-    valueSelect.setAttribute('id', `${this.viewGroup}-filter-value`)
-    valueSelect.classList.add('filter-value')
-
-    // Type select options
-    this.#typeSelectOptions.forEach(item => {
-      if (item[this.viewGroup] === true) {
-        const opt = document.createElement('option')
-        opt.value = item.value
-        opt.innerText = item.name
-
-        typeSelect.appendChild(opt)
+            select.appendChild(opt)
+          }
+        })
       }
+
+      if (id === 'action') {
+        this.#actionSelectOptions.forEach(item => {
+          const opt = document.createElement('option')
+          opt.value = item.value
+          opt.innerText = item.name
+
+          select.appendChild(opt)
+        })
+      }
+
+      selectGroup.appendChild(select)
     })
-
-    // Action select options
-    this.#actionSelectOptions.forEach(item => {
-      const opt = document.createElement('option')
-      opt.value = item.value
-      opt.innerText = item.name
-
-      actionSelect.appendChild(opt)
-    })
-
-    selectGroup.appendChild(typeSelect)
-    selectGroup.appendChild(actionSelect)
-    selectGroup.appendChild(valueSelect)
 
     // Apply button
     const applyBtn = document.createElement('button')
@@ -230,15 +226,13 @@ export class FilterAddDialog extends ViewGroupDialogs {
         textValueName = type
     }
 
+    const timeTypes = ['hour', 'minute', 'second']
+
     let data = []
     if (type === 'version') {
       data = [{ number: 4 }, { number: 6 }]
-    } else if (type === 'hour') {
-      data = this.#getHourList()
-    } else if (type === 'minute') {
-      data = this.#getMinuteList()
-    } else if (type === 'second') {
-      data = this.#getSecondList()
+    } else if (timeTypes.includes(type)) {
+      data = this.#getTimeList(type)
     } else {
       data = this.#iaData.getList(type)
     }
@@ -297,62 +291,28 @@ export class FilterAddDialog extends ViewGroupDialogs {
   }
 
   /**
-   * Get list of hours in 24 hour format
+   * Get list of times in 24 hour format
+   * @param {string} type Time type (hour, minute, second)
    * @returns {array}
    */
-  #getHourList () {
-    const hours = []
+  #getTimeList (type) {
+    const items = []
+    let itemCount = 60
 
-    for (let i = 0; i <= 23; i++) {
+    if (type === 'hour') {
+      itemCount = 23
+    }
+
+    for (let i = 0; i <= itemCount; i++) {
       let value = i.toString()
 
       if (i <= 9) {
         value = `0${i}`
       }
 
-      hours.push({ hour: value })
+      items.push({ [type]: value })
     }
 
-    return hours
-  }
-
-  /**
-   * @returns Get list of minutes (00 to 60)
-   * @returns {array}
-   */
-  #getMinuteList () {
-    const minutes = []
-
-    for (let i = 0; i <= 60; i++) {
-      let value = i.toString()
-
-      if (i <= 9) {
-        value = `0${i}`
-      }
-
-      minutes.push({ minute: value })
-    }
-
-    return minutes
-  }
-
-  /**
-   * @returns Get list of seconds (00 to 60)
-   * @returns {array}
-   */
-  #getSecondList () {
-    const minutes = []
-
-    for (let i = 0; i <= 60; i++) {
-      let value = i.toString()
-
-      if (i <= 9) {
-        value = `0${i}`
-      }
-
-      minutes.push({ second: value })
-    }
-
-    return minutes
+    return items
   }
 }
