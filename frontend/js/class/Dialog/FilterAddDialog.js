@@ -133,41 +133,37 @@ export class FilterAddDialog extends ViewGroupDialogs {
     const selectGroup = document.createElement('div')
     selectGroup.classList.add('selects')
 
-    const typeSelect = document.createElement('select')
-    typeSelect.setAttribute('id', `${this.viewGroup}-filter-type`)
-    typeSelect.classList.add('filter-type')
+    // Each select elements
+    const selectTypes = ['type', 'action', 'value']
+    selectTypes.forEach(id => {
+      const select = document.createElement('select')
+      select.setAttribute('id', `${this.viewGroup}-filter-${id}`)
+      select.classList.add(`filter-${id}`)
 
-    const actionSelect = document.createElement('select')
-    actionSelect.setAttribute('id', `${this.viewGroup}-filter-action`)
-    actionSelect.classList.add('filter-action')
+      if (id === 'type') {
+        this.#typeSelectOptions.forEach(item => {
+          if (item[this.viewGroup] === true) {
+            const opt = document.createElement('option')
+            opt.value = item.value
+            opt.innerText = item.name
 
-    const valueSelect = document.createElement('select')
-    valueSelect.setAttribute('id', `${this.viewGroup}-filter-value`)
-    valueSelect.classList.add('filter-value')
-
-    // Type select options
-    this.#typeSelectOptions.forEach(item => {
-      if (item[this.viewGroup] === true) {
-        const opt = document.createElement('option')
-        opt.value = item.value
-        opt.innerText = item.name
-
-        typeSelect.appendChild(opt)
+            select.appendChild(opt)
+          }
+        })
       }
+
+      if (id === 'action') {
+        this.#actionSelectOptions.forEach(item => {
+          const opt = document.createElement('option')
+          opt.value = item.value
+          opt.innerText = item.name
+
+          select.appendChild(opt)
+        })
+      }
+
+      selectGroup.appendChild(select)
     })
-
-    // Action select options
-    this.#actionSelectOptions.forEach(item => {
-      const opt = document.createElement('option')
-      opt.value = item.value
-      opt.innerText = item.name
-
-      actionSelect.appendChild(opt)
-    })
-
-    selectGroup.appendChild(typeSelect)
-    selectGroup.appendChild(actionSelect)
-    selectGroup.appendChild(valueSelect)
 
     // Apply button
     const applyBtn = document.createElement('button')
