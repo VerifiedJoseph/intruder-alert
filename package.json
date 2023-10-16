@@ -16,6 +16,6 @@
   },
   "dependencies": {
     "chart.js": "^4.4.0",
-    "spacetime": "^7.4.7"
+    "spacetime": "^7.4.8"
   }
 }
