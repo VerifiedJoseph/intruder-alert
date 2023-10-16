@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.8.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.1) - 2023-10-16
+
+- Updated spacetime from 7.4.7 to 7.4.8. ([#229](https://github.com/VerifiedJoseph/intruder-alert/pull/229), [`19a684e`](https://github.com/VerifiedJoseph/intruder-alert/commit/19a684e77b9664dc594ea250f1d6f1d181436a67))
+- FilterAddDialog(js): Added `#getTimeList()` and reworked `#setupElements()`. ([#226](https://github.com/VerifiedJoseph/intruder-alert/pull/226), [`ce0ee3a`](https://github.com/VerifiedJoseph/intruder-alert/commit/ce0ee3a13eef841b10c01dc8688d19269d356aca))
+- Dockerfile: Updated node from 18.18.0-alpine3.18 to 18.18.1-alpine3.18. ([#227](https://github.com/VerifiedJoseph/intruder-alert/pull/227), [`701c3e6`](https://github.com/VerifiedJoseph/intruder-alert/commit/701c3e69cb4b75d87334d3412dc96952db780103))
+
 ## [1.8.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.0) - 2023-10-13
 
 - Dialog(js): Refactored to allow for dialogs not tied to data groups. ([#220](https://github.com/VerifiedJoseph/intruder-alert/pull/220), [`b76279a`](https://github.com/VerifiedJoseph/intruder-alert/commit/b76279a95ea66a3bd3b623dcfba4343195cc3eec))
