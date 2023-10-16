@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## [1.8.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.1) - 2023-10-13
+## [1.8.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.1) - 2023-10-16
 
 - Updated spacetime from 7.4.7 to 7.4.8. ([#229](https://github.com/VerifiedJoseph/intruder-alert/pull/229), [`19a684e`](https://github.com/VerifiedJoseph/intruder-alert/commit/19a684e77b9664dc594ea250f1d6f1d181436a67))
 - FilterAddDialog(js): Added `#getTimeList()` and reworked `#setupElements()`. ([#226](https://github.com/VerifiedJoseph/intruder-alert/pull/226), [`ce0ee3a`](https://github.com/VerifiedJoseph/intruder-alert/commit/ce0ee3a13eef841b10c01dc8688d19269d356aca))
