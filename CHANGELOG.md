@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.8.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.2) - 2023-10-18
+
+- Logs: Fixed fatal error when log file is empty. ([#238](https://github.com/VerifiedJoseph/intruder-alert/pull/238), [`87974ad`](https://github.com/VerifiedJoseph/intruder-alert/commit/87974ad8adeb12627270dc0676d209643e48ad33))
+- Dockerfile: Updated node from 18.18.1-alpine3.18 to 18.18.2-alpine3.18. ([#235](https://github.com/VerifiedJoseph/intruder-alert/pull/235), [`f252221`](https://github.com/VerifiedJoseph/intruder-alert/commit/f252221c4214cc3e1c41e53e56412d33052666ec))
+
 ## [1.8.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.1) - 2023-10-16
 
 - Updated spacetime from 7.4.7 to 7.4.8. ([#229](https://github.com/VerifiedJoseph/intruder-alert/pull/229), [`19a684e`](https://github.com/VerifiedJoseph/intruder-alert/commit/19a684e77b9664dc594ea250f1d6f1d181436a67))
