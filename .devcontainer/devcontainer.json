@@ -9,8 +9,9 @@
         "vscode": {
             "extensions": [
                 "EditorConfig.EditorConfig",
-                "streetsidesoftware.code-spell-checker",
-                "dbaeumer.vscode-eslint"
+                "bmewburn.vscode-intelephense-client",
+                "dbaeumer.vscode-eslint",
+                "streetsidesoftware.code-spell-checker"
             ]
         }
     },
