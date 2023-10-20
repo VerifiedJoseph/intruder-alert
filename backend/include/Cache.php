@@ -13,7 +13,7 @@ final class Cache
     private int $lifetime = 43200;
 
     /**
-     * @var string $path Cache folder path
+     * @var string $path Cache file path
      */
     private string $path = '';
 
@@ -28,7 +28,7 @@ final class Cache
     /**
      * Constructor
      *
-     * @param string $path Cache folder path
+     * @param string $path Cache file path
      */
     public function __construct(string $path)
     {
