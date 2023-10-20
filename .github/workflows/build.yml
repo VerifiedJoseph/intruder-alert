@@ -71,7 +71,7 @@ jobs:
           cache: 'npm'
 
       - name: Run composer
-        run: composer install --no-dev
+        run: composer install --no-dev --optimize-autoloader
 
       - name: Run npm
         run: npm ci
