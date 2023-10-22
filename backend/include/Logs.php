@@ -19,7 +19,7 @@ use DateTimeZone;
  */
 class Logs
 {
-    /** @var Config $config */
+    /** @var Config Config class instance */
     private Config $config;
 
     /** @var string $filenameRegex Log filename regex */
@@ -28,6 +28,9 @@ class Logs
     /** @var string $gzRegex Gzip file extension regex */
     private $gzRegex = '/.gz$/';
 
+    /**
+     * @param Config $config Config class instance
+     */
     public function __construct(Config $config)
     {
         $this->config = $config;
@@ -63,12 +66,12 @@ class Logs
                 $contents = (string) gzdecode($contents);
             }
 
-            $lines = explode("\n", $contents);
-            $lineCount = count($lines);
+            $lineCount = 0;
             $banCount = 0;
 
-            foreach ($lines as $currentLine) {
+            foreach ($this->getLines($contents) as $currentLine) {
                 $line = new LogLine($currentLine);
+                $lineCount += 1;
 
                 if ($line->hasBan() === true) {
                     $banCount += 1;
@@ -124,6 +127,17 @@ class Logs
         $directory = new RecursiveDirectoryIterator($this->config->getLogFolder());
         $flattened = new RecursiveIteratorIterator($directory);
         return new RegexIterator($flattened, $this->filenameRegex);
+    }
+
+    /**
+     * Get lines from file data
+     *
+     * @param string $data File data
+     * @return array<int, string>
+     */
+    private function getLines(string $data): array
+    {
+        return explode("\n", $data);
     }
 
     /**
