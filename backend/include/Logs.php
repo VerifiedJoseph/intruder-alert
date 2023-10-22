@@ -131,7 +131,7 @@ class Logs
 
     /**
      * Get lines from file data
-     * 
+     *
      * @param string $data File data
      * @return array<int, string>
      */
