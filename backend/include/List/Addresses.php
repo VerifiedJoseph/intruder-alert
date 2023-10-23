@@ -46,28 +46,4 @@ class Addresses extends AbstractList
     {
         return $this->totalBans;
     }
-
-    /**
-     * Order by date
-     */
-    protected function orderByDate(): void
-    {
-        $list = $this->data['list'];
-
-        foreach ($list as $itemKey => $item) {
-            usort($this->data['list'][$itemKey]['events'], function ($a1, $a2) {
-                $v1 = strtotime($a1['timestamp']);
-                $v2 = strtotime($a2['timestamp']);
-                return $v2 - $v1;
-            });
-
-            $this->data['list'][$itemKey]['firstSeen'] = $this->data['list'][$itemKey]['events'][0]['timestamp'];
-        }
-
-        usort($this->data['list'], function ($a1, $a2) {
-            $v1 = strtotime($a1['firstSeen']);
-            $v2 = strtotime($a2['firstSeen']);
-            return $v2 - $v1;
-        });
-    }
 }
