@@ -230,13 +230,13 @@ input {
 	flex-direction: row;
 	display: flex;
 	flex-wrap: wrap;
-	row-gap: 5px;
+	row-gap: 6px;
+	column-gap: 6px;
 	width: 890px;
 }
 
 .applied-filters > .item {
 	padding: 4px;
-	margin-right: 5px;
 	background-color: #f1f1f1;
 	border: 1px solid #8f8f9d;
 
