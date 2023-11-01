@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.8.3](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.3) - 2023-11-01
+
+- CSS: Minor changes to filter chip margins. ([#248](https://github.com/VerifiedJoseph/intruder-alert/pull/248), [`e5bdb13`](https://github.com/VerifiedJoseph/intruder-alert/commit/e5bdb13dcad012d2f38acb629a59ac51bac15da8))
+- List\Addresses: Removed unused method `orderByDate()`. ([#247](https://github.com/VerifiedJoseph/intruder-alert/pull/247), [`6230e14`](https://github.com/VerifiedJoseph/intruder-alert/commit/6230e143856d14a8aab20586a9e645234fc5de86))
+- Logs: Added method `getLines()`. ([#243](https://github.com/VerifiedJoseph/intruder-alert/pull/243), [`79d385d`](https://github.com/VerifiedJoseph/intruder-alert/commit/79d385d1bcf7d1b78a3d1d7270da4981ddfcea82))
+- build: Optimized composer autoloader. ([#241](https://github.com/VerifiedJoseph/intruder-alert/pull/241), [`9bd9378`](https://github.com/VerifiedJoseph/intruder-alert/commit/9bd93786c23a386cce8cd670227df1f9832a3f15))
+
 ## [1.8.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.2) - 2023-10-18
 
 - Logs: Fixed fatal error when log file is empty. ([#238](https://github.com/VerifiedJoseph/intruder-alert/pull/238), [`87974ad`](https://github.com/VerifiedJoseph/intruder-alert/commit/87974ad8adeb12627270dc0676d209643e48ad33))
