@@ -7,4 +7,4 @@
 /**
  * @const VERSION Intruder Alert version
  */
-define('VERSION', '1.8.2');
+define('VERSION', '1.8.3');
