@@ -266,6 +266,7 @@ input {
 .applied-filters > .item > button {
 	padding: 3px;
 	width: 30px;
+	height: 25.5px;
 }
 
 #log {
