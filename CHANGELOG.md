@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.8.4](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.4) - 2023-11-06
+
+- CSS: Fixed height bug with filter chip close buttons. ([#256](https://github.com/VerifiedJoseph/intruder-alert/pull/256), [`4bdd81b`](https://github.com/VerifiedJoseph/intruder-alert/commit/4bdd81b5a5568dd5005e0e5cbc7435284942a4e1))
+
 ## [1.8.3](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.3) - 2023-11-01
 
 - CSS: Minor changes to filter chip margins. ([#248](https://github.com/VerifiedJoseph/intruder-alert/pull/248), [`e5bdb13`](https://github.com/VerifiedJoseph/intruder-alert/commit/e5bdb13dcad012d2f38acb629a59ac51bac15da8))
