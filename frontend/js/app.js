@@ -368,6 +368,8 @@ function checkForUpdate () {
 }
 
 document.getElementById('loading').classList.remove('hide')
+document.getElementById('table-type').options[0].selected = true
+document.getElementById('chart-type').options[0].selected = true
 
 fetchData()
   .then(response => {
