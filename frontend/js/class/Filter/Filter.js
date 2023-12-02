@@ -102,25 +102,18 @@ export class Filter {
   }
 
   /**
-   * Remove a number of filters by type
-   * @param {array} types filter types
+   * Remove all filter types except given
+   * @param {array} types filter types to keep
    */
-  removeMany (types) {
-    Array.from(types).forEach(type => {
-      let id = null
+  removeAllExcept (types) {
+    this.settings = this.settings.filter(filter => {
+      if (types.includes(filter.type) === false) {
+        this.chip.remove(filter.id)
 
-      this.settings = this.settings.filter(filter => {
-        if (filter.type === type) {
-          id = filter.id
-          return false
-        }
-
-        return true
-      })
-
-      if (id !== null) {
-        this.chip.remove(id)
+        return false
       }
+
+      return true
     })
   }
 
