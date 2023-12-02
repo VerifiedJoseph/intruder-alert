@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.8.5](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.5) - 2023-12-02
+
+- Dockerfile: Updated alpine from 3.18.4 to 3.18.5 ([#272](https://github.com/VerifiedJoseph/intruder-alert/pull/272), [`b65e9d3`](https://github.com/VerifiedJoseph/intruder-alert/commit/b65e9d3fdfb4ceb85df1482b39f93dc079f4c1af))
+- Filter(js): Reworked removing filters by type. ([#279](https://github.com/VerifiedJoseph/intruder-alert/pull/279), [`0581170`](https://github.com/VerifiedJoseph/intruder-alert/commit/0581170c06a6ab7f0f9c61440e2777d69ef72c92))
+- App(js): Set default table & chart view types. ([#280](https://github.com/VerifiedJoseph/intruder-alert/pull/280), [`6a55a24`](https://github.com/VerifiedJoseph/intruder-alert/commit/6a55a241edd4f311314744809b0bf67ce8221777))
+
 ## [1.8.4](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.4) - 2023-11-06
 
 - CSS: Fixed height bug with filter chip close buttons. ([#256](https://github.com/VerifiedJoseph/intruder-alert/pull/256), [`4bdd81b`](https://github.com/VerifiedJoseph/intruder-alert/commit/4bdd81b5a5568dd5005e0e5cbc7435284942a4e1))
