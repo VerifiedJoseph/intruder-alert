@@ -274,11 +274,11 @@ function changeHandler (event) {
         table.dialog.filterOptions.enableBtn()
 
         if (event.target.value === 'address') {
-          table.filter.removeMany(['date', 'jail'])
+          table.filter.removeAllExcept(['version', 'subnet', 'network', 'country', 'continent'])
         }
 
         if (event.target.value === 'subnet') {
-          table.filter.removeMany(['address', 'continent', 'date', 'jail'])
+          table.filter.removeAllExcept(['version', 'subnet', 'network', 'country'])
         }
       } else {
         table.dialog.filterAdd.disableBtn()
