@@ -1,7 +1,7 @@
 {
     "require": {
         "php": "^8.1",
-        "geoip2/geoip2": "^2.13"
+        "geoip2/geoip2": "^3.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.10",
