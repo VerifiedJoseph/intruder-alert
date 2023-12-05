@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.8.6](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.6) - 2023-12-05
+
+- Composer: Updated geoip2/geoip2 from 2.13.0 to 3.0.0 ([#284](https://github.com/VerifiedJoseph/intruder-alert/pull/284), [`c8cde4e`](https://github.com/VerifiedJoseph/intruder-alert/commit/c8cde4e1e01fac836c250080296f98031fae9a42))
+- Npm: Updated chart.js from 4.4.0 to 4.4.1 ([#289](https://github.com/VerifiedJoseph/intruder-alert/pull/289), [`24e9677`](https://github.com/VerifiedJoseph/intruder-alert/commit/24e9677b3d311c1146a0de0101261a47b1c363e1))
+
 ## [1.8.5](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.5) - 2023-12-02
 
 - Dockerfile: Updated alpine from 3.18.4 to 3.18.5 ([#272](https://github.com/VerifiedJoseph/intruder-alert/pull/272), [`b65e9d3`](https://github.com/VerifiedJoseph/intruder-alert/commit/b65e9d3fdfb4ceb85df1482b39f93dc079f4c1af))
