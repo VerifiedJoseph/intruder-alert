@@ -6,7 +6,5 @@ services:
     container_name: intruder-alert
     ports:
       - '8080:8080'
-    cap_drop:
-      - ALL
     security_opt:
       - no-new-privileges:true
