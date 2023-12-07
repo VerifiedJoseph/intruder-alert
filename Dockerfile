@@ -39,6 +39,7 @@ COPY /docker/config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Copy code
 COPY --from=node /app/dist/ /app/
+WORKDIR /app
 
 # Create needed folders
 RUN mkdir -p /app/backend/data/geoip2 /app/backend/data/logs
@@ -52,5 +53,4 @@ RUN ln -s /usr/bin/php82 /usr/bin/php
 # Create symlink for php-fpm
 RUN ln -s /usr/sbin/php-fpm82 /usr/sbin/php-fpm
 
-WORKDIR /app
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
