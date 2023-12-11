@@ -21,7 +21,7 @@ RUN npm ci
 # Build (esbuild)
 RUN npm run build
 
-FROM php:8.2.13-fpm-alpine3.18
+FROM php:8.3.0-fpm-alpine3.18
 
 # Install packages
  RUN apk add --no-cache \
