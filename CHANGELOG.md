@@ -5,6 +5,7 @@ All notable changes to this project are documented in this file.
 ## [1.9.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.9.0) - 2023-12-11
 
 - Reworked Dockerfile. ([#291](https://github.com/VerifiedJoseph/intruder-alert/pull/291), [`9985282`](https://github.com/VerifiedJoseph/intruder-alert/commit/9985282f6e7c9b82287b15b9e09a8b947b7a3b5b))
+- Dockerfile: Updated composer from 2.6.5 to 2.6.6 ([#301](https://github.com/VerifiedJoseph/intruder-alert/pull/301), [`06af435`](https://github.com/VerifiedJoseph/intruder-alert/commit/06af435ebd5e065f10896415e11d5ac8b1300701))
 - Npm: Updated spacetime from 7.4.8 to 7.5.0 ([#299](https://github.com/VerifiedJoseph/intruder-alert/pull/299), [`e493db4`](https://github.com/VerifiedJoseph/intruder-alert/commit/e493db4f2142bfbc557f69f42d607bf5335cbb1e))
 
 ## [1.8.6](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.8.6) - 2023-12-05
