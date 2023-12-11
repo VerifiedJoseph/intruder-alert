@@ -21,7 +21,7 @@ RUN npm ci
 # Build (esbuild)
 RUN npm run build
 
-FROM alpine:3.18.5
+FROM alpine:3.19.0
 
 # Install packages
  RUN apk add --no-cache \
