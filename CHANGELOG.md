@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.9.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.9.1) - 2023-12-30
+
+- Dockerfile: Updated php from 8.2.13 to 8.2.14 ([#318](https://github.com/VerifiedJoseph/intruder-alert/pull/318), [`5a59f48`](https://github.com/VerifiedJoseph/intruder-alert/commit/5a59f487b3e8c7de12e574208d58ddc08ca8d106))
+
 ## [1.9.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.9.0) - 2023-12-11
 
 - Reworked Dockerfile. ([#291](https://github.com/VerifiedJoseph/intruder-alert/pull/291), [`9985282`](https://github.com/VerifiedJoseph/intruder-alert/commit/9985282f6e7c9b82287b15b9e09a8b947b7a3b5b))
