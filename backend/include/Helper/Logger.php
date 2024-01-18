@@ -26,4 +26,12 @@ class Logger
     {
         return self::$entries;
     }
+
+    /**
+     * Remove all logger entries
+     */
+    public static function removeEntries(): void
+    {
+        self::$entries = [];
+    }
 }
