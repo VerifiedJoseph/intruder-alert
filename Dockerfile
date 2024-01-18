@@ -10,7 +10,7 @@ RUN composer install \
   --no-progress \
   --no-dev
 
-FROM node:20.11.0-alpine3.18 AS node
+FROM node:20.11.0-alpine3.19 AS node
 
 COPY --from=composer ./app /app/
 WORKDIR /app
@@ -21,7 +21,7 @@ RUN npm ci
 # Build (esbuild)
 RUN npm run build
 
-FROM php:8.2.14-fpm-alpine3.18
+FROM php:8.2.14-fpm-alpine3.19
 
 # Install packages
  RUN apk add --no-cache \
