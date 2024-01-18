@@ -177,7 +177,6 @@ class Update
      * Extract checksum from downloaded file
      *
      * @param string $data Checksum file data
-     * @param string $edition Database edition
      * @return array<string, string> Database checksum and filename
      *
      * @throws Exception if regex failed to extract checksum details from download file
