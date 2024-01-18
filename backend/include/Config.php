@@ -24,6 +24,9 @@ class Config
         'GeoLite2-Country' => 'data/geoip2/GeoLite2-Country.mmdb'
     ];
 
+    /** @var string $maxMindDownloadUrl URL for MaxMind GeoIP database downloads */
+    private string $maxMindDownloadUrl = 'https://download.maxmind.com/app/geoip_download?';
+
     /**
      * Set backend directory
      *
@@ -105,6 +108,11 @@ class Config
         }
 
         return '';
+    }
+
+    public function getMaxMindDownloadUrl(): string
+    {
+        return $this->maxMindDownloadUrl;
     }
 
     public function getAsnDatabasePath(): string

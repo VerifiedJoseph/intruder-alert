@@ -16,9 +16,6 @@ class Update
     /** @var string $folder Folder to save database downloads */
     private string $folder = 'data/geoip2';
 
-    /** @var string $baseUrl Base URL for MaxMind downloads */
-    private string $baseUrl = 'https://download.maxmind.com/app/geoip_download?';
-
     /** @var string $checksumRegex Regex for extracting checksum details */
     private string $checksumRegex = '/^([A-Za-z0-9]+)\ \ (GeoLite2-(?:[A-Za-z]+)_(?:[0-9]{8})\.tar\.gz)$/';
 
@@ -274,7 +271,7 @@ class Update
             'suffix' => $suffix
         ];
 
-        return $this->baseUrl . http_build_query($parts);
+        return $this->config->getMaxMindDownloadUrl() . http_build_query($parts);
     }
 
     /**
