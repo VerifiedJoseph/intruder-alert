@@ -14,7 +14,7 @@ class Update
     private Config $config;
 
     /** @var string $folder Folder to save database downloads */
-    private string $folder = 'data/geoip2';
+    private string $folder = '';
 
     /** @var string $checksumRegex Regex for extracting checksum details */
     private string $checksumRegex = '/^([A-Za-z0-9]+)\ \ (GeoLite2-(?:[A-Za-z]+)_(?:[0-9]{8})\.tar\.gz)$/';
@@ -22,7 +22,7 @@ class Update
     public function __construct(Config $config)
     {
         $this->config = $config;
-        $this->folder = $this->config->getPath($this->folder);
+        $this->folder = $this->config->getGeoIpDatabaseFolder();
     }
 
     /**
