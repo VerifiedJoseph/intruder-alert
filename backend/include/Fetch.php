@@ -1,6 +1,6 @@
 <?php
 
-namespace IntruderAlert\Database;
+namespace IntruderAlert;
 
 use IntruderAlert\Exception\FetchException;
 

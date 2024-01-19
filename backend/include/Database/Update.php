@@ -3,6 +3,7 @@
 namespace IntruderAlert\Database;
 
 use IntruderAlert\Config;
+use IntruderAlert\Fetch;
 use IntruderAlert\Helper\File;
 use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\AppException;
