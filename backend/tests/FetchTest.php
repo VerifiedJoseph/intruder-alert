@@ -26,7 +26,7 @@ class FetchTest extends TestCase
     }
 
     /**
-     * Test `get()` method HTTP 404 response
+     * Test `get()` method with HTTP 404 response
      */
     public function testGetWithHttp404Response(): void
     {
