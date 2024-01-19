@@ -89,9 +89,8 @@ class App
      */
     private function processLogs(): void
     {
-        $lookup = new Database\Lookup();
-        $lookup->setNetworkDatabase($this->config->getAsnDatabasePath());
-        $lookup->setCountryDatabase($this->config->getCountryDatabasePath());
+        $networkDatabase = new Database\Network($this->config->getAsnDatabasePath());
+        $countryDatabase = new Database\Country($this->config->getAsnDatabasePath());
 
         $timer = new Timer();
         $timer->start();
@@ -107,8 +106,8 @@ class App
                     array_merge($cache->getItem($line['ip']), $line)
                 );
             } else {
-                $region = $lookup->region($line['ip']);
-                $network = $lookup->network($line['ip']);
+                $region = $countryDatabase->lookup($line['ip']);
+                $network = $networkDatabase->lookup($line['ip']);
 
                 $ip = new Ip($line['ip']);
                 $ip->setJail($line['jail']);
