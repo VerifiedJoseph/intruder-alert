@@ -3,9 +3,11 @@
 namespace IntruderAlert\Database;
 
 use IntruderAlert\Config;
+use IntruderAlert\Fetch;
 use IntruderAlert\Helper\File;
 use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\AppException;
+use IntruderAlert\Exception\FetchException;
 use Exception;
 
 class Update
@@ -41,7 +43,8 @@ class Update
                         Output::text('Updating Geoip2 database: ' . $edition, log: true);
 
                         $archivePath = $path . '.tar.gz';
-                        $checksum = $this->downloadChecksum($edition);
+                        $checksumFile = $this->downloadChecksum($edition);
+                        $checksum = $this->extractChecksum($checksumFile);
 
                         $this->downloadDatabase($edition, $archivePath);
                         $this->checkIntegrity($checksum['hash'], $archivePath);
@@ -111,28 +114,33 @@ class Update
      * Download checksum for a database
      *
      * @param string $edition Database edition
-     * @return array<string, string> Database checksum and filename
+     * @return string
      *
-     * @throws Exception if regex failed to extract checksum details from download file
+     * @throws Exception if downloading checksum file failed
      */
-    private function downloadChecksum(string $edition): array
+    private function downloadChecksum(string $edition): string
     {
-        $url = $this->buildUrl(
-            $edition,
-            $this->config->getMaxMindLicenseKey(),
-            'tar.gz.sha256'
-        );
+        try {
+            Output::text('Downloading checksum...');
 
-        $data = $this->fetch($url);
+            $url = $this->buildUrl(
+                $edition,
+                $this->config->getMaxMindLicenseKey(),
+                'tar.gz.sha256'
+            );
 
-        if (preg_match($this->checksumRegex, $data, $matches) !== 1) {
-            throw new Exception('Checksum details extraction failed');
+            $fetch = new Fetch($this->config->getUseragent());
+            $data = $fetch->get($url);
+
+            return $data;
+        } catch (FetchException $err) {
+            Output::text($err->getMessage(), log: true);
+
+            throw new Exception(sprintf(
+                'Failed to download checksum for %s',
+                $edition
+            ));
         }
-
-        return [
-            'hash' => $matches[1],
-            'filename' => $matches[2]
-        ];
     }
 
     /**
@@ -143,15 +151,47 @@ class Update
      */
     private function downloadDatabase(string $edition, string $path): void
     {
-        $url = $this->buildUrl(
-            $edition,
-            $this->config->getMaxMindLicenseKey(),
-            'tar.gz'
-        );
+        try {
+            Output::text('Downloading database...');
 
-        $data = $this->fetch($url);
+            $url = $this->buildUrl(
+                $edition,
+                $this->config->getMaxMindLicenseKey(),
+                'tar.gz'
+            );
 
-        File::write($path, $data);
+            $fetch = new Fetch($this->config->getUseragent());
+            $data = $fetch->get($url);
+
+            File::write($path, $data);
+        } catch (FetchException $err) {
+            Output::text($err->getMessage(), log: true);
+
+            throw new Exception(sprintf(
+                'Failed to download database for %s',
+                $edition
+            ));
+        }
+    }
+
+    /**
+     * Extract checksum from downloaded file
+     *
+     * @param string $data Checksum file data
+     * @return array<string, string> Database checksum and filename
+     *
+     * @throws Exception if regex failed to extract checksum details from download file
+     */
+    private function extractChecksum(string $data): array
+    {
+        if (preg_match($this->checksumRegex, $data, $matches) !== 1) {
+            throw new Exception('Checksum extraction failed');
+        }
+
+        return [
+            'hash' => $matches[1],
+            'filename' => $matches[2]
+        ];
     }
 
     /**
@@ -215,44 +255,6 @@ class Update
 
         // Remove archive
         unlink($archivePath);
-    }
-
-    /**
-     * Fetch URL
-     *
-     * @param string $url URL
-     * @return string
-     *
-     * @throws Exception if an CURL error occurred
-     * @throws Exception if request returned non-200 status code
-     */
-    private function fetch(string $url): string
-    {
-        $ch = curl_init();
-        curl_setopt_array($ch, [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_USERAGENT => $this->config->getUseragent()
-        ]);
-
-        $response = curl_exec($ch);
-        $error = curl_error($ch);
-        $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        curl_close($ch);
-
-        if ($error !== '') {
-            throw new Exception($error);
-        }
-
-        if ($statusCode !== 200) {
-            throw new Exception(sprintf(
-                'Request failed. Returned HTTP %s',
-                $statusCode
-            ));
-        }
-
-        return (string) $response;
     }
 
     /**
