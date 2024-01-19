@@ -10,6 +10,9 @@ use IntruderAlert\Exception\AppException;
 use IntruderAlert\Exception\FetchException;
 use Exception;
 
+/**
+ * Class for downloading and updating MaxMind GeoIP databases
+ */
 class Update
 {
     /** @var Config $config */
