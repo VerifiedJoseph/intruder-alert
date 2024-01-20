@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.10.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.10.0) - 2024-01-20
+
+- Added Fetch class. ([#336](https://github.com/VerifiedJoseph/intruder-alert/pull/336), [`1e3f3cf`](https://github.com/VerifiedJoseph/intruder-alert/commit/1e3f3cf79cdf1f79dccdfa60024025e4bbbc4694))
+- Added Logger class method `removeEntries()`. ([#335](https://github.com/VerifiedJoseph/intruder-alert/pull/335), [`6c47b60`](https://github.com/VerifiedJoseph/intruder-alert/commit/6c47b60e825e309afaa1c5e8a0f2318867870509))
+- Added Config class methods `getMaxMindDownloadUrl()` & `getGeoIpDatabaseFolder()`. ([#334](https://github.com/VerifiedJoseph/intruder-alert/pull/334), [`452c44d`](https://github.com/VerifiedJoseph/intruder-alert/commit/452c44dcfa0d0f10def3ef7863c1a7a9bab7a3e4))
+- Reworked GeoIP database lookup class. ([#337](https://github.com/VerifiedJoseph/intruder-alert/pull/337), [`70bffcd`](https://github.com/VerifiedJoseph/intruder-alert/commit/70bffcd573c95f713486f45253196dc525049074))
+- Dockerfile: Updated php from 8.2.14 to 8.2.15 ([#341](https://github.com/VerifiedJoseph/intruder-alert/pull/341), [`1c88cf7`](https://github.com/VerifiedJoseph/intruder-alert/commit/1c88cf7d7c2b90be80a7cc671d538cf2e35a81db))
+- Dockerfile: Updated alpine from 3.18 to 3.19 ([#333](https://github.com/VerifiedJoseph/intruder-alert/pull/333), [`248cd9f`](https://github.com/VerifiedJoseph/intruder-alert/commit/248cd9f852c44387c92b2978faffd37da02c8563))
+- Updated node from 18.18.1 to 20.11 ([#332](https://github.com/VerifiedJoseph/intruder-alert/pull/332), [`dbdb61a`](https://github.com/VerifiedJoseph/intruder-alert/commit/dbdb61adb58369e6d71377d81c72fbbf05d8a844))
+
 ## [1.9.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.9.1) - 2023-12-30
 
 - Dockerfile: Updated php from 8.2.13 to 8.2.14 ([#318](https://github.com/VerifiedJoseph/intruder-alert/pull/318), [`5a59f48`](https://github.com/VerifiedJoseph/intruder-alert/commit/5a59f487b3e8c7de12e574208d58ddc08ca8d106))
