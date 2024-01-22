@@ -25,6 +25,7 @@ FROM php:8.2.15-fpm-alpine3.19
 
 # Install packages
  RUN apk add --no-cache \
+  curl \
   nginx \
   supervisor
 
@@ -52,5 +53,8 @@ RUN ln -s /usr/bin/php82 /usr/bin/php
 
 # Create symlink for php-fpm
 RUN ln -s /usr/sbin/php-fpm82 /usr/sbin/php-fpm
+
+# php-fpm hleath check
+HEALTHCHECK --interval=60s --timeout=10s CMD curl --silent --fail http://127.0.0.1:8080/fpm-ping
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
