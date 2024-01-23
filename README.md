@@ -53,7 +53,7 @@ services:
 1) Download the [latest release](https://github.com/VerifiedJoseph/intruder-alert/releases/latest) to your web server and extract the zip archive.
 
 2) Configure the application using `backend/config.php` copied from [`backend/config.example.php`](backend/config.example.php).
-	
+
 	```
 	cp backend/config.example.php backend/config.php
 	```
