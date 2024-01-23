@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.11.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.11.0) - 2024-01-23
+
+- Dockerfile: Added health check for php-fpm. ([#344](https://github.com/VerifiedJoseph/intruder-alert/pull/344), [`f93244e`](https://github.com/VerifiedJoseph/intruder-alert/commit/f93244e96f14f347c37a261308b36bb04b5cf8f3))
+
 ## [1.10.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.10.0) - 2024-01-20
 
 - Added Fetch class. ([#336](https://github.com/VerifiedJoseph/intruder-alert/pull/336), [`1e3f3cf`](https://github.com/VerifiedJoseph/intruder-alert/commit/1e3f3cf79cdf1f79dccdfa60024025e4bbbc4694))
