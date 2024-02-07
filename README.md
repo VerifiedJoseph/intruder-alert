@@ -75,18 +75,18 @@ The scheduled task may need to run as root or a user with the permission to read
 
 Environment variables are used to adjust the configuration.
 
-| Name                    | Type      | Description                                                                           |
-| ------------------------| --------- | ------------------------------------------------------------------------------------- |
-| `IA_LOG_PATHS`          | `string`  | Comma separated list of Fail2ban log files.                                           |
-| `IA_LOG_FOLDER`         | `string`  | Path of the Fail2ban logs folder. Ignored if `IA_LOG_PATHS` is set.                   |
-| `IA_MAXMIND_LICENSE_KEY`| `string`  | MaxMind license key for automatic GeoLite2 database downloads.                        |
-| `IA_ASN_DATABASE`       | `string`  | Path of the GeoLite2 ASN database file.                                               |
-| `IA_COUNTRY_DATABASE`   | `string`  | Path of the GeoLite2 Country database file.                                           |
-| `IA_TIMEZONE`           | `string`  | Timezone of the dashboard ([php docs](https://www.php.net/manual/en/timezones.php))   |
-| `IA_SYSTEM_LOG_TIMEZONE`| `string`  | Timezone of fail2ban logs (optional, default is UTC)                                  |
-| `IA_DASH_CHARTS`        | `boolean` | Enable/disable dashboard charts (optional, enabled by default).                       |
-| `IA_DASH_UPDATES`       | `boolean` | Enable/disable automatic dashboard updates (optional, enabled by default).            |
-| `IA_DASH_DAEMON_LOG`    | `boolean` | Enable/disable displaying daemon log in the dashboard (optional, enabled by default). |
+| Name                    | Type      | Description                                                                                              |
+| ------------------------| --------- | -------------------------------------------------------------------------------------------------------- |
+| `IA_LOG_PATHS`          | `string`  | Comma separated list of Fail2ban log files.                                                              |
+| `IA_LOG_FOLDER`         | `string`  | Path of the Fail2ban logs folder. <br> Ignored when `IA_LOG_PATHS` is set.                               |
+| `IA_MAXMIND_LICENSE_KEY`| `string`  | MaxMind license key for GeoLite2 database downloads.                                                     |
+| `IA_ASN_DATABASE`       | `string`  | Path of the GeoLite2 ASN database file. <br> Ignored when `IA_MAXMIND_LICENSE_KEY` is set.               |
+| `IA_COUNTRY_DATABASE`   | `string`  | Path of the GeoLite2 Country database file. <br> Ignored when `IA_MAXMIND_LICENSE_KEY` is set.           |
+| `IA_TIMEZONE`           | `string`  | Timezone of the dashboard ([php docs](https://www.php.net/manual/en/timezones.php))                      |
+| `IA_SYSTEM_LOG_TIMEZONE`| `string`  | Timezone of fail2ban logs. <br> (optional, default timezone is UTC)                                      |
+| `IA_DASH_CHARTS`        | `boolean` | Enable/disable dashboard charts. <br> (optional, charts are enabled by default)                          |
+| `IA_DASH_UPDATES`       | `boolean` | Enable/disable automatic dashboard updates. <br> (optional, updates are enabled by default)              |
+| `IA_DASH_DAEMON_LOG`    | `boolean` | Enable/disable displaying daemon log in the dashboard. <br> (optional, log viewer is enabled by default) |
 
 
 ### GeoLite2 databases
