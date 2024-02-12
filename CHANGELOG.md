@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.11.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.11.2) - 2024-01-12
+
+- Dockerfile: Updated composer from 2.6.6 to 2.7.1 ([#370](https://github.com/VerifiedJoseph/intruder-alert/pull/370), [`54c3f96`](https://github.com/VerifiedJoseph/intruder-alert/commit/54c3f96501ee55cc0571cafe866923e1c17bcf60))
+- npm: Updated spacetime from 7.5.0 to 7.6.0 ([#367](https://github.com/VerifiedJoseph/intruder-alert/pull/367), [`132941c`](https://github.com/VerifiedJoseph/intruder-alert/commit/132941c2b9eccf0c267c6ee3fba3e1ef296de7b0))
+
 ## [1.11.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.11.1) - 2024-01-12
 
 - App: Fixed passing wrong database path to `Database\Country` in `processLogs()`. ([#358](https://github.com/VerifiedJoseph/intruder-alert/pull/358), [`7ffc6ac`](https://github.com/VerifiedJoseph/intruder-alert/commit/7ffc6acedd0888a89adf0200690f577c1c6e26c2))
