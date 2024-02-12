@@ -90,7 +90,7 @@ class App
     private function processLogs(): void
     {
         $networkDatabase = new Database\Network($this->config->getAsnDatabasePath());
-        $countryDatabase = new Database\Country($this->config->getAsnDatabasePath());
+        $countryDatabase = new Database\Country($this->config->getCountryDatabasePath());
 
         $timer = new Timer();
         $timer->start();
