@@ -39,8 +39,11 @@ jobs:
         with:
           php-version: '8.1'
 
-      - name: Run update-file.php
-        run: php .pages/update-file.php
+      - name: Create data.json
+        run: php .pages/scripts/create-data-file.php
+
+      - name: Update app.js
+        run: php .pages/scripts/update-app-js.php
 
       - name: Run npm
         run: npm ci
