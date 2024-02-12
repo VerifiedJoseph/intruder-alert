@@ -2,8 +2,9 @@
 
 All notable changes to this project are documented in this file.
 
-## [1.11.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.11.2) - 2024-01-12
+## [1.11.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.11.2) - 2024-01-13
 
+- IaData(js): Fixed `isUpdatingEnabled()` returning wrong feature status. ([#372](https://github.com/VerifiedJoseph/intruder-alert/pull/372), [`4075ae1`](https://github.com/VerifiedJoseph/intruder-alert/commit/4075ae156dbaf11dc2bb8dab955934c9278f5595))
 - Dockerfile: Updated composer from 2.6.6 to 2.7.1 ([#370](https://github.com/VerifiedJoseph/intruder-alert/pull/370), [`54c3f96`](https://github.com/VerifiedJoseph/intruder-alert/commit/54c3f96501ee55cc0571cafe866923e1c17bcf60))
 - npm: Updated spacetime from 7.5.0 to 7.6.0 ([#367](https://github.com/VerifiedJoseph/intruder-alert/pull/367), [`132941c`](https://github.com/VerifiedJoseph/intruder-alert/commit/132941c2b9eccf0c267c6ee3fba3e1ef296de7b0))
 
