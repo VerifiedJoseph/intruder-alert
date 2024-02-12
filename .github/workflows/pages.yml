@@ -40,7 +40,7 @@ jobs:
           php-version: '8.1'
 
       - name: Install dependencies with composer
-        run: composer install --prefer-dist
+        run: composer install --prefer-dist --no-dev
 
       - name: Create data.json
         run: php create-data-file.php
@@ -53,8 +53,8 @@ jobs:
       - name: Run npm
         run: npm ci
 
-      - name: Run Build (esbuild)
-        run: npm run build
+      - name: Run Build demo (esbuild)
+        run: node ./esbuild/build-demo.js
 
       - name: Copy .pages/data.json
         run: cp .pages/data.json ./dist/data.json
