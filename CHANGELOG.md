@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.11.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.11.1) - 2024-01-12
+
+- App: Fixed passing wrong database path to `Database\Country` in `processLogs()`. ([#358](https://github.com/VerifiedJoseph/intruder-alert/pull/358), [`7ffc6ac`](https://github.com/VerifiedJoseph/intruder-alert/commit/7ffc6acedd0888a89adf0200690f577c1c6e26c2))
+
 ## [1.11.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.11.0) - 2024-01-23
 
 - Dockerfile: Added health check for php-fpm. ([#344](https://github.com/VerifiedJoseph/intruder-alert/pull/344), [`f93244e`](https://github.com/VerifiedJoseph/intruder-alert/commit/f93244e96f14f347c37a261308b36bb04b5cf8f3))
