@@ -9,6 +9,7 @@ services:
       - IA_LOG_FOLDER=/intruder-alert/backend/data/logs
     volumes:
       - ../:/intruder-alert
+      - vendor:/intruder-alert/backend/vendor
       - ./fail2ban-logs:/intruder-alert/backend/data/logs:ro
     working_dir: /intruder-alert
 
@@ -19,4 +20,8 @@ services:
       - 8080:8080
     volumes:
       - ../:/intruder-alert:ro
+      - vendor:/intruder-alert/backend/vendor:ro
     working_dir: /intruder-alert
+
+volumes:
+  vendor:
