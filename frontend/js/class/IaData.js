@@ -94,7 +94,7 @@ export class IaData {
    * @returns {boolean}
    */
   isUpdatingEnabled () {
-    return this.#data.settings.features.charts
+    return this.#data.settings.features.updates
   }
 
   /**
