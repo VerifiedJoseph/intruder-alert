@@ -39,6 +39,9 @@ jobs:
         with:
           php-version: '8.1'
 
+      - name: Install dependencies with composer
+        run: composer install --prefer-dist
+
       - name: Create data.json
         run: php create-data-file.php
         working-directory: ./.pages/scripts
