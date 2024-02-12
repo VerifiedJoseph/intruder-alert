@@ -47,7 +47,7 @@ jobs:
         working-directory: ./.pages/scripts
 
       - name: Update app.js
-        run: php .pages/scripts/update-app-js.php
+        run: php update-app-js.php
         working-directory: ./.pages/scripts
 
       - name: Run npm
