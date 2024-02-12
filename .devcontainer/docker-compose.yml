@@ -10,6 +10,7 @@ services:
     volumes:
       - ../:/intruder-alert
       - vendor:/intruder-alert/backend/vendor
+      - geoip2:/intruder-alert/backend/data/geoip2
       - ./fail2ban-logs:/intruder-alert/backend/data/logs:ro
     working_dir: /intruder-alert
 
@@ -25,3 +26,4 @@ services:
 
 volumes:
   vendor:
+  geoip2:
