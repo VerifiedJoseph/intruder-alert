@@ -25,7 +25,7 @@ version: '3'
 
 services:
   app:
-    image: ghcr.io/verifiedjoseph/intruder-alert:1.11.1
+    image: ghcr.io/verifiedjoseph/intruder-alert:1.11.2
     container_name: intruder-alert
     environment:
       - IA_TIMEZONE=Europe/London
@@ -68,7 +68,7 @@ services:
 
 The backend folder does not need to be reachable in the browser and access should blocked. 
 
-The scheduled task may need to run as root or a user with the permission to read the fail2ban logs.
+The scheduled task needs to run as root or a user with permission to read the fail2ban logs.
 </details>
 
 ## Configuration
