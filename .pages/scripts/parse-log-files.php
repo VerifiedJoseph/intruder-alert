@@ -4,7 +4,8 @@
 	Script for extracting IP ban details from fail2ban log files and creating events.json
  */
 
-include('../backend/vendor/autoload.php');
+include('../../backend/vendor/autoload.php');
+include('../../backend/config.php');
 
 use IntruderAlert\Config;
 use IntruderAlert\Logs;
@@ -20,14 +21,10 @@ $logs = new Logs($config);
 $events = $logs->process();
 
 $number = 0;
-$date = null;
+$date = date('Y-m-d', strtotime($events[0]['timestamp']));
 
 foreach ($events as &$event) {
 	$currentDate = date('Y-m-d', strtotime($event['timestamp']));
-
-	if ($date == null) {
-		$date = $currentDate;
-	}
 
 	if ($currentDate !== $date) {
 		$number++;
@@ -43,4 +40,4 @@ foreach ($events as &$event) {
 	$event['network'] = $network;
 }
 
-file_put_contents('events.json', json_encode($events));
+file_put_contents('../events.json', json_encode($events));
