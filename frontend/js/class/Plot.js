@@ -63,6 +63,10 @@ export class Plot {
       }
     }
 
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      Chart.defaults.color = '#E0E0E0'
+    }
+
     this.#chart = new Chart(ctx, options)
   }
 }
