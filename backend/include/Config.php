@@ -358,8 +358,6 @@ class Config
             throw new ConfigException('Unknown time zone given [IA_TIMEZONE]');
         }
 
-        date_default_timezone_set($this->getEnv('TIMEZONE'));
-
         if ($this->hasEnv('SYSTEM_LOG_TIMEZONE') === true) {
             if ($this->getEnv('SYSTEM_LOG_TIMEZONE') === '') {
                 throw new ConfigException('Time zone can not be empty [IA_SYSTEM_LOG_TIMEZONE]');
@@ -371,8 +369,10 @@ class Config
                 throw new ConfigException('Unknown time zone given [IA_SYSTEM_LOG_TIMEZONE]');
             }
         } else {
-            $this->setEnv('SYSTEM_LOG_TIMEZONE', 'UTC');
+            $this->setEnv('SYSTEM_LOG_TIMEZONE', date_default_timezone_get());
         }
+
+        date_default_timezone_set($this->getEnv('TIMEZONE'));
     }
 
     /**
