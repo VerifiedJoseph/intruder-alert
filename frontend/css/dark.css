@@ -1,29 +1,29 @@
 @media (prefers-color-scheme: dark) {
 	body {
-		background-color: #010409;
-		color: #9da1a5;
+		background-color: #000000;
+		color: #E0E0E0;
 	}
 
 	.header > .title > #version > a {
-		color: #c9d1d9;
+		color: #E0E0E0;
 	}
 
 	.row-wrap > .row > .cell {
-		background-color: #161b22;
+		background-color: #161920;
 	}
 
 	.box, #data-note, #loading {
-		background-color: #161b22;
+		background-color: #161920;
 	}
 
 	dialog {
 		color: #c9d1d9;
-		background-color: #161b22;
+		background-color: #161920;
 		border: 1px solid #3B444C;
 	}
 
 	table {
-		background-color: #161b22;
+		background-color: #161920;
 	}
 
 	table th, table th:hover {
@@ -55,7 +55,7 @@
 
 	button, select {
 		color: #c9d1d9;
-		background-color: #21262d;
+		background-color: #0d1117;
 		border: 1px solid #3B444C;
 	}
 
