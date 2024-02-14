@@ -372,7 +372,7 @@ class Config
             $this->setEnv('SYSTEM_LOG_TIMEZONE', date_default_timezone_get());
         }
 
-        // date_default_timezone_set($this->getEnv('TIMEZONE'));
+        date_default_timezone_set($this->getEnv('TIMEZONE'));
     }
 
     /**
