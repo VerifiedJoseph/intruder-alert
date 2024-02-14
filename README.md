@@ -82,8 +82,8 @@ Environment variables are used to adjust the configuration.
 | `IA_MAXMIND_LICENSE_KEY`| `string`  | MaxMind license key for GeoLite2 database downloads.                                                     |
 | `IA_ASN_DATABASE`       | `string`  | Path of the GeoLite2 ASN database file. <br> Ignored when `IA_MAXMIND_LICENSE_KEY` is set.               |
 | `IA_COUNTRY_DATABASE`   | `string`  | Path of the GeoLite2 Country database file. <br> Ignored when `IA_MAXMIND_LICENSE_KEY` is set.           |
-| `IA_TIMEZONE`           | `string`  | Timezone of the dashboard ([php docs](https://www.php.net/manual/en/timezones.php))                      |
-| `IA_SYSTEM_LOG_TIMEZONE`| `string`  | Timezone of fail2ban logs. <br> (optional, default timezone is UTC)                                      |
+| `IA_TIMEZONE`           | `string`  | Timezone to use in the dashboard. ([php docs](https://www.php.net/manual/en/timezones.php))              |
+| `IA_SYSTEM_LOG_TIMEZONE`| `string`  | Timezone of fail2ban logs. <br> (optional, defaults to system timezone)                                  |
 | `IA_DASH_CHARTS`        | `boolean` | Enable/disable dashboard charts. <br> (optional, charts are enabled by default)                          |
 | `IA_DASH_UPDATES`       | `boolean` | Enable/disable automatic dashboard updates. <br> (optional, updates are enabled by default)              |
 | `IA_DASH_DAEMON_LOG`    | `boolean` | Enable/disable displaying daemon log in the dashboard. <br> (optional, log viewer is enabled by default) |
