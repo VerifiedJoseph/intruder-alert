@@ -288,7 +288,7 @@ input {
 .chart-canvas-wrap {
 	position: relative;
 	margin-bottom: 6px;
-	height: 250px;
+	height: 200px;
 }
 
 #chart-message {
