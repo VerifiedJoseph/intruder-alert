@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## [1.11.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.12.0) - 2024-02-19
+## [1.12.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.12.0) - 2024-02-19
 
 - Config: Changed behavior of `IA_SYSTEM_LOG_TIMEZONE`. System timezone is used instead of UTC if environment variable not given. ([#376](https://github.com/VerifiedJoseph/intruder-alert/pull/376), [`99fa389`](https://github.com/VerifiedJoseph/intruder-alert/commit/f50fed21c9b7bc58411edb30966a46b414a5a871))
 - Reworked dark mode and reduced chart height. ([#374](https://github.com/VerifiedJoseph/intruder-alert/pull/374), [#377](https://github.com/VerifiedJoseph/intruder-alert/pull/377), [`5b611bd`](https://github.com/VerifiedJoseph/intruder-alert/commit/5b611bd767439aa551b5e6fe89184409fa34d9ab), [`99e1365`](https://github.com/VerifiedJoseph/intruder-alert/commit/99e13651dc31f948ac9019698f3f375eb7a7baa2))
