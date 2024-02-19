@@ -1,6 +1,6 @@
 @media (prefers-color-scheme: dark) {
 	body {
-		background-color: #000000;
+		background-color: #0d1117;
 		color: #E0E0E0;
 	}
 
@@ -67,7 +67,7 @@
 		color: #777;
 	}
 
-	button:hover:enabled, select:enabled:hover {
+	button:hover:enabled {
 		background-color: #30363D;
 	}
 }
