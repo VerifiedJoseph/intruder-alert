@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.11.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.12.0) - 2024-02-19
+
+- Config: Changed behavior of `IA_SYSTEM_LOG_TIMEZONE`. System timezone is used instead of UTC if environment variable not given. ([#376](https://github.com/VerifiedJoseph/intruder-alert/pull/376), [`99fa389`](https://github.com/VerifiedJoseph/intruder-alert/commit/f50fed21c9b7bc58411edb30966a46b414a5a871))
+- Reworked dark mode and reduced chart height. ([#374](https://github.com/VerifiedJoseph/intruder-alert/pull/374), [#377](https://github.com/VerifiedJoseph/intruder-alert/pull/377), [`5b611bd`](https://github.com/VerifiedJoseph/intruder-alert/commit/5b611bd767439aa551b5e6fe89184409fa34d9ab), [`99e1365`](https://github.com/VerifiedJoseph/intruder-alert/commit/99e13651dc31f948ac9019698f3f375eb7a7baa2))
+- Dockerfile: Updated php from 8.2.15-fpm-alpine3.19 to 8.2.16-fpm-alpine3.19 ([#379](https://github.com/VerifiedJoseph/intruder-alert/pull/379), [`99fa389`](https://github.com/VerifiedJoseph/intruder-alert/commit/99fa389f4d79dab8778509862dcda2a00c911322))
+- Dockerfile: Updated node from 20.11.0-alpine3.19 to 20.11.1-alpine3.19 ([#380](https://github.com/VerifiedJoseph/intruder-alert/pull/380), [`9a624d0`](https://github.com/VerifiedJoseph/intruder-alert/commit/9a624d0bbe517b02ffffb4d550ee5fb1a1fe8016))
+
 ## [1.11.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.11.2) - 2024-02-13
 
 - IaData(js): Fixed `isUpdatingEnabled()` returning wrong feature status. ([#372](https://github.com/VerifiedJoseph/intruder-alert/pull/372), [`4075ae1`](https://github.com/VerifiedJoseph/intruder-alert/commit/4075ae156dbaf11dc2bb8dab955934c9278f5595))
