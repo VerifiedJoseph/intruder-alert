@@ -23,7 +23,7 @@ export class ChartFilter extends Filter {
       return this.#groupData(this._getFilteredData(data), chartType)
     }
 
-    if (this.settings.length === 0 && (chartType === 'last7days' || chartType === 'last30days')) {
+    if (this.settings.length === 0 && (chartType === 'last14days' || chartType === 'last30days')) {
       return this.#createDaysFromDateList(this.iaData.getList('date'), chartType)
     }
 
@@ -49,8 +49,8 @@ export class ChartFilter extends Filter {
       return this.#groupByDay(data, days, chartType)
     }
 
-    if (chartType === 'last7days') {
-      return this.#groupByDay(data, 7, chartType)
+    if (chartType === 'last14days') {
+      return this.#groupByDay(data, 14, chartType)
     }
 
     if (chartType === 'last48hours') {
@@ -209,8 +209,8 @@ export class ChartFilter extends Filter {
     }
 
     let days = 30
-    if (chartType === 'last7days') {
-      days = 7
+    if (chartType === 'last14days') {
+      days = 14
     }
 
     const groupParts = this.#createDayGroups(days)
