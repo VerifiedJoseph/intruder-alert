@@ -360,9 +360,8 @@ function checkForUpdate () {
       document.getElementById('error').classList.add('hide')
     }).catch(error => {
       document.getElementById('updating').classList.add('hide')
-      document.getElementById('content').classList.add('hide')
 
-      Helper.errorMessage(error.message)
+      Helper.errorMessage('Checking for updates failed. Trying again in 1 minute.')
       console.log(error)
     })
 }
