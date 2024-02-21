@@ -23,7 +23,7 @@ export class ChartFilter extends Filter {
       return this.#groupData(this._getFilteredData(data), chartType)
     }
 
-    if (this.settings.length === 0 && chartType !== 'last24hours') {
+    if (this.settings.length === 0 && (chartType === 'last7days' || chartType === 'last30days')) {
       return this.#createDaysFromDateList(this.iaData.getList('date'), chartType)
     }
 
@@ -53,16 +53,21 @@ export class ChartFilter extends Filter {
       return this.#groupByDay(data, 7, chartType)
     }
 
-    return this.#groupByHour(data, chartType)
+    if (chartType === 'last48hours') {
+      return this.#groupByHour(data, 48, chartType)
+    }
+
+    return this.#groupByHour(data, 24, chartType)
   }
 
   /**
    * Group data by hour
    * @param {array} data Data to group
+   * @param {int} hours Number of hours in data group
    * @param {string} chartType Chart type
    */
-  #groupByHour (data, chartType) {
-    const groupParts = this.#createHourGroups()
+  #groupByHour (data, hours, chartType) {
+    const groupParts = this.#createHourGroups(hours)
     const groupKeys = groupParts[0]
     const groups = groupParts[1]
 
@@ -91,6 +96,7 @@ export class ChartFilter extends Filter {
   /**
    * Group data by day
    * @param {array} data Data to group
+   * @param {int} days Number of days in data group
    * @param {string} chartType Chart type
    */
   #groupByDay (data, days, chartType) {
@@ -144,12 +150,16 @@ export class ChartFilter extends Filter {
       }]
   }
 
-  #createHourGroups () {
-    let hour = spacetime.now(this.iaData.getTimezone()).subtract('24', 'hours')
+  /**
+   * Create hour groups
+   * @param {int} hours Number of hours
+   */
+  #createHourGroups (hours) {
+    let hour = spacetime.now(this.iaData.getTimezone()).subtract(hours, 'hours')
     const groups = []
     const keys = []
 
-    for (let i = 1; i <= 24; i++) {
+    for (let i = 1; i <= hours; i++) {
       if (i > 1) {
         hour = hour.add('1', 'hours')
       }
@@ -168,6 +178,10 @@ export class ChartFilter extends Filter {
     return [keys, groups]
   }
 
+  /**
+   * Create day groups
+   * @param {int} hours Number of days
+   */
   #createDayGroups (days) {
     let date = spacetime.now(this.iaData.getTimezone()).subtract(days, 'days')
     const groups = []
