@@ -40,17 +40,26 @@ export class Plot {
               align: 'inner',
               autoSkip: false,
               callback: function (val, index) {
+                let x = 2
                 let value = this.getLabelForValue(val)
                 const time = new Date(value)
 
-                if (data.type === 'last24hours') {
+                if (data.type === 'last24hours' || data.type === 'last48hours') {
                   value = time.toLocaleString(navigator.languages[0], { hour: 'numeric', minute: 'numeric', hour12: false })
+
+                  if (data.type === 'last48hours') {
+                    x = 6
+
+                    if (index === 47) {
+                      x = 47
+                    }
+                  }
                 } else {
                   value = value.replace(/[0-9]{4}-/, '')
                 }
 
                 // Hide every x tick label
-                return index % 2 === 0 ? value : ''
+                return index % x === 0 ? value : ''
               }
             }
           }
