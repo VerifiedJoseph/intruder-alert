@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.13.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.13.0) - 2024-02-24
+
+- frontend: Added last 48 hours chart view. ([#385](https://github.com/VerifiedJoseph/intruder-alert/pull/385), [`580309b`](https://github.com/VerifiedJoseph/intruder-alert/commit/580309b7be08b256820331c06a30da2679d1ad98))
+- frontend: Replaced last 7 days chart with last 14 days. ([#386](https://github.com/VerifiedJoseph/intruder-alert/pull/386), [`bf8b093`](https://github.com/VerifiedJoseph/intruder-alert/commit/bf8b0933a6cc04286f7e3ce574efe9ed71344545))
+- app(js): Added user friendly error message for when update checks fail. ([#388](https://github.com/VerifiedJoseph/intruder-alert/pull/388), [`4941e09`](https://github.com/VerifiedJoseph/intruder-alert/commit/4941e0961ba69d37a25841c415d102d87ff28f95))
+
 ## [1.12.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.12.0) - 2024-02-19
 
 - Config: Changed behavior of `IA_SYSTEM_LOG_TIMEZONE`. System timezone is used instead of UTC if environment variable not given. ([#376](https://github.com/VerifiedJoseph/intruder-alert/pull/376), [`99fa389`](https://github.com/VerifiedJoseph/intruder-alert/commit/f50fed21c9b7bc58411edb30966a46b414a5a871))
