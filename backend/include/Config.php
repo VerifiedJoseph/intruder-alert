@@ -242,7 +242,7 @@ class Config
     private function checkLogPaths(): void
     {
         if ($this->hasEnv('LOG_PATHS') === true && $this->getEnv('LOG_PATHS') === '') {
-            throw new ConfigException('fail2ban logs environment variable can not be empty [IA_LOG_PATHS]');
+            throw new ConfigException('fail2ban log paths variable can not be empty [IA_LOG_PATHS]');
         }
     }
 
@@ -257,7 +257,7 @@ class Config
     {
         if ($this->hasEnv('LOG_PATHS') === false) {
             if ($this->hasEnv('LOG_FOLDER') === false || $this->getEnv('LOG_FOLDER') === '') {
-                throw new ConfigException('fail2ban log folder must be set [IA_LOG_FOLDER]');
+                throw new ConfigException('fail2ban log folder variable can not be empty [IA_LOG_FOLDER]');
             }
 
             if (file_exists($this->getEnv('LOG_FOLDER')) === false) {
@@ -312,13 +312,13 @@ class Config
                 throw new ConfigException('GeoLite2 Country database not found [IA_COUNTRY_DATABASE]');
             }
 
-            if (is_readable($this->getEnv('ASN_DATABASE')) === false) {
+            /*if (is_readable($this->getEnv('ASN_DATABASE')) === false) {
                 throw new ConfigException('GeoLite2 ASN database is not readable [IA_ASN_DATABASE]');
             }
 
             if (is_readable($this->getEnv('COUNTRY_DATABASE')) === false) {
                 throw new ConfigException('GeoLite2 Country database is not readable [IA_COUNTRY_DATABASE]');
-            }
+            }*/
 
             $this->checkDatabaseIsValid($this->getEnv('ASN_DATABASE'));
             $this->checkDatabaseIsValid($this->getEnv('COUNTRY_DATABASE'));
