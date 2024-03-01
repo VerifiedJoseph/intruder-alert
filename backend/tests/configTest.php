@@ -245,7 +245,7 @@ class ConfigTest extends TestCase
      */
     public function testGetSystemLogTimezone(): void
     {
-        putenv('IA_TIMEZONE=UTC');
+        putenv('IA_SYSTEM_LOG_TIMEZONE=UTC');
 
         $config = new Config();
         $this->assertEquals('UTC', $config->getSystemLogTimezone());
