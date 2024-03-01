@@ -205,6 +205,36 @@ class ConfigTest extends TestCase
     }
 
     /**
+     * Test `getAsnDatabasePath()` when `IA_MAXMIND_LICENSE_KEY` is passed
+     */
+    public function testGetAsnDatabasePathWhenMaxmindKeyPassed(): void
+    {
+        $config = new Config();
+
+        putenv('IA_MAXMIND_LICENSE_KEY=fake-key');
+
+        $this->assertEquals(
+            'data/geoip2/GeoLite2-ASN.mmdb',
+            $config->getAsnDatabasePath()
+        );
+    }
+
+    /**
+     * Test `getCountryDatabasePath()` when `IA_MAXMIND_LICENSE_KEY is passed
+     */
+    public function testGetCountryDatabasePathWhenMaxmindKeyPassed(): void
+    {
+        $config = new Config();
+
+        putenv('IA_MAXMIND_LICENSE_KEY=fake-key');
+
+        $this->assertEquals(
+            'data/geoip2/GeoLite2-Country.mmdb',
+            $config->getCountryDatabasePath()
+        );
+    }
+
+    /**
      * Test config with no `IA_LOG_FOLDER` or `IA_LOG_PATHS`
      */
     public function testNoLogPathsOrLogFolder(): void
