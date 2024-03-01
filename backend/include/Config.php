@@ -341,6 +341,8 @@ class Config
             throw new ConfigException('Unknown timezone given [IA_TIMEZONE]');
         }
 
+        $this->config['timezone'] = $this->getEnv('TIMEZONE');
+
         if ($this->hasEnv('SYSTEM_LOG_TIMEZONE') === true) {
             if ($this->getEnv('SYSTEM_LOG_TIMEZONE') === '') {
                 throw new ConfigException('Timezone can not be empty [IA_SYSTEM_LOG_TIMEZONE]');
@@ -351,14 +353,13 @@ class Config
             if ($valid === false) {
                 throw new ConfigException('Unknown timezone given [IA_SYSTEM_LOG_TIMEZONE]');
             }
+
+            $this->config['log_timezone'] = $this->getEnv('SYSTEM_LOG_TIMEZONE');
         } else {
-            $this->setEnv('SYSTEM_LOG_TIMEZONE', date_default_timezone_get());
+            $this->config['log_timezone'] = date_default_timezone_get();
         }
 
-        date_default_timezone_set($this->getEnv('TIMEZONE'));
-
-        $this->config['timezone'] = $this->getEnv('TIMEZONE');
-        $this->config['log_timezone'] = $this->getEnv('SYSTEM_LOG_TIMEZONE');
+        date_default_timezone_set($this->config['timezone']);
     }
 
     /**
@@ -429,16 +430,5 @@ class Config
     private function getEnv(string $name): mixed
     {
         return getenv($this->envPrefix . $name);
-    }
-
-    /**
-     * Set an environment variable
-     *
-     * @param string $name Variable name excluding prefix
-     * @param string $value Variable value
-     */
-    private function setEnv(string $name, string $value): void
-    {
-        putenv(sprintf('%s%s=%s', $this->envPrefix, $name, $value));
     }
 }
