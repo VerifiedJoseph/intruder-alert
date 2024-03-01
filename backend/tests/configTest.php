@@ -133,7 +133,7 @@ class ConfigTest extends TestCase
         putenv('IA_LOG_PATHS=' . $paths);
 
         $config = new Config();
-        $config->checkLogFolder();
+        $config->checkLogPaths();
 
         $this->assertEquals($paths, $config->getLogPaths());
     }
@@ -178,11 +178,14 @@ class ConfigTest extends TestCase
      */
     public function testGetAsnDatabasePath(): void
     {
-        putenv('IA_ASN_DATABASE=backend/tests/files/fake-database.file');
+        putenv('IA_ASN_DATABASE=backend/tests/files/mmdb/GeoLite2-ASN-Test.mmdb');
+        putenv('IA_COUNTRY_DATABASE=backend/tests/files/mmdb/GeoLite2-Country-Test.mmdb');
 
         $config = new Config();
+        $config->checkDatabases();
+
         $this->assertEquals(
-            'backend/tests/files/fake-database.file',
+            'backend/tests/files/mmdb/GeoLite2-ASN-Test.mmdb',
             $config->getAsnDatabasePath()
         );
     }
@@ -192,11 +195,14 @@ class ConfigTest extends TestCase
      */
     public function testGetCountryDatabasePath(): void
     {
-        putenv('IA_COUNTRY_DATABASE=backend/tests/files/fake-database.file');
+        putenv('IA_ASN_DATABASE=backend/tests/files/mmdb/GeoLite2-ASN-Test.mmdb');
+        putenv('IA_COUNTRY_DATABASE=backend/tests/files/mmdb/GeoLite2-Country-Test.mmdb');
 
         $config = new Config();
+        $config->checkDatabases();
+
         $this->assertEquals(
-            'backend/tests/files/fake-database.file',
+            'backend/tests/files/mmdb/GeoLite2-Country-Test.mmdb',
             $config->getCountryDatabasePath()
         );
     }
@@ -209,6 +215,8 @@ class ConfigTest extends TestCase
         putenv('IA_MAXMIND_LICENSE_KEY=fake-key');
 
         $config = new Config();
+        $config->checkMaxMindLicenseKey();
+
         $this->assertEquals(
             'data/geoip2/GeoLite2-ASN.mmdb',
             $config->getAsnDatabasePath()
@@ -223,6 +231,8 @@ class ConfigTest extends TestCase
         putenv('IA_MAXMIND_LICENSE_KEY=fake-key');
 
         $config = new Config();
+        $config->checkMaxMindLicenseKey();
+
         $this->assertEquals(
             'data/geoip2/GeoLite2-Country.mmdb',
             $config->getCountryDatabasePath()
@@ -237,6 +247,8 @@ class ConfigTest extends TestCase
         putenv('IA_TIMEZONE=Europe/London');
 
         $config = new Config();
+        $config->checkTimeZones();
+
         $this->assertEquals('Europe/London', $config->getTimezone());
     }
 
@@ -245,9 +257,12 @@ class ConfigTest extends TestCase
      */
     public function testGetSystemLogTimezone(): void
     {
+        putenv('IA_TIMEZONE=Europe/London');
         putenv('IA_SYSTEM_LOG_TIMEZONE=UTC');
 
         $config = new Config();
+        $config->checkTimeZones();
+
         $this->assertEquals('UTC', $config->getSystemLogTimezone());
     }
 
