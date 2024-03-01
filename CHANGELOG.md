@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.13.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.13.1) - 2024-03-01
+
+- Npm: Updated chart.js from 4.4.1 to 4.4.2 ([#393](https://github.com/VerifiedJoseph/intruder-alert/pull/393), [`0bd2b3c`](https://github.com/VerifiedJoseph/intruder-alert/commit/0bd2b3cebf9c2e4aba5fae6f73f1327ad0392eb5))
+
 ## [1.13.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.13.0) - 2024-02-24
 
 - frontend: Added last 48 hours chart view. ([#385](https://github.com/VerifiedJoseph/intruder-alert/pull/385), [`580309b`](https://github.com/VerifiedJoseph/intruder-alert/commit/580309b7be08b256820331c06a30da2679d1ad98))
