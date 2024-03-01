@@ -7,7 +7,6 @@ use IntruderAlert\Exception\ConfigException;
 use IntruderAlert\Helper\Json;
 
 require 'backend/vendor/autoload.php';
-require 'backend/include/version.php';
 
 $data = '';
 
