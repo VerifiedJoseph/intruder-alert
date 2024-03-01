@@ -124,6 +124,57 @@ class ConfigTest extends TestCase
     }
 
     /**
+     * Test `getLogPaths()`
+     */
+    public function testGetLogPaths(): void
+    {
+        $paths = 'example/fail2ban.log;example/fail2ban.log.1';
+
+        putenv('IA_LOG_PATHS=' . $paths);
+
+        $config = new Config();
+        $config->checkLogFolder();
+
+        $this->assertEquals($paths, $config->getLogPaths());
+    }
+
+    /**
+     * Test `getMaxMindLicenseKey()`
+     */
+    public function testGetMaxMindLicenseKey(): void
+    {
+        putenv('IA_MAXMIND_LICENSE_KEY=fake-key');
+
+        $config = new Config();
+        $config->checkMaxMindLicenseKey();
+
+        $this->assertEquals('fake-key', $config->getMaxMindLicenseKey());
+    }
+
+    /**
+     * Test `getMaxMindDownloadUrl()`
+     */
+    public function testGetMaxMindDownloadUrl(): void
+    {
+        $config = new Config();
+
+        $this->assertMatchesRegularExpression(
+            '/https:\/\/download.maxmind.com/',
+            $config->getMaxMindDownloadUrl()
+        );
+    }
+
+    /**
+     * Test `getGeoIpDatabaseFolder()`
+     */
+    public function testGetGeoIpDatabaseFolder(): void
+    {
+        $config = new Config();
+
+        $this->assertEquals('data/geoip2', $config->getGeoIpDatabaseFolder());
+    }
+
+    /**
      * Test config with no `IA_LOG_FOLDER` or `IA_LOG_PATHS`
      */
     public function testNoLogPathsOrLogFolder(): void
@@ -260,7 +311,6 @@ class ConfigTest extends TestCase
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('GeoLite2 database is invalid: backend/tests/files/fake-database.file');
 
-        putenv('IA_LOG_PATHS=fail2ban.log');
         putenv('IA_ASN_DATABASE=backend/tests/files/fake-database.file');
         putenv('IA_COUNTRY_DATABASE=backend/tests/files/fake-database.file');
 
