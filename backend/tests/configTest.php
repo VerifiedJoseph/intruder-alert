@@ -170,7 +170,6 @@ class ConfigTest extends TestCase
     public function testGetGeoIpDatabaseFolder(): void
     {
         $config = new Config();
-
         $this->assertEquals('data/geoip2', $config->getGeoIpDatabaseFolder());
     }
 
@@ -179,10 +178,9 @@ class ConfigTest extends TestCase
      */
     public function testGetAsnDatabasePath(): void
     {
-        $config = new Config();
-
         putenv('IA_ASN_DATABASE=backend/tests/files/fake-database.file');
 
+        $config = new Config();
         $this->assertEquals(
             'backend/tests/files/fake-database.file',
             $config->getAsnDatabasePath()
@@ -194,10 +192,9 @@ class ConfigTest extends TestCase
      */
     public function testGetCountryDatabasePath(): void
     {
-        $config = new Config();
-
         putenv('IA_COUNTRY_DATABASE=backend/tests/files/fake-database.file');
 
+        $config = new Config();
         $this->assertEquals(
             'backend/tests/files/fake-database.file',
             $config->getCountryDatabasePath()
@@ -209,10 +206,9 @@ class ConfigTest extends TestCase
      */
     public function testGetAsnDatabasePathWhenMaxmindKeyPassed(): void
     {
-        $config = new Config();
-
         putenv('IA_MAXMIND_LICENSE_KEY=fake-key');
 
+        $config = new Config();
         $this->assertEquals(
             'data/geoip2/GeoLite2-ASN.mmdb',
             $config->getAsnDatabasePath()
@@ -224,14 +220,35 @@ class ConfigTest extends TestCase
      */
     public function testGetCountryDatabasePathWhenMaxmindKeyPassed(): void
     {
-        $config = new Config();
-
         putenv('IA_MAXMIND_LICENSE_KEY=fake-key');
 
+        $config = new Config();
         $this->assertEquals(
             'data/geoip2/GeoLite2-Country.mmdb',
             $config->getCountryDatabasePath()
         );
+    }
+
+    /**
+     * Test `getTimezone()`
+     */
+    public function testGetTimezone(): void
+    {
+        putenv('IA_TIMEZONE=Europe/London');
+
+        $config = new Config();
+        $this->assertEquals('Europe/London', $config->getTimezone());
+    }
+
+    /**
+     * Test `getSystemLogTimezone()`
+     */
+    public function testGetSystemLogTimezone(): void
+    {
+        putenv('IA_TIMEZONE=UTC');
+
+        $config = new Config();
+        $this->assertEquals('UTC', $config->getSystemLogTimezone());
     }
 
     /**
