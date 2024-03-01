@@ -209,7 +209,7 @@ class Config
      *
      * @throws ConfigException if data folder could not be created.
      */
-    private function checkDataFolder(): void
+    public function checkDataFolder(): void
     {
         $folderPath = $this->getPath('data');
 
@@ -227,7 +227,7 @@ class Config
      * @throws ConfigException if Fail2ban log folder does not exist.
      * @throws ConfigException if Fail2ban log folder not readable.
      */
-    private function checkLogPaths(): void
+    public function checkLogPaths(): void
     {
         if ($this->hasEnv('LOG_PATHS') === true && $this->getEnv('LOG_PATHS') === '') {
             throw new ConfigException('fail2ban log paths variable can not be empty [IA_LOG_PATHS]');
@@ -241,7 +241,7 @@ class Config
      * @throws ConfigException if Fail2ban log folder does not exist.
      * @throws ConfigException if Fail2ban log folder not readable.
      */
-    private function checkLogFolder(): void
+    public function checkLogFolder(): void
     {
         if ($this->hasEnv('LOG_PATHS') === false) {
             if ($this->hasEnv('LOG_FOLDER') === false || $this->getEnv('LOG_FOLDER') === '') {
@@ -263,7 +263,7 @@ class Config
      *
      * @throws ConfigException if `IA_MAXMIND_LICENSE_KEY` environment variable is empty.
      */
-    private function checkMaxMindLicenseKey(): void
+    public function checkMaxMindLicenseKey(): void
     {
         if ($this->hasEnv('MAXMIND_LICENSE_KEY') === true && $this->getEnv('MAXMIND_LICENSE_KEY') === '') {
             throw new ConfigException('MaxMind license key can not be empty [IA_MAXMIND_LICENSE_KEY]');
@@ -281,7 +281,7 @@ class Config
      * @throws ConfigException if GeoLite2 Country database not readable.
      * @throws ConfigException if GeoLite2 database is invalid.
      */
-    private function checkDatabases(): void
+    public function checkDatabases(): void
     {
         if ($this->hasEnv('MAXMIND_LICENSE_KEY') === false) {
             if ($this->hasEnv('ASN_DATABASE') === false || $this->getEnv('ASN_DATABASE') === '') {
@@ -320,7 +320,7 @@ class Config
      *
      * @throws ConfigException if GeoLite2 database is invalid.
      */
-    private function checkDatabaseIsValid(string $path): void
+    public function checkDatabaseIsValid(string $path): void
     {
         try {
             new Reader($path);
@@ -336,7 +336,7 @@ class Config
      * @throws ConfigException if `SYSTEM_LOG_TIMEZONE` environment variable is empty.
      * @throws ConfigException if an unknown timezone given in either `TIMEZONE` or `SYSTEM_LOG_TIMEZONE`.
      */
-    private function checkTimeZones(): void
+    public function checkTimeZones(): void
     {
         if ($this->hasEnv('TIMEZONE') === false || $this->getEnv('TIMEZONE') === '') {
             throw new ConfigException('Timezone environment variable must be set [IA_TIMEZONE]');
@@ -370,7 +370,7 @@ class Config
      * @throws ConfigException if environment variable `IA_DISABLE_DASH_UPDATES` is not a boolean.
      * @throws ConfigException if environment variable `IA_DASH_DAEMON_LOG` is not a boolean.
      */
-    private function checkDashboard(): void
+    public function checkDashboard(): void
     {
         if ($this->hasEnv('DASH_CHARTS') === true && $this->isEnvBoolean('DASH_CHARTS') === false) {
             throw new ConfigException('Charts environment variable must be true or false [IA_DASH_CHARTS]');
