@@ -381,7 +381,9 @@ class Config
 
         if ($this->hasEnv('DASH_UPDATES') === true) {
             if ($this->isEnvBoolean('DASH_UPDATES') === false) {
-                throw new ConfigException('Dashboard updates environment variable must be true or false [IA_DASH_UPDATES]');
+                throw new ConfigException(
+                    'Dashboard updates environment variable must be true or false [IA_DASH_UPDATES]'
+                );
             }
 
             $this->config['dash_updates'] = $this->getEnv('DASH_UPDATES');
