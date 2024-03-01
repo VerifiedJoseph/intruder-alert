@@ -355,18 +355,18 @@ class Config
         }
 
         if (in_array($this->getEnv('TIMEZONE'), \DateTimeZone::listIdentifiers(\DateTimeZone::ALL)) === false) {
-            throw new ConfigException('Unknown time zone given [IA_TIMEZONE]');
+            throw new ConfigException('Unknown timezone given [IA_TIMEZONE]');
         }
 
         if ($this->hasEnv('SYSTEM_LOG_TIMEZONE') === true) {
             if ($this->getEnv('SYSTEM_LOG_TIMEZONE') === '') {
-                throw new ConfigException('Time zone can not be empty [IA_SYSTEM_LOG_TIMEZONE]');
+                throw new ConfigException('Timezone can not be empty [IA_SYSTEM_LOG_TIMEZONE]');
             }
 
             $valid = in_array($this->getEnv('SYSTEM_LOG_TIMEZONE'), \DateTimeZone::listIdentifiers(\DateTimeZone::ALL));
 
             if ($valid === false) {
-                throw new ConfigException('Unknown time zone given [IA_SYSTEM_LOG_TIMEZONE]');
+                throw new ConfigException('Unknown timezone given [IA_SYSTEM_LOG_TIMEZONE]');
             }
         } else {
             $this->setEnv('SYSTEM_LOG_TIMEZONE', date_default_timezone_get());
