@@ -30,6 +30,7 @@ class Config
     /** @var string $maxMindDownloadUrl URL for MaxMind GeoIP database downloads */
     private string $maxMindDownloadUrl = 'https://download.maxmind.com/app/geoip_download?';
 
+    /** @var array<string, mixed> $config Loaded config */
     private array $config = [
         'log_paths' => '',
         'log_folder' => '',
