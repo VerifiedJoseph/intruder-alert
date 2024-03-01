@@ -25,29 +25,35 @@ class ConfigTest extends TestCase
     /**
      * Test `setDir()`
      */
-	public function testSetDir(): void
-	{
-		$dir = 'backend/tests';
+    public function testSetDir(): void
+    {
+        $dir = 'backend/tests';
 
-		$config = new Config();
-		$config->setDir($dir);
+        $config = new Config();
+        $config->setDir($dir);
 
-		$this->assertEquals($dir . DIRECTORY_SEPARATOR, $config->getPath());
-	}
+        $this->assertEquals($dir . DIRECTORY_SEPARATOR, $config->getPath());
+    }
 
     /**
      * Test `getPath()`
      */
-	public function testGetPath(): void
-	{
-		$dir = 'backend/tests';
-		$filepath = $dir . DIRECTORY_SEPARATOR . 'fake.file';
+    public function testGetPath(): void
+    {
+        $dir = 'backend/tests';
+        $filepath = $dir . DIRECTORY_SEPARATOR . 'fake.file';
 
-		$config = new Config();
-		$config->setDir($dir);
+        $config = new Config();
+        $config->setDir($dir);
 
-		$this->assertEquals($filepath, $config->getPath('fake.file'));
-	}
+        $this->assertEquals($filepath, $config->getPath('fake.file'));
+    }
+
+    public function testGetVersion(): void
+    {
+        $config = new Config();
+        $this->assertEquals(constant('VERSION'), $config->getVersion());
+    }
 
     /**
      * Test config with no `IA_LOG_FOLDER` or `IA_LOG_PATHS`
