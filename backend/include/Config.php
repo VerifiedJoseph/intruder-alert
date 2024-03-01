@@ -351,7 +351,7 @@ class Config
     private function checkTimeZones(): void
     {
         if ($this->hasEnv('TIMEZONE') === false || $this->getEnv('TIMEZONE') === '') {
-            throw new ConfigException('Timezone environment variable must be set [TIMEZONE]');
+            throw new ConfigException('Timezone environment variable must be set [IA_TIMEZONE]');
         }
 
         if (in_array($this->getEnv('TIMEZONE'), \DateTimeZone::listIdentifiers(\DateTimeZone::ALL)) === false) {
