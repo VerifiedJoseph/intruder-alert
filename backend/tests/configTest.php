@@ -175,6 +175,36 @@ class ConfigTest extends TestCase
     }
 
     /**
+     * Test `getAsnDatabasePath()` when `IA_ASN_DATABASE` is passed
+     */
+    public function testGetAsnDatabasePath(): void
+    {
+        $config = new Config();
+
+        putenv('IA_ASN_DATABASE=backend/tests/files/fake-database.file');
+
+        $this->assertEquals(
+            'backend/tests/files/fake-database.file',
+            $config->getAsnDatabasePath()
+        );
+    }
+
+    /**
+     * Test `getCountryDatabasePath()` when `IA_COUNTRY_DATABASE is passed
+     */
+    public function testGetCountryDatabasePath(): void
+    {
+        $config = new Config();
+
+        putenv('IA_COUNTRY_DATABASE=backend/tests/files/fake-database.file');
+
+        $this->assertEquals(
+            'backend/tests/files/fake-database.file',
+            $config->getCountryDatabasePath()
+        );
+    }
+
+    /**
      * Test config with no `IA_LOG_FOLDER` or `IA_LOG_PATHS`
      */
     public function testNoLogPathsOrLogFolder(): void
