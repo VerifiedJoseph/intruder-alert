@@ -31,6 +31,23 @@ class Config
     private string $maxMindDownloadUrl = 'https://download.maxmind.com/app/geoip_download?';
 
     /**
+     * @throws ConfigException if PHP version not supported.
+     * @throws ConfigException if a required PHP extension is not loaded.
+     */
+    public function __construct()
+    {
+        if (version_compare(PHP_VERSION, $this->minPhpVersion) === -1) {
+            throw new ConfigException('Intruder Alert requires at least PHP version ' . $this->minPhpVersion);
+        }
+
+        foreach (self::$extensions as $ext) {
+            if (extension_loaded($ext) === false) {
+                throw new ConfigException(sprintf('PHP extension error: %s extension not loaded.', $ext));
+            }
+        }
+    }
+
+    /**
      * Set backend directory
      *
      * @param string $path
@@ -152,44 +169,15 @@ class Config
     }
 
     /**
-     * Check config
-     *
-     * @throws ConfigException if PHP version not supported.
-     * @throws ConfigException if a required PHP extension is not loaded.
-     * @throws ConfigException if environment variable `IA_DISABLE_CHARTS` is not `true` or `false`.
-     * @throws ConfigException if environment variable `IA_DISABLE_DASH_UPDATES` is not `true` or `false`.
-     * @throws ConfigException if environment variable `IA_DASH_DAEMON_LOG` is not `true` or `false`.
+     * Check config from `data.php`
      */
     public function check(): void
     {
-        if (version_compare(PHP_VERSION, $this->minPhpVersion) === -1) {
-            throw new ConfigException('Intruder Alert requires at least PHP version ' . $this->minPhpVersion);
-        }
-
-        foreach (self::$extensions as $ext) {
-            if (extension_loaded($ext) === false) {
-                throw new ConfigException(sprintf('PHP extension error: %s extension not loaded.', $ext));
-            }
-        }
-
         if (file_exists($this->getPath('config.php')) === true) {
             require $this->getPath('config.php');
         }
 
-        if ($this->hasEnv('DASH_CHARTS') === true && $this->isEnvBoolean('DASH_CHARTS') === false) {
-            throw new ConfigException('Charts environment variable must be true or false [IA_DASH_CHARTS]');
-        }
-
-        if ($this->hasEnv('DASH_UPDATES') === true && $this->isEnvBoolean('DASH_UPDATES') === false) {
-            throw new ConfigException('Dashboard updates environment variable must be true or false [IA_DASH_UPDATES]');
-        }
-
-        if ($this->hasEnv('DASH_DAEMON_LOG') === true && $this->isEnvBoolean('DASH_DAEMON_LOG') === false) {
-            throw new ConfigException(
-                'Dashboard daemon log environment variable must be true or false [DASH_DAEMON_LOG]'
-            );
-        }
-
+        $this->checkDashboard();
         $this->checkTimeZones();
     }
 
@@ -373,6 +361,30 @@ class Config
         }
 
         date_default_timezone_set($this->getEnv('TIMEZONE'));
+    }
+
+    /**
+     * Check dashboard variables
+     *
+     * @throws ConfigException if environment variable `IA_DISABLE_CHARTS` is not a boolean.
+     * @throws ConfigException if environment variable `IA_DISABLE_DASH_UPDATES` is not a boolean.
+     * @throws ConfigException if environment variable `IA_DASH_DAEMON_LOG` is not a boolean.
+     */
+    private function checkDashboard(): void
+    {
+        if ($this->hasEnv('DASH_CHARTS') === true && $this->isEnvBoolean('DASH_CHARTS') === false) {
+            throw new ConfigException('Charts environment variable must be true or false [IA_DASH_CHARTS]');
+        }
+
+        if ($this->hasEnv('DASH_UPDATES') === true && $this->isEnvBoolean('DASH_UPDATES') === false) {
+            throw new ConfigException('Dashboard updates environment variable must be true or false [IA_DASH_UPDATES]');
+        }
+
+        if ($this->hasEnv('DASH_DAEMON_LOG') === true && $this->isEnvBoolean('DASH_DAEMON_LOG') === false) {
+            throw new ConfigException(
+                'Dashboard daemon log environment variable must be true or false [DASH_DAEMON_LOG]'
+            );
+        }
     }
 
     /**
