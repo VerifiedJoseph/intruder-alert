@@ -7,7 +7,6 @@ use IntruderAlert\Exception\ConfigException;
 use IntruderAlert\Exception\AppException;
 
 require 'vendor/autoload.php';
-require 'include/version.php';
 
 Output::text('Starting intruder alert cron task...');
 
