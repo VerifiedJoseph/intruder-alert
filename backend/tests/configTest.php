@@ -11,7 +11,6 @@ class ConfigTest extends TestCase
         // Unset environment variables before each test
         putenv('IA_LOG_PATHS');
         putenv('IA_LOG_FOLDER');
-
         putenv('IA_MAXMIND_LICENSE_KEY');
         putenv('IA_ASN_DATABASE');
         putenv('IA_COUNTRY_DATABASE');
@@ -49,10 +48,79 @@ class ConfigTest extends TestCase
         $this->assertEquals($filepath, $config->getPath('fake.file'));
     }
 
+    /**
+     * Test `getVersion()`
+     */
     public function testGetVersion(): void
     {
         $config = new Config();
         $this->assertEquals(constant('VERSION'), $config->getVersion());
+    }
+
+    /**
+     * Test `getUseragent()`
+     */
+    public function testGetUseragent(): void
+    {
+        $useragent = sprintf(
+            'Intruder Alert/%s (+https://github.com/VerifiedJoseph/intruder-alert)',
+            constant('VERSION')
+        );
+
+        $config = new Config();
+        $this->assertEquals($useragent, $config->getUseragent());
+    }
+
+    /**
+     * Test `getChartsStatus()`
+     */
+    public function testGetChartsStatus(): void
+    {
+        putenv('IA_DASH_CHARTS=true');
+
+        $config = new Config();
+        $config->checkDashboard();
+
+        $this->assertTrue($config->getChartsStatus());
+    }
+
+    /**
+     * Test `getDashUpdatesStatus()`
+     */
+    public function testGetDashUpdatesStatus(): void
+    {
+        putenv('IA_DASH_UPDATES=true');
+
+        $config = new Config();
+        $config->checkDashboard();
+
+        $this->assertTrue($config->getDashUpdatesStatus());
+    }
+
+    /**
+     * Test `getDashDaemonLogStatus()`
+     */
+    public function testGetDashDaemonLogStatus(): void
+    {
+        putenv('DASH_DAEMON_LOG=true');
+
+        $config = new Config();
+        $config->checkDashboard();
+
+        $this->assertTrue($config->getDashDaemonLogStatus());
+    }
+
+    /**
+     * Test `getLogFolder()`
+     */
+    public function testGetLogFolders(): void
+    {
+        putenv('IA_LOG_FOLDER=backend/tests');
+
+        $config = new Config();
+        $config->checkLogFolder();
+
+        $this->assertEquals('backend/tests', $config->getLogFolder());
     }
 
     /**
@@ -92,7 +160,7 @@ class ConfigTest extends TestCase
         putenv('IA_LOG_FOLDER=');
 
         $config = new Config();
-        $config->checkCli();
+        $config->checkLogFolder();
     }
 
     /**
@@ -108,7 +176,7 @@ class ConfigTest extends TestCase
         putenv('IA_LOG_FOLDER=' . $folder);
 
         $config = new Config();
-        $config->checkCli();
+        $config->checkLogFolder();
     }
 
     /**
@@ -119,11 +187,10 @@ class ConfigTest extends TestCase
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('MaxMind license key can not be empty');
 
-        putenv('IA_LOG_PATHS=fail2ban.log');
         putenv('IA_MAXMIND_LICENSE_KEY=');
 
         $config = new Config();
-        $config->checkCli();
+        $config->checkMaxMindLicenseKey();
     }
 
     /**
@@ -134,11 +201,10 @@ class ConfigTest extends TestCase
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('GeoLite2 ASN database path must be set');
 
-        putenv('IA_LOG_PATHS=fail2ban.log');
         putenv('IA_ASN_DATABASE=');
 
         $config = new Config();
-        $config->checkCli();
+        $config->checkDatabases();
     }
 
     /**
@@ -149,12 +215,11 @@ class ConfigTest extends TestCase
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('GeoLite2 Country database path must be set');
 
-        putenv('IA_LOG_PATHS=fail2ban.log');
         putenv('IA_ASN_DATABASE=fake.path');
         putenv('IA_COUNTRY_DATABASE=');
 
         $config = new Config();
-        $config->checkCli();
+        $config->checkDatabases();
     }
 
     /**
@@ -165,12 +230,11 @@ class ConfigTest extends TestCase
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('GeoLite2 ASN database not found');
 
-        putenv('IA_LOG_PATHS=fail2ban.log');
         putenv('IA_ASN_DATABASE=fake.path');
         putenv('IA_COUNTRY_DATABASE=fake.path');
 
         $config = new Config();
-        $config->checkCli();
+        $config->checkDatabases();
     }
 
     /**
@@ -181,12 +245,11 @@ class ConfigTest extends TestCase
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('GeoLite2 Country database not found');
 
-        putenv('IA_LOG_PATHS=fail2ban.log');
         putenv('IA_ASN_DATABASE=backend/tests/files/fake-database.file');
         putenv('IA_COUNTRY_DATABASE=fake.path');
 
         $config = new Config();
-        $config->checkCli();
+        $config->checkDatabases();
     }
 
     /**
@@ -202,7 +265,7 @@ class ConfigTest extends TestCase
         putenv('IA_COUNTRY_DATABASE=backend/tests/files/fake-database.file');
 
         $config = new Config();
-        $config->checkCli();
+        $config->checkDatabases();
     }
 
     /**
@@ -216,7 +279,7 @@ class ConfigTest extends TestCase
         putenv('IA_DASH_CHARTS=string');
 
         $config = new Config();
-        $config->check();
+        $config->checkDashboard();
     }
 
     /**
@@ -230,7 +293,7 @@ class ConfigTest extends TestCase
         putenv('IA_DASH_UPDATES=string');
 
         $config = new Config();
-        $config->check();
+        $config->checkDashboard();
     }
 
     /**
@@ -244,7 +307,7 @@ class ConfigTest extends TestCase
         putenv('IA_DASH_DAEMON_LOG=string');
 
         $config = new Config();
-        $config->check();
+        $config->checkDashboard();
     }
 
     /**
@@ -256,7 +319,7 @@ class ConfigTest extends TestCase
         $this->expectExceptionMessage('Timezone environment variable must be set');
 
         $config = new Config();
-        $config->check();
+        $config->checkTimeZones();
     }
 
     /**
@@ -270,7 +333,7 @@ class ConfigTest extends TestCase
         putenv('IA_TIMEZONE=Europe/Coventry');
 
         $config = new Config();
-        $config->check();
+        $config->checkTimeZones();
     }
 
     /**
@@ -285,7 +348,7 @@ class ConfigTest extends TestCase
         putenv('IA_SYSTEM_LOG_TIMEZONE=');
 
         $config = new Config();
-        $config->check();
+        $config->checkTimeZones();
     }
 
     /**
@@ -300,7 +363,7 @@ class ConfigTest extends TestCase
         putenv('IA_SYSTEM_LOG_TIMEZONE=Europe/Coventry');
 
         $config = new Config();
-        $config->check();
+        $config->checkTimeZones();
     }
 
     /**
@@ -313,7 +376,7 @@ class ConfigTest extends TestCase
         $defaultTimezone = date_default_timezone_get();
 
         $config = new Config();
-        $config->check();
+        $config->checkTimeZones();
 
         $this->assertEquals($defaultTimezone, $config->getSystemLogTimezone());
     }
