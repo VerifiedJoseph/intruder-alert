@@ -23,6 +23,33 @@ class ConfigTest extends TestCase
     }
 
     /**
+     * Test `setDir()`
+     */
+	public function testSetDir(): void
+	{
+		$dir = 'backend/tests';
+
+		$config = new Config();
+		$config->setDir($dir);
+
+		$this->assertEquals($dir . DIRECTORY_SEPARATOR, $config->getPath());
+	}
+
+    /**
+     * Test `getPath()`
+     */
+	public function testGetPath(): void
+	{
+		$dir = 'backend/tests';
+		$filepath = $dir . DIRECTORY_SEPARATOR . 'fake.file';
+
+		$config = new Config();
+		$config->setDir($dir);
+
+		$this->assertEquals($filepath, $config->getPath('fake.file'));
+	}
+
+    /**
      * Test config with no `IA_LOG_FOLDER` or `IA_LOG_PATHS`
      */
     public function testNoLogPathsOrLogFolder(): void
