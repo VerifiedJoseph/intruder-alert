@@ -213,4 +213,75 @@ class ConfigTest extends TestCase
         $config = new Config();
         $config->check();
     }
+
+    /**
+     * Test no `IA_TIMEZONE` variable
+     */
+    public function testNoTimezone(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Timezone environment variable must be set');
+
+        $config = new Config();
+        $config->check();
+    }
+
+    /**
+     * Test `IA_TIMEZONE` unknown timezone
+     */
+    public function testUnknownTimezone(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Unknown timezone given');
+
+        putenv('IA_TIMEZONE=Europe/Coventry');
+
+        $config = new Config();
+        $config->check();
+    }
+
+    /**
+     * Test empty `IA_SYSTEM_LOG_TIMEZONE`
+     */
+    public function testEmptySystemLogTimezone(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Timezone can not be empty [IA_SYSTEM_LOG_TIMEZONE]');
+
+		putenv('IA_TIMEZONE=Europe/London');
+        putenv('IA_SYSTEM_LOG_TIMEZONE=');
+
+        $config = new Config();
+        $config->check();
+    }
+
+    /**
+     * Test `IA_SYSTEM_LOG_TIMEZONE` with unknown timezone
+     */
+    public function testUnknownSystemLogTimezone(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Unknown timezone given [IA_SYSTEM_LOG_TIMEZONE]');
+
+		putenv('IA_TIMEZONE=Europe/London');
+        putenv('IA_SYSTEM_LOG_TIMEZONE=Europe/Coventry');
+
+        $config = new Config();
+        $config->check();
+    }
+
+    /**
+     * Test not setting `IA_SYSTEM_LOG_TIMEZONE`
+     */
+    public function testNotSettingSystemLogTimezone(): void
+    {
+		putenv('IA_TIMEZONE=Europe/London');
+
+		$defaultTimezone = date_default_timezone_get();
+
+        $config = new Config();
+        $config->check();
+
+		$this->assertEquals($defaultTimezone, $config->getSystemLogTimezone());
+    }
 }
