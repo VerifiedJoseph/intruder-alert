@@ -248,7 +248,7 @@ class ConfigTest extends TestCase
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Timezone can not be empty [IA_SYSTEM_LOG_TIMEZONE]');
 
-		putenv('IA_TIMEZONE=Europe/London');
+        putenv('IA_TIMEZONE=Europe/London');
         putenv('IA_SYSTEM_LOG_TIMEZONE=');
 
         $config = new Config();
@@ -263,7 +263,7 @@ class ConfigTest extends TestCase
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Unknown timezone given [IA_SYSTEM_LOG_TIMEZONE]');
 
-		putenv('IA_TIMEZONE=Europe/London');
+        putenv('IA_TIMEZONE=Europe/London');
         putenv('IA_SYSTEM_LOG_TIMEZONE=Europe/Coventry');
 
         $config = new Config();
@@ -275,13 +275,13 @@ class ConfigTest extends TestCase
      */
     public function testNotSettingSystemLogTimezone(): void
     {
-		putenv('IA_TIMEZONE=Europe/London');
+        putenv('IA_TIMEZONE=Europe/London');
 
-		$defaultTimezone = date_default_timezone_get();
+        $defaultTimezone = date_default_timezone_get();
 
         $config = new Config();
         $config->check();
 
-		$this->assertEquals($defaultTimezone, $config->getSystemLogTimezone());
+        $this->assertEquals($defaultTimezone, $config->getSystemLogTimezone());
     }
 }
