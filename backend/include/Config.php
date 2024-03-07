@@ -30,6 +30,37 @@ class Config
     /** @var string $maxMindDownloadUrl URL for MaxMind GeoIP database downloads */
     private string $maxMindDownloadUrl = 'https://download.maxmind.com/app/geoip_download?';
 
+    /** @var array<string, mixed> $config Loaded config */
+    private array $config = [
+        'log_paths' => '',
+        'log_folder' => '',
+        'maxmind_license_key' => '',
+        'asn_database_path' => '',
+        'country_database_path' => '',
+        'timezone' => '',
+        'log_timezone' => '',
+        'dash_charts' => true,
+        'dash_updates' => true,
+        'dash_daemon_log' => true
+    ];
+
+    /**
+     * @throws ConfigException if PHP version not supported.
+     * @throws ConfigException if a required PHP extension is not loaded.
+     */
+    public function __construct()
+    {
+        if (version_compare(PHP_VERSION, $this->minPhpVersion) === -1) {
+            throw new ConfigException('Intruder Alert requires at least PHP version ' . $this->minPhpVersion);
+        }
+
+        foreach (self::$extensions as $ext) {
+            if (extension_loaded($ext) === false) {
+                throw new ConfigException(sprintf('PHP extension error: %s extension not loaded.', $ext));
+            }
+        }
+    }
+
     /**
      * Set backend directory
      *
@@ -65,52 +96,32 @@ class Config
 
     public function getChartsStatus(): bool
     {
-        if ($this->getEnv('DASH_CHARTS') === 'false') {
-            return false;
-        }
-
-        return true;
+        return $this->config['dash_charts'];
     }
 
     public function getDashUpdatesStatus(): bool
     {
-        if ($this->getEnv('DASH_UPDATES') === 'false') {
-            return false;
-        }
-
-        return true;
+        return $this->config['dash_updates'];
     }
 
     public function getDashDaemonLogStatus(): bool
     {
-        if ($this->getEnv('DASH_DAEMON_LOG') === 'false') {
-            return false;
-        }
-
-        return true;
+        return $this->config['dash_daemon_log'];
     }
 
     public function getLogFolder(): string
     {
-        return $this->getEnv('LOG_FOLDER');
+        return $this->config['log_folder'];
     }
 
     public function getLogPaths(): string
     {
-        if ($this->hasEnv('LOG_PATHS') === true) {
-            return $this->getEnv('LOG_PATHS');
-        }
-
-        return '';
+        return $this->config['log_paths'];
     }
 
     public function getMaxMindLicenseKey(): string
     {
-        if ($this->hasEnv('MAXMIND_LICENSE_KEY') === true) {
-            return $this->getEnv('MAXMIND_LICENSE_KEY');
-        }
-
-        return '';
+        return $this->config['maxmind_license_key'];
     }
 
     public function getMaxMindDownloadUrl(): string
@@ -125,71 +136,42 @@ class Config
 
     public function getAsnDatabasePath(): string
     {
-        if ($this->hasEnv('MAXMIND_LICENSE_KEY') === true) {
+        if ($this->config['maxmind_license_key'] !== '') {
             return $this->getPath($this->defaultGeoLite2Paths['GeoLite2-ASN']);
         }
 
-        return $this->getEnv('ASN_DATABASE');
+        return $this->config['asn_database_path'];
     }
 
     public function getCountryDatabasePath(): string
     {
-        if ($this->hasEnv('MAXMIND_LICENSE_KEY') === true) {
+        if ($this->config['maxmind_license_key'] !== '') {
             return $this->getPath($this->defaultGeoLite2Paths['GeoLite2-Country']);
         }
 
-        return $this->getEnv('COUNTRY_DATABASE');
+        return $this->config['country_database_path'];
     }
 
     public function getTimezone(): string
     {
-        return $this->getEnv('TIMEZONE');
+        return $this->config['timezone'];
     }
 
     public function getSystemLogTimezone(): string
     {
-        return $this->getEnv('SYSTEM_LOG_TIMEZONE');
+        return $this->config['log_timezone'];
     }
 
     /**
-     * Check config
-     *
-     * @throws ConfigException if PHP version not supported.
-     * @throws ConfigException if a required PHP extension is not loaded.
-     * @throws ConfigException if environment variable `IA_DISABLE_CHARTS` is not `true` or `false`.
-     * @throws ConfigException if environment variable `IA_DISABLE_DASH_UPDATES` is not `true` or `false`.
-     * @throws ConfigException if environment variable `IA_DASH_DAEMON_LOG` is not `true` or `false`.
+     * Check config from `data.php`
      */
     public function check(): void
     {
-        if (version_compare(PHP_VERSION, $this->minPhpVersion) === -1) {
-            throw new ConfigException('Intruder Alert requires at least PHP version ' . $this->minPhpVersion);
-        }
-
-        foreach (self::$extensions as $ext) {
-            if (extension_loaded($ext) === false) {
-                throw new ConfigException(sprintf('PHP extension error: %s extension not loaded.', $ext));
-            }
-        }
-
         if (file_exists($this->getPath('config.php')) === true) {
             require $this->getPath('config.php');
         }
 
-        if ($this->hasEnv('DASH_CHARTS') === true && $this->isEnvBoolean('DASH_CHARTS') === false) {
-            throw new ConfigException('Charts environment variable must be true or false [IA_DASH_CHARTS]');
-        }
-
-        if ($this->hasEnv('DASH_UPDATES') === true && $this->isEnvBoolean('DASH_UPDATES') === false) {
-            throw new ConfigException('Dashboard updates environment variable must be true or false [IA_DASH_UPDATES]');
-        }
-
-        if ($this->hasEnv('DASH_DAEMON_LOG') === true && $this->isEnvBoolean('DASH_DAEMON_LOG') === false) {
-            throw new ConfigException(
-                'Dashboard daemon log environment variable must be true or false [DASH_DAEMON_LOG]'
-            );
-        }
-
+        $this->checkDashboard();
         $this->checkTimeZones();
     }
 
@@ -221,7 +203,7 @@ class Config
      *
      * @throws ConfigException if data folder could not be created.
      */
-    private function checkDataFolder(): void
+    public function checkDataFolder(): void
     {
         $folderPath = $this->getPath('data');
 
@@ -239,11 +221,13 @@ class Config
      * @throws ConfigException if Fail2ban log folder does not exist.
      * @throws ConfigException if Fail2ban log folder not readable.
      */
-    private function checkLogPaths(): void
+    public function checkLogPaths(): void
     {
         if ($this->hasEnv('LOG_PATHS') === true && $this->getEnv('LOG_PATHS') === '') {
-            throw new ConfigException('fail2ban logs environment variable can not be empty [IA_LOG_PATHS]');
+            throw new ConfigException('fail2ban log paths variable can not be empty [IA_LOG_PATHS]');
         }
+
+        $this->config['log_paths'] = $this->getEnv('LOG_PATHS');
     }
 
     /**
@@ -253,11 +237,11 @@ class Config
      * @throws ConfigException if Fail2ban log folder does not exist.
      * @throws ConfigException if Fail2ban log folder not readable.
      */
-    private function checkLogFolder(): void
+    public function checkLogFolder(): void
     {
         if ($this->hasEnv('LOG_PATHS') === false) {
             if ($this->hasEnv('LOG_FOLDER') === false || $this->getEnv('LOG_FOLDER') === '') {
-                throw new ConfigException('fail2ban log folder must be set [IA_LOG_FOLDER]');
+                throw new ConfigException('fail2ban log folder variable can not be empty [IA_LOG_FOLDER]');
             }
 
             if (file_exists($this->getEnv('LOG_FOLDER')) === false) {
@@ -267,6 +251,8 @@ class Config
             if (is_readable($this->getEnv('LOG_FOLDER')) === false) {
                 throw new ConfigException('fail2ban log folder is not readable [IA_LOG_FOLDER]');
             }
+
+            $this->config['log_folder'] = $this->getEnv('LOG_FOLDER');
         }
     }
 
@@ -275,11 +261,13 @@ class Config
      *
      * @throws ConfigException if `IA_MAXMIND_LICENSE_KEY` environment variable is empty.
      */
-    private function checkMaxMindLicenseKey(): void
+    public function checkMaxMindLicenseKey(): void
     {
         if ($this->hasEnv('MAXMIND_LICENSE_KEY') === true && $this->getEnv('MAXMIND_LICENSE_KEY') === '') {
             throw new ConfigException('MaxMind license key can not be empty [IA_MAXMIND_LICENSE_KEY]');
         }
+
+        $this->config['maxmind_license_key'] = $this->getEnv('MAXMIND_LICENSE_KEY');
     }
 
     /**
@@ -293,7 +281,7 @@ class Config
      * @throws ConfigException if GeoLite2 Country database not readable.
      * @throws ConfigException if GeoLite2 database is invalid.
      */
-    private function checkDatabases(): void
+    public function checkDatabases(): void
     {
         if ($this->hasEnv('MAXMIND_LICENSE_KEY') === false) {
             if ($this->hasEnv('ASN_DATABASE') === false || $this->getEnv('ASN_DATABASE') === '') {
@@ -312,16 +300,11 @@ class Config
                 throw new ConfigException('GeoLite2 Country database not found [IA_COUNTRY_DATABASE]');
             }
 
-            if (is_readable($this->getEnv('ASN_DATABASE')) === false) {
-                throw new ConfigException('GeoLite2 ASN database is not readable [IA_ASN_DATABASE]');
-            }
-
-            if (is_readable($this->getEnv('COUNTRY_DATABASE')) === false) {
-                throw new ConfigException('GeoLite2 Country database is not readable [IA_COUNTRY_DATABASE]');
-            }
-
             $this->checkDatabaseIsValid($this->getEnv('ASN_DATABASE'));
             $this->checkDatabaseIsValid($this->getEnv('COUNTRY_DATABASE'));
+
+            $this->config['asn_database_path'] = $this->getEnv('ASN_DATABASE');
+            $this->config['country_database_path'] = $this->getEnv('COUNTRY_DATABASE');
         }
     }
 
@@ -332,7 +315,7 @@ class Config
      *
      * @throws ConfigException if GeoLite2 database is invalid.
      */
-    private function checkDatabaseIsValid(string $path): void
+    public function checkDatabaseIsValid(string $path): void
     {
         try {
             new Reader($path);
@@ -348,31 +331,73 @@ class Config
      * @throws ConfigException if `SYSTEM_LOG_TIMEZONE` environment variable is empty.
      * @throws ConfigException if an unknown timezone given in either `TIMEZONE` or `SYSTEM_LOG_TIMEZONE`.
      */
-    private function checkTimeZones(): void
+    public function checkTimeZones(): void
     {
         if ($this->hasEnv('TIMEZONE') === false || $this->getEnv('TIMEZONE') === '') {
-            throw new ConfigException('Timezone environment variable must be set [TIMEZONE]');
+            throw new ConfigException('Timezone environment variable must be set [IA_TIMEZONE]');
         }
 
         if (in_array($this->getEnv('TIMEZONE'), \DateTimeZone::listIdentifiers(\DateTimeZone::ALL)) === false) {
-            throw new ConfigException('Unknown time zone given [IA_TIMEZONE]');
+            throw new ConfigException('Unknown timezone given [IA_TIMEZONE]');
         }
+
+        $this->config['timezone'] = $this->getEnv('TIMEZONE');
 
         if ($this->hasEnv('SYSTEM_LOG_TIMEZONE') === true) {
             if ($this->getEnv('SYSTEM_LOG_TIMEZONE') === '') {
-                throw new ConfigException('Time zone can not be empty [IA_SYSTEM_LOG_TIMEZONE]');
+                throw new ConfigException('Timezone can not be empty [IA_SYSTEM_LOG_TIMEZONE]');
             }
 
             $valid = in_array($this->getEnv('SYSTEM_LOG_TIMEZONE'), \DateTimeZone::listIdentifiers(\DateTimeZone::ALL));
 
             if ($valid === false) {
-                throw new ConfigException('Unknown time zone given [IA_SYSTEM_LOG_TIMEZONE]');
+                throw new ConfigException('Unknown timezone given [IA_SYSTEM_LOG_TIMEZONE]');
             }
+
+            $this->config['log_timezone'] = $this->getEnv('SYSTEM_LOG_TIMEZONE');
         } else {
-            $this->setEnv('SYSTEM_LOG_TIMEZONE', date_default_timezone_get());
+            $this->config['log_timezone'] = date_default_timezone_get();
         }
 
-        date_default_timezone_set($this->getEnv('TIMEZONE'));
+        date_default_timezone_set($this->config['timezone']);
+    }
+
+    /**
+     * Check dashboard variables
+     *
+     * @throws ConfigException if environment variable `IA_DISABLE_CHARTS` is not a boolean.
+     * @throws ConfigException if environment variable `IA_DISABLE_DASH_UPDATES` is not a boolean.
+     * @throws ConfigException if environment variable `IA_DASH_DAEMON_LOG` is not a boolean.
+     */
+    public function checkDashboard(): void
+    {
+        if ($this->hasEnv('DASH_CHARTS') === true) {
+            if ($this->isEnvBoolean('DASH_CHARTS') === false) {
+                throw new ConfigException('Charts environment variable must be true or false [IA_DASH_CHARTS]');
+            }
+
+            $this->config['dash_charts'] = $this->getEnv('DASH_CHARTS');
+        }
+
+        if ($this->hasEnv('DASH_UPDATES') === true) {
+            if ($this->isEnvBoolean('DASH_UPDATES') === false) {
+                throw new ConfigException(
+                    'Dashboard updates environment variable must be true or false [IA_DASH_UPDATES]'
+                );
+            }
+
+            $this->config['dash_updates'] = $this->getEnv('DASH_UPDATES');
+        }
+
+        if ($this->hasEnv('DASH_DAEMON_LOG') === true) {
+            if ($this->isEnvBoolean('DASH_DAEMON_LOG') === false) {
+                throw new ConfigException(
+                    'Dashboard daemon log environment variable must be true or false [DASH_DAEMON_LOG]'
+                );
+            }
+
+            $this->config['dash_daemon_log'] = $this->getEnv('DASH_DAEMON_LOG');
+        }
     }
 
     /**
@@ -407,16 +432,5 @@ class Config
     private function getEnv(string $name): mixed
     {
         return getenv($this->envPrefix . $name);
-    }
-
-    /**
-     * Set an environment variable
-     *
-     * @param string $name Variable name excluding prefix
-     * @param string $value Variable value
-     */
-    private function setEnv(string $name, string $value): void
-    {
-        putenv(sprintf('%s%s=%s', $this->envPrefix, $name, $value));
     }
 }

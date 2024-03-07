@@ -1,0 +1,2 @@
+Test GeoLite2 data downloaded from:
+https://github.com/maxmind/MaxMind-DB/tree/main/test-data
