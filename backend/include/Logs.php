@@ -25,9 +25,6 @@ class Logs
     /** @var string $filenameRegex Log filename regex */
     private $filenameRegex = '/fail2ban\.log/';
 
-    /** @var string $gzRegex Gzip file extension regex */
-    private $gzRegex = '/.gz$/';
-
     /**
      * @param Config $config Config class instance
      */
@@ -51,26 +48,22 @@ class Logs
 
             Output::text('Processing ' . $file->getPathname(), log: true);
 
-            if (is_readable($file->getPathname()) === false) {
-                throw new AppException('Failed to read file ' . $file->getPathname());
-            }
-
             if (filesize($file->getPathname()) === 0) {
                 Output::text('File is empty. Skipping ' . $file->getPathname(), log: true);
                 continue;
             }
 
-            $contents = File::read($file->getPathname());
-
-            if (preg_match($this->gzRegex, $file->getFilename())) {
-                $contents = (string) gzdecode($contents);
-            }
-
             $lineCount = 0;
             $banCount = 0;
 
-            foreach ($this->getLines($contents) as $currentLine) {
-                $line = new LogLine($currentLine);
+            $fp = gzopen($file->getPathname(), 'r');
+
+            if ($fp === false) {
+                throw new AppException('Failed to open file: ' . $file->getPathname());
+            }
+
+            while ($current = fgets($fp)) {
+                $line = new LogLine($current);
                 $lineCount += 1;
 
                 if ($line->hasBan() === true) {
@@ -127,17 +120,6 @@ class Logs
         $directory = new RecursiveDirectoryIterator($this->config->getLogFolder());
         $flattened = new RecursiveIteratorIterator($directory);
         return new RegexIterator($flattened, $this->filenameRegex);
-    }
-
-    /**
-     * Get lines from file data
-     *
-     * @param string $data File data
-     * @return array<int, string>
-     */
-    private function getLines(string $data): array
-    {
-        return explode("\n", $data);
     }
 
     /**

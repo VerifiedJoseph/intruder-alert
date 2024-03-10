@@ -88,16 +88,15 @@ class LogsTest extends TestCase
     }
 
     /**
-     * Test 'Failed to read file' AppException
+     * Test 'Failed to open file' AppException
      */
     public function testLogsClassWithMissingLogFile(): void
     {
         $config = $this->createConfigStub();
         $config->method('getLogPaths')->willReturn('./no-found.log');
 
-        // $this->expectOutputString("[intruder-alert] Processing ./no-found.log \n");
         $this->expectException(AppException::class);
-        $this->expectExceptionMessage('App error: Failed to read file');
+        $this->expectExceptionMessage('App error: Failed to open file');
 
         $logs = new Logs($config);
         $logs->process();
