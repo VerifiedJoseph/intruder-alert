@@ -14,7 +14,7 @@ class CountryTest extends TestCase
 
     function testLookup(): void
     {
-        $response = [
+        $expected = [
             'country' => [
                 'name' => 'United Kingdom',
                 'code' => 'GB'
@@ -26,7 +26,7 @@ class CountryTest extends TestCase
         ];
 
         $this->assertEquals(
-            $response,
+            $expected,
             self::$database->lookup('81.2.69.144')
         );
     }
@@ -35,7 +35,7 @@ class CountryTest extends TestCase
     {
         $this->expectOutputRegex('/ Address not found in GeoIP2 country database/');
 
-        $response = [
+        $expected = [
             'country' => [
                 'name' => 'Unknown',
                 'code' => 'Unknown'
@@ -47,7 +47,7 @@ class CountryTest extends TestCase
         ];
 
         $this->assertEquals(
-            $response,
+            $expected,
             self::$database->lookup('127.0.0.1')
         );
     }
