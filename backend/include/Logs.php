@@ -48,9 +48,9 @@ class Logs
 
             Output::text('Processing ' . $file->getPathname(), log: true);
 
-            if (is_readable($file->getPathname()) === false) {
+            /*if (is_readable($file->getPathname()) === false) {
                 throw new AppException('Failed to read file ' . $file->getPathname());
-            }
+            }*/
 
             if (filesize($file->getPathname()) === 0) {
                 Output::text('File is empty. Skipping ' . $file->getPathname(), log: true);
