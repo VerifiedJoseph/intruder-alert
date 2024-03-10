@@ -2,6 +2,7 @@
 <ruleset name="intruder-alert">
   <file>./backend/</file>
   <exclude-pattern>./backend/vendor</exclude-pattern>
+  <exclude-pattern>./coverage-reports/</exclude-pattern>
 
   <rule ref="PSR12"/>
   <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
