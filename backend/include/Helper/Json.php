@@ -13,12 +13,12 @@ final class Json
     /**
      * Encode JSON
      *
-     * @param array<mixed> $data
+     * @param mixed $data
      * @return string
      *
-     * @throws AppException if array could not be encoded
+     * @throws AppException if data could not be encoded
      */
-    public static function encode(array $data): string
+    public static function encode(mixed $data): string
     {
         try {
             return json_encode($data, flags: JSON_THROW_ON_ERROR);
