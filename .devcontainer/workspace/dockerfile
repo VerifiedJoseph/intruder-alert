@@ -1,6 +1,11 @@
 FROM composer:2.7.1 AS composer
 FROM php:8.2.16-fpm-alpine3.19
 
+RUN apk add --update --no-cache --virtual .build-deps $PHPIZE_DEPS linux-headers \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug \
+    && apk del -f .build-deps
+
 RUN apk add git \
 	nodejs \
 	npm
