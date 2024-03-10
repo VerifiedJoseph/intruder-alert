@@ -7,6 +7,7 @@ services:
       - "9000"
     environment:
       - IA_LOG_FOLDER=/intruder-alert/backend/data/logs
+      - XDEBUG_MODE=coverage
     volumes:
       - ../:/intruder-alert
       - vendor:/intruder-alert/backend/vendor
