@@ -66,8 +66,8 @@ class Logs
                 throw new AppException('Failed to open file ' . $file->getPathname());
             }
 
-            while ($currentLine = fgets($fp)) {
-                $line = new LogLine($currentLine);
+            while ($current = fgets($fp)) {
+                $line = new LogLine($current);
                 $lineCount += 1;
 
                 if ($line->hasBan() === true) {
