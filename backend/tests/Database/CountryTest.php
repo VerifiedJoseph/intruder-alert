@@ -7,12 +7,15 @@ class CountryTest extends TestCase
 {
     private static Country $database;
 
-    static function setUpBeforeClass(): void
+    public static function setUpBeforeClass(): void
     {
         self::$database = new Country('./backend/tests/files/mmdb/GeoLite2-Country-Test.mmdb');
     }
 
-    function testLookup(): void
+    /**
+     * Test `lookup()`
+     */
+    public function testLookup(): void
     {
         $expected = [
             'country' => [
@@ -31,7 +34,10 @@ class CountryTest extends TestCase
         );
     }
 
-    function testLookupAddressNotFound(): void
+    /**
+     * Test `lookup()` with an Address not in the database
+     */
+    public function testLookupAddressNotFound(): void
     {
         $this->expectOutputRegex('/ Address not found in GeoIP2 country database/');
 
