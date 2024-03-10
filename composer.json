@@ -31,7 +31,7 @@
         "lint-phpcs": "phpcs",
         "lint-phpcs-gh-action": "phpcs --report=checkstyle | cs2pr",
         "fix": "phpcbf",
-        "test": "phpunit --colors"
+        "test": "phpunit --colors --coverage-html coverage-reports"
     },
     "config": {
         "vendor-dir": "backend/vendor"

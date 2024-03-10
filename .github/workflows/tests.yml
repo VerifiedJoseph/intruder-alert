@@ -3,12 +3,12 @@ on:
   pull_request:
     paths:
       - "**.php"
-      - ".github/workflows/test.yml"
+      - ".github/workflows/tests.yml"
   push:
     branches: [main]
     paths:
       - "**.php"
-      - ".github/workflows/test.yml"
+      - ".github/workflows/tests.yml"
 
 permissions:
   contents: read
@@ -26,7 +26,7 @@ jobs:
       uses: shivammathur/setup-php@a4e22b60bbb9c1021113f2860347b0759f66fe5d # v2.30.0
       with:
         php-version: '8.2'
-        coverage: none
+        coverage: xdebug
     
     - name: Setup problem matchers for PHP
       run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
@@ -38,4 +38,9 @@ jobs:
       run: composer install --prefer-dist
 
     - name: Run phpunit
-      run: composer test
+      run: ./backend/vendor/bin/phpunit --coverage-clover=coverage.xml
+
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@54bcd8715eee62d40e33596ef5e8f0f48dbbccab # v4.1.0
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
