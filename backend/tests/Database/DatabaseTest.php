@@ -5,8 +5,6 @@ use IntruderAlert\Database\Database;
 
 class DatabaseTest extends TestCase
 {
-    private static Database $database;
-
     /**
      * Test `__construct`
      */
