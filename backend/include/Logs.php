@@ -2,7 +2,6 @@
 
 namespace IntruderAlert;
 
-use IntruderAlert\Helper\File;
 use IntruderAlert\Helper\Timer;
 use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\AppException;
@@ -48,7 +47,11 @@ class Logs
 
             Output::text('Processing ' . $file->getPathname(), log: true);
 
-            if (filesize($file->getPathname()) === 0) {
+            if ($file->isReadable() === false) {
+                throw new AppException('Failed to read file: ' . $file->getPathname());
+            }
+
+            if ($file->getSize() === 0) {
                 Output::text('File is empty. Skipping ' . $file->getPathname(), log: true);
                 continue;
             }
@@ -102,9 +105,9 @@ class Logs
     /**
      * Get logs file
      *
-     * @return RegexIterator|array<int, SplFileInfo>
+     * @return array<int, SplFileInfo>
      */
-    private function getFiles(): RegexIterator|array
+    private function getFiles(): array
     {
         if ($this->config->getLogPaths() !== '') {
             $paths = array_unique(explode(',', $this->config->getLogPaths()));
@@ -119,7 +122,13 @@ class Logs
 
         $directory = new RecursiveDirectoryIterator($this->config->getLogFolder());
         $flattened = new RecursiveIteratorIterator($directory);
-        return new RegexIterator($flattened, $this->filenameRegex);
+
+        $files = [];
+        foreach (new RegexIterator($flattened, $this->filenameRegex) as $file) {
+            $files[] = $file;
+        }
+
+        return $files;
     }
 
     /**

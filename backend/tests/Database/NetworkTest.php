@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use IntruderAlert\Database\Network;
+use IntruderAlert\Helper\Output;
 
 class NetworkTest extends TestCase
 {
@@ -10,6 +11,7 @@ class NetworkTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::$database = new Network('./backend/tests/files/mmdb/GeoLite2-ASN-Test.mmdb');
+        Output::disableQuiet();
     }
 
     /**

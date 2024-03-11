@@ -56,7 +56,7 @@ class CacheTest extends TestCase
         $cache = new Cache(self::$tempCacheFilePath);
 
         $this->assertTrue($cache->hasItem('185.15.59.224'));
-        $this->assertFalse($cache->hasItem('127.0.0.1'));
+        $this->assertFalse($cache->hasItem('127.0.0.2'));
     }
 
     /**
