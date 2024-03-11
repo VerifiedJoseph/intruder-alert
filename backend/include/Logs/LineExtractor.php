@@ -5,7 +5,7 @@ namespace IntruderAlert\Logs;
 /**
  * Class for extracting Fail2ban ban details from a log file line
  */
-class ExtractLine
+class LineExtractor
 {
     /** @var string $regex Regex for finding bans in a log ine */
     private $regex = <<<REGEX

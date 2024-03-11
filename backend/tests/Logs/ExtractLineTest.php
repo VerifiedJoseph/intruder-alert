@@ -1,9 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use IntruderAlert\Logs\ExtractLine;
+use IntruderAlert\Logs\LineExtractor;
 
-class ExtractLineTest extends TestCase
+class LineExtractorTest extends TestCase
 {
     /** @var array<int, array<string, string>> $lines Test log lines */
     private array $lines = [];
@@ -19,7 +19,7 @@ class ExtractLineTest extends TestCase
      */
     public function testIpv4Ban(): void
     {
-        $line = new ExtractLine($this->lines[0]['line']);
+        $line = new LineExtractor($this->lines[0]['line']);
 
         $this->assertTrue($line->hasBan());
         $this->assertEquals($this->lines[0]['ip'], $line->getIp());
@@ -32,7 +32,7 @@ class ExtractLineTest extends TestCase
      */
     public function testIpv6Ban(): void
     {
-        $line = new ExtractLine($this->lines[1]['line']);
+        $line = new LineExtractor($this->lines[1]['line']);
 
         $this->assertTrue($line->hasBan());
         $this->assertEquals($this->lines[1]['ip'], $line->getIp());
@@ -45,7 +45,7 @@ class ExtractLineTest extends TestCase
      */
     public function testNoBanLine(): void
     {
-        $line = new ExtractLine($this->lines[2]['line']);
+        $line = new LineExtractor($this->lines[2]['line']);
 
         $this->assertFalse($line->hasBan());
     }

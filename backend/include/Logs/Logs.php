@@ -68,7 +68,7 @@ class Logs
             }
 
             while ($current = fgets($fp)) {
-                $line = new ExtractLine($current);
+                $line = new LineExtractor($current);
                 $lineCount += 1;
 
                 if ($line->hasBan() === true) {
