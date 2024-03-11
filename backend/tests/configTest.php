@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Exception\ConfigException;
 
@@ -521,5 +522,28 @@ class ConfigTest extends TestCase
         $config->checkTimeZones();
 
         $this->assertEquals($defaultTimezone, $config->getSystemLogTimezone());
+    }
+
+    /**
+     * Test data folder creation failure
+     */
+    public function testDataFolderCreationFailure(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Config error: Failed to create data folder');
+
+        mockfs::create();
+        $folder = mockfs::getUrl('/data');
+
+        stream_context_set_default(
+            [
+                'mfs' => [
+                    'mkdir_fail' => true,
+                ]
+            ]
+        );
+
+        $config = new Config();
+        $config->checkDataFolder($folder);
     }
 }

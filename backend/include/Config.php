@@ -193,7 +193,7 @@ class Config
 
         $this->checkLogPaths();
         $this->checkLogFolder();
-        $this->checkDataFolder();
+        $this->checkDataFolder($this->getPath('data'));
         $this->checkMaxMindLicenseKey();
         $this->checkDatabases();
     }
@@ -201,14 +201,13 @@ class Config
     /**
      * Check data folder
      *
+     * @param string $path Data folder path
      * @throws ConfigException if data folder could not be created.
      */
-    public function checkDataFolder(): void
+    public function checkDataFolder(string $path): void
     {
-        $folderPath = $this->getPath('data');
-
-        if (file_exists($folderPath) === false) {
-            if (mkdir($folderPath, 0660) === false) {
+        if (file_exists($path) === false) {
+            if (mkdir($path, 0660) === false) {
                 throw new ConfigException('Failed to create data folder');
             }
         }

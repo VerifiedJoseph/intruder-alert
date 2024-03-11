@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c91d18ae3af63500be4917333a5990bf",
+    "content-hash": "48b38fca9c6e873d1e137040024e6224",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -254,6 +254,55 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "bizurkur/mockfs",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bizurkur/mockfs.git",
+                "reference": "6d4f0818700c236adc3c732653b445b8364e31f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bizurkur/mockfs/zipball/6d4f0818700c236adc3c732653b445b8364e31f7",
+                "reference": "6d4f0818700c236adc3c732653b445b8364e31f7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=7.4.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.28",
+                "infection/infection": "^0.21.5",
+                "phing/phing": "^2.17",
+                "php-parallel-lint/php-parallel-lint": "^1.0",
+                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan-deprecation-rules": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.3",
+                "phpstan/phpstan-strict-rules": "^1.5",
+                "phpunit/phpunit": "<9.6",
+                "roave/security-advisories": "dev-latest",
+                "slevomat/coding-standard": "^8.13",
+                "squizlabs/php_codesniffer": "^3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MockFileSystem\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Mock filesystem for PHP",
+            "support": {
+                "issues": "https://github.com/bizurkur/mockfs/issues",
+                "source": "https://github.com/bizurkur/mockfs/tree/0.2.0"
+            },
+            "time": "2023-07-22T04:15:06+00:00"
+        },
         {
             "name": "myclabs/deep-copy",
             "version": "1.11.1",
