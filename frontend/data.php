@@ -1,7 +1,7 @@
 <?php
 
-use IntruderAlert\App;
 use IntruderAlert\Config;
+use IntruderAlert\App\Frontend;
 use IntruderAlert\Exception\AppException;
 use IntruderAlert\Exception\ConfigException;
 use IntruderAlert\Helper\Json;
@@ -15,7 +15,7 @@ try {
     $config->setDir('backend/');
     $config->check();
 
-    $app = new App($config);
+    $app = new Frontend($config);
     $data = $app->getJsonReport();
 } catch (AppException | ConfigException $err) {
     $data = Json::encode([
