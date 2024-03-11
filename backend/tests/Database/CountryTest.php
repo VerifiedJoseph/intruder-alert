@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use IntruderAlert\Database\Country;
+use IntruderAlert\Helper\Output;
 
 class CountryTest extends TestCase
 {
@@ -10,6 +11,7 @@ class CountryTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::$database = new Country('./backend/tests/files/mmdb/GeoLite2-Country-Test.mmdb');
+        Output::disableQuiet();
     }
 
     /**
