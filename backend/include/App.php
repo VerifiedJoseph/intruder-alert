@@ -2,6 +2,7 @@
 
 namespace IntruderAlert;
 
+use IntruderAlert\Logs\Logs;
 use IntruderAlert\Helper\File;
 use IntruderAlert\Helper\Json;
 use IntruderAlert\Helper\Timer;

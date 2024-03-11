@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use IntruderAlert\Logs;
+use IntruderAlert\Logs\Logs;
 use IntruderAlert\Config;
 use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\AppException;

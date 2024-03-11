@@ -1,7 +1,9 @@
 <?php
 
-namespace IntruderAlert;
+namespace IntruderAlert\Logs;
 
+use IntruderAlert\Config;
+use IntruderAlert\Logs\ExtractLine;
 use IntruderAlert\Helper\Timer;
 use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\AppException;
@@ -66,7 +68,7 @@ class Logs
             }
 
             while ($current = fgets($fp)) {
-                $line = new LogLine($current);
+                $line = new LineExtractor($current);
                 $lineCount += 1;
 
                 if ($line->hasBan() === true) {
