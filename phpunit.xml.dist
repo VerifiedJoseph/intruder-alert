@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="./backend/vendor/autoload.php" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.3/phpunit.xsd" cacheDirectory=".phpunit.cache">
-  <testsuites>
-    <testsuite name="intruder-alert">
-      <directory suffix=".php">./backend/tests/</directory>
-    </testsuite>
-  </testsuites>
-  <source>
-    <include>
-      <directory suffix=".php">./backend/include/</directory>
-    </include>
-  </source>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         bootstrap="backend/vendor/autoload.php"
+         cacheDirectory=".phpunit.cache"
+         executionOrder="depends,defects"
+         beStrictAboutOutputDuringTests="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         displayDetailsOnTestsThatTriggerWarnings="true">
+    <testsuites>
+        <testsuite name="default">
+            <directory>./backend/tests/</directory>
+        </testsuite>
+    </testsuites>
+    <source restrictDeprecations="true" restrictNotices="true" restrictWarnings="true">
+        <include>
+            <directory>./backend/include/</directory>
+        </include>
+    </source>
 </phpunit>
