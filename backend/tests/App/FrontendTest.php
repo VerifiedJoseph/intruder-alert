@@ -17,7 +17,7 @@ class FrontendTest extends TestCase
 
     public function testGetJsonReportNoDataFile(): void
     {
-        $expected = json_encode([
+        $expected = (string) json_encode([
             'error' => true,
             'message' => 'No data. Is the backend script setup?'
         ]);
