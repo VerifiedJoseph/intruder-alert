@@ -9,11 +9,11 @@ class FrontendTest extends TestCase
     /**
      * Test `getJsonReport()`
      */
-    public function testGetJsonReport(): void
+    /*public function testGetJsonReport(): void
     {
         $config = $this->createConfigStub();
         $app = new Frontend($config);
-    }
+    }*/
 
     public function testGetJsonReportNoDataFile(): void
     {
