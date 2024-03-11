@@ -8,14 +8,6 @@ use IntruderAlert\Helper\Json;
 class Frontend extends App
 {
     /**
-     * Run app
-     */
-    public function run(): string
-    {
-        return $this->getJsonReport();
-    }
-
-    /**
      * Get report JSON
      */
     public function getJsonReport(): string
