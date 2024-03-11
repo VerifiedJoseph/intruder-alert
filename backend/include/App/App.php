@@ -27,6 +27,4 @@ abstract class App
         $this->config = $config;
         $this->lists = new Lists();
     }
-
-    abstract public function run(): mixed;
 }
