@@ -102,7 +102,7 @@ class ConfigTest extends TestCase
      */
     public function testGetDashDaemonLogStatus(): void
     {
-        putenv('DASH_DAEMON_LOG=true');
+        putenv('IA_DASH_DAEMON_LOG=true');
 
         $config = new Config();
         $config->checkDashboard();
