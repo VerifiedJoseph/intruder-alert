@@ -41,4 +41,13 @@ class HelperTest extends TestCase
         $helper = new Helper();
         $helper->checkIntegrity((string) $checksum, $file);
     }
+
+    /**
+     * Test `checkDatabaseUpdateStatus()` with a missing file
+     */
+    public function testCheckDatabaseUpdateStatusMissingFile(): void
+    {
+        $helper = new Helper();
+        $this->assertTrue($helper->checkDatabaseUpdateStatus('not-found.file'));
+    }
 }
