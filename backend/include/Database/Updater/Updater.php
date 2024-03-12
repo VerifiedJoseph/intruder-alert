@@ -23,6 +23,9 @@ class Updater
 
     public function run(): void
     {
+        $downloader = new Downloader($this->fetch, $this->config);
+        $extractor = new Extractor($this->config);
+
         if ($this->config->getMaxMindLicenseKey() !== '') {
             if (File::exists($this->config->getGeoIpDatabaseFolder()) === false) {
                 mkdir($this->config->getGeoIpDatabaseFolder());
@@ -34,9 +37,6 @@ class Updater
                         Output::text('Updating Geoip2 database: ' . $edition, log: true);
 
                         $archivePath = $path . '.tar.gz';
-
-                        $downloader = new Downloader($this->fetch, $this->config);
-                        $extractor = new Extractor($this->config);
 
                         $checksumFile = $downloader->getChecksum($edition);
                         $checksum = $extractor->checksum($checksumFile);
