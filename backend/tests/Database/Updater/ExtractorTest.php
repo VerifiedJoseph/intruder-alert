@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Database\Updater\Extractor;
 
@@ -78,6 +79,33 @@ class ExtractorTest extends TestCase
 
         $this->assertFileExists($extractedDatabasePath);
         $this->assertFileDoesNotExist($extractedArchivePath);
+    }
+
+    /**
+     * Test `archive()` with rename failure
+     */
+    public function testArchiveRenameFailure(): void
+    {
+        // Path of test archive
+        $archivePath = self::$tempFolder . DIRECTORY_SEPARATOR . 'has-mmdb/GeoLite2-ASN_19700101.tar.gz';
+
+        // Copy archive to test folder
+        copy('./backend/tests/files/tar/has-mmdb/GeoLite2-ASN_19700101.tar.gz', $archivePath);
+
+        mockfs::create();
+        $file = mockfs::getUrl('/GeoLite2-ASN.mmdb');
+
+        stream_context_set_default([
+            'mfs' => [
+                'rename_fail' => true,
+            ]
+        ]);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Failed to move database');
+
+        $extractor = new Extractor(self::$config);
+        @$extractor->archive($archivePath, 'GeoLite2-ASN', $file);
     }
 
     /**
