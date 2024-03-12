@@ -12,12 +12,15 @@ use Exception;
 class Downloader
 {
     private Fetch $fetch;
-    private Config $config;
+    private Url $url;
 
     public function __construct(Fetch $fetch, Config $config)
     {
         $this->fetch = $fetch;
-        $this->config = $config;
+        $this->url = new Url(
+            $config->getMaxMindDownloadUrl(),
+            $config->getMaxMindLicenseKey()
+        );
     }
 
     /**
@@ -30,11 +33,7 @@ class Downloader
         try {
             Output::text('Downloading checksum...');
 
-            $url = $this->buildUrl(
-                $edition,
-                $this->config->getMaxMindLicenseKey(),
-                'tar.gz.sha256'
-            );
+            $url = $this->url->get($edition, 'tar.gz.sha256');
 
             return $this->fetch->get($url);
         } catch (FetchException $err) {
@@ -57,11 +56,7 @@ class Downloader
         try {
             Output::text('Downloading database...');
 
-            $url = $this->buildUrl(
-                $edition,
-                $this->config->getMaxMindLicenseKey(),
-                'tar.gz'
-            );
+            $url = $this->url->get($edition, 'tar.gz');
 
             $data = $this->fetch->get($url);
             File::write($path, $data);
@@ -75,24 +70,5 @@ class Downloader
                 $url
             ));
         }
-    }
-
-    /**
-     * Build MaxMind download URL
-     *
-     * @param string $edition Database edition
-     * @param string $key License key
-     * @param string $suffix Suffix
-     * @return string
-     */
-    private function buildUrl(string $edition, string $key, string $suffix): string
-    {
-        $parts = [
-            'edition_id' => $edition,
-            'license_key' => $key,
-            'suffix' => $suffix
-        ];
-
-        return $this->config->getMaxMindDownloadUrl() . http_build_query($parts);
     }
 }
