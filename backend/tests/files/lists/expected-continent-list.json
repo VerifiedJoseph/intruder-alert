@@ -1,0 +1,17 @@
+{
+  "mostBanned": "EU",
+  "list": [
+    {
+      "code": "EU",
+      "name": "Europe",
+      "bans": 5,
+      "ipCount": 4
+    },
+    {
+      "code": "NA",
+      "name": "North America",
+      "bans": 2,
+      "ipCount": 2
+    }
+  ]
+}
