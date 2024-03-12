@@ -43,8 +43,7 @@ class AddressesTest extends TestCase
      */
     public function testGet(): void
     {
-        $actual = self::$listClass->get();
-        $this->assertEquals($actual, self::$expected);
+        $this->assertEquals(self::$listClass->get(), self::$expected);
     }
 
     /**
