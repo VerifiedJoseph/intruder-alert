@@ -6,6 +6,25 @@ use IntruderAlert\Database\Updater\Extractor;
 
 class ExtractorTest extends TestCase
 {
+    private static string $tempFolder = '';
+
+    public static function setUpBeforeClass(): void
+    {
+        self::$tempFolder = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'intruder-alert-tests';
+    }
+
+    public function setup(): void
+    {
+        mkdir(self::$tempFolder);
+        mkdir(self::$tempFolder . DIRECTORY_SEPARATOR . 'has-mmdb');
+        mkdir(self::$tempFolder . DIRECTORY_SEPARATOR . 'no-mmdb');
+    }
+
+    public function tearDown(): void
+    {
+        $this->removeDir(self::$tempFolder);
+    }
+
     /**
      * Test `checksum()`
      */
@@ -39,27 +58,69 @@ class ExtractorTest extends TestCase
      */
     public function testArchive(): void
     {
-        // Path of test folder
-        $folder = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'intruder-alert-tests';
         // Path of test archive
-        $archivePath = $folder . DIRECTORY_SEPARATOR . 'GeoLite2-ASN_19700101.tar.gz';
+        $archivePath = self::$tempFolder . DIRECTORY_SEPARATOR . 'has-mmdb/GeoLite2-ASN_19700101.tar.gz';
         // Path of the extracted archive folder
-        $extractedArchivePath = $folder . DIRECTORY_SEPARATOR . 'GeoLite2-ASN_19700101';
+        $extractedArchivePath = self::$tempFolder . DIRECTORY_SEPARATOR . 'GeoLite2-ASN_19700101';
         // Path of extracted database
-        $extractedDatabasePath = $folder . DIRECTORY_SEPARATOR . 'GeoLite2-ASN.mmdb';
+        $extractedDatabasePath = self::$tempFolder . DIRECTORY_SEPARATOR . 'GeoLite2-ASN.mmdb';
 
         // Copy archive to test folder
-        copy('backend/tests/files/tar/has-mmdb/GeoLite2-ASN_19700101.tar.gz', $archivePath);
+        copy('./backend/tests/files/tar/has-mmdb/GeoLite2-ASN_19700101.tar.gz', $archivePath);
 
         $config = $this->createStub(Config::class);
-        $config->method('getGeoIpDatabaseFolder')->willReturn($folder);
+        $config->method('getGeoIpDatabaseFolder')->willReturn(self::$tempFolder);
 
         $extractor = new Extractor($config);
         $extractor->archive($archivePath, 'GeoLite2-ASN', $extractedDatabasePath);
 
         $this->assertFileExists($extractedDatabasePath);
         $this->assertFileDoesNotExist($extractedArchivePath);
+    }
 
-        unlink($extractedDatabasePath);
+    /**
+     * Test `archive()` with no database file in the tar archive
+     */
+    public function testArchiveNoDatabaseFile(): void
+    {
+        // Path of test archive
+        $archivePath = self::$tempFolder . DIRECTORY_SEPARATOR . 'no-mmdb/GeoLite2-ASN_19700101.tar.gz';
+        // Path of extracted database
+        $extractedDatabasePath = self::$tempFolder . DIRECTORY_SEPARATOR . 'GeoLite2-ASN.mmdb';
+
+        // Copy archive to test folder
+        copy('./backend/tests/files/tar/no-mmdb/GeoLite2-ASN_19700101.tar.gz', $archivePath);
+
+        $config = $this->createStub(Config::class);
+        $config->method('getGeoIpDatabaseFolder')->willReturn(self::$tempFolder);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('GeoLite2-ASN database not found archive');
+
+        $extractor = new Extractor($config);
+        $extractor->archive($archivePath, 'GeoLite2-ASN', $extractedDatabasePath);
+    }
+
+    /**
+     * Remove directory and its contents
+     *
+     * @param string $path Directory path
+     */
+    private function removeDir($path): void
+    {
+        if (is_dir($path) === true) {
+            $directory = new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS);
+            $items = new \RecursiveIteratorIterator($directory, \RecursiveIteratorIterator::CHILD_FIRST);
+
+            foreach ($items as $item) {
+                if ($item->isDir() === true) {
+                    rmdir($item);
+                } else {
+                    unlink($item);
+                }
+            }
+
+            rmdir($path);
+        }
     }
 }
