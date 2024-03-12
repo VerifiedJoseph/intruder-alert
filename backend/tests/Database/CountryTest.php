@@ -6,11 +6,11 @@ use IntruderAlert\Helper\Output;
 
 class CountryTest extends TestCase
 {
-    private static Country $database;
+    /** @var string $path Database path */
+    private string $path = './backend/tests/files/mmdb/GeoLite2-Country-Test.mmdb';
 
     public static function setUpBeforeClass(): void
     {
-        self::$database = new Country('./backend/tests/files/mmdb/GeoLite2-Country-Test.mmdb');
         Output::disableQuiet();
     }
 
@@ -30,9 +30,11 @@ class CountryTest extends TestCase
             ]
         ];
 
+        $database = new Country($this->path);
+
         $this->assertEquals(
             $expected,
-            self::$database->lookup('81.2.69.144')
+            $database->lookup('81.2.69.144')
         );
     }
 
@@ -54,9 +56,11 @@ class CountryTest extends TestCase
             ]
         ];
 
+        $database = new Country($this->path);
+
         $this->assertEquals(
             $expected,
-            self::$database->lookup('127.0.0.1')
+            $database->lookup('127.0.0.1')
         );
     }
 }
