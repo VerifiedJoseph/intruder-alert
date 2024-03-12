@@ -38,7 +38,7 @@ class JailsTest extends TestCase
 
     /**
      * Test `get()`
-     * 
+     *
      * @depends testAddIp
      */
     public function testGet(): void
