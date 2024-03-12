@@ -7,6 +7,25 @@ use IntruderAlert\Exception\AppException;
 final class File
 {
     /**
+     * Open a file handler
+     *
+     * @param string $path File path
+     * @return string $mode Mode
+     *
+     * @throws AppException if file was not opened.
+     */
+    public static function open(string $path, string $mode): mixed
+    {
+        $handle = @fopen($path, $mode);
+
+        if ($handle === false) {
+            throw new AppException('File not opened: ' . $path);
+        }
+
+        return $handle;
+    }
+
+    /**
      * Read a file
      *
      * @param string $path File path
@@ -17,15 +36,10 @@ final class File
      */
     public static function read(string $path): string
     {
-        $handle = fopen($path, 'r');
+        $handle = File::open($path, 'r');
+        $contents = @fread($handle, (int) filesize($path));
 
-        if ($handle === false) {
-            throw new AppException('File not opened: ' . $path);
-        }
-
-        $contents = fread($handle, (int) filesize($path));
-
-        if ($contents === false) {
+        if ($contents === false || $contents === '') {
             throw new AppException('File not read: ' . $path);
         }
 
@@ -45,15 +59,10 @@ final class File
      */
     public static function write(string $path, string $data): void
     {
-        $handle = fopen($path, 'w');
+        $handle = File::open($path, 'w');
+        $status = @fwrite($handle, $data);
 
-        if ($handle === false) {
-            throw new AppException('File not opened: ' . $path);
-        }
-
-        $status = fwrite($handle, $data);
-
-        if ($status === false) {
+        if ($status === false || $status === 0) {
             throw new AppException('File not written: ' . $path);
         }
 
@@ -69,11 +78,6 @@ final class File
     public static function exists(string $path)
     {
         clearstatcache();
-
-        if (file_exists($path) === false) {
-            return false;
-        }
-
-        return true;
+        return file_exists($path);
     }
 }
