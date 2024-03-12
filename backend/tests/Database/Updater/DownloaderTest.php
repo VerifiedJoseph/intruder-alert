@@ -46,6 +46,7 @@ class DownloaderTest extends TestCase
     {
         $config = $this->createStub(Config::class);
         $config->method('getMaxMindLicenseKey')->willReturn('qwerty-qwerty');
+        $config->method('getMaxMindDownloadUrl')->willReturn('https://example.com/?');
         return $config;
     }
 }
