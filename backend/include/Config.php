@@ -243,15 +243,13 @@ class Config
                 throw new ConfigException('fail2ban log folder variable can not be empty [IA_LOG_FOLDER]');
             }
 
-            if (file_exists($this->getEnv('LOG_FOLDER')) === false) {
-                throw new ConfigException('fail2ban log folder does not exist [IA_LOG_FOLDER]');
+            $folder = $this->getEnv('LOG_FOLDER');
+
+            if (file_exists($folder) === false || is_readable($folder) === false) {
+                throw new ConfigException('fail2ban log folder does not exist or not readable [IA_LOG_FOLDER]');
             }
 
-            if (is_readable($this->getEnv('LOG_FOLDER')) === false) {
-                throw new ConfigException('fail2ban log folder is not readable [IA_LOG_FOLDER]');
-            }
-
-            $this->config['log_folder'] = $this->getEnv('LOG_FOLDER');
+            $this->config['log_folder'] = $folder;
         }
     }
 
