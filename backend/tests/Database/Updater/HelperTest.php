@@ -23,11 +23,11 @@ class HelperTest extends TestCase
         $checksum = hash_file('sha256', $file);
 
         $helper = new Helper();
-        $helper->checkIntegrity($checksum, $file);
+        $helper->checkIntegrity((string) $checksum, $file);
     }
 
     /**
-     * Test `checkIntegrity()` with a hashes that do not match
+     * Test `checkIntegrity()` with hashes that do not match
      */
     public function testCheckIntegrityFailure(): void
     {
@@ -39,6 +39,6 @@ class HelperTest extends TestCase
         $checksum = hash_file('sha1', $file);
 
         $helper = new Helper();
-        $helper->checkIntegrity($checksum, $file);
+        $helper->checkIntegrity((string) $checksum, $file);
     }
 }
