@@ -95,9 +95,7 @@ class Extractor
             $items = new \RecursiveIteratorIterator($directory, \RecursiveIteratorIterator::CHILD_FIRST);
 
             foreach ($items as $item) {
-                if ($item->isDir() === true) {
-                    rmdir($item);
-                } else {
+                if ($item->isDir() === false) {
                     unlink($item);
                 }
             }
