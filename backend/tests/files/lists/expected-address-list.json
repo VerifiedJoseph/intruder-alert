@@ -1,0 +1,99 @@
+{
+	"mostBanned": "185.15.59.224",
+	"list": [
+	  {
+		"address": "185.15.59.224",
+		"version": 4,
+		"bans": 2,
+		"country": "NL",
+		"continent": "EU",
+		"network": 14907,
+		"subnet": "185.15.59.0/24",
+		"events": [
+		  {
+			"timestamp": "2024-03-11 01:03:48",
+			"jail": "http"
+		  },
+		  {
+			"timestamp": "2024-03-11 01:24:10",
+			"jail": "http"
+		  }
+		]
+	  },
+	  {
+		"address": "10.0.0.1",
+		"version": 4,
+		"bans": 1,
+		"country": "US",
+		"continent": "NA",
+		"network": 102,
+		"subnet": "10.0.0.0/8",
+		"events": [
+		  {
+			"timestamp": "2024-03-13 10:40:48",
+			"jail": "another-jail"
+		  }
+		]
+	  },
+	  {
+		"address": "10.0.0.2",
+		"version": 4,
+		"bans": 1,
+		"country": "US",
+		"continent": "NA",
+		"network": 102,
+		"subnet": "10.0.0.0/8",
+		"events": [
+		  {
+			"timestamp": "2024-03-13 15:40:48",
+			"jail": "another-jail"
+		  }
+		]
+	  },
+	  {
+		"address": "127.0.0.1",
+		"version": 4,
+		"bans": 1,
+		"country": "GB",
+		"continent": "EU",
+		"network": 101,
+		"subnet": "127.0.0.0/8",
+		"events": [
+		  {
+			"timestamp": "2024-03-12 13:40:48",
+			"jail": "sshd"
+		  }
+		]
+	  },
+	  {
+		"address": "127.0.0.2",
+		"version": 4,
+		"bans": 1,
+		"country": "GB",
+		"continent": "EU",
+		"network": 101,
+		"subnet": "127.0.0.0/8",
+		"events": [
+		  {
+			"timestamp": "2024-03-12 13:40:48",
+			"jail": "sshd"
+		  }
+		]
+	  },
+	  {
+		"address": "2001:67c:930::1",
+		"version": 6,
+		"bans": 1,
+		"country": "NL",
+		"continent": "EU",
+		"network": 14907,
+		"subnet": "2001:67c:930::/48",
+		"events": [
+		  {
+			"timestamp": "2024-03-11 01:40:48",
+			"jail": "http"
+		  }
+		]
+	  }
+	]
+}
