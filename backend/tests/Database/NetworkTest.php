@@ -6,11 +6,11 @@ use IntruderAlert\Helper\Output;
 
 class NetworkTest extends TestCase
 {
-    private static Network $database;
+    /** @var string $path Database path */
+    private string $path = './backend/tests/files/mmdb/GeoLite2-ASN-Test.mmdb';
 
     public static function setUpBeforeClass(): void
     {
-        self::$database = new Network('./backend/tests/files/mmdb/GeoLite2-ASN-Test.mmdb');
         Output::disableQuiet();
     }
 
@@ -25,9 +25,11 @@ class NetworkTest extends TestCase
             'subnet' => '1.0.0.0/24'
         ];
 
+        $database = new Network($this->path);
+
         $this->assertEquals(
             $expected,
-            self::$database->lookup('1.0.0.1')
+            $database->lookup('1.0.0.1')
         );
     }
 
@@ -44,9 +46,11 @@ class NetworkTest extends TestCase
             'subnet' => 'Unknown'
         ];
 
+        $database = new Network($this->path);
+
         $this->assertEquals(
             $expected,
-            self::$database->lookup('127.0.0.1')
+            $database->lookup('127.0.0.1')
         );
     }
 }
