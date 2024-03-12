@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Fetch;
 use IntruderAlert\Database\Updater\Downloader;
@@ -45,20 +46,24 @@ class DownloaderTest extends TestCase
     /**
      * Test `getArchive()`
      */
-    /**public function testGetArchive(): void
+    public function testGetArchive(): void
     {
         $this->expectOutputRegex('/Downloading database/');
 
-        $expected = hash('sha256', 'hello word');
+        mockfs::create();
+        $file = mockfs::getUrl('/archive.file');
+
+        $expected = 'hello word';
 
         $fetch = $this->createStub(Fetch::class);
         $fetch->method('get')->willReturn($expected);
 
         $downloader = new Downloader($fetch, $this->createConfigStub());
-        $actual = $downloader->getChecksum('GeoLite2-ASN');
+        $downloader->getArchive('GeoLite2-ASN', $file);
 
-        $this->assertEquals($expected, $actual);
-    }*/
+        $this->assertFileExists($file);
+        $this->assertEquals($expected, file_get_contents($file));
+    }
 
     /**
      * Test `getArchive()` failure
