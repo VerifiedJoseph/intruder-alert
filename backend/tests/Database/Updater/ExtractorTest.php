@@ -15,8 +15,9 @@ class ExtractorTest extends TestCase
         self::$tempFolder = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'intruder-alert-tests';
 
         /** @var \PHPUnit\Framework\MockObject\Stub&Config */
-        self::$config = self::createStub(Config::class);
-        self::$config->method('getGeoIpDatabaseFolder')->willReturn(self::$tempFolder);
+        $config = self::createStub(Config::class);
+        $config->method('getGeoIpDatabaseFolder')->willReturn(self::$tempFolder);
+        self::$config = $config;
     }
 
     public function setup(): void
