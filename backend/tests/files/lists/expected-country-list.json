@@ -1,0 +1,23 @@
+{
+  "mostBanned": "NL",
+  "list": [
+    {
+      "code": "NL",
+      "name": "Netherlands",
+      "bans": 3,
+      "ipCount": 2
+    },
+    {
+      "code": "GB",
+      "name": "United Kingdom",
+      "bans": 2,
+      "ipCount": 2
+    },
+    {
+      "code": "US",
+      "name": "United States",
+      "bans": 2,
+      "ipCount": 2
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "mostBanned": "http",
+  "list": [
+    {
+      "name": "http",
+      "ipCount": 2,
+      "bans": 3
+    },
+    {
+      "name": "another-jail",
+      "ipCount": 2,
+      "bans": 2
+    },
+    {
+      "name": "sshd",
+      "ipCount": 2,
+      "bans": 2
+    }
+  ]
+}
