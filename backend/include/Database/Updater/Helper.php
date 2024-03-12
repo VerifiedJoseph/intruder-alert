@@ -9,9 +9,9 @@ class Helper
 {
     /**
      * Check file integrity using a sha256 hash
-	 * 
-	 * @param $hash Hash checksum
-	 * @param $filepath
+     *
+     * @param $hash Hash checksum
+     * @param $filepath
      */
     public function checkIntegrity(string $hash, string $filepath): void
     {
