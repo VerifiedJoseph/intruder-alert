@@ -233,8 +233,7 @@ class Config
      * Check log folder
      *
      * @throws ConfigException if `IA_LOG_FOLDER` environment variable not set.
-     * @throws ConfigException if Fail2ban log folder does not exist.
-     * @throws ConfigException if Fail2ban log folder not readable.
+     * @throws ConfigException if Fail2ban log folder does not exist or not readable.
      */
     public function checkLogFolder(): void
     {
