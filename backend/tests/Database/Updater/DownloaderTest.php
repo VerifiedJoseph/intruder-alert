@@ -42,6 +42,40 @@ class DownloaderTest extends TestCase
         $downloader->getChecksum('GeoLite2-ASN');
     }
 
+    /**
+     * Test `getArchive()`
+     */
+    /**public function testGetArchive(): void
+    {
+        $this->expectOutputRegex('/Downloading database/');
+
+        $expected = hash('sha256', 'hello word');
+
+        $fetch = $this->createStub(Fetch::class);
+        $fetch->method('get')->willReturn($expected);
+
+        $downloader = new Downloader($fetch, $this->createConfigStub());
+        $actual = $downloader->getChecksum('GeoLite2-ASN');
+
+        $this->assertEquals($expected, $actual);
+    }*/
+
+    /**
+     * Test `getArchive()` failure
+     */
+    public function testGetArchiveFailure(): void
+    {
+        $this->expectOutputRegex('/Downloading database/');
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Failed to download database file');
+
+        $fetch = $this->createStub(Fetch::class);
+        $fetch->method('get')->willThrowException(new FetchException('Request failed'));
+
+        $downloader = new Downloader($fetch, $this->createConfigStub());
+        $downloader->getArchive('GeoLite2-ASN', './backend/tests/files');
+    }
+
     private function createConfigStub(): Config
     {
         $config = $this->createStub(Config::class);
