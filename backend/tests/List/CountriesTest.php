@@ -5,20 +5,26 @@ use IntruderAlert\List\Countries;
 
 class CountriesTest extends TestCase
 {
-    private static $data;
-    private static $expected;
     private static Countries $listClass;
+
+    /** @var array<mixed> */
+    private static $data;
+
+    /** @var array<mixed> */
+    private static $expected;
 
     public static function setUpBeforeClass(): void
     {
         self::$listClass = new Countries();
 
         self::$data = json_decode(
+            (string)
             file_get_contents('./backend/tests/files/list-data.json'),
             associative: true
         );
 
         self::$expected = json_decode(
+            (string)
             file_get_contents('./backend/tests/files/lists/expected-country-list.json'),
             associative: true
         );

@@ -17,12 +17,14 @@ class AddressesTest extends TestCase
     {
         self::$listClass = new Addresses();
 
-        self::$data = json_decode((string)
+        self::$data = json_decode(
+            (string)
             file_get_contents('./backend/tests/files/list-data.json'),
             associative: true
         );
 
-        self::$expected = json_decode((string)
+        self::$expected = json_decode(
+            (string)
             file_get_contents('./backend/tests/files/lists/expected-address-list.json'),
             associative: true
         );
