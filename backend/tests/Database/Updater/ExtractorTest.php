@@ -7,10 +7,15 @@ use IntruderAlert\Database\Updater\Extractor;
 class ExtractorTest extends TestCase
 {
     private static string $tempFolder = '';
+    private static Config $config;
 
     public static function setUpBeforeClass(): void
     {
         self::$tempFolder = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'intruder-alert-tests';
+
+        /** @var \PHPUnit\Framework\MockObject\Stub&Config */
+        self::$config = self::createStub(Config::class);
+        self::$config->method('getGeoIpDatabaseFolder')->willReturn(self::$tempFolder);
     }
 
     public function setup(): void
@@ -68,10 +73,7 @@ class ExtractorTest extends TestCase
         // Copy archive to test folder
         copy('./backend/tests/files/tar/has-mmdb/GeoLite2-ASN_19700101.tar.gz', $archivePath);
 
-        $config = $this->createStub(Config::class);
-        $config->method('getGeoIpDatabaseFolder')->willReturn(self::$tempFolder);
-
-        $extractor = new Extractor($config);
+        $extractor = new Extractor(self::$config);
         $extractor->archive($archivePath, 'GeoLite2-ASN', $extractedDatabasePath);
 
         $this->assertFileExists($extractedDatabasePath);
@@ -91,13 +93,10 @@ class ExtractorTest extends TestCase
         // Copy archive to test folder
         copy('./backend/tests/files/tar/no-mmdb/GeoLite2-ASN_19700101.tar.gz', $archivePath);
 
-        $config = $this->createStub(Config::class);
-        $config->method('getGeoIpDatabaseFolder')->willReturn(self::$tempFolder);
-
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('GeoLite2-ASN database not found archive');
 
-        $extractor = new Extractor($config);
+        $extractor = new Extractor(self::$config);
         $extractor->archive($archivePath, 'GeoLite2-ASN', $extractedDatabasePath);
     }
 
