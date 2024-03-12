@@ -1,0 +1,23 @@
+{
+  "mostBanned": 14907,
+  "list": [
+    {
+      "name": "Wikimedia Foundation Inc",
+      "number": 14907,
+      "bans": 3,
+      "ipCount": 2
+    },
+    {
+      "name": "Home Sweet Home Inc",
+      "number": 102,
+      "bans": 2,
+      "ipCount": 2
+    },
+    {
+      "name": "Home Sweet Home Ltd",
+      "number": 101,
+      "bans": 2,
+      "ipCount": 2
+    }
+  ]
+}
