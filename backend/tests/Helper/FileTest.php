@@ -34,7 +34,7 @@ class FileTest extends TestCase
         file_put_contents($file, uniqid());
 
         $handler = File::open($file, 'r');
-        $contents = fread($handler, filesize($file));
+        $contents = fread($handler, (int) filesize($file));
 
         $this->assertIsString($contents);
     }
@@ -134,6 +134,8 @@ class FileTest extends TestCase
 
     /**
      * Set stream context defaults for `MockFileSystem\MockFileSystem`
+     *
+     * @param array<string, boolean> $options
      */
     private function setStreamContext(array $options): void
     {

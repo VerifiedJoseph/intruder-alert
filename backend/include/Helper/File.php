@@ -10,7 +10,7 @@ final class File
      * Open a file handler
      *
      * @param string $path File path
-     * @return string $mode Mode
+     * @param string $mode Mode
      *
      * @throws AppException if file was not opened.
      */
