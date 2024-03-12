@@ -12,8 +12,6 @@ class ListsTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$lists = new Lists();
-
         self::$data = json_decode(
             (string)
             file_get_contents('./backend/tests/files/list-data.json'),
@@ -27,6 +25,8 @@ class ListsTest extends TestCase
     public function testAddIp(): void
     {
         $this->expectNotToPerformAssertions();
+
+        self::$lists = new Lists();
 
         foreach (self::$data['events'] as $item) {
             self::$lists->addIp($item);
@@ -58,6 +58,8 @@ class ListsTest extends TestCase
 
     /**
      * Test `getCounts()`
+     *
+     * @depends testAddIp
      */
     public function testGetCounts(): void
     {
