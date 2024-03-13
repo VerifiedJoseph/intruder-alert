@@ -4,6 +4,7 @@ namespace IntruderAlert\App;
 
 use IntruderAlert\Ip;
 use IntruderAlert\Cache;
+use IntruderAlert\Fetch;
 use IntruderAlert\Report;
 use IntruderAlert\Database;
 use IntruderAlert\Logs\Logs;
@@ -109,7 +110,8 @@ class Backend extends App
      */
     private function databaseUpdate(): void
     {
-        $update = new Database\Update($this->config);
-        $update->run();
+        $fetch = new Fetch($this->config->getUseragent());
+        $updater = new Database\Updater\Updater($this->config, $fetch);
+        $updater->run();
     }
 }
