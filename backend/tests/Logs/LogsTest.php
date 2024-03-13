@@ -1,8 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use IntruderAlert\Logs\Logs;
 use IntruderAlert\Config;
+use IntruderAlert\Logger;
+use IntruderAlert\Logs\Logs;
 use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\AppException;
 use IntruderAlert\Exception\ReportException;
@@ -40,7 +41,7 @@ class LogsTest extends TestCase
         $config = $this->createConfigStub();
         $config->method('getLogFolder')->willReturn('./backend/tests/files/logs/has-bans');
 
-        $logs = new Logs($config);
+        $logs = new Logs($config, new Logger());
         $rows = $logs->process();
 
         $this->assertCount(2, $rows);
@@ -60,7 +61,7 @@ class LogsTest extends TestCase
         $config = $this->createConfigStub();
         $config->method('getLogPaths')->willReturn('./backend/tests/files/logs/has-bans/fail2ban.log');
 
-        $logs = new Logs($config);
+        $logs = new Logs($config, new Logger());
         $rows = $logs->process();
 
         $this->assertCount(2, $rows);
@@ -83,7 +84,7 @@ class LogsTest extends TestCase
         $this->expectException(ReportException::class);
         $this->expectExceptionMessage('No bans found');
 
-        $logs = new Logs($config);
+        $logs = new Logs($config, new Logger());
         $logs->process();
     }
 
@@ -98,7 +99,7 @@ class LogsTest extends TestCase
         $this->expectException(AppException::class);
         $this->expectExceptionMessage('App error: Failed to read file');
 
-        $logs = new Logs($config);
+        $logs = new Logs($config, new Logger());
         $logs->process();
     }
 }
