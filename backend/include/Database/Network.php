@@ -30,7 +30,7 @@ class Network extends Database
             $data['number'] = (int) $record->autonomousSystemNumber;
             $data['subnet'] = (string) $record->network;
         } catch (AddressNotFoundException) {
-            Output::text('Address not found in GeoIP2 ASN database: ' . $address, log: true);
+            $this->logger->addEntry('Address not found in GeoIP2 ASN database: ' . $address);
         } finally {
             return $data;
         }
