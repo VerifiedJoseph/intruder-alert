@@ -280,12 +280,12 @@ class ConfigCheckTest extends TestCase
     }
 
     /**
-     * Test data folder creation failure
+     * Test `checkFolder()` folder creation failure
      */
-    public function testDataFolderCreationFailure(): void
+    public function testCheckFolderCreationFailure(): void
     {
         $this->expectException(ConfigException::class);
-        $this->expectExceptionMessage('Config error: Failed to create data folder');
+        $this->expectExceptionMessage('Failed to create folder');
 
         mockfs::create();
         $folder = mockfs::getUrl('/data');
@@ -299,6 +299,6 @@ class ConfigCheckTest extends TestCase
         );
 
         $config = new Config();
-        $config->checkDataFolder($folder);
+        $config->checkFolder($folder);
     }
 }
