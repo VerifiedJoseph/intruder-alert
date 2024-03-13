@@ -24,7 +24,7 @@ class FrontendTest extends TestCase
 
         /** @var Config&\PHPUnit\Framework\MockObject\Stub */
         $config = $this->createConfigStub();
-        $config->method('getPath')->willReturn('./backend/tests/files/no-data-file.json');
+        $config->method('getPath')->willReturn('no-data-file.json');
 
         $app = new Frontend($config);
 
