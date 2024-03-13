@@ -23,14 +23,11 @@ class Updater
     {
         $downloader = new Downloader($this->fetch, $this->config);
         $extractor = new Extractor($this->config);
+        $databasePaths = $this->getDatabasePaths();
 
         if ($this->config->getMaxMindLicenseKey() !== '') {
-            if (File::exists($this->config->getGeoIpDatabaseFolder()) === false) {
-                mkdir($this->config->getGeoIpDatabaseFolder());
-            }
-
             try {
-                foreach ($this->getDatabasePaths() as $edition => $path) {
+                foreach ($databasePaths as $edition => $path) {
                     $tsFile = new TimestampFile($path);
 
                     if ($tsFile->isOutdated() === true) {
