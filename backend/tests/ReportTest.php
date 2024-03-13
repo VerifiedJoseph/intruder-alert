@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Report;
 use IntruderAlert\Lists;
+use IntruderAlert\Helper\Logger;
 
 class ReportTest extends TestCase
 {
@@ -12,6 +13,7 @@ class ReportTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         mockfs::create();
+        Logger::removeEntries();
 
         $data = self::getJsonFile('./backend/tests/files/list-data.json');
 
