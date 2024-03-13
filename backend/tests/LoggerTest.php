@@ -20,7 +20,6 @@ class LoggerTest extends TestCase
 
         $logger = new Logger();
         $logger->addEntry('Hello World');
-
         $this->assertEquals(['Hello World'], $logger->getEntries());
     }
 
