@@ -2,19 +2,24 @@
 
 namespace IntruderAlert\Database;
 
+use IntruderAlert\Logger;
 use GeoIp2\Database\Reader;
 
 abstract class Database
 {
-    /** @var Reader $Reader GeoIP2 database reader */
+    /** @var Reader $reader GeoIP2 database reader */
     protected Reader $reader;
+
+    /** @var Logger $logger */
+    protected Logger $logger;
 
     /**
      * @param string $path GeoIP database path
      */
-    public function __construct(string $path)
+    public function __construct(string $path, Logger $logger)
     {
         $this->reader = new Reader($path);
+        $this->logger = &$logger;
     }
 
     /**
