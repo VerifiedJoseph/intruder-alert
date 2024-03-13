@@ -193,25 +193,27 @@ class Config
 
         $this->checkLogPaths();
         $this->checkLogFolder();
-        $this->checkDataFolder($this->getPath('data'));
+        $this->checkFolder($this->getPath('data'));
+        $this->checkFolder($this->getGeoIpDatabaseFolder());
         $this->checkMaxMindLicenseKey();
         $this->checkDatabases();
     }
 
     /**
-     * Check data folder
+     * Check for folder and create when needed
      *
-     * @param string $path Data folder path
+     * @param string $path Folder path
      * @throws ConfigException if data folder could not be created.
      */
-    public function checkDataFolder(string $path): void
+    public function checkFolder(string $path): void
     {
         if (file_exists($path) === false) {
             if (mkdir($path, 0660) === false) {
-                throw new ConfigException('Failed to create data folder');
+                throw new ConfigException('Failed to create folder: ' . $path);
             }
         }
     }
+
 
     /**
      * Check log paths
