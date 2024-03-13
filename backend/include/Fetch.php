@@ -33,6 +33,7 @@ class Fetch
         curl_setopt_array($ch, [
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_USERAGENT => $this->useragent
         ]);
 
