@@ -1,7 +1,12 @@
 <?php
 
-namespace IntruderAlert;
+namespace IntruderAlert\App;
 
+use IntruderAlert\Ip;
+use IntruderAlert\Cache;
+use IntruderAlert\Fetch;
+use IntruderAlert\Report;
+use IntruderAlert\Database;
 use IntruderAlert\Logs\Logs;
 use IntruderAlert\Helper\File;
 use IntruderAlert\Helper\Json;
@@ -9,26 +14,8 @@ use IntruderAlert\Helper\Timer;
 use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\ReportException;
 
-class App
+class Backend extends App
 {
-    /** @var Config $config */
-    private Config $config;
-
-    /** @var Lists $lists */
-    private Lists $lists;
-
-    /** @var string $dataFilepath Report data filepath */
-    private string $dataFilepath = 'data/data.json';
-
-    /** @var string $cacheFilepath Cache filepath */
-    private string $cacheFilepath = 'data/cache.json';
-
-    public function __construct(Config $config)
-    {
-        $this->config = $config;
-        $this->lists = new Lists();
-    }
-
     /**
      * Run app
      */
@@ -43,49 +30,7 @@ class App
         }
     }
 
-    /**
-     * Get report JSON
-     */
-    public function getJsonReport(): string
-    {
-        $path = $this->config->getPath($this->dataFilepath);
-
-        if (File::exists($path) === false) {
-            return Json::encode([
-                'error' => true,
-                'message' => 'No data. Is the backend script setup?'
-            ]);
-        }
-
-        $data = Json::decode(File::read($path));
-
-        $lastUpdated = $_POST['lastUpdated'] ?? '';
-        if ($lastUpdated !== '') {
-            if (strtotime($data['updated']) > strtotime($lastUpdated)) {
-                $data['hasUpdates'] = true;
-            } else {
-                return Json::encode([]);
-            }
-        }
-
-        if ($this->config->getDashDaemonLogStatus() === false) {
-            unset($data['log']);
-        }
-
-        $data['settings'] = [
-            'features' => [
-                'charts' => $this->config->getChartsStatus(),
-                'updates' => $this->config->getDashUpdatesStatus(),
-                'daemonLog' => $this->config->getDashDaemonLogStatus()
-            ],
-            'timezone' => $this->config->getTimezone(),
-            'version' => $this->config->getVersion()
-        ];
-
-        return Json::encode($data);
-    }
-
-    /**
+  /**
      * Process logs
      */
     private function processLogs(): void
@@ -137,6 +82,7 @@ class App
             $this->lists->getCounts(),
             $this->config->getPath($this->dataFilepath),
         );
+
         $report->generate();
     }
 
@@ -159,6 +105,9 @@ class App
         );
     }
 
+    /**
+     * Update GeoIp databases
+     */
     private function databaseUpdate(): void
     {
         $fetch = new Fetch($this->config->getUseragent());

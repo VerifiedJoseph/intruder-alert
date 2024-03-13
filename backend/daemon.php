@@ -1,7 +1,7 @@
 <?php
 
-use IntruderAlert\App;
 use IntruderAlert\Config;
+use IntruderAlert\App\Backend;
 use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\ConfigException;
 use IntruderAlert\Exception\AppException;
@@ -17,7 +17,7 @@ while (true) {
         $config->check();
         $config->checkCli();
 
-        $app = new App($config);
+        $app = new Backend($config);
         $app->run();
     } catch (AppException $err) {
         Output::text($err->getMessage());
