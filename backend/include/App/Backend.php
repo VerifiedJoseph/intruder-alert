@@ -40,7 +40,7 @@ class Backend extends App
         $timer = new Timer();
         $timer->start();
 
-        $logs = new Logs($this->config);
+        $logs = new Logs($this->config, $this->logger);
         $cache = new Cache(
             $this->config->getPath($this->cacheFilepath)
         );
@@ -111,7 +111,7 @@ class Backend extends App
     private function databaseUpdate(): void
     {
         $fetch = new Fetch($this->config->getUseragent());
-        $updater = new Database\Updater\Updater($this->config, $fetch);
+        $updater = new Database\Updater\Updater($this->config, $fetch, $this->logger);
         $updater->run();
     }
 }
