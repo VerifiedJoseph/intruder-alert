@@ -22,8 +22,7 @@ class HelperTest extends TestCase
         file_put_contents($file, uniqid());
         $checksum = hash_file('sha256', $file);
 
-        $helper = new Helper();
-        $helper->checkIntegrity((string) $checksum, $file);
+        Helper::checkIntegrity((string) $checksum, $file);
     }
 
     /**
@@ -38,7 +37,6 @@ class HelperTest extends TestCase
         file_put_contents($file, uniqid());
         $checksum = hash_file('sha1', $file);
 
-        $helper = new Helper();
-        $helper->checkIntegrity((string) $checksum, $file);
+        Helper::checkIntegrity((string) $checksum, $file);
     }
 }

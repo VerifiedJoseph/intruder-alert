@@ -12,13 +12,11 @@ class Updater
 {
     private Config $config;
     private Fetch $fetch;
-    private Helper $helper;
 
-    public function __construct(Config $config, Fetch $fetch, Helper $helper)
+    public function __construct(Config $config, Fetch $fetch)
     {
         $this->config = $config;
         $this->fetch = $fetch;
-        $this->helper = $helper;
     }
 
     public function run(): void
@@ -44,7 +42,7 @@ class Updater
                         $checksum = $extractor->checksum($checksumFile);
 
                         $downloader->getArchive($edition, $archivePath);
-                        $this->helper->checkIntegrity($checksum['hash'], $archivePath);
+                        Helper::checkIntegrity($checksum['hash'], $archivePath);
 
                         $extractor->archive($archivePath, $edition, $path);
                         $tsFile->update();

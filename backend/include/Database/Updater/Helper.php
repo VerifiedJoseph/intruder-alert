@@ -12,7 +12,7 @@ class Helper
      * @param $hash Hash checksum
      * @param $filepath
      */
-    public function checkIntegrity(string $hash, string $filepath): void
+    public static function checkIntegrity(string $hash, string $filepath): void
     {
         $fileHash = hash_file('sha256', $filepath);
 
