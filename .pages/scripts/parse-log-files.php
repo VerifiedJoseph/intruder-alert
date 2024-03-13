@@ -8,16 +8,17 @@ include('../../backend/vendor/autoload.php');
 include('../../backend/config.php');
 
 use IntruderAlert\Config;
-use IntruderAlert\Logs;
+use IntruderAlert\Logger;
+use IntruderAlert\Logs\Logs;
 
 $config = new Config();
 $config->check();
 $config->checkCli();
 
-$networkDatabase = new IntruderAlert\Database\Network($config->getAsnDatabasePath());
-$countryDatabase = new IntruderAlert\Database\Country($config->getCountryDatabasePath());
+$networkDatabase = new IntruderAlert\Database\Network($config->getAsnDatabasePath(), new Logger());
+$countryDatabase = new IntruderAlert\Database\Country($config->getCountryDatabasePath(), new Logger());
 
-$logs = new Logs($config);
+$logs = new Logs($config, new Logger());
 $events = $logs->process();
 
 $number = 0;
