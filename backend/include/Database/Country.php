@@ -34,7 +34,7 @@ class Country extends Database
                 $data['continent']['code'] = (string) $record->continent->code;
             }
         } catch (AddressNotFoundException) {
-            Output::text('Address not found in GeoIP2 country database: ' . $address, log: true);
+            $this->logger->addEntry('Address not found in GeoIP2 country database: ' . $address);
         } finally {
             return $data;
         }

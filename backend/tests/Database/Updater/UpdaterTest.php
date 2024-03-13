@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use IntruderAlert\Config;
 use IntruderAlert\Fetch;
+use IntruderAlert\Logger;
 use IntruderAlert\Database\Updater\Updater;
 use IntruderAlert\Exception\FetchException;
 use IntruderAlert\Exception\AppException;
@@ -15,7 +16,7 @@ class UpdaterTest extends TestCase
 
         $config = new Config();
         $fetch = new Fetch($config->getUseragent());
-        $updater = new Updater($config, $fetch);
+        $updater = new Updater($config, $fetch, new Logger());
         $updater->run();
     }
 
@@ -33,7 +34,7 @@ class UpdaterTest extends TestCase
         $fetch = $this->createStub(Fetch::class);
         $fetch->method('get')->willThrowException(new FetchException('Request failed'));
 
-        $updater = new Updater($config, $fetch);
+        $updater = new Updater($config, $fetch, new Logger());
         $updater->run();
     }
 }

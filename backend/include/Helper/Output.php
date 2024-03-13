@@ -29,16 +29,11 @@ final class Output
      * Display text in terminal
      *
      * @param string $text Text string to display
-     * @param bool $log Add message to logger
      */
-    public static function text(string $text = '', bool $log = false): void
+    public static function text(string $text = ''): void
     {
         if (self::$quiet === false) {
             echo sprintf("[intruder-alert] %s \n", $text);
-        }
-
-        if ($log === true) {
-            Logger::addEntry($text);
         }
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use IntruderAlert\Logger;
 use IntruderAlert\Database\Country;
 use IntruderAlert\Helper\Output;
 
@@ -30,7 +31,7 @@ class CountryTest extends TestCase
             ]
         ];
 
-        $database = new Country($this->path);
+        $database = new Country($this->path, new Logger());
 
         $this->assertEquals(
             $expected,
@@ -56,7 +57,7 @@ class CountryTest extends TestCase
             ]
         ];
 
-        $database = new Country($this->path);
+        $database = new Country($this->path, new Logger());
 
         $this->assertEquals(
             $expected,

@@ -4,6 +4,7 @@ namespace IntruderAlert\Database\Updater;
 
 use IntruderAlert\Config;
 use IntruderAlert\Fetch;
+use IntruderAlert\Logger;
 use IntruderAlert\Helper\File;
 use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\AppException;
@@ -12,16 +13,22 @@ class Updater
 {
     private Config $config;
     private Fetch $fetch;
+    private Logger $logger;
 
-    public function __construct(Config $config, Fetch $fetch)
+    public function __construct(Config $config, Fetch $fetch, Logger $logger)
     {
         $this->config = $config;
         $this->fetch = $fetch;
+        $this->logger = $logger;
     }
 
     public function run(): void
     {
-        $downloader = new Downloader($this->fetch, $this->config);
+        $downloader = new Downloader(
+            $this->fetch,
+            $this->config,
+            $this->logger
+        );
         $extractor = new Extractor($this->config);
         $databasePaths = $this->getDatabasePaths();
 
@@ -31,7 +38,7 @@ class Updater
                     $tsFile = new TimestampFile($path);
 
                     if ($tsFile->isOutdated() === true) {
-                        Output::text('Updating Geoip2 database: ' . $edition, log: true);
+                        $this->logger->addEntry('Updating Geoip2 database: ' . $edition);
 
                         $archivePath = $path . '.tar.gz';
 
@@ -44,7 +51,7 @@ class Updater
                         $extractor->archive($archivePath, $edition, $path);
                         $tsFile->update();
 
-                        Output::text('Updated Geoip2 database: ' . $edition, log: true);
+                        $this->logger->addEntry('Updated Geoip2 database: ' . $edition);
                     }
                 }
             } catch (\Exception $err) {

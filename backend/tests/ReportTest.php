@@ -1,10 +1,11 @@
 <?php
 
+use IntruderAlert\Helper\Output;
 use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Report;
 use IntruderAlert\Lists;
-use IntruderAlert\Helper\Logger;
+use IntruderAlert\Logger;
 
 class ReportTest extends TestCase
 {
@@ -13,7 +14,7 @@ class ReportTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         mockfs::create();
-        Logger::removeEntries();
+        Output::disableQuiet();
 
         $data = self::getJsonFile('./backend/tests/files/list-data.json');
 
@@ -28,12 +29,13 @@ class ReportTest extends TestCase
      */
     public function testGenerate(): void
     {
-        ///$this->expectOutputRegex('/Created report JSON file/');
+        $this->expectOutputRegex('/Created report JSON file/');
 
         $report = new Report(
             self::$lists->get(),
             self::$lists->getCounts(),
             mockfs::getUrl('/report.json'),
+            new Logger()
         );
 
         $report->generate();
@@ -42,10 +44,10 @@ class ReportTest extends TestCase
         $actual = self::getJsonFile(mockfs::getUrl('/report.json'));
 
         $this->assertGreaterThan(0, strtotime($actual['updated']));
-        /*$this->assertMatchesRegularExpression(
+        $this->assertMatchesRegularExpression(
             '/Last run: ([\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}:[\d]{2})/',
             $actual['log'][0]
-        );*/
+        );
 
         $actual['updated'] = '1970-01-01 00:00:00';
         $actual['log'] = [];

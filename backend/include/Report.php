@@ -2,9 +2,9 @@
 
 namespace IntruderAlert;
 
+use IntruderAlert\Logger;
 use IntruderAlert\Helper\File;
 use IntruderAlert\Helper\Json;
-use IntruderAlert\Helper\Logger;
 use IntruderAlert\Helper\Output;
 
 /**
@@ -12,6 +12,9 @@ use IntruderAlert\Helper\Output;
  */
 class Report
 {
+    /** @var Logger $logger */
+    private Logger $logger;
+
     /** @var array<string, mixed> $lists */
     private array $lists = [];
 
@@ -22,18 +25,20 @@ class Report
     private string $path = '';
 
     /**
-     *
      * @param array<string, mixed> $lists
      * @param array<string, mixed> $counts
+     * @param Logger $logger Logger class instance
      */
     public function __construct(
         array $lists,
         array $counts,
         string $path,
+        Logger $logger
     ) {
         $this->lists = $lists;
         $this->counts = $counts;
         $this->path = $path;
+        $this->logger = $logger;
     }
 
     /**
@@ -45,7 +50,7 @@ class Report
         $data['stats'] = $this->createStats();
         $data['updated'] = date('Y-m-d H:i:s');
         $data['dataSince'] = $this->getDataSinceDate();
-        $data['log'] = Logger::getEntries();
+        $data['log'] = $this->logger->getEntries();
         $data['log'][] = 'Last run: ' . $data['updated'];
 
         File::write(

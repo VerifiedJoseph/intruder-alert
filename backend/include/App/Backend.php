@@ -11,7 +11,6 @@ use IntruderAlert\Logs\Logs;
 use IntruderAlert\Helper\File;
 use IntruderAlert\Helper\Json;
 use IntruderAlert\Helper\Timer;
-use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\ReportException;
 
 class Backend extends App
@@ -35,13 +34,13 @@ class Backend extends App
      */
     private function processLogs(): void
     {
-        $networkDatabase = new Database\Network($this->config->getAsnDatabasePath());
-        $countryDatabase = new Database\Country($this->config->getCountryDatabasePath());
+        $networkDatabase = new Database\Network($this->config->getAsnDatabasePath(), $this->logger);
+        $countryDatabase = new Database\Country($this->config->getCountryDatabasePath(), $this->logger);
 
         $timer = new Timer();
         $timer->start();
 
-        $logs = new Logs($this->config);
+        $logs = new Logs($this->config, $this->logger);
         $cache = new Cache(
             $this->config->getPath($this->cacheFilepath)
         );
@@ -69,7 +68,7 @@ class Backend extends App
 
         $cache->save();
         $timer->stop();
-        Output::text(sprintf('Time taken: %ss', $timer->getTime()), log: true);
+        $this->logger->addEntry(sprintf('Time taken: %ss', $timer->getTime()));
     }
 
     /**
@@ -81,6 +80,7 @@ class Backend extends App
             $this->lists->get(),
             $this->lists->getCounts(),
             $this->config->getPath($this->dataFilepath),
+            $this->logger
         );
 
         $report->generate();
@@ -111,7 +111,7 @@ class Backend extends App
     private function databaseUpdate(): void
     {
         $fetch = new Fetch($this->config->getUseragent());
-        $updater = new Database\Updater\Updater($this->config, $fetch);
+        $updater = new Database\Updater\Updater($this->config, $fetch, $this->logger);
         $updater->run();
     }
 }
