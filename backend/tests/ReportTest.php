@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Report;
 use IntruderAlert\Lists;
-use IntruderAlert\Helper\Logger;
+use IntruderAlert\Logger;
 
 class ReportTest extends TestCase
 {
@@ -33,6 +33,7 @@ class ReportTest extends TestCase
             self::$lists->get(),
             self::$lists->getCounts(),
             mockfs::getUrl('/report.json'),
+            new Logger()
         );
 
         $report->generate();
