@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Fetch;
+use IntruderAlert\Logger;
 use IntruderAlert\Database\Updater\Downloader;
 use IntruderAlert\Exception\FetchException;
 
@@ -21,7 +22,7 @@ class DownloaderTest extends TestCase
         $fetch = $this->createStub(Fetch::class);
         $fetch->method('get')->willReturn($expected);
 
-        $downloader = new Downloader($fetch, $this->createConfigStub());
+        $downloader = new Downloader($fetch, $this->createConfigStub(), new Logger());
         $actual = $downloader->getChecksum('GeoLite2-ASN');
 
         $this->assertEquals($expected, $actual);
@@ -39,7 +40,7 @@ class DownloaderTest extends TestCase
         $fetch = $this->createStub(Fetch::class);
         $fetch->method('get')->willThrowException(new FetchException('Request failed'));
 
-        $downloader = new Downloader($fetch, $this->createConfigStub());
+        $downloader = new Downloader($fetch, $this->createConfigStub(), new Logger());
         $downloader->getChecksum('GeoLite2-ASN');
     }
 
@@ -58,7 +59,7 @@ class DownloaderTest extends TestCase
         $fetch = $this->createStub(Fetch::class);
         $fetch->method('get')->willReturn($expected);
 
-        $downloader = new Downloader($fetch, $this->createConfigStub());
+        $downloader = new Downloader($fetch, $this->createConfigStub(), new Logger());
         $downloader->getArchive('GeoLite2-ASN', $file);
 
         $this->assertFileExists($file);
@@ -77,7 +78,7 @@ class DownloaderTest extends TestCase
         $fetch = $this->createStub(Fetch::class);
         $fetch->method('get')->willThrowException(new FetchException('Request failed'));
 
-        $downloader = new Downloader($fetch, $this->createConfigStub());
+        $downloader = new Downloader($fetch, $this->createConfigStub(), new Logger());
         $downloader->getArchive('GeoLite2-ASN', './backend/tests/files');
     }
 
