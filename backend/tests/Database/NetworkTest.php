@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use IntruderAlert\Logger;
 use IntruderAlert\Database\Network;
 use IntruderAlert\Helper\Output;
 
@@ -25,7 +26,7 @@ class NetworkTest extends TestCase
             'subnet' => '1.0.0.0/24'
         ];
 
-        $database = new Network($this->path);
+        $database = new Network($this->path, new Logger());
 
         $this->assertEquals(
             $expected,
@@ -46,7 +47,7 @@ class NetworkTest extends TestCase
             'subnet' => 'Unknown'
         ];
 
-        $database = new Network($this->path);
+        $database = new Network($this->path, new Logger());
 
         $this->assertEquals(
             $expected,
