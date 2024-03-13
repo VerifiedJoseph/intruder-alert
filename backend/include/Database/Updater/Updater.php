@@ -33,7 +33,9 @@ class Updater
 
             try {
                 foreach ($this->getDatabasePaths() as $edition => $path) {
-                    if ($this->helper->checkDatabaseUpdateStatus($path) === true) {
+                    $tsFile = new TimestampFile($path);
+
+                    if ($tsFile->isOutdated() === true) {
                         Output::text('Updating Geoip2 database: ' . $edition, log: true);
 
                         $archivePath = $path . '.tar.gz';
@@ -45,6 +47,7 @@ class Updater
                         $this->helper->checkIntegrity($checksum['hash'], $archivePath);
 
                         $extractor->archive($archivePath, $edition, $path);
+                        $tsFile->update();
 
                         Output::text('Updated Geoip2 database: ' . $edition, log: true);
                     }
