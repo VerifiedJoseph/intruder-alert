@@ -51,6 +51,12 @@ class ReportTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Get json file and return array
+     *
+     * @param string $path filepath
+     * @return array<mixed>
+     */
     private static function getJsonFile(string $path): array
     {
         return json_decode(
