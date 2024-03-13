@@ -24,11 +24,17 @@ class TimestampFile
         $this->timestamp = $this->loadFile();
     }
 
+    /**
+     * Return timestamp from file as Unix timestamp
+     */
     public function getTimestamp(): int
     {
         return $this->timestamp;
     }
 
+    /**
+     * Check if the timestamp is 24 ore more hour ago
+     */
     public function isOutdated(): bool
     {
         if ($this->calculateTimeDiff($this->timestamp) >= 86400) {
