@@ -161,7 +161,8 @@ class App
 
     private function databaseUpdate(): void
     {
-        $update = new Database\Update($this->config);
-        $update->run();
+        $fetch = new Fetch($this->config->getUseragent());
+        $updater = new Database\Updater\Updater($this->config, $fetch);
+        $updater->run();
     }
 }
