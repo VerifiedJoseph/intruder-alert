@@ -6,7 +6,6 @@ use IntruderAlert\Ip;
 use IntruderAlert\Cache;
 use IntruderAlert\Fetch;
 use IntruderAlert\Report;
-use IntruderAlert\Logger;
 use IntruderAlert\Database;
 use IntruderAlert\Logs\Logs;
 use IntruderAlert\Helper\File;
