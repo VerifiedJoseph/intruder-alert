@@ -29,7 +29,6 @@ final class Output
      * Display text in terminal
      *
      * @param string $text Text string to display
-     * @param bool $log Add message to logger
      */
     public static function text(string $text = ''): void
     {
