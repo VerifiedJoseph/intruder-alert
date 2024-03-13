@@ -3,7 +3,7 @@
 namespace IntruderAlert\Logs;
 
 use IntruderAlert\Config;
-use IntruderAlert\Logs\ExtractLine;
+use IntruderAlert\Logger;
 use IntruderAlert\Helper\Timer;
 use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\AppException;
@@ -23,15 +23,19 @@ class Logs
     /** @var Config Config class instance */
     private Config $config;
 
+    /** @var Logger Logger class instance */
+    private Logger $logger;
+
     /** @var string $filenameRegex Log filename regex */
     private $filenameRegex = '/fail2ban\.log/';
 
     /**
      * @param Config $config Config class instance
      */
-    public function __construct(Config $config)
+    public function __construct(Config $config, Logger $logger)
     {
         $this->config = $config;
+        $this->logger = $logger;
     }
 
     /**
@@ -47,14 +51,14 @@ class Logs
             $timer = new Timer();
             $timer->start();
 
-            Output::text('Processing ' . $file->getPathname(), log: true);
+            $this->logger->addEntry('Processing ' . $file->getPathname());
 
             if ($file->isReadable() === false) {
                 throw new AppException('Failed to read file: ' . $file->getPathname());
             }
 
             if ($file->getSize() === 0) {
-                Output::text('File is empty. Skipping ' . $file->getPathname(), log: true);
+                $this->logger->addEntry('File is empty. Skipping ' . $file->getPathname());
                 continue;
             }
 
@@ -91,7 +95,7 @@ class Logs
                 $timer->getTime()
             );
 
-            Output::text($message, log: true);
+            $this->logger->addEntry($message);
         }
 
         if (count($rows) === 0) {
@@ -99,7 +103,7 @@ class Logs
         }
 
         $totalBans = number_format(count($rows));
-        Output::text(sprintf('Found %s bans in all files.', $totalBans), log: true);
+        $this->logger->addEntry(sprintf('Found %s bans in all files.', $totalBans));
 
         return $rows;
     }
