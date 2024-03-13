@@ -9,6 +9,7 @@ include('../../backend/vendor/autoload.php');
 use IntruderAlert\Ip;
 use IntruderAlert\Lists;
 use IntruderAlert\Report;
+use IntruderAlert\Logger;
 
 $eventsFilepath = '../events.json';
 $dataFilepath = '../data.json';
@@ -62,7 +63,8 @@ function createReport(Lists $lists, string $path) {
 	$report = new Report(
 		$lists->get(),
 		$lists->getCounts(),
-		$path
+		$path,
+		new Logger()
 	);
 
 	$report->generate();
