@@ -68,7 +68,7 @@ class TimestampFile
             return 0;
         }
 
-        return strtotime(File::read($this->path));
+        return (int) strtotime(File::read($this->path));
     }
 
     /**
