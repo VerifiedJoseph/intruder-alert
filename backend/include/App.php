@@ -162,8 +162,7 @@ class App
     private function databaseUpdate(): void
     {
         $fetch = new Fetch($this->config->getUseragent());
-        $helper = new Database\Updater\Helper();
-        $updater = new Database\Updater\Updater($this->config, $fetch, $helper);
+        $updater = new Database\Updater\Updater($this->config, $fetch);
         $updater->run();
     }
 }
