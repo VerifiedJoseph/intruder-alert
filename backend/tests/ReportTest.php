@@ -1,5 +1,6 @@
 <?php
 
+use IntruderAlert\Helper\Output;
 use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Report;
@@ -13,6 +14,7 @@ class ReportTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         mockfs::create();
+        Output::disableQuiet();
 
         $data = self::getJsonFile('./backend/tests/files/list-data.json');
 
@@ -42,10 +44,10 @@ class ReportTest extends TestCase
         $actual = self::getJsonFile(mockfs::getUrl('/report.json'));
 
         $this->assertGreaterThan(0, strtotime($actual['updated']));
-        /*$this->assertMatchesRegularExpression(
+        $this->assertMatchesRegularExpression(
             '/Last run: ([\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}:[\d]{2})/',
             $actual['log'][0]
-        );*/
+        );
 
         $actual['updated'] = '1970-01-01 00:00:00';
         $actual['log'] = [];
