@@ -4,6 +4,7 @@ namespace IntruderAlert\Database\Updater;
 
 use IntruderAlert\Config;
 use IntruderAlert\Fetch;
+use IntruderAlert\Logger;
 use IntruderAlert\Helper\File;
 use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\FetchException;
@@ -13,9 +14,11 @@ class Downloader
 {
     private Fetch $fetch;
     private Url $url;
+    private Logger $logger;
 
-    public function __construct(Fetch $fetch, Config $config)
+    public function __construct(Fetch $fetch, Config $config, Logger $logger)
     {
+        $this->logger = $logger;
         $this->fetch = $fetch;
         $this->url = new Url(
             $config->getMaxMindDownloadUrl(),
@@ -31,13 +34,13 @@ class Downloader
     public function getChecksum(string $edition): string
     {
         try {
-            Output::text('Downloading checksum...');
+            $this->logger->addEntry('Downloading checksum...');
 
             $url = $this->url->get($edition, 'tar.gz.sha256');
 
             return $this->fetch->get($url);
         } catch (FetchException $err) {
-            Output::text($err->getMessage(), log: true);
+            $this->logger->addEntry($err->getMessage());
 
             throw new Exception(sprintf(
                 'Failed to download checksum file: %s',
@@ -54,7 +57,7 @@ class Downloader
     public function getArchive(string $edition, string $path): void
     {
         try {
-            Output::text('Downloading database...');
+            $this->logger->addEntry('Downloading database...');
 
             $url = $this->url->get($edition, 'tar.gz');
 
@@ -63,7 +66,7 @@ class Downloader
 
             //return $this->fetch->get($url);
         } catch (FetchException $err) {
-            Output::text($err->getMessage(), log: true);
+            $this->logger->addEntry($err->getMessage());
 
             throw new Exception(sprintf(
                 'Failed to download database file: %s',
