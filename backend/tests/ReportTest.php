@@ -54,7 +54,7 @@ class ReportTest extends TestCase
             $actual['log'][0]
         );
 
-        $actual['updated'] = '1970-01-01 00:00:00';
+        $actual['updated'] = '2024-03-13 00:00:00';
         $actual['log'] = [];
 
         $this->assertEquals($expected, $actual);
