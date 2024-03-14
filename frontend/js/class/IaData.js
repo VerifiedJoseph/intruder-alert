@@ -74,6 +74,14 @@ export class IaData {
   }
 
   /**
+   * Get hash
+   * @returns {string}
+   */
+  getHash () {
+    return this.#data.hash
+  }
+
+  /**
    * Get data since date
    * @returns {string}
    */
