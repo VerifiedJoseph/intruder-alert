@@ -15,14 +15,14 @@ let table = {}
 let chart = {}
 let display, iaData
 
-function fetchData (lastUpdate = '') {
+function fetchData (hash = '') {
   let setting = {}
 
-  if (lastUpdate !== '') {
+  if (hash !== '') {
     setting = {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `lastUpdated=${lastUpdate}`
+      body: `hash=${hash}`
     }
   }
 
@@ -336,7 +336,7 @@ function updateDashboard (data) {
 }
 
 function checkForUpdate () {
-  fetchData(iaData.getUpdatedDate())
+  fetchData(iaData.getHash())
     .then(response => {
       if (response.status !== 200) {
         throw new Error(`Failed to fetch data (${response.status} ${response.statusText})`)

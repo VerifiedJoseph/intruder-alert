@@ -23,9 +23,9 @@ class Frontend extends App
 
         $data = Json::decode(File::read($path));
 
-        $lastUpdated = $_POST['lastUpdated'] ?? '';
-        if ($lastUpdated !== '') {
-            if (strtotime($data['updated']) > strtotime($lastUpdated)) {
+        $hash = $_POST['hash'] ?? '';
+        if ($hash !== '') {
+            if ($hash !== $data['hash']) {
                 $data['hasUpdates'] = true;
             } else {
                 return Json::encode([]);

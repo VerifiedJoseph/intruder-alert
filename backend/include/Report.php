@@ -54,6 +54,7 @@ class Report
         $data = $this->lists;
         $data['stats'] = $this->createStats();
         $data['updated'] = $this->date->format('Y-m-d H:i:s');
+        $data['hash'] = sha1($data['updated']);
         $data['dataSince'] = $this->getDataSinceDate();
         $data['log'] = $this->logger->getEntries();
         $data['log'][] = 'Last run: ' . $data['updated'];
