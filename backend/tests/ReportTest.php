@@ -38,6 +38,11 @@ class ReportTest extends TestCase
             new Logger()
         );
 
+        $reflection = new ReflectionClass($report);
+        $property = $reflection->getProperty('date');
+        $property->setAccessible(true);
+        $property->setValue($report, new DateTime('2024-03-13 00:00:00'));
+
         $report->generate();
 
         $expected = self::getJsonFile('./backend/tests/files/expected-report.json');
