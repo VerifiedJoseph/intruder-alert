@@ -9,12 +9,87 @@ class FrontendTest extends TestCase
     /**
      * Test `getJsonReport()`
      */
-    /*public function testGetJsonReport(): void
+    public function testGetJsonReport(): void
     {
-        $config = $this->createConfigStub();
-        $app = new Frontend($config);
-    }*/
+        $expectedSettings = [
+            'features' => [
+                'charts' => true,
+                'updates' => true,
+                'daemonLog' => true
+            ],
+            'timezone' => 'Europe/London',
+            'version' => 'v0.0.0'
+        ];
 
+        /** @var Config&\PHPUnit\Framework\MockObject\Stub */
+        $config = $this->createConfigStub();
+        $config->method('getDashDaemonLogStatus')->willReturn(true);
+        $config->method('getPath')->willReturn('backend/tests/files/expected-report.json');
+
+        $app = new Frontend($config);
+        $json = $app->getJsonReport();
+        $actual = json_decode($app->getJsonReport(), associative: true);
+
+        $this->assertJson($json);
+        $this->assertEquals($expectedSettings, $actual['settings']);
+    }
+
+    /**
+     * Test `getJsonReport()` with dashboard daemon log disabled
+     */
+    public function testGetJsonReportNoDaemonLog(): void
+    {
+        /** @var Config&\PHPUnit\Framework\MockObject\Stub */
+        $config = $this->createConfigStub();
+        $config->method('getDashDaemonLogStatus')->willReturn(false);
+        $config->method('getPath')->willReturn('backend/tests/files/expected-report.json');
+
+        $app = new Frontend($config);
+        $actual = json_decode($app->getJsonReport(), associative: true);
+
+        $this->assertArrayNotHasKey('log', $actual);
+        $this->assertFalse($actual['settings']['features']['daemonLog']);
+    }
+
+    /**
+     * Test `getJsonReport()` with `$_POST['hash']` set to an old hash.
+     */
+    public function testGetJsonReportWithOldHashPassed(): void
+    {
+        /** @var Config&\PHPUnit\Framework\MockObject\Stub */
+        $config = $this->createConfigStub();
+        $config->method('getDashDaemonLogStatus')->willReturn(false);
+        $config->method('getPath')->willReturn('backend/tests/files/expected-report.json');
+
+        $_POST['hash'] = 'qwerty';
+
+        $app = new Frontend($config);
+        $actual = json_decode($app->getJsonReport(), associative: true);
+
+        $this->assertTrue($actual['hasUpdates']);
+    }
+
+    /**
+     * Test `getJsonReport()` with `$_POST['hash']` set to the current hash.
+     */
+    public function testGetJsonReportWithCurrentHashPassed(): void
+    {
+        /** @var Config&\PHPUnit\Framework\MockObject\Stub */
+        $config = $this->createConfigStub();
+        $config->method('getDashDaemonLogStatus')->willReturn(false);
+        $config->method('getPath')->willReturn('backend/tests/files/expected-report.json');
+
+        $_POST['hash'] = '34a8ef343acd57421de902ab305aef0b69ebe296';
+
+        $app = new Frontend($config);
+        $actual = json_decode($app->getJsonReport(), associative: true);
+
+        $this->assertEmpty($actual);
+    }
+
+    /**
+     * Test `getJsonReport()` with no data file
+     */
     public function testGetJsonReportNoDataFile(): void
     {
         $expected = (string) json_encode([
@@ -37,10 +112,8 @@ class FrontendTest extends TestCase
     private function createConfigStub(): Config
     {
         $config = $this->createStub(Config::class);
-        $config->method('getDashDaemonLogStatus')->willReturn(true);
         $config->method('getChartsStatus')->willReturn(true);
         $config->method('getDashUpdatesStatus')->willReturn(true);
-        $config->method('getDashDaemonLogStatus')->willReturn(true);
         $config->method('getTimezone')->willReturn('Europe/London');
         $config->method('getVersion')->willReturn('v0.0.0');
 
