@@ -2,6 +2,7 @@
 
 namespace IntruderAlert;
 
+use DateTime;
 use IntruderAlert\Logger;
 use IntruderAlert\Helper\File;
 use IntruderAlert\Helper\Json;
@@ -24,6 +25,9 @@ class Report
     /** @var string $path Path to save the generated report */
     private string $path = '';
 
+    /** @var DateTime $data */
+    private DateTime $date;
+
     /**
      * @param array<string, mixed> $lists
      * @param array<string, mixed> $counts
@@ -39,6 +43,7 @@ class Report
         $this->counts = $counts;
         $this->path = $path;
         $this->logger = $logger;
+        $this->date = new DateTime();
     }
 
     /**
@@ -48,7 +53,7 @@ class Report
     {
         $data = $this->lists;
         $data['stats'] = $this->createStats();
-        $data['updated'] = date('Y-m-d H:i:s');
+        $data['updated'] = $this->date->format('Y-m-d H:i:s');
         $data['dataSince'] = $this->getDataSinceDate();
         $data['log'] = $this->logger->getEntries();
         $data['log'][] = 'Last run: ' . $data['updated'];
@@ -81,7 +86,7 @@ class Report
         $data['bans']['perDay'] = 0;
 
         $key = array_search(
-            date('Y-m-d'),
+            $this->date->format('Y-m-d'),
             array_column($this->lists['date']['list'], 'date')
         );
 
@@ -90,7 +95,7 @@ class Report
         }
 
         $key = array_search(
-            date('Y-m-d', strtotime('-1 days')),
+            $this->date->modify('-1 days')->format('Y-m-d'),
             array_column($this->lists['date']['list'], 'date')
         );
 
