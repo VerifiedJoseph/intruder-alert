@@ -11,7 +11,7 @@ use IntruderAlert\Logs\Logs;
 use IntruderAlert\Helper\File;
 use IntruderAlert\Helper\Json;
 use IntruderAlert\Helper\Timer;
-use IntruderAlert\Exception\ReportException;
+use IntruderAlert\Exception\LogsException;
 
 class Backend extends App
 {
@@ -24,7 +24,7 @@ class Backend extends App
             $this->databaseUpdate();
             $this->processLogs();
             $this->generateReport();
-        } catch (ReportException $err) {
+        } catch (LogsException $err) {
             $this->generateErrorReport($err->getMessage());
         }
     }
