@@ -39,11 +39,11 @@ class ExtractorTest extends TestCase
     {
         $expected = [
             'hash' => 'd8578edf8458ce06fbc5bb76a58c5ca4',
-            'filename' => 'GeoLite2-ANS_19700101.tar.gz'
+            'filename' => 'GeoLite2-ASN_19700101.tar.gz'
         ];
 
         $extractor = new Extractor(new Config());
-        $actual = $extractor->checksum('d8578edf8458ce06fbc5bb76a58c5ca4  GeoLite2-ANS_19700101.tar.gz');
+        $actual = $extractor->checksum('d8578edf8458ce06fbc5bb76a58c5ca4  GeoLite2-ASN_19700101.tar.gz');
 
         $this->assertEquals($expected, $actual);
     }
