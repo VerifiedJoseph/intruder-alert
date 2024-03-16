@@ -5,9 +5,8 @@ namespace IntruderAlert\Logs;
 use IntruderAlert\Config;
 use IntruderAlert\Logger;
 use IntruderAlert\Helper\Timer;
-use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\AppException;
-use IntruderAlert\Exception\ReportException;
+use IntruderAlert\Exception\LogsException;
 use SplFileInfo;
 use RegexIterator;
 use RecursiveDirectoryIterator;
@@ -99,7 +98,7 @@ class Logs
         }
 
         if (count($rows) === 0) {
-            throw new ReportException('No bans found');
+            throw new LogsException('No bans found');
         }
 
         $totalBans = number_format(count($rows));

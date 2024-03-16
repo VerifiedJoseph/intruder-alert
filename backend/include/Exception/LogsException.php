@@ -2,6 +2,6 @@
 
 namespace IntruderAlert\Exception;
 
-class ReportException extends \Exception
+class LogsException extends \Exception
 {
 }

@@ -6,7 +6,7 @@ use IntruderAlert\Config;
 use IntruderAlert\Logger;
 use IntruderAlert\Logs\Logs;
 use IntruderAlert\Exception\AppException;
-use IntruderAlert\Exception\ReportException;
+use IntruderAlert\Exception\LogsException;
 
 class LogsTest extends TestCase
 {
@@ -84,7 +84,7 @@ class LogsTest extends TestCase
         $config->method('getLogPaths')->willReturn('./backend/tests/files/logs/no-bans/fail2ban.log');
 
         $this->expectOutputRegex('/Scanned 1 lines and found 0 bans/');
-        $this->expectException(ReportException::class);
+        $this->expectException(LogsException::class);
         $this->expectExceptionMessage('No bans found');
 
         $logs = new Logs($config, new Logger());
