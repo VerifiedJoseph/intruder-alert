@@ -41,9 +41,7 @@ class Backend extends App
         $timer->start();
 
         $logs = new Logs($this->config, $this->logger);
-        $cache = new Cache(
-            $this->config->getPath($this->config->getCacheFilePath())
-        );
+        $cache = new Cache($this->config->getCacheFilePath());
 
         foreach ($logs->process() as $line) {
             if ($cache->hasItem($line['ip']) === true) {
