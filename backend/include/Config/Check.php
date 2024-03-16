@@ -6,7 +6,7 @@ use IntruderAlert\Exception\ConfigException;
 use GeoIp2\Database\Reader;
 use MaxMind\Db\Reader\InvalidDatabaseException;
 
-class Checker extends Base
+class Check extends Base
 {
     private array $config = [];
 
@@ -133,22 +133,6 @@ class Checker extends Base
     }
 
     /**
-     * Check GeoLite2 database is valid
-     *
-     * @param string $path Path of GeoLite2 database
-     *
-     * @throws ConfigException if GeoLite2 database is invalid.
-     */
-    public function isDatabaseValid(string $path): void
-    {
-        try {
-            new Reader($path);
-        } catch (InvalidDatabaseException) {
-            throw new ConfigException('GeoLite2 database is invalid: ' . $path);
-        }
-    }
-
-    /**
      * Check timezones
      *
      * @throws ConfigException if `TIMEZONE` environment variable is not set or empty.
@@ -221,6 +205,22 @@ class Checker extends Base
             }
 
             $this->config['dash_daemon_log'] = $this->getEnv('DASH_DAEMON_LOG');
+        }
+    }
+
+    /**
+     * Check GeoLite2 database is valid
+     *
+     * @param string $path Path of GeoLite2 database
+     *
+     * @throws ConfigException if GeoLite2 database is invalid.
+     */
+    public function isDatabaseValid(string $path): void
+    {
+        try {
+            new Reader($path);
+        } catch (InvalidDatabaseException) {
+            throw new ConfigException('GeoLite2 database is invalid: ' . $path);
         }
     }
 }
