@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Logger;
 use IntruderAlert\Logs\Logs;
@@ -101,6 +102,25 @@ class LogsTest extends TestCase
         $this->expectOutputRegex('/Processing .\/no-found.log/');
         $this->expectException(AppException::class);
         $this->expectExceptionMessage('App error: Failed to read file');
+
+        $logs = new Logs($config, new Logger());
+        $logs->process();
+    }
+
+    /**
+     * Test `process()` with empty log file
+     */
+    public function testProcessWithEmptyLogFile(): void
+    {
+        mockfs::create();
+        $file = mockfs::getUrl('/empty.log');
+        touch($file);
+
+        $logs = sprintf('%s,./backend/tests/files/logs/has-bans/fail2ban.log', $file);
+        $config = $this->createConfigStub();
+        $config->method('getLogPaths')->willReturn($logs);
+
+        $this->expectOutputRegex('/File is empty. Skipping/');
 
         $logs = new Logs($config, new Logger());
         $logs->process();
