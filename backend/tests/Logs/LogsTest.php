@@ -4,7 +4,6 @@ use PHPUnit\Framework\TestCase;
 use IntruderAlert\Config;
 use IntruderAlert\Logger;
 use IntruderAlert\Logs\Logs;
-use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\AppException;
 use IntruderAlert\Exception\ReportException;
 
@@ -17,8 +16,6 @@ class LogsTest extends TestCase
     {
         $data = (string) file_get_contents('./backend/tests/files/log-lines.json');
         $this->lines = json_decode($data, associative: true);
-
-        Output::quiet();
     }
 
     /**
@@ -38,6 +35,8 @@ class LogsTest extends TestCase
      */
     public function testLogsClassWithLogsFolder(): void
     {
+        $this->expectOutputRegex('/Found 2 bans in all files/');
+
         $config = $this->createConfigStub();
         $config->method('getLogFolder')->willReturn('./backend/tests/files/logs/has-bans');
 
@@ -58,6 +57,8 @@ class LogsTest extends TestCase
      */
     public function testLogsClassWithHasBansFiles(): void
     {
+        $this->expectOutputRegex('/Found 2 bans in all files/');
+
         $config = $this->createConfigStub();
         $config->method('getLogPaths')->willReturn('./backend/tests/files/logs/has-bans/fail2ban.log');
 
@@ -81,6 +82,7 @@ class LogsTest extends TestCase
         $config = $this->createConfigStub();
         $config->method('getLogPaths')->willReturn('./backend/tests/files/logs/no-bans/fail2ban.log');
 
+        $this->expectOutputRegex('/Scanned 1 lines and found 0 bans/');
         $this->expectException(ReportException::class);
         $this->expectExceptionMessage('No bans found');
 
@@ -96,6 +98,7 @@ class LogsTest extends TestCase
         $config = $this->createConfigStub();
         $config->method('getLogPaths')->willReturn('./no-found.log');
 
+        $this->expectOutputRegex('/Processing .\/no-found.log/');
         $this->expectException(AppException::class);
         $this->expectExceptionMessage('App error: Failed to read file');
 

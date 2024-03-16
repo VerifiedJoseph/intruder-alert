@@ -14,7 +14,6 @@ class ReportTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         mockfs::create();
-        Output::disableQuiet();
 
         $data = self::getJsonFile('./backend/tests/files/list-data.json');
 

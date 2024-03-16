@@ -10,11 +10,6 @@ class CountryTest extends TestCase
     /** @var string $path Database path */
     private string $path = './backend/tests/files/mmdb/GeoLite2-Country-Test.mmdb';
 
-    public static function setUpBeforeClass(): void
-    {
-        Output::disableQuiet();
-    }
-
     /**
      * Test `lookup()`
      */
