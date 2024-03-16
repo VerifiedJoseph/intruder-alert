@@ -30,6 +30,12 @@ class Config
     /** @var string $maxMindDownloadUrl URL for MaxMind GeoIP database downloads */
     private string $maxMindDownloadUrl = 'https://download.maxmind.com/app/geoip_download?';
 
+    /** @var string $dataFilepath Report data filepath */
+    private string $dataFilepath = 'data/data.json';
+
+    /** @var string $cacheFilepath Cache filepath */
+    private string $cacheFilepath = 'data/cache.json';
+
     /** @var array<string, mixed> $config Loaded config */
     private array $config = [
         'log_paths' => '',
@@ -160,6 +166,16 @@ class Config
     public function getSystemLogTimezone(): string
     {
         return $this->config['log_timezone'];
+    }
+
+    public function getCacheFilePath(): string
+    {
+        return $this->getPath($this->cacheFilepath);
+    }
+
+    public function getDataFilePath(): string
+    {
+        return $this->getPath($this->dataFilepath);
     }
 
     /**

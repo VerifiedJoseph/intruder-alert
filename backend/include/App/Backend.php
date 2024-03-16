@@ -42,7 +42,7 @@ class Backend extends App
 
         $logs = new Logs($this->config, $this->logger);
         $cache = new Cache(
-            $this->config->getPath($this->cacheFilepath)
+            $this->config->getPath($this->config->getCacheFilePath())
         );
 
         foreach ($logs->process() as $line) {
@@ -79,7 +79,7 @@ class Backend extends App
         $report = new Report(
             $this->lists->get(),
             $this->lists->getCounts(),
-            $this->config->getPath($this->dataFilepath),
+            $this->config->getDataFilePath(),
             $this->logger
         );
 
@@ -100,7 +100,7 @@ class Backend extends App
         ];
 
         File::write(
-            $this->config->getPath($this->dataFilepath),
+            $this->config->getDataFilePath(),
             Json::encode($data)
         );
     }
