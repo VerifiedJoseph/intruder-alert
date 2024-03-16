@@ -2,15 +2,9 @@
 
 use PHPUnit\Framework\TestCase;
 use IntruderAlert\Logger;
-use IntruderAlert\Helper\Output;
 
 class LoggerTest extends TestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        Output::disableQuiet();
-    }
-
     /**
      * Test `addEntry()`
      */

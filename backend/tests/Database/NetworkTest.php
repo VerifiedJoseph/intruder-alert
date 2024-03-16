@@ -10,11 +10,6 @@ class NetworkTest extends TestCase
     /** @var string $path Database path */
     private string $path = './backend/tests/files/mmdb/GeoLite2-ASN-Test.mmdb';
 
-    public static function setUpBeforeClass(): void
-    {
-        Output::disableQuiet();
-    }
-
     /**
      * Test `lookup()`
      */
