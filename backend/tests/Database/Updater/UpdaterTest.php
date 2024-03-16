@@ -29,7 +29,7 @@ class UpdaterTest extends TestCase
 
     public function testUpdater(): void
     {
-        //$this->expectOutputRegex('/Updated Geoip2 database: GeoLite2-Country/');
+        $this->expectOutputRegex('/Updated Geoip2 database: GeoLite2-Country/');
 
         $geoIpFolder = self::$tempFolder . DIRECTORY_SEPARATOR . 'geoip';
 
@@ -73,7 +73,7 @@ class UpdaterTest extends TestCase
 
     public function testException(): void
     {
-        //$this->expectOutputRegex('/Updating Geoip2 database/');
+        $this->expectOutputRegex('/Updating Geoip2 database/');
         $this->expectException(AppException::class);
         $this->expectExceptionMessage('Geoip2 database update failed. Failed to download checksum file');
 
