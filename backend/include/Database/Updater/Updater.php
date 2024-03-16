@@ -5,8 +5,6 @@ namespace IntruderAlert\Database\Updater;
 use IntruderAlert\Config;
 use IntruderAlert\Fetch;
 use IntruderAlert\Logger;
-use IntruderAlert\Helper\File;
-use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\AppException;
 
 class Updater
