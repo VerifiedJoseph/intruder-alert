@@ -116,7 +116,7 @@ class LogsTest extends TestCase
         $file = mockfs::getUrl('/empty.log');
         touch($file);
 
-        $logs = $file . ',' . './backend/tests/files/logs/has-bans/fail2ban.log';
+        $logs = sprintf('%s,./backend/tests/files/logs/has-bans/fail2ban.log', $file);
         $config = $this->createConfigStub();
         $config->method('getLogPaths')->willReturn($logs);
 
