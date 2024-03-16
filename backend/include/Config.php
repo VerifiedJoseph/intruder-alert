@@ -83,7 +83,7 @@ class Config
 
     public function getVersion(): string
     {
-        return (string) constant('VERSION');
+        return Version::get();
     }
 
     public function getUseragent(): string
