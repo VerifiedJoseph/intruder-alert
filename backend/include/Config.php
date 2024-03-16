@@ -191,6 +191,7 @@ class Config extends Base
 
         $this->check->dashboard();
         $this->check->timezones();
+        $this->config = $this->check->getConfig();
     }
 
     /**
@@ -215,5 +216,6 @@ class Config extends Base
         $this->check->Folder($this->getGeoIpDatabaseFolder());
         $this->check->maxMindLicenseKey();
         $this->check->databases();
+        $this->config = $this->check->getConfig();
     }
 }
