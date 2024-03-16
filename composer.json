@@ -13,17 +13,11 @@
     "autoload": {
         "psr-4": {
             "IntruderAlert\\": "backend/include/"
-        },
-        "files": [
-            "backend/include/version.php"
-        ]
+        }
     },
     "autoload-dev": {
         "classmap": [
             "backend/tests/"
-        ],
-        "files": [
-            "backend/include/version.php"
         ]
     },
     "scripts": {
