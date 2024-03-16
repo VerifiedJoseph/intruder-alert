@@ -1,32 +1,32 @@
 [
 	{
 		"note": "Ipv4 ban",
-		"line": "2023-02-05 00:06:57,449 fail2ban.actions        [40619]: NOTICE  [sshd] Ban 127.0.0.1",
-		"ip": "127.0.0.1",
+		"line": "2023-02-05 00:06:57,449 fail2ban.actions        [40619]: NOTICE  [sshd] Ban 81.2.69.144",
+		"ip": "81.2.69.144",
 		"jail": "sshd",
 		"type": "ban",
 		"timestamp": "2023-02-05 00:06:57"
 	},
 	{
 		"note": "Ipv6 ban",
-		"line": "2023-02-05 00:06:57,449 fail2ban.actions        [40619]: NOTICE  [nginx] Ban 2001:67c:930::1",
-		"ip": "2001:67c:930::1",
+		"line": "2023-02-05 00:06:57,449 fail2ban.actions        [40619]: NOTICE  [nginx] Ban 2a02:d3c0::1",
+		"ip": "2a02:d3c0::1",
 		"jail": "nginx",
 		"type": "ban",
 		"timestamp": "2023-02-05 00:06:57"
 	},
 	{
 		"note": "Ipv4 found",
-		"line": "2023-02-05 00:28:13,052 fail2ban.filter         [40619]: INFO    [sshd] Found 127.0.0.1 - 2023-02-05 00:28:13",
-		"ip": "127.0.0.1",
+		"line": "2023-02-05 00:28:13,052 fail2ban.filter         [40619]: INFO    [sshd] Found 81.2.69.144 - 2023-02-05 00:28:13",
+		"ip": "81.2.69.144",
 		"jail": "sshd",
 		"type": "found",
 		"timestamp": "2023-02-05 00:28:13"
 	},
 	{
 		"note": "Ipv6 found",
-		"line": "2023-02-05 00:28:13,052 fail2ban.filter         [40619]: INFO    [nginx] Found 2001:67c:930::1 - 2023-02-05 00:28:13",
-		"ip": "2001:67c:930::1",
+		"line": "2023-02-05 00:28:13,052 fail2ban.filter         [40619]: INFO    [nginx] Found 2a02:d3c0::1 - 2023-02-05 00:28:13",
+		"ip": "2a02:d3c0::1",
 		"jail": "nginx",
 		"type": "found",
 		"timestamp": "2023-02-05 00:28:13"

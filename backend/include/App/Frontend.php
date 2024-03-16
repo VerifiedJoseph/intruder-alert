@@ -12,7 +12,7 @@ class Frontend extends App
      */
     public function getJsonReport(): string
     {
-        $path = $this->config->getPath($this->dataFilepath);
+        $path = $this->config->getDataFilePath();
 
         if (File::exists($path) === false) {
             return Json::encode([

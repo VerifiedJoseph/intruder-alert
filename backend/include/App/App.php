@@ -17,12 +17,6 @@ abstract class App
     /** @var Lists $lists */
     protected Lists $lists;
 
-    /** @var string $dataFilepath Report data filepath */
-    protected string $dataFilepath = 'data/data.json';
-
-    /** @var string $cacheFilepath Cache filepath */
-    protected string $cacheFilepath = 'data/cache.json';
-
     /**
      * @param Config $config
      */

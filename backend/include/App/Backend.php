@@ -29,7 +29,7 @@ class Backend extends App
         }
     }
 
-  /**
+    /**
      * Process logs
      */
     private function processLogs(): void
@@ -41,9 +41,7 @@ class Backend extends App
         $timer->start();
 
         $logs = new Logs($this->config, $this->logger);
-        $cache = new Cache(
-            $this->config->getPath($this->cacheFilepath)
-        );
+        $cache = new Cache($this->config->getCacheFilePath());
 
         foreach ($logs->process() as $line) {
             if ($cache->hasItem($line['ip']) === true) {
@@ -79,7 +77,7 @@ class Backend extends App
         $report = new Report(
             $this->lists->get(),
             $this->lists->getCounts(),
-            $this->config->getPath($this->dataFilepath),
+            $this->config->getDataFilePath(),
             $this->logger
         );
 
@@ -100,7 +98,7 @@ class Backend extends App
         ];
 
         File::write(
-            $this->config->getPath($this->dataFilepath),
+            $this->config->getDataFilePath(),
             Json::encode($data)
         );
     }
