@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use IntruderAlert\Config;
+use IntruderAlert\Version;
 
 class ConfigGetterTest extends TestCase
 {
@@ -53,7 +54,7 @@ class ConfigGetterTest extends TestCase
     public function testGetVersion(): void
     {
         $config = new Config();
-        $this->assertEquals(constant('VERSION'), $config->getVersion());
+        $this->assertEquals(Version::get(), $config->getVersion());
     }
 
     /**
@@ -63,7 +64,7 @@ class ConfigGetterTest extends TestCase
     {
         $useragent = sprintf(
             'Intruder Alert/%s (+https://github.com/VerifiedJoseph/intruder-alert)',
-            constant('VERSION')
+            Version::get()
         );
 
         $config = new Config();
