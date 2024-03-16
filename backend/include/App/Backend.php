@@ -29,7 +29,7 @@ class Backend extends App
         }
     }
 
-  /**
+    /**
      * Process logs
      */
     private function processLogs(): void
