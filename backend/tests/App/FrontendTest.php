@@ -6,6 +6,11 @@ use IntruderAlert\Config;
 
 class FrontendTest extends TestCase
 {
+    public function tearDown(): void
+    {
+        $_POST['hash'] = '';
+    }
+
     /**
      * Test `getJsonReport()`
      */
@@ -24,7 +29,7 @@ class FrontendTest extends TestCase
         /** @var Config&\PHPUnit\Framework\MockObject\Stub */
         $config = $this->createConfigStub();
         $config->method('getDashDaemonLogStatus')->willReturn(true);
-        $config->method('getPath')->willReturn('backend/tests/files/expected-report.json');
+        $config->method('getDataFilePath')->willReturn('backend/tests/files/expected-report.json');
 
         $app = new Frontend($config);
         $json = $app->getJsonReport();
@@ -42,7 +47,7 @@ class FrontendTest extends TestCase
         /** @var Config&\PHPUnit\Framework\MockObject\Stub */
         $config = $this->createConfigStub();
         $config->method('getDashDaemonLogStatus')->willReturn(false);
-        $config->method('getPath')->willReturn('backend/tests/files/expected-report.json');
+        $config->method('getDataFilePath')->willReturn('backend/tests/files/expected-report.json');
 
         $app = new Frontend($config);
         $actual = json_decode($app->getJsonReport(), associative: true);
@@ -59,7 +64,7 @@ class FrontendTest extends TestCase
         /** @var Config&\PHPUnit\Framework\MockObject\Stub */
         $config = $this->createConfigStub();
         $config->method('getDashDaemonLogStatus')->willReturn(false);
-        $config->method('getPath')->willReturn('backend/tests/files/expected-report.json');
+        $config->method('getDataFilePath')->willReturn('backend/tests/files/expected-report.json');
 
         $_POST['hash'] = 'qwerty';
 
@@ -77,7 +82,7 @@ class FrontendTest extends TestCase
         /** @var Config&\PHPUnit\Framework\MockObject\Stub */
         $config = $this->createConfigStub();
         $config->method('getDashDaemonLogStatus')->willReturn(false);
-        $config->method('getPath')->willReturn('backend/tests/files/expected-report.json');
+        $config->method('getDataFilePath')->willReturn('backend/tests/files/expected-report.json');
 
         $_POST['hash'] = '34a8ef343acd57421de902ab305aef0b69ebe296';
 
@@ -99,7 +104,7 @@ class FrontendTest extends TestCase
 
         /** @var Config&\PHPUnit\Framework\MockObject\Stub */
         $config = $this->createConfigStub();
-        $config->method('getPath')->willReturn('no-data-file.json');
+        $config->method('getDataFilePath')->willReturn('no-data-file.json');
 
         $app = new Frontend($config);
 
