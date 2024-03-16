@@ -279,4 +279,16 @@ class ConfigGetterTest extends TestCase
         $this->assertEquals($expected, $config->getCacheFilePath());
     }
 
+    /**
+     * Test `getDataFilePath()`
+     */
+    public function testGetDataFilePath(): void
+    {
+        $dir = 'backend';
+        $expected = $dir . DIRECTORY_SEPARATOR . 'data/data.json';
+
+        $config = new Config();
+        $config->setDir($dir);
+        $this->assertEquals($expected, $config->getDataFilePath());
+    }
 }
