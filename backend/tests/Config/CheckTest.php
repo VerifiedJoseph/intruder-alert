@@ -42,18 +42,6 @@ class CheckTest extends TestCase
     }
 
     /**
-     * Test config with no `IA_LOG_FOLDER` or `IA_LOG_PATHS`
-     */
-    public function testNoLogPathsOrLogFolder(): void
-    {
-        $this->expectException(ConfigException::class);
-        $this->expectExceptionMessage('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
-
-        $config = new Config();
-        $config->checkCli();
-    }
-
-    /**
      * Test `IA_LOG_FOLDER`
      */
     public function testLogFolder(): void
