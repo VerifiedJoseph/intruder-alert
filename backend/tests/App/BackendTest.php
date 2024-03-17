@@ -1,11 +1,10 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\App\Backend;
 
-class BackendTest extends TestCase
+class BackendTest extends AbstractTestCase
 {
     private static string $cacheFile;
     private static string $dataFile;
