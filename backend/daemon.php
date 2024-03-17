@@ -15,7 +15,7 @@ while (true) {
         $config = new Config();
         $config->setDir(__DIR__);
         $config->check();
-        $config->checkCli();
+        $config->checkCli(php_sapi_name());
 
         $app = new Backend($config);
         $app->run();
