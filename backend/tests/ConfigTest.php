@@ -281,7 +281,7 @@ class ConfigTest extends TestCase
         $this->expectExceptionMessage('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
 
         $config = new Config();
-        $config->checkCli(php_sapi_name());
+        $config->checkCli('cli');
     }
 
     /**
