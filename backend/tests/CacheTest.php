@@ -1,9 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Cache;
 
-class CacheTest extends TestCase
+class CacheTest extends AbstractTestCase
 {
     private static string $path = './backend/tests/files/cache-data.json';
 
@@ -33,19 +33,17 @@ class CacheTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
+        mockfs::create();
+
+        self::$tempCacheFilePath = mockfs::getUrl('/cache-data.json');
+        self::$tempExpiredCacheFilePath = mockfs::getUrl('/expired-cache-data.json');
+
         // Load data
         $contents = (string) file_get_contents(self::$path);
         self::$data = json_decode($contents, associative: true);
 
         // Create temp cache files
         self::createTempCacheFiles();
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        // Remove temp cache files
-        unlink(self::$tempCacheFilePath);
-        unlink(self::$tempExpiredCacheFilePath);
     }
 
     /**
@@ -125,15 +123,11 @@ class CacheTest extends TestCase
      */
     private static function createTempCacheFiles(): void
     {
-        // Create temp cache data file with unexpired unix time value
-        self::$tempCacheFilePath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'cache-data.json';
-
         $data = self::$data;
         $data['expires'] = time() + 300;
         file_put_contents(self::$tempCacheFilePath, json_encode($data));
 
         // Create temp cache data file with expired unix time value
-        self::$tempExpiredCacheFilePath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'expired-cache-data.json';
         file_put_contents(self::$tempExpiredCacheFilePath, json_encode(self::$data));
     }
 }

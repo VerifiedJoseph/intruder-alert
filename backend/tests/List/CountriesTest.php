@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\List\Countries;
 
-class CountriesTest extends TestCase
+class CountriesTest extends AbstractTestCase
 {
     private static Countries $listClass;
 

@@ -1,11 +1,10 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Database\Updater\TimestampFile;
 use IntruderAlert\Helper\File;
 
-class TimestampFileTest extends TestCase
+class TimestampFileTest extends AbstractTestCase
 {
     public function setup(): void
     {

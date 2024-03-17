@@ -1,6 +1,5 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\Config;
 use IntruderAlert\Fetch;
 use IntruderAlert\Logger;
@@ -8,30 +7,23 @@ use IntruderAlert\Database\Updater\Updater;
 use IntruderAlert\Exception\FetchException;
 use IntruderAlert\Exception\AppException;
 
-class UpdaterTest extends TestCase
+class UpdaterTest extends AbstractTestCase
 {
-    private static string $tempFolder = '';
-
-    public static function setUpBeforeClass(): void
-    {
-        self::$tempFolder = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'intruder-alert-tests';
-    }
-
     public function setup(): void
     {
-        mkdir(self::$tempFolder . DIRECTORY_SEPARATOR . 'geoip', recursive: true);
+        mkdir(self::$tempPath . 'geoip', recursive: true);
     }
 
     public function tearDown(): void
     {
-        $this->removeDir(self::$tempFolder);
+        $this->removeDir(self::$tempPath);
     }
 
     public function testUpdater(): void
     {
         $this->expectOutputRegex('/Updated Geoip2 database: GeoLite2-Country/');
 
-        $geoIpFolder = self::$tempFolder . DIRECTORY_SEPARATOR . 'geoip';
+        $geoIpFolder = self::$tempPath . 'geoip';
 
         $config = $this->createStub(Config::class);
         $config->method('getMaxMindLicenseKey')->willReturn('qwerty-qwerty');
@@ -87,28 +79,5 @@ class UpdaterTest extends TestCase
 
         $updater = new Updater($config, $fetch, new Logger());
         $updater->run();
-    }
-
-    /**
-     * Remove directory and its contents
-     *
-     * @param string $path Directory path
-     */
-    private function removeDir($path): void
-    {
-        if (is_dir($path) === true) {
-            $directory = new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS);
-            $items = new \RecursiveIteratorIterator($directory, \RecursiveIteratorIterator::CHILD_FIRST);
-
-            foreach ($items as $item) {
-                if ($item->isDir() === true) {
-                    rmdir($item);
-                } else {
-                    unlink($item);
-                }
-            }
-
-            rmdir($path);
-        }
     }
 }

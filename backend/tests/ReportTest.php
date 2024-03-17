@@ -1,13 +1,11 @@
 <?php
 
-use IntruderAlert\Helper\Output;
-use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Report;
 use IntruderAlert\Lists;
 use IntruderAlert\Logger;
 
-class ReportTest extends TestCase
+class ReportTest extends AbstractTestCase
 {
     private static Lists $lists;
 

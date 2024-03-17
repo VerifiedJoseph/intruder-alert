@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\List\Networks;
 
-class NetworksTest extends TestCase
+class NetworksTest extends AbstractTestCase
 {
     private static Networks $listClass;
 

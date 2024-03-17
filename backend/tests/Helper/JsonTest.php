@@ -1,10 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\Helper\Json;
 use IntruderAlert\Exception\AppException;
 
-class JsonTest extends TestCase
+class JsonTest extends AbstractTestCase
 {
     public function testEncodeValid(): void
     {

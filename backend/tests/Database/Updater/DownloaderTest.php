@@ -1,6 +1,5 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Fetch;
@@ -8,7 +7,7 @@ use IntruderAlert\Logger;
 use IntruderAlert\Database\Updater\Downloader;
 use IntruderAlert\Exception\FetchException;
 
-class DownloaderTest extends TestCase
+class DownloaderTest extends AbstractTestCase
 {
     /**
      * Test `getChecksum()`

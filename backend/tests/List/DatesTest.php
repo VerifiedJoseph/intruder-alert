@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\List\Dates;
 
-class DatesTest extends TestCase
+class DatesTest extends AbstractTestCase
 {
     private static Dates $listClass;
 

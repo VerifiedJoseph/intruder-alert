@@ -1,11 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\Logger;
 use IntruderAlert\Database\Network;
-use IntruderAlert\Helper\Output;
 
-class NetworkTest extends TestCase
+class NetworkTest extends AbstractTestCase
 {
     /** @var string $path Database path */
     private string $path = './backend/tests/files/mmdb/GeoLite2-ASN-Test.mmdb';

@@ -1,10 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Database\Updater\Helper;
 
-class HelperTest extends TestCase
+class HelperTest extends AbstractTestCase
 {
     public function setup(): void
     {

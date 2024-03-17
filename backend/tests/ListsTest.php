@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\Lists;
 
-class ListsTest extends TestCase
+class ListsTest extends AbstractTestCase
 {
     private static Lists $lists;
 

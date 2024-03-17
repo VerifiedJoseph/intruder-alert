@@ -1,20 +1,26 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Version;
 use IntruderAlert\Exception\ConfigException;
 
-class ConfigTest extends TestCase
+class ConfigTest extends AbstractTestCase
 {
     /** @var array<string, mixed> $defaults */
     private static array $defaults = [];
 
     public static function setupBeforeClass(): void
     {
+        parent::setUpBeforeClass();
+
         $reflection = new ReflectionClass(new Config());
         self::$defaults = $reflection->getProperty('config')->getValue(new Config());
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        self::removeDir(self::$tempPath);
     }
 
     public function setUp(): void
@@ -283,21 +289,15 @@ class ConfigTest extends TestCase
             putenv('IA_DASH_CHARTS=false');
         ?>";
 
-        $dir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'intruder-alert-tests';
-        $file = $dir . DIRECTORY_SEPARATOR . 'config.php';
-        mkdir($dir);
-
+        $file = self::$tempPath . 'config.php';
         file_put_contents($file, $contents);
 
         $config = new Config();
-        $config->setDir($dir);
+        $config->setDir(self::$tempPath);
         $config->check();
 
         $this->assertEquals('Europe/London', $config->getTimezone());
         $this->assertFalse($config->getChartsStatus());
-
-        unlink($file);
-        rmdir($dir);
     }
 
     /**

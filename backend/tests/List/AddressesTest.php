@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\List\Addresses;
 
-class AddressesTest extends TestCase
+class AddressesTest extends AbstractTestCase
 {
     private static Addresses $listClass;
 

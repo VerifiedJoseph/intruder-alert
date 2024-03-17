@@ -1,6 +1,5 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Logger;
@@ -8,7 +7,7 @@ use IntruderAlert\Logs\Logs;
 use IntruderAlert\Exception\AppException;
 use IntruderAlert\Exception\LogsException;
 
-class LogsTest extends TestCase
+class LogsTest extends AbstractTestCase
 {
     /** @var array<int, array<string, string>> $lines Test log lines */
     private array $lines = [];

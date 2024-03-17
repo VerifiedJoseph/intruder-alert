@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\List\Subnets;
 
-class SubnetsTest extends TestCase
+class SubnetsTest extends AbstractTestCase
 {
     private static Subnets $listClass;
 

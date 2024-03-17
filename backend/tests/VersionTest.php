@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\Version;
 
-class VersionTest extends TestCase
+class VersionTest extends AbstractTestCase
 {
     public function testGet(): void
     {

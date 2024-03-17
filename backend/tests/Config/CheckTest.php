@@ -1,12 +1,11 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Config\Check;
 use IntruderAlert\Exception\ConfigException;
 
-class CheckTest extends TestCase
+class CheckTest extends AbstractTestCase
 {
     /** @var array<string, mixed> $defaults */
     private static array $defaults = [];
@@ -88,9 +87,7 @@ class CheckTest extends TestCase
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('fail2ban log folder does not exist');
 
-        $folder = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'fail2ban-logs';
-
-        putenv('IA_LOG_FOLDER=' . $folder);
+        putenv('IA_LOG_FOLDER=tests/fail2ban-logs');
 
         $check = new Check(self::$defaults);
         $check->logFolder();

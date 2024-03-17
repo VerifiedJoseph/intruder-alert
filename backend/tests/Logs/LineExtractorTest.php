@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\Logs\LineExtractor;
 
-class LineExtractorTest extends TestCase
+class LineExtractorTest extends AbstractTestCase
 {
     /** @var array<int, array<string, string>> $lines Test log lines */
     private array $lines = [];
