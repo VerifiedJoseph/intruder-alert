@@ -1,12 +1,11 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Config\Check;
 use IntruderAlert\Exception\ConfigException;
 
-class CheckTest extends TestCase
+class CheckTest extends AbstractTestCase
 {
     /** @var array<string, mixed> $defaults */
     private static array $defaults = [];
