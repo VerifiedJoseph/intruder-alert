@@ -5,31 +5,33 @@ use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Database\Updater\Extractor;
 
-class ExtractorTest extends TestCase
+class ExtractorTest extends AbstractTestCase
 {
-    private static string $tempFolder = '';
     private static Config $config;
 
     public static function setUpBeforeClass(): void
     {
-        self::$tempFolder = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'intruder-alert-tests';
+        parent::setUpBeforeClass();
 
         /** @var \PHPUnit\Framework\MockObject\Stub&Config */
         $config = self::createStub(Config::class);
-        $config->method('getGeoIpDatabaseFolder')->willReturn(self::$tempFolder);
+        $config->method('getGeoIpDatabaseFolder')->willReturn(self::$tempPath);
         self::$config = $config;
     }
 
     public function setup(): void
     {
-        mkdir(self::$tempFolder);
-        mkdir(self::$tempFolder . DIRECTORY_SEPARATOR . 'has-mmdb');
-        mkdir(self::$tempFolder . DIRECTORY_SEPARATOR . 'no-mmdb');
+        if(file_exists(self::$tempPath) === false) {
+            mkdir(self::$tempPath);
+        }
+
+        mkdir(self::$tempPath . 'has-mmdb');
+        mkdir(self::$tempPath . 'no-mmdb');
     }
 
     public function tearDown(): void
     {
-        $this->removeDir(self::$tempFolder);
+        $this->removeDir(self::$tempPath);
     }
 
     /**
@@ -66,11 +68,11 @@ class ExtractorTest extends TestCase
     public function testArchive(): void
     {
         // Path of test archive
-        $archivePath = self::$tempFolder . DIRECTORY_SEPARATOR . 'has-mmdb/GeoLite2-ASN_19700101.tar.gz';
+        $archivePath = self::$tempPath . 'has-mmdb/GeoLite2-ASN_19700101.tar.gz';
         // Path of the extracted archive folder
-        $extractedArchivePath = self::$tempFolder . DIRECTORY_SEPARATOR . 'GeoLite2-ASN_19700101';
+        $extractedArchivePath = self::$tempPath . 'GeoLite2-ASN_19700101';
         // Path of extracted database
-        $extractedDatabasePath = self::$tempFolder . DIRECTORY_SEPARATOR . 'GeoLite2-ASN.mmdb';
+        $extractedDatabasePath = self::$tempPath . 'GeoLite2-ASN.mmdb';
 
         // Copy archive to test folder
         copy('./backend/tests/files/tar/has-mmdb/GeoLite2-ASN_19700101.tar.gz', $archivePath);
@@ -88,7 +90,7 @@ class ExtractorTest extends TestCase
     public function testArchiveRenameFailure(): void
     {
         // Path of test archive
-        $archivePath = self::$tempFolder . DIRECTORY_SEPARATOR . 'has-mmdb/GeoLite2-ASN_19700101.tar.gz';
+        $archivePath = self::$tempPath . 'has-mmdb/GeoLite2-ASN_19700101.tar.gz';
 
         // Copy archive to test folder
         copy('./backend/tests/files/tar/has-mmdb/GeoLite2-ASN_19700101.tar.gz', $archivePath);
@@ -115,9 +117,9 @@ class ExtractorTest extends TestCase
     public function testArchiveNoDatabaseFile(): void
     {
         // Path of test archive
-        $archivePath = self::$tempFolder . DIRECTORY_SEPARATOR . 'no-mmdb/GeoLite2-ASN_19700101.tar.gz';
+        $archivePath = self::$tempPath . 'no-mmdb/GeoLite2-ASN_19700101.tar.gz';
         // Path of extracted database
-        $extractedDatabasePath = self::$tempFolder . DIRECTORY_SEPARATOR . 'GeoLite2-ASN.mmdb';
+        $extractedDatabasePath = self::$tempPath . 'GeoLite2-ASN.mmdb';
 
         // Copy archive to test folder
         copy('./backend/tests/files/tar/no-mmdb/GeoLite2-ASN_19700101.tar.gz', $archivePath);
@@ -127,28 +129,5 @@ class ExtractorTest extends TestCase
 
         $extractor = new Extractor(self::$config);
         $extractor->archive($archivePath, 'GeoLite2-ASN', $extractedDatabasePath);
-    }
-
-    /**
-     * Remove directory and its contents
-     *
-     * @param string $path Directory path
-     */
-    private function removeDir($path): void
-    {
-        if (is_dir($path) === true) {
-            $directory = new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS);
-            $items = new \RecursiveIteratorIterator($directory, \RecursiveIteratorIterator::CHILD_FIRST);
-
-            foreach ($items as $item) {
-                if ($item->isDir() === true) {
-                    rmdir($item);
-                } else {
-                    unlink($item);
-                }
-            }
-
-            rmdir($path);
-        }
     }
 }
