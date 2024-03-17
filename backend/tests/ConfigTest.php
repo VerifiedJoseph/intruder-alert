@@ -15,6 +15,18 @@ class ConfigTest extends TestCase
         self::$defaults = $reflection->getProperty('config')->getValue(new Config());
     }
 
+    public function setUp(): void
+    {
+        // Unset environment variables before each test
+        putenv('IA_LOG_PATHS');
+        putenv('IA_LOG_FOLDER');
+        putenv('IA_MAXMIND_LICENSE_KEY');
+        putenv('IA_ASN_DATABASE');
+        putenv('IA_COUNTRY_DATABASE');
+        putenv('IA_TIMEZONE');
+        putenv('IA_DASH_CHARTS');
+    }
+
     /**
      * Test `setDir()`
      */
@@ -242,5 +254,20 @@ class ConfigTest extends TestCase
         $config = new Config();
         $config->setDir($dir);
         $this->assertEquals($expected, $config->getDataFilePath());
+    }
+
+    /**
+     * Test `check()`
+     */
+    public function testCheck(): void
+    {
+        putenv('IA_TIMEZONE=Europe/London');
+        putenv('IA_DASH_CHARTS=true');
+
+        $config = new Config();
+        $config->check();
+
+        $this->assertEquals('Europe/London', $config->getTimezone());
+        $this->assertTrue($config->getChartsStatus());
     }
 }
