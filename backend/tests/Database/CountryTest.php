@@ -1,11 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\Logger;
 use IntruderAlert\Database\Country;
-use IntruderAlert\Helper\Output;
 
-class CountryTest extends TestCase
+class CountryTest extends AbstractTestCase
 {
     /** @var string $path Database path */
     private string $path = './backend/tests/files/mmdb/GeoLite2-Country-Test.mmdb';
