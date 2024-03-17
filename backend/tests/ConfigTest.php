@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use IntruderAlert\Config;
 use IntruderAlert\Version;
+use IntruderAlert\Exception\ConfigException;
 
 class ConfigTest extends TestCase
 {
@@ -269,5 +270,17 @@ class ConfigTest extends TestCase
 
         $this->assertEquals('Europe/London', $config->getTimezone());
         $this->assertTrue($config->getChartsStatus());
+    }
+
+    /**
+     * Test config with no `IA_LOG_FOLDER` or `IA_LOG_PATHS`
+     */
+    public function testNoLogPathsOrLogFolder(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
+
+        $config = new Config();
+        $config->checkCli(php_sapi_name());
     }
 }
