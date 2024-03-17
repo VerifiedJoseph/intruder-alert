@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\Logger;
 
-class LoggerTest extends TestCase
+class LoggerTest extends AbstractTestCase
 {
     /**
      * Test `addEntry()`

@@ -1,10 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\Fetch;
 use IntruderAlert\Exception\FetchException;
 
-class FetchTest extends TestCase
+class FetchTest extends AbstractTestCase
 {
     /** @var string $useragent HTTP useragent */
     private string $useragent = 'PHPUnit/FetchTest';

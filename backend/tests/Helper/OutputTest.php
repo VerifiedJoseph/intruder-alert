@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\Helper\Output;
 
-class OutputTest extends TestCase
+class OutputTest extends AbstractTestCase
 {
     /**
      * @var string $text

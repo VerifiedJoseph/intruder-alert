@@ -1,11 +1,10 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Helper\File;
 use IntruderAlert\Exception\AppException;
 
-class FileTest extends TestCase
+class FileTest extends AbstractTestCase
 {
     public function setup(): void
     {

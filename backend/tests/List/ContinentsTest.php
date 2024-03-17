@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\List\Continents;
 
-class ContinentsTest extends TestCase
+class ContinentsTest extends AbstractTestCase
 {
     private static Continents $listClass;
 

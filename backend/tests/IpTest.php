@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\Ip;
 
-class IpTest extends TestCase
+class IpTest extends AbstractTestCase
 {
     /** @var array<string, mixed> */
     private array $ipTemplate = [
