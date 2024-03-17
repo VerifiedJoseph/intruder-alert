@@ -152,7 +152,7 @@ class CheckTest extends TestCase
         $asn = 'backend/tests/files/mmdb/GeoLite2-ASN-Test.mmdb';
         $country = 'backend/tests/files/mmdb/GeoLite2-Country-Test.mmdb';
 
-        putenv('IA_ASN_DATABASE='. $asn);
+        putenv('IA_ASN_DATABASE=' . $asn);
         putenv('IA_COUNTRY_DATABASE=' . $country);
 
         $check = new Check($this->defaults);

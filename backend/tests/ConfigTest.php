@@ -6,13 +6,13 @@ use IntruderAlert\Version;
 
 class ConfigTest extends TestCase
 {
-	private static array $defaults = [];
+    private static array $defaults = [];
 
-	public static function setupBeforeClass(): void
-	{
+    public static function setupBeforeClass(): void
+    {
         $reflection = new ReflectionClass(new Config());
         self::$defaults = $reflection->getProperty('config')->getValue(new Config());
-	}
+    }
 
     /**
      * Test `setDir()`
