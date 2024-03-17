@@ -87,9 +87,7 @@ class CheckTest extends AbstractTestCase
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('fail2ban log folder does not exist');
 
-        $folder = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'fail2ban-logs';
-
-        putenv('IA_LOG_FOLDER=' . $folder);
+        putenv('IA_LOG_FOLDER=tests/fail2ban-logs');
 
         $check = new Check(self::$defaults);
         $check->logFolder();
