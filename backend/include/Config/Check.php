@@ -8,10 +8,11 @@ use MaxMind\Db\Reader\InvalidDatabaseException;
 
 class Check extends Base
 {
+    /** @var array<string, mixed> $config Config */
     private array $config = [];
 
     /**
-     * @var array<string, mixed> $defaults Config defaults
+     * @param array<string, mixed> $defaults Config defaults
      */
     public function __construct(array $defaults)
     {
@@ -20,6 +21,8 @@ class Check extends Base
 
     /**
      * Returns config
+     *
+     * @return array<string, mixed>
      */
     public function getConfig(): array
     {

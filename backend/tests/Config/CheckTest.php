@@ -8,6 +8,7 @@ use IntruderAlert\Exception\ConfigException;
 
 class CheckTest extends TestCase
 {
+    /** @var array<string, mixed> $defaults */
     private static array $defaults = [];
 
     public static function setupBeforeClass(): void

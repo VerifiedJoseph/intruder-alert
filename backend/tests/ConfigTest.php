@@ -6,6 +6,7 @@ use IntruderAlert\Version;
 
 class ConfigTest extends TestCase
 {
+    /** @var array<string, mixed> $defaults */
     private static array $defaults = [];
 
     public static function setupBeforeClass(): void
@@ -170,7 +171,7 @@ class ConfigTest extends TestCase
     {
         $config = new Config();
 
-		$reflection = new ReflectionClass($config);
+        $reflection = new ReflectionClass($config);
         $property = $reflection->getProperty('config');
         $property->setAccessible(true);
         $property->setValue($config, ['maxmind_license_key' => 'qwerty']);
@@ -188,7 +189,7 @@ class ConfigTest extends TestCase
     {
         $config = new Config();
 
-		$reflection = new ReflectionClass($config);
+        $reflection = new ReflectionClass($config);
         $property = $reflection->getProperty('config');
         $property->setAccessible(true);
         $property->setValue($config, ['maxmind_license_key' => 'qwerty']);
