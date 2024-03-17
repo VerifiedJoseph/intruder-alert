@@ -1,10 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\App\Frontend;
 use IntruderAlert\Config;
 
-class FrontendTest extends TestCase
+class FrontendTest extends AbstractTestCase
 {
     public function tearDown(): void
     {
