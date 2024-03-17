@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Version;
 use IntruderAlert\Exception\ConfigException;
@@ -178,9 +179,9 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * Test `getAsnDatabasePath()` when `IA_MAXMIND_LICENSE_KEY` is passed
+     * Test `getAsnDatabasePath()` with an MaxMind key
      */
-    public function testGetAsnDatabasePathWhenMaxmindKeyPassed(): void
+    public function testGetAsnDatabasePathWithMaxMindKey(): void
     {
         $config = new Config();
 
@@ -196,9 +197,9 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * Test `getCountryDatabasePath()` when `IA_MAXMIND_LICENSE_KEY is passed
+     * Test `getCountryDatabasePath()` with an MaxMind key
      */
-    public function testGetCountryDatabasePathWhenMaxmindKeyPassed(): void
+    public function testGetCountryDatabasePathWithMaxMindKey(): void
     {
         $config = new Config();
 
@@ -297,6 +298,26 @@ class ConfigTest extends TestCase
 
         unlink($file);
         rmdir($dir);
+    }
+
+    /**
+     * Test `checkCli()`
+     */
+    public function testCheckCli(): void
+    {
+        mockfs::create();
+        mkdir(mockfs::getUrl('/data/geoip2'), recursive: true);
+
+        $log = 'backend/tests/files/logs/has-bans/fail2ban.log';
+        putenv('IA_LOG_PATHS=' . $log);
+        putenv('IA_MAXMIND_LICENSE_KEY=qwerty');
+
+        $config = new Config();
+        $config->setDir(mockfs::getUrl('/'));
+        $config->checkCli('cli');
+
+        $this->assertEquals($log, $config->getLogPaths());
+        $this->assertEquals('qwerty', $config->getMaxMindLicenseKey());
     }
 
     /**
