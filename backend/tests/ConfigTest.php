@@ -283,4 +283,16 @@ class ConfigTest extends TestCase
         $config = new Config();
         $config->checkCli(php_sapi_name());
     }
+
+    /**
+     * Test `checkCli()` with unsupported `php_sapi_name` vaule
+     */
+    public function testUnsupportedSapiName(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Intruder Alert script must be run via the command-line.');
+
+        $config = new Config();
+        $config->checkCli('web');
+    }
 }
