@@ -19,6 +19,17 @@ class LogsTest extends TestCase
         $this->lines = json_decode($data, associative: true);
     }
 
+    public function tearDown(): void
+    {
+        stream_context_set_default(
+            [
+                'mfs' => [
+                    'fopen_fail' => false,
+                ]
+            ]
+        );
+    }
+
     /**
      * @return Config&PHPUnit\Framework\MockObject\Stub
      */
@@ -121,6 +132,34 @@ class LogsTest extends TestCase
         $config->method('getLogPaths')->willReturn($logs);
 
         $this->expectOutputRegex('/File is empty. Skipping/');
+
+        $logs = new Logs($config, new Logger());
+        $logs->process();
+    }
+
+    /**
+     * Test 'Failed to open file' exception in `process()`
+     */
+    public function testProcessFailedToOpen(): void
+    {
+        mockfs::create();
+        $file = mockfs::getUrl('/file.log');
+        file_put_contents($file, 'hello');
+
+        $config = $this->createConfigStub();
+        $config->method('getLogPaths')->willReturn($file);
+
+        stream_context_set_default(
+            [
+                'mfs' => [
+                    'fopen_fail' => true,
+                ]
+            ]
+        );
+
+        $this->expectException(AppException::class);
+        $this->expectExceptionMessage('App error: Failed to open file: ' . $file);
+        $this->expectOutputRegex('/Processing/');
 
         $logs = new Logs($config, new Logger());
         $logs->process();

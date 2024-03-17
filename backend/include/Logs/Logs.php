@@ -64,7 +64,7 @@ class Logs
             $lineCount = 0;
             $banCount = 0;
 
-            $fp = gzopen($file->getPathname(), 'r');
+            $fp = @gzopen($file->getPathname(), 'r');
 
             if ($fp === false) {
                 throw new AppException('Failed to open file: ' . $file->getPathname());
