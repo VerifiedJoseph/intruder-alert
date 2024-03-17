@@ -20,7 +20,7 @@ class ExtractorTest extends AbstractTestCase
 
     public function setup(): void
     {
-        if(file_exists(self::$tempPath) === false) {
+        if (file_exists(self::$tempPath) === false) {
             mkdir(self::$tempPath);
         }
 

@@ -9,7 +9,6 @@ use IntruderAlert\Exception\AppException;
 
 class UpdaterTest extends AbstractTestCase
 {
-
     public function setup(): void
     {
         mkdir(self::$tempPath . 'geoip', recursive: true);

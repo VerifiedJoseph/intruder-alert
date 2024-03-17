@@ -4,15 +4,15 @@ use PHPUnit\Framework\TestCase as TestCase;
 
 abstract class AbstractTestCase extends TestCase
 {
-	protected static $tempPath = '';
+    protected static $tempPath = '';
 
     public static function setUpBeforeClass(): void
     {
         self::$tempPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'intruder-alert-tests' . DIRECTORY_SEPARATOR;
 
-		if (file_exists(self::$tempPath) === false) {
-			mkdir(self::$tempPath);
-		}
+        if (file_exists(self::$tempPath) === false) {
+            mkdir(self::$tempPath);
+        }
     }
 
     /**
