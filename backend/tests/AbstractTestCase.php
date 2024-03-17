@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase as TestCase;
 
 abstract class AbstractTestCase extends TestCase
 {
-    protected static $tempPath = '';
+    protected static string $tempPath = '';
 
     public static function setUpBeforeClass(): void
     {
