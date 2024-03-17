@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\Database\Updater\Url;
 
-class UrlTest extends TestCase
+class UrlTest extends AbstractTestCase
 {
     /**
      * Test `get()`
