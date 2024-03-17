@@ -184,7 +184,7 @@ class Check extends Base
                 throw new ConfigException('Charts environment variable must be true or false [IA_DASH_CHARTS]');
             }
 
-            $this->config['dash_charts'] = $this->getEnv('DASH_CHARTS');
+            $this->config['dash_charts'] = filter_var($this->getEnv('DASH_CHARTS'), FILTER_VALIDATE_BOOLEAN);
         }
 
         if ($this->hasEnv('DASH_UPDATES') === true) {
@@ -194,7 +194,7 @@ class Check extends Base
                 );
             }
 
-            $this->config['dash_updates'] = $this->getEnv('DASH_UPDATES');
+            $this->config['dash_updates'] = filter_var($this->getEnv('DASH_UPDATES'), FILTER_VALIDATE_BOOLEAN);
         }
 
         if ($this->hasEnv('DASH_DAEMON_LOG') === true) {
@@ -204,7 +204,7 @@ class Check extends Base
                 );
             }
 
-            $this->config['dash_daemon_log'] = $this->getEnv('DASH_DAEMON_LOG');
+            $this->config['dash_daemon_log'] = filter_var($this->getEnv('DASH_DAEMON_LOG'), FILTER_VALIDATE_BOOLEAN);
         }
     }
 
