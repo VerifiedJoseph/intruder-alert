@@ -1,6 +1,5 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use IntruderAlert\Config;
 use IntruderAlert\Fetch;
 use IntruderAlert\Logger;
