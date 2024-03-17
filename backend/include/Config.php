@@ -197,12 +197,13 @@ class Config extends Base
     /**
      * Check config for command-line
      *
+     * @param string $sapi Interface type
      * @throws ConfigException if script not run via the command-line.
      * @throws ConfigException if environment variable `IA_LOG_FOLDER` or `IA_LOG_PATHS` is not set.
      */
-    public function checkCli(): void
+    public function checkCli(string $sapi): void
     {
-        if (php_sapi_name() !== 'cli') {
+        if ($sapi !== 'cli') {
             throw new ConfigException('Intruder Alert script must be run via the command-line.');
         }
 
