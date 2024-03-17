@@ -31,6 +31,17 @@ class CheckTest extends TestCase
         putenv('IA_DASH_UPDATES');
         putenv('IA_DASH_DAEMON_LOG');
     }
+    
+    public function tearDown(): void
+    {
+        stream_context_set_default(
+            [
+                'mfs' => [
+                    'mkdir_fail' => false,
+                ]
+            ]
+        );
+    }
 
     /**
      * Test `getConfig`
