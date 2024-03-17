@@ -181,7 +181,7 @@ class Config extends Base
     }
 
     /**
-     * Check config from `data.php`
+     * Check config for `data.php`
      */
     public function check(): void
     {
