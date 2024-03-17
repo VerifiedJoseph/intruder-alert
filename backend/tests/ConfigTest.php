@@ -166,34 +166,38 @@ class ConfigTest extends TestCase
     /**
      * Test `getAsnDatabasePath()` when `IA_MAXMIND_LICENSE_KEY` is passed
      */
-    /*public function testGetAsnDatabasePathWhenMaxmindKeyPassed(): void
+    public function testGetAsnDatabasePathWhenMaxmindKeyPassed(): void
     {
-        putenv('IA_MAXMIND_LICENSE_KEY=fake-key');
-
         $config = new Config();
-        $config->checkMaxMindLicenseKey();
+
+		$reflection = new ReflectionClass($config);
+        $property = $reflection->getProperty('config');
+        $property->setAccessible(true);
+        $property->setValue($config, ['maxmind_license_key' => 'qwerty']);
 
         $this->assertEquals(
             'data/geoip2/GeoLite2-ASN.mmdb',
             $config->getAsnDatabasePath()
         );
-    }*/
+    }
 
     /**
      * Test `getCountryDatabasePath()` when `IA_MAXMIND_LICENSE_KEY is passed
      */
-    /*public function testGetCountryDatabasePathWhenMaxmindKeyPassed(): void
+    public function testGetCountryDatabasePathWhenMaxmindKeyPassed(): void
     {
-        putenv('IA_MAXMIND_LICENSE_KEY=fake-key');
-
         $config = new Config();
-        $config->checkMaxMindLicenseKey();
+
+		$reflection = new ReflectionClass($config);
+        $property = $reflection->getProperty('config');
+        $property->setAccessible(true);
+        $property->setValue($config, ['maxmind_license_key' => 'qwerty']);
 
         $this->assertEquals(
             'data/geoip2/GeoLite2-Country.mmdb',
             $config->getCountryDatabasePath()
         );
-    }*/
+    }
 
     /**
      * Test `getTimezone()`
