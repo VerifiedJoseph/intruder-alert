@@ -273,6 +273,33 @@ class ConfigTest extends TestCase
     }
 
     /**
+     * Test `check()` with a `config.php` file
+     */
+    public function testCheckWithConfigFile(): void
+    {
+        $contents = "<?php
+            putenv('IA_TIMEZONE=Europe/London');
+            putenv('IA_DASH_CHARTS=false');
+        ?>";
+
+        $dir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'intruder-alert-tests';
+        $file = $dir . DIRECTORY_SEPARATOR . 'config.php';
+        mkdir($dir);
+
+        file_put_contents($file, $contents);
+
+        $config = new Config();
+        $config->setDir($dir);
+        $config->check();
+
+        $this->assertEquals('Europe/London', $config->getTimezone());
+        $this->assertFalse($config->getChartsStatus());
+
+        unlink($file);
+        rmdir($dir);
+    }
+
+    /**
      * Test config with no `IA_LOG_FOLDER` or `IA_LOG_PATHS`
      */
     public function testNoLogPathsOrLogFolder(): void
