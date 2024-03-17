@@ -2,23 +2,19 @@
 
 use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
+use IntruderAlert\Config;
 use IntruderAlert\Config\Check;
 use IntruderAlert\Exception\ConfigException;
 
 class CheckTest extends TestCase
 {
-    private array $defaults = [
-        'log_paths' => '',
-        'log_folder' => '',
-        'maxmind_license_key' => '',
-        'asn_database_path' => '',
-        'country_database_path' => '',
-        'timezone' => '',
-        'log_timezone' => '',
-        'dash_charts' => true,
-        'dash_updates' => true,
-        'dash_daemon_log' => true
-    ];
+    private static array $defaults = [];
+
+    public static function setupBeforeClass(): void
+    {
+        $reflection = new ReflectionClass(new Config());
+        self::$defaults = $reflection->getProperty('config')->getValue(new Config());
+    }
 
     public function setUp(): void
     {
@@ -40,8 +36,20 @@ class CheckTest extends TestCase
      */
     public function testGetConfig(): void
     {
-        $check = new Check($this->defaults);
-        $this->assertEquals($this->defaults, $check->getConfig());
+        $check = new Check(self::$defaults);
+        $this->assertEquals(self::$defaults, $check->getConfig());
+    }
+
+    /**
+     * Test config with no `IA_LOG_FOLDER` or `IA_LOG_PATHS`
+     */
+    public function testNoLogPathsOrLogFolder(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
+
+        $config = new Config();
+        $config->checkCli();
     }
 
     /**
@@ -51,7 +59,7 @@ class CheckTest extends TestCase
     {
         putenv('IA_LOG_FOLDER=backend/tests/files/logs');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->logFolder();
         $config = $check->getConfig();
 
@@ -68,7 +76,7 @@ class CheckTest extends TestCase
 
         putenv('IA_LOG_FOLDER=');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->logFolder();
     }
 
@@ -84,7 +92,7 @@ class CheckTest extends TestCase
 
         putenv('IA_LOG_FOLDER=' . $folder);
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->logFolder();
     }
 
@@ -95,7 +103,7 @@ class CheckTest extends TestCase
     {
         putenv('IA_LOG_PATHS=backend/tests/files/logs/has-bans/fail2ban.log');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->logPaths();
         $config = $check->getConfig();
 
@@ -112,7 +120,7 @@ class CheckTest extends TestCase
 
         putenv('IA_LOG_PATHS=');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->logPaths();
     }
 
@@ -123,7 +131,7 @@ class CheckTest extends TestCase
     {
         putenv('IA_MAXMIND_LICENSE_KEY=qwerty');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->maxMindLicenseKey();
         $config = $check->getConfig();
 
@@ -140,7 +148,7 @@ class CheckTest extends TestCase
 
         putenv('IA_MAXMIND_LICENSE_KEY=');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->maxMindLicenseKey();
     }
 
@@ -155,7 +163,7 @@ class CheckTest extends TestCase
         putenv('IA_ASN_DATABASE=' . $asn);
         putenv('IA_COUNTRY_DATABASE=' . $country);
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->databases();
         $config = $check->getConfig();
 
@@ -173,7 +181,7 @@ class CheckTest extends TestCase
 
         putenv('IA_ASN_DATABASE=');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->databases();
     }
 
@@ -188,7 +196,7 @@ class CheckTest extends TestCase
         putenv('IA_ASN_DATABASE=backend/tests/files/mmdb/GeoLite2-ASN-Test.mmdb');
         putenv('IA_COUNTRY_DATABASE=');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->databases();
     }
 
@@ -203,7 +211,7 @@ class CheckTest extends TestCase
         putenv('IA_ASN_DATABASE=fake.path');
         putenv('IA_COUNTRY_DATABASE=backend/tests/files/mmdb/GeoLite2-Country-Test.mmdb');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->databases();
     }
 
@@ -218,7 +226,7 @@ class CheckTest extends TestCase
         putenv('IA_ASN_DATABASE=backend/tests/files/mmdb/GeoLite2-ASN-Test.mmdb');
         putenv('IA_COUNTRY_DATABASE=fake.path');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->databases();
     }
 
@@ -230,7 +238,7 @@ class CheckTest extends TestCase
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('GeoLite2 database is invalid: backend/tests/files/fake-database.file');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->isDatabaseValid('backend/tests/files/fake-database.file');
     }
 
@@ -241,7 +249,7 @@ class CheckTest extends TestCase
     {
         putenv('IA_DASH_CHARTS=false');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->dashboard();
         $config = $check->getConfig();
 
@@ -258,7 +266,7 @@ class CheckTest extends TestCase
 
         putenv('IA_DASH_CHARTS=string');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->dashboard();
     }
 
@@ -269,7 +277,7 @@ class CheckTest extends TestCase
     {
         putenv('IA_DASH_UPDATES=false');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->dashboard();
         $config = $check->getConfig();
 
@@ -286,7 +294,7 @@ class CheckTest extends TestCase
 
         putenv('IA_DASH_UPDATES=string');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->dashboard();
     }
 
@@ -297,7 +305,7 @@ class CheckTest extends TestCase
     {
         putenv('IA_DASH_DAEMON_LOG=false');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->dashboard();
         $config = $check->getConfig();
 
@@ -314,7 +322,7 @@ class CheckTest extends TestCase
 
         putenv('IA_DASH_DAEMON_LOG=string');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->dashboard();
     }
 
@@ -326,7 +334,7 @@ class CheckTest extends TestCase
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Timezone environment variable must be set');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->timezones();
     }
 
@@ -340,7 +348,7 @@ class CheckTest extends TestCase
 
         putenv('IA_TIMEZONE=Europe/Coventry');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->timezones();
     }
 
@@ -352,7 +360,7 @@ class CheckTest extends TestCase
         putenv('IA_TIMEZONE=Europe/London');
         putenv('IA_SYSTEM_LOG_TIMEZONE=UTC');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->timezones();
         $config = $check->getConfig();
 
@@ -370,7 +378,7 @@ class CheckTest extends TestCase
         putenv('IA_TIMEZONE=Europe/London');
         putenv('IA_SYSTEM_LOG_TIMEZONE=');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->timezones();
     }
 
@@ -385,7 +393,7 @@ class CheckTest extends TestCase
         putenv('IA_TIMEZONE=Europe/London');
         putenv('IA_SYSTEM_LOG_TIMEZONE=Europe/Coventry');
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->timezones();
     }
 
@@ -398,7 +406,7 @@ class CheckTest extends TestCase
 
         $tz = date_default_timezone_get();
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->timezones();
         $config = $check->getConfig();
 
@@ -424,7 +432,7 @@ class CheckTest extends TestCase
             ]
         );
 
-        $check = new Check($this->defaults);
+        $check = new Check(self::$defaults);
         $check->folder($folder);
     }
 }
