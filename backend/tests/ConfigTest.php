@@ -1,11 +1,22 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Version;
+use IntruderAlert\Exception\ConfigException;
 
-class ConfigGetterTest extends TestCase
+class ConfigTest extends TestCase
 {
+    /** @var array<string, mixed> $defaults */
+    private static array $defaults = [];
+
+    public static function setupBeforeClass(): void
+    {
+        $reflection = new ReflectionClass(new Config());
+        self::$defaults = $reflection->getProperty('config')->getValue(new Config());
+    }
+
     public function setUp(): void
     {
         // Unset environment variables before each test
@@ -15,10 +26,7 @@ class ConfigGetterTest extends TestCase
         putenv('IA_ASN_DATABASE');
         putenv('IA_COUNTRY_DATABASE');
         putenv('IA_TIMEZONE');
-        putenv('IA_SYSTEM_LOG_TIMEZONE');
         putenv('IA_DASH_CHARTS');
-        putenv('IA_DASH_UPDATES');
-        putenv('IA_DASH_DAEMON_LOG');
     }
 
     /**
@@ -76,12 +84,8 @@ class ConfigGetterTest extends TestCase
      */
     public function testGetChartsStatus(): void
     {
-        putenv('IA_DASH_CHARTS=true');
-
         $config = new Config();
-        $config->checkDashboard();
-
-        $this->assertTrue($config->getChartsStatus());
+        $this->assertEquals(self::$defaults['dash_charts'], $config->getChartsStatus());
     }
 
     /**
@@ -89,12 +93,8 @@ class ConfigGetterTest extends TestCase
      */
     public function testGetDashUpdatesStatus(): void
     {
-        putenv('IA_DASH_UPDATES=true');
-
         $config = new Config();
-        $config->checkDashboard();
-
-        $this->assertTrue($config->getDashUpdatesStatus());
+        $this->assertEquals(self::$defaults['dash_updates'], $config->getDashUpdatesStatus());
     }
 
     /**
@@ -102,12 +102,8 @@ class ConfigGetterTest extends TestCase
      */
     public function testGetDashDaemonLogStatus(): void
     {
-        putenv('IA_DASH_DAEMON_LOG=true');
-
         $config = new Config();
-        $config->checkDashboard();
-
-        $this->assertTrue($config->getDashDaemonLogStatus());
+        $this->assertEquals(self::$defaults['dash_daemon_log'], $config->getDashDaemonLogStatus());
     }
 
     /**
@@ -115,12 +111,8 @@ class ConfigGetterTest extends TestCase
      */
     public function testGetLogFolders(): void
     {
-        putenv('IA_LOG_FOLDER=backend/tests');
-
         $config = new Config();
-        $config->checkLogFolder();
-
-        $this->assertEquals('backend/tests', $config->getLogFolder());
+        $this->assertEquals(self::$defaults['log_folder'], $config->getLogFolder());
     }
 
     /**
@@ -128,14 +120,8 @@ class ConfigGetterTest extends TestCase
      */
     public function testGetLogPaths(): void
     {
-        $paths = 'example/fail2ban.log;example/fail2ban.log.1';
-
-        putenv('IA_LOG_PATHS=' . $paths);
-
         $config = new Config();
-        $config->checkLogPaths();
-
-        $this->assertEquals($paths, $config->getLogPaths());
+        $this->assertEquals(self::$defaults['log_paths'], $config->getLogPaths());
     }
 
     /**
@@ -143,12 +129,8 @@ class ConfigGetterTest extends TestCase
      */
     public function testGetMaxMindLicenseKey(): void
     {
-        putenv('IA_MAXMIND_LICENSE_KEY=fake-key');
-
         $config = new Config();
-        $config->checkMaxMindLicenseKey();
-
-        $this->assertEquals('fake-key', $config->getMaxMindLicenseKey());
+        $this->assertEquals(self::$defaults['maxmind_license_key'], $config->getMaxMindLicenseKey());
     }
 
     /**
@@ -157,7 +139,6 @@ class ConfigGetterTest extends TestCase
     public function testGetMaxMindDownloadUrl(): void
     {
         $config = new Config();
-
         $this->assertMatchesRegularExpression(
             '/https:\/\/download.maxmind.com/',
             $config->getMaxMindDownloadUrl()
@@ -178,14 +159,9 @@ class ConfigGetterTest extends TestCase
      */
     public function testGetAsnDatabasePath(): void
     {
-        putenv('IA_ASN_DATABASE=backend/tests/files/mmdb/GeoLite2-ASN-Test.mmdb');
-        putenv('IA_COUNTRY_DATABASE=backend/tests/files/mmdb/GeoLite2-Country-Test.mmdb');
-
         $config = new Config();
-        $config->checkDatabases();
-
         $this->assertEquals(
-            'backend/tests/files/mmdb/GeoLite2-ASN-Test.mmdb',
+            self::$defaults['asn_database_path'],
             $config->getAsnDatabasePath()
         );
     }
@@ -195,27 +171,24 @@ class ConfigGetterTest extends TestCase
      */
     public function testGetCountryDatabasePath(): void
     {
-        putenv('IA_ASN_DATABASE=backend/tests/files/mmdb/GeoLite2-ASN-Test.mmdb');
-        putenv('IA_COUNTRY_DATABASE=backend/tests/files/mmdb/GeoLite2-Country-Test.mmdb');
-
         $config = new Config();
-        $config->checkDatabases();
-
         $this->assertEquals(
-            'backend/tests/files/mmdb/GeoLite2-Country-Test.mmdb',
+            self::$defaults['country_database_path'],
             $config->getCountryDatabasePath()
         );
     }
 
     /**
-     * Test `getAsnDatabasePath()` when `IA_MAXMIND_LICENSE_KEY` is passed
+     * Test `getAsnDatabasePath()` with an MaxMind key
      */
-    public function testGetAsnDatabasePathWhenMaxmindKeyPassed(): void
+    public function testGetAsnDatabasePathWithMaxMindKey(): void
     {
-        putenv('IA_MAXMIND_LICENSE_KEY=fake-key');
-
         $config = new Config();
-        $config->checkMaxMindLicenseKey();
+
+        $reflection = new ReflectionClass($config);
+        $property = $reflection->getProperty('config');
+        $property->setAccessible(true);
+        $property->setValue($config, ['maxmind_license_key' => 'qwerty']);
 
         $this->assertEquals(
             'data/geoip2/GeoLite2-ASN.mmdb',
@@ -224,14 +197,16 @@ class ConfigGetterTest extends TestCase
     }
 
     /**
-     * Test `getCountryDatabasePath()` when `IA_MAXMIND_LICENSE_KEY is passed
+     * Test `getCountryDatabasePath()` with an MaxMind key
      */
-    public function testGetCountryDatabasePathWhenMaxmindKeyPassed(): void
+    public function testGetCountryDatabasePathWithMaxMindKey(): void
     {
-        putenv('IA_MAXMIND_LICENSE_KEY=fake-key');
-
         $config = new Config();
-        $config->checkMaxMindLicenseKey();
+
+        $reflection = new ReflectionClass($config);
+        $property = $reflection->getProperty('config');
+        $property->setAccessible(true);
+        $property->setValue($config, ['maxmind_license_key' => 'qwerty']);
 
         $this->assertEquals(
             'data/geoip2/GeoLite2-Country.mmdb',
@@ -244,12 +219,8 @@ class ConfigGetterTest extends TestCase
      */
     public function testGetTimezone(): void
     {
-        putenv('IA_TIMEZONE=Europe/London');
-
         $config = new Config();
-        $config->checkTimeZones();
-
-        $this->assertEquals('Europe/London', $config->getTimezone());
+        $this->assertEquals(self::$defaults['timezone'], $config->getTimezone());
     }
 
     /**
@@ -257,13 +228,8 @@ class ConfigGetterTest extends TestCase
      */
     public function testGetSystemLogTimezone(): void
     {
-        putenv('IA_TIMEZONE=Europe/London');
-        putenv('IA_SYSTEM_LOG_TIMEZONE=UTC');
-
         $config = new Config();
-        $config->checkTimeZones();
-
-        $this->assertEquals('UTC', $config->getSystemLogTimezone());
+        $this->assertEquals(self::$defaults['log_timezone'], $config->getSystemLogTimezone());
     }
 
     /**
@@ -290,5 +256,91 @@ class ConfigGetterTest extends TestCase
         $config = new Config();
         $config->setDir($dir);
         $this->assertEquals($expected, $config->getDataFilePath());
+    }
+
+    /**
+     * Test `check()`
+     */
+    public function testCheck(): void
+    {
+        putenv('IA_TIMEZONE=Europe/London');
+        putenv('IA_DASH_CHARTS=true');
+
+        $config = new Config();
+        $config->check();
+
+        $this->assertEquals('Europe/London', $config->getTimezone());
+        $this->assertTrue($config->getChartsStatus());
+    }
+
+    /**
+     * Test `check()` with a `config.php` file
+     */
+    public function testCheckWithConfigFile(): void
+    {
+        $contents = "<?php
+            putenv('IA_TIMEZONE=Europe/London');
+            putenv('IA_DASH_CHARTS=false');
+        ?>";
+
+        $dir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'intruder-alert-tests';
+        $file = $dir . DIRECTORY_SEPARATOR . 'config.php';
+        mkdir($dir);
+
+        file_put_contents($file, $contents);
+
+        $config = new Config();
+        $config->setDir($dir);
+        $config->check();
+
+        $this->assertEquals('Europe/London', $config->getTimezone());
+        $this->assertFalse($config->getChartsStatus());
+
+        unlink($file);
+        rmdir($dir);
+    }
+
+    /**
+     * Test `checkCli()`
+     */
+    public function testCheckCli(): void
+    {
+        mockfs::create();
+        mkdir(mockfs::getUrl('/data/geoip2'), recursive: true);
+
+        $log = 'backend/tests/files/logs/has-bans/fail2ban.log';
+        putenv('IA_LOG_PATHS=' . $log);
+        putenv('IA_MAXMIND_LICENSE_KEY=qwerty');
+
+        $config = new Config();
+        $config->setDir(mockfs::getUrl('/'));
+        $config->checkCli('cli');
+
+        $this->assertEquals($log, $config->getLogPaths());
+        $this->assertEquals('qwerty', $config->getMaxMindLicenseKey());
+    }
+
+    /**
+     * Test config with no `IA_LOG_FOLDER` or `IA_LOG_PATHS`
+     */
+    public function testNoLogPathsOrLogFolder(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
+
+        $config = new Config();
+        $config->checkCli('cli');
+    }
+
+    /**
+     * Test `checkCli()` with unsupported `php_sapi_name` vaule
+     */
+    public function testUnsupportedSapiName(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Intruder Alert script must be run via the command-line.');
+
+        $config = new Config();
+        $config->checkCli('web');
     }
 }
