@@ -1,6 +1,5 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Database\Updater\Extractor;
