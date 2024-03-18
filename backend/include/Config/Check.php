@@ -32,11 +32,11 @@ class Check extends Base
     /**
      * Check php version
      *
-     * @param string php version
-     * @param string Minimum required PHP version
+     * @param string $version php version
+     * @param string $minimumVersion Minimum required PHP version
      * @throws ConfigException if PHP version not supported.
      */
-    public function version($version, $minimumVersion): void
+    public function version(string $version, string $minimumVersion): void
     {
         if (version_compare($version, $minimumVersion) === -1) {
             throw new ConfigException('Intruder Alert requires at least PHP version ' . $minimumVersion);
