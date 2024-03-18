@@ -52,6 +52,30 @@ class CheckTest extends AbstractTestCase
     }
 
     /**
+     * Test `version()`
+     */
+    public function testVersion(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Intruder Alert requires at least PHP version 8.1.0');
+
+        $check = new Check(self::$defaults);
+        $check->version('8.0.0', '8.1.0');
+    }
+
+    /**
+     * Test `extensions()`
+     */
+    public function testExtensions(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('PHP extension error: pgp extension not loaded');
+
+        $check = new Check(self::$defaults);
+        $check->extensions(['pgp']);
+    }
+
+    /**
      * Test `IA_LOG_FOLDER`
      */
     public function testLogFolder(): void
