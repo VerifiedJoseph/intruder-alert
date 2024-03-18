@@ -14,7 +14,7 @@ class Config extends Base
     private string $minPhpVersion = '8.1.0';
 
     /** @var array<int, string> $extensions Required PHP extensions */
-    private static array $extensions = ['curl', 'json', 'phar', 'pcre'];
+    private array $extensions = ['curl', 'json', 'phar', 'pcre'];
 
     private string $path = '';
 
@@ -57,16 +57,8 @@ class Config extends Base
     public function __construct()
     {
         $this->check = new Check($this->config);
-
-        if (version_compare(PHP_VERSION, $this->minPhpVersion) === -1) {
-            throw new ConfigException('Intruder Alert requires at least PHP version ' . $this->minPhpVersion);
-        }
-
-        foreach (self::$extensions as $ext) {
-            if (extension_loaded($ext) === false) {
-                throw new ConfigException(sprintf('PHP extension error: %s extension not loaded.', $ext));
-            }
-        }
+        $this->check->version(PHP_VERSION, $this->minPhpVersion);
+        $this->check->extensions($this->extensions);
     }
 
     /**
