@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.14.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.14.0) - 2024-03-019
+
+- Dockerfile: Updated composer from 2.7.1 to 2.7.2 ([#430](https://github.com/VerifiedJoseph/intruder-alert/pull/430), [`acde901`](https://github.com/VerifiedJoseph/intruder-alert/commit/acde90196ad97479b1880b0ed389bc58c441eea1))
+- Dockerfile: Updated php from 8.2.16-fpm-alpine3.19 to 8.2.17-fpm-alpine3.19 ([#436](https://github.com/VerifiedJoseph/intruder-alert/pull/436), [`3972b61`](https://github.com/VerifiedJoseph/intruder-alert/commit/3972b615f27d08a7b8f843541dadaeb300637bc7))
+- Added `App\Backend` and `App\Frontend` classes. ([#411](https://github.com/VerifiedJoseph/intruder-alert/pull/411), [`16765ac`](https://github.com/VerifiedJoseph/intruder-alert/commit/16765ac80574bae7147fac51017c94e18b1d2018))
+- Added `Config\Check` class. ([#444](https://github.com/VerifiedJoseph/intruder-alert/pull/444), [`0db9990`](https://github.com/VerifiedJoseph/intruder-alert/commit/0db9990536da692ce3843135a5413a1737f02249))
+- Added `Version` class. ([#433](https://github.com/VerifiedJoseph/intruder-alert/pull/433), [`09c4c71`](https://github.com/VerifiedJoseph/intruder-alert/commit/09c4c7123f62a3afdf4f2def95b60be100c332ab))
+- Rewrote MaxMind GeoIP database updating. ([#420](https://github.com/VerifiedJoseph/intruder-alert/pull/420), [`27ea742`](https://github.com/VerifiedJoseph/intruder-alert/commit/27ea742aa45ded8a0b7f0f62e2f03584fe540f30))
+- Reworked logging. ([#423](https://github.com/VerifiedJoseph/intruder-alert/pull/423), [`5c23b03`](https://github.com/VerifiedJoseph/intruder-alert/commit/5c23b03732fbcae702b03d504a65794ffd8e19ae))
+- Reworked frontend and backend report update checking. ([#426](https://github.com/VerifiedJoseph/intruder-alert/pull/426), [`4c711d6`](https://github.com/VerifiedJoseph/intruder-alert/commit/4c711d6280645c8a02e029ba5494cb77aab89e70))
+
 ## [1.13.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.13.1) - 2024-03-01
 
 - Npm: Updated chart.js from 4.4.1 to 4.4.2 ([#393](https://github.com/VerifiedJoseph/intruder-alert/pull/393), [`0bd2b3c`](https://github.com/VerifiedJoseph/intruder-alert/commit/0bd2b3cebf9c2e4aba5fae6f73f1327ad0392eb5))
