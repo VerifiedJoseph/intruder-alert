@@ -11,7 +11,7 @@ abstract class Base
      *
      * @param string $name Variable name excluding prefix
      */
-    protected function isEnvBoolean(string $name): bool
+    public function isEnvBoolean(string $name): bool
     {
         return in_array($this->getEnv($name), ['true', 'false']);
     }
@@ -21,7 +21,7 @@ abstract class Base
      *
      * @param string $name Variable name excluding prefix
      */
-    protected function hasEnv(string $name): bool
+    public function hasEnv(string $name): bool
     {
         if (getenv($this->envPrefix . $name) === false) {
             return false;
@@ -35,8 +35,12 @@ abstract class Base
      *
      * @param string $name Variable name excluding prefix
      */
-    protected function getEnv(string $name): mixed
+    public function getEnv(string $name): string
     {
-        return getenv($this->envPrefix . $name);
+        if ($this->hasEnv($name) === true) {
+            return (string) getenv($this->envPrefix . $name);
+        }
+
+        return '';
     }
 }
