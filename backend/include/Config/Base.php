@@ -35,8 +35,12 @@ abstract class Base
      *
      * @param string $name Variable name excluding prefix
      */
-    protected function getEnv(string $name): mixed
+    protected function getEnv(string $name): string
     {
-        return getenv($this->envPrefix . $name);
+        if ($this->hasEnv($name) === true) {
+            return getenv($this->envPrefix . $name);
+        }
+
+        return '';
     }
 }
