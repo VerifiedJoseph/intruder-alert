@@ -1,16 +1,10 @@
 <?php
 
+use GeoIp2\Model\AnonymousIp;
 use IntruderAlert\Config\Base;
 
 class BaseTest extends AbstractTestCase
 {
-    private static $class;
-
-    public static function setupBeforeClass(): void
-    {
-        self::$class = self::createClass();
-    }
-
     public function setUp(): void
     {
         // Unset environment variables before each test
@@ -23,7 +17,10 @@ class BaseTest extends AbstractTestCase
     public function testGetEnv(): void
     {
         putenv('IA_TEST=Hello World');
-        $this->assertEquals('Hello World', self::$class->getEnv('TEST'));
+
+        $class = new class () extends Base {
+        };
+        $this->assertEquals('Hello World', $class->getEnv('TEST'));
     }
 
     /**
@@ -31,17 +28,8 @@ class BaseTest extends AbstractTestCase
      */
     public function testGetEnvEmptyValue(): void
     {
-        $this->assertEquals('', self::$class->getEnv('TEST_1'));
-    }
-
-    private static function createClass()
-    {
-        return new class () extends Base
-        {
-            public function getEnv(string $name): string
-            {
-                return parent::getEnv($name);
-            }
+        $class = new class () extends Base {
         };
+        $this->assertEquals('', $class->getEnv('TEST_1'));
     }
 }
