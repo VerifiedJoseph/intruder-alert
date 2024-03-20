@@ -119,11 +119,13 @@ class Check extends Base
      */
     public function maxMindLicenseKey(): void
     {
-        if ($this->hasEnv('MAXMIND_LICENSE_KEY') === true && $this->getEnv('MAXMIND_LICENSE_KEY') === '') {
-            throw new ConfigException('MaxMind license key can not be empty [IA_MAXMIND_LICENSE_KEY]');
-        }
+        if ($this->hasEnv('MAXMIND_LICENSE_KEY') === true) {
+            if ($this->getEnv('MAXMIND_LICENSE_KEY') === '') {
+                throw new ConfigException('MaxMind license key can not be empty [IA_MAXMIND_LICENSE_KEY]');
+            }
 
-        $this->config['maxmind_license_key'] = $this->getEnv('MAXMIND_LICENSE_KEY');
+            $this->config['maxmind_license_key'] = $this->getEnv('MAXMIND_LICENSE_KEY');
+        }
     }
 
     /**
