@@ -1,6 +1,5 @@
 <?php
 
-use GeoIp2\Model\AnonymousIp;
 use IntruderAlert\Config\Base;
 
 class BaseTest extends AbstractTestCase
