@@ -2,7 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
-## [1.14.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.14.0) - 2024-03-019
+## [1.14.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.14.1) - 2024-03-20
+
+- Fixed checking environment variable `IA_MAXMIND_LICENSE_KEY`. ([#453](https://github.com/VerifiedJoseph/intruder-alert/pull/453), [`65184b0`](https://github.com/VerifiedJoseph/intruder-alert/commit/65184b07ab9039753951af72fe8c16779074d3be))
+
+## [1.14.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.14.0) - 2024-03-19
 
 - Dockerfile: Updated composer from 2.7.1 to 2.7.2 ([#430](https://github.com/VerifiedJoseph/intruder-alert/pull/430), [`acde901`](https://github.com/VerifiedJoseph/intruder-alert/commit/acde90196ad97479b1880b0ed389bc58c441eea1))
 - Dockerfile: Updated php from 8.2.16-fpm-alpine3.19 to 8.2.17-fpm-alpine3.19 ([#436](https://github.com/VerifiedJoseph/intruder-alert/pull/436), [`3972b61`](https://github.com/VerifiedJoseph/intruder-alert/commit/3972b615f27d08a7b8f843541dadaeb300637bc7))
