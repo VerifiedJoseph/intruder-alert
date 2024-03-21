@@ -67,7 +67,7 @@ class Check extends Base
     public function folder(string $path): void
     {
         if (file_exists($path) === false) {
-            if (mkdir($path, 0660) === false) {
+            if (mkdir($path) === false) {
                 throw new ConfigException('Failed to create folder: ' . $path);
             }
         }
