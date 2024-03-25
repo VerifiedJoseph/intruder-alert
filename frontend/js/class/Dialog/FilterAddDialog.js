@@ -285,8 +285,6 @@ export class FilterAddDialog extends ViewGroupDialogs {
    * @param {string} name
    */
   #getId (name) {
-    console.log(`${this.viewGroup}-${name}`)
-
     return `${this.viewGroup}-${name}`
   }
 
