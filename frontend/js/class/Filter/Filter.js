@@ -81,24 +81,19 @@ export class Filter {
   }
 
   /**
-   * Remove filter by its type
-   * @param {string} type filter type
+   * Remove filter by unique identifier
+   * @param {string} uuid filter unique identifier
    */
-  remove (type) {
-    let id = null
-
+  remove (uuid) {
     this.settings = this.settings.filter(filter => {
-      if (filter.type === type) {
-        id = filter.id
+      if (filter.id === uuid) {
+        this.chip.remove(filter.id)
+
         return false
       }
 
       return true
     })
-
-    if (id !== null) {
-      this.chip.remove(id)
-    }
   }
 
   /**
@@ -132,7 +127,7 @@ export class Filter {
 
     // Remove filter if values array is now empty
     if (this.settings[index].values.length === 0) {
-      this.remove(this.settings[index].type)
+      this.remove(this.settings[index].id)
     }
   }
 
