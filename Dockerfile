@@ -10,7 +10,7 @@ RUN composer install \
   --no-progress \
   --no-dev
 
-FROM node:20.11.1-alpine3.19 AS node
+FROM node:20.12.0-alpine3.19 AS node
 
 COPY --from=composer ./app /app/
 WORKDIR /app
