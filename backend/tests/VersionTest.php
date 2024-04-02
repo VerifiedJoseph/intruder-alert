@@ -1,7 +1,9 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use IntruderAlert\Version;
 
+#[CoversClass(Version::class)]
 class VersionTest extends AbstractTestCase
 {
     public function testGet(): void
