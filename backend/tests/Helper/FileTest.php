@@ -1,9 +1,13 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Helper\File;
 use IntruderAlert\Exception\AppException;
 
+#[CoversClass(File::class)]
+#[UsesClass(AppException::class)]
 class FileTest extends AbstractTestCase
 {
     public function setup(): void
