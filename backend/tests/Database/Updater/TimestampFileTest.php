@@ -1,9 +1,13 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Database\Updater\TimestampFile;
 use IntruderAlert\Helper\File;
 
+#[CoversClass(TimestampFile::class)]
+#[UsesClass(File::class)]
 class TimestampFileTest extends AbstractTestCase
 {
     public function setup(): void
