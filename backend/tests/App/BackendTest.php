@@ -1,9 +1,41 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\App\Backend;
 
+#[CoversClass(Backend::class)]
+#[CoversClass(IntruderAlert\App\App::class)]
+#[UsesClass(Config::class)]
+#[UsesClass(IntruderAlert\Lists::class)]
+#[UsesClass(IntruderAlert\Helper\Json::class)]
+#[UsesClass(IntruderAlert\Helper\File::class)]
+#[CoversClass(IntruderAlert\Cache::class)]
+#[CoversClass(IntruderAlert\Database\Country::class)]
+#[CoversClass(IntruderAlert\Database\Database::class)]
+#[CoversClass(IntruderAlert\Database\Network::class)]
+#[CoversClass(IntruderAlert\Database\Updater\Downloader::class)]
+#[CoversClass(IntruderAlert\Database\Updater\Extractor::class)]
+#[CoversClass(IntruderAlert\Database\Updater\Updater::class)]
+#[CoversClass(IntruderAlert\Database\Updater\Url::class)]
+#[CoversClass(IntruderAlert\Fetch::class)]
+#[CoversClass(IntruderAlert\Helper\Output::class)]
+#[CoversClass(IntruderAlert\Helper\Timer::class)]
+#[CoversClass(IntruderAlert\Ip::class)]
+#[CoversClass(IntruderAlert\List\AbstractList::class)]
+#[CoversClass(IntruderAlert\List\Addresses::class)]
+#[CoversClass(IntruderAlert\List\Continents::class)]
+#[CoversClass(IntruderAlert\List\Countries::class)]
+#[CoversClass(IntruderAlert\List\Dates::class)]
+#[CoversClass(IntruderAlert\List\Jails::class)]
+#[CoversClass(IntruderAlert\List\Networks::class)]
+#[CoversClass(IntruderAlert\List\Subnets::class)]
+#[CoversClass(IntruderAlert\Logger::class)]
+#[CoversClass(IntruderAlert\Logs\LineExtractor::class)]
+#[CoversClass(IntruderAlert\Logs\Logs::class)]
+#[CoversClass(IntruderAlert\Report::class)]
 class BackendTest extends AbstractTestCase
 {
     private static string $cacheFile;
