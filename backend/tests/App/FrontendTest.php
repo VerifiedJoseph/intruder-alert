@@ -1,8 +1,16 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use IntruderAlert\App\Frontend;
 use IntruderAlert\Config;
 
+#[CoversClass(Frontend::class)]
+#[UsesClass(Config::class)]
+#[UsesClass(IntruderAlert\App\App::class)]
+#[UsesClass(IntruderAlert\Lists::class)]
+#[UsesClass(IntruderAlert\Helper\Json::class)]
+#[UsesClass(IntruderAlert\Helper\File::class)]
 class FrontendTest extends AbstractTestCase
 {
     public function tearDown(): void
