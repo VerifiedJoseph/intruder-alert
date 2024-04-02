@@ -1,9 +1,14 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use MockFileSystem\MockFileSystem as mockfs;
-use IntruderAlert\Config;
 use IntruderAlert\Database\Updater\Extractor;
+use IntruderAlert\Config;
 
+#[CoversClass(Extractor::class)]
+#[UsesClass(Config::class)]
+#[UsesClass(IntruderAlert\Config\Check::class)]
 class ExtractorTest extends AbstractTestCase
 {
     private static Config $config;
