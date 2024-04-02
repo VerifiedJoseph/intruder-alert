@@ -1,7 +1,9 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use IntruderAlert\Helper\Output;
 
+#[CoversClass(Output::class)]
 class OutputTest extends AbstractTestCase
 {
     /**
@@ -17,7 +19,7 @@ class OutputTest extends AbstractTestCase
     /**
      * Test output()
      */
-    public function testOutput(): void
+    public function testText(): void
     {
         $this->expectOutputString($this->outputText);
 
