@@ -1,13 +1,27 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use IntruderAlert\Config\Base;
 
+#[CoversClass(Base::class)]
 class BaseTest extends AbstractTestCase
 {
     public function setUp(): void
     {
         // Unset environment variables before each test
         putenv('IA_TEST');
+    }
+
+    /**
+     * Test `isEnvBoolean`
+     */
+    public function testIsEnvBoolean(): void
+    {
+        putenv('IA_TEST=true');
+
+        $class = new class () extends Base {
+        };
+        $this->assertTrue($class->isEnvBoolean('TEST'));
     }
 
     /**
