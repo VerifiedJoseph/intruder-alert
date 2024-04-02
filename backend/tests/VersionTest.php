@@ -6,11 +6,16 @@ use IntruderAlert\Version;
 #[CoversClass(Version::class)]
 class VersionTest extends AbstractTestCase
 {
-    public function testGet(): void
+    private static string $expected = '1.14.1';
+
+    public static function setUpBeforeClass(): void
     {
         $reflection = new ReflectionClass(new Version());
-        $expected = $reflection->getProperty('version')->getValue();
+        self::$expected = $reflection->getProperty('version')->getValue();
+    }
 
-        $this->assertEquals($expected, Version::get());
+    public function testGet(): void
+    {
+        $this->assertEquals(self::$expected, Version::get());
     }
 }
