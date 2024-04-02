@@ -1,7 +1,12 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use IntruderAlert\Logger;
+use IntruderAlert\Helper\Output;
 
+#[CoversClass(Logger::class)]
+#[UsesClass(Output::class)]
 class LoggerTest extends AbstractTestCase
 {
     /**
