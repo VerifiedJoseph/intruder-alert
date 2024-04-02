@@ -1,7 +1,10 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use IntruderAlert\List\Jails;
 
+#[CoversClass(Jails::class)]
+#[CoversClass(IntruderAlert\List\AbstractList::class)]
 class JailsTest extends AbstractTestCase
 {
     private static Jails $listClass;

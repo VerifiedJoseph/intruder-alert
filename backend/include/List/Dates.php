@@ -7,9 +7,6 @@ class Dates extends AbstractList
     /** {@inheritDoc} */
     protected ?string $mostBannedParam = 'date';
 
-    /** {@inheritDoc} */
-    protected string $orderItemsBy = 'date';
-
     /**
      * Add IP address
      *
@@ -35,5 +32,17 @@ class Dates extends AbstractList
                 $this->data['list'][$date]['ipCount']++;
             }
         }
+    }
+
+    /**
+     * Order list by date
+     */
+    protected function orderList(): void
+    {
+        usort($this->data['list'], function ($a1, $a2) {
+            $v1 = strtotime($a1['date']);
+            $v2 = strtotime($a2['date']);
+            return $v2 - $v1;
+        });
     }
 }

@@ -1,7 +1,10 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use IntruderAlert\List\Addresses;
 
+#[CoversClass(Addresses::class)]
+#[CoversClass(IntruderAlert\List\AbstractList::class)]
 class AddressesTest extends AbstractTestCase
 {
     private static Addresses $listClass;

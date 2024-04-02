@@ -1,7 +1,11 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use IntruderAlert\List\Dates;
 
+#[CoversClass(Dates::class)]
+#[UsesClass(IntruderAlert\List\AbstractList::class)]
 class DatesTest extends AbstractTestCase
 {
     private static Dates $listClass;
