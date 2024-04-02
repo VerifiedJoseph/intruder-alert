@@ -1,7 +1,18 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use IntruderAlert\Lists;
 
+#[CoversClass(Lists::class)]
+#[UsesClass(IntruderAlert\List\AbstractList::class)]
+#[UsesClass(IntruderAlert\List\Addresses::class)]
+#[UsesClass(IntruderAlert\List\Continents::class)]
+#[UsesClass(IntruderAlert\List\Countries::class)]
+#[UsesClass(IntruderAlert\List\Dates::class)]
+#[UsesClass(IntruderAlert\List\Jails::class)]
+#[UsesClass(IntruderAlert\List\Networks::class)]
+#[UsesClass(IntruderAlert\List\Subnets::class)]
 class ListsTest extends AbstractTestCase
 {
     private static Lists $lists;
