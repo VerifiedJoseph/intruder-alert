@@ -1,7 +1,10 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use IntruderAlert\List\Continents;
 
+#[CoversClass(Continents::class)]
+#[CoversClass(IntruderAlert\List\AbstractList::class)]
 class ContinentsTest extends AbstractTestCase
 {
     private static Continents $listClass;

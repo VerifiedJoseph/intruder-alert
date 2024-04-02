@@ -1,8 +1,10 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Database\Updater\Helper;
 
+#[CoversClass(Helper::class)]
 class HelperTest extends AbstractTestCase
 {
     public function setup(): void

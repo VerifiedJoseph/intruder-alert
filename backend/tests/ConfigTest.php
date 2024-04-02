@@ -1,10 +1,17 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Version;
 use IntruderAlert\Exception\ConfigException;
 
+#[CoversClass(Config::class)]
+#[UsesClass(Version::class)]
+#[UsesClass(ConfigException::class)]
+#[UsesClass(IntruderAlert\Config\Base::class)]
+#[UsesClass(IntruderAlert\Config\Check::class)]
 class ConfigTest extends AbstractTestCase
 {
     /** @var array<string, mixed> $defaults */

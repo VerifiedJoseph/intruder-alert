@@ -1,8 +1,15 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Cache;
+use IntruderAlert\Helper\File;
+use IntruderAlert\Helper\Json;
 
+#[CoversClass(Cache::class)]
+#[UsesClass(File::class)]
+#[UsesClass(Json::class)]
 class CacheTest extends AbstractTestCase
 {
     private static string $path = './backend/tests/files/cache-data.json';

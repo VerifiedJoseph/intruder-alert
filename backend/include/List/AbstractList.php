@@ -16,9 +16,6 @@ abstract class AbstractList
     /** @var ?string $mostBannedParam Data list parameter to use when calculating the most banned */
     protected ?string $mostBannedParam = null;
 
-    /** @var 'bans'|'date' $orderItemsBy Data list parameter to order lists by */
-    protected string $orderItemsBy = 'bans';
-
     /**
      * Get list
      *
@@ -27,11 +24,7 @@ abstract class AbstractList
     public function get(): array
     {
         $this->calculateMostBanned();
-
-        match ($this->orderItemsBy) {
-            'bans' => $this->orderByBans(),
-            'date' => $this->orderByDate()
-        };
+        $this->orderList();
 
         $this->data['list'] = array_values($this->data['list']);
 
@@ -69,23 +62,11 @@ abstract class AbstractList
     }
 
     /**
-     * Order by bans
+     * Order list by bans
      */
-    final protected function orderByBans(): void
+    protected function orderList(): void
     {
         $keys = array_column($this->data['list'], 'bans');
         array_multisort($keys, SORT_DESC, $this->data['list']);
-    }
-
-    /**
-     * Order by date
-     */
-    protected function orderByDate(): void
-    {
-        usort($this->data['list'], function ($a1, $a2) {
-            $v1 = strtotime($a1['date']);
-            $v2 = strtotime($a2['date']);
-            return $v2 - $v1;
-        });
     }
 }

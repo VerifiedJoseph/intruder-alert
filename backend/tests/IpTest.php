@@ -1,7 +1,9 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use IntruderAlert\Ip;
 
+#[CoversClass(Ip::class)]
 class IpTest extends AbstractTestCase
 {
     /** @var array<string, mixed> */

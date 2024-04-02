@@ -1,8 +1,15 @@
 <?php
 
-use IntruderAlert\Logger;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use IntruderAlert\Database\Network;
+use IntruderAlert\Logger;
 
+#[CoversClass(Network::class)]
+#[UsesClass(Logger::class)]
+#[UsesClass(IntruderAlert\Database\Database::class)]
+#[UsesClass(IntruderAlert\Helper\Output::class)]
+#[UsesClass(GeoIp2\Exception\AddressNotFoundException::class)]
 class NetworkTest extends AbstractTestCase
 {
     /** @var string $path Database path */

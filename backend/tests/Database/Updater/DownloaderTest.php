@@ -1,12 +1,22 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use MockFileSystem\MockFileSystem as mockfs;
+use IntruderAlert\Database\Updater\Downloader;
 use IntruderAlert\Config;
 use IntruderAlert\Fetch;
 use IntruderAlert\Logger;
-use IntruderAlert\Database\Updater\Downloader;
 use IntruderAlert\Exception\FetchException;
 
+#[CoversClass(Downloader::class)]
+#[UsesClass(Config::class)]
+#[UsesClass(Fetch::class)]
+#[UsesClass(Logger::class)]
+#[UsesClass(FetchException::class)]
+#[UsesClass(IntruderAlert\Database\Updater\Url::class)]
+#[UsesClass(IntruderAlert\Helper\File::class)]
+#[UsesClass(IntruderAlert\Helper\Output::class)]
 class DownloaderTest extends AbstractTestCase
 {
     /**

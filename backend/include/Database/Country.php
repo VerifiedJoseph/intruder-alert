@@ -2,7 +2,6 @@
 
 namespace IntruderAlert\Database;
 
-use IntruderAlert\Helper\Output;
 use GeoIp2\Exception\AddressNotFoundException;
 
 /**

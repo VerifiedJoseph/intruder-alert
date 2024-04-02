@@ -1,8 +1,15 @@
 <?php
 
-use IntruderAlert\Logger;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use IntruderAlert\Database\Country;
+use IntruderAlert\Logger;
 
+#[CoversClass(Country::class)]
+#[UsesClass(Logger::class)]
+#[CoversClass(IntruderAlert\Database\Database::class)]
+#[UsesClass(IntruderAlert\Helper\Output::class)]
+#[UsesClass(GeoIp2\Exception\AddressNotFoundException::class)]
 class CountryTest extends AbstractTestCase
 {
     /** @var string $path Database path */

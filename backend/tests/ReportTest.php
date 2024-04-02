@@ -1,10 +1,21 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Report;
 use IntruderAlert\Lists;
 use IntruderAlert\Logger;
 
+#[CoversClass(Report::class)]
+#[UsesClass(IntruderAlert\Helper\File::class)]
+#[UsesClass(IntruderAlert\Helper\Json::class)]
+#[UsesClass(IntruderAlert\Helper\Output::class)]
+#[UsesClass(IntruderAlert\List\AbstractList::class)]
+#[UsesClass(IntruderAlert\List\Addresses::class)]
+#[UsesClass(IntruderAlert\List\Dates::class)]
+#[UsesClass(IntruderAlert\Lists::class)]
+#[UsesClass(IntruderAlert\Logger::class)]
 class ReportTest extends AbstractTestCase
 {
     private static Lists $lists;

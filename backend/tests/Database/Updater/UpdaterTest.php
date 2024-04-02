@@ -1,12 +1,29 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
+use IntruderAlert\Database\Updater\Updater;
 use IntruderAlert\Config;
 use IntruderAlert\Fetch;
 use IntruderAlert\Logger;
-use IntruderAlert\Database\Updater\Updater;
 use IntruderAlert\Exception\FetchException;
 use IntruderAlert\Exception\AppException;
 
+#[CoversClass(Updater::class)]
+#[UsesClass(Config::class)]
+#[UsesClass(Fetch::class)]
+#[UsesClass(Logger::class)]
+#[UsesClass(FetchException::class)]
+#[UsesClass(AppException::class)]
+#[UsesClass(IntruderAlert\Database\Updater\Url::class)]
+#[UsesClass(IntruderAlert\Database\Updater\Downloader::class)]
+#[UsesClass(IntruderAlert\Database\Updater\Extractor::class)]
+#[UsesClass(IntruderAlert\Database\Updater\Helper::class)]
+#[UsesClass(IntruderAlert\Database\Updater\TimestampFile::class)]
+#[UsesClass(IntruderAlert\Config\Check::class)]
+#[UsesClass(IntruderAlert\Helper\File::class)]
+#[UsesClass(IntruderAlert\Helper\Output::class)]
+#[UsesClass(IntruderAlert\Version::class)]
 class UpdaterTest extends AbstractTestCase
 {
     public function setup(): void
