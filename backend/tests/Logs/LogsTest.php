@@ -12,6 +12,12 @@ use IntruderAlert\Exception\LogsException;
 #[CoversClass(Logs::class)]
 #[UsesClass(Config::class)]
 #[UsesClass(Logger::class)]
+#[UsesClass(AppException::class)]
+#[UsesClass(LogsException::class)]
+#[UsesClass(IntruderAlert\Helper\Output::class)]
+#[UsesClass(IntruderAlert\Helper\Timer::class)]
+#[UsesClass(IntruderAlert\Helper\Timer::class)]
+#[UsesClass(IntruderAlert\Logs\LineExtractor::class)]
 class LogsTest extends AbstractTestCase
 {
     /** @var array<int, array<string, string>> $lines Test log lines */
