@@ -13,6 +13,7 @@ use IntruderAlert\Logger;
 #[UsesClass(IntruderAlert\Helper\Output::class)]
 #[UsesClass(IntruderAlert\List\AbstractList::class)]
 #[UsesClass(IntruderAlert\List\Addresses::class)]
+#[UsesClass(IntruderAlert\List\Dates::class)]
 #[UsesClass(IntruderAlert\Lists::class)]
 #[UsesClass(IntruderAlert\Logger::class)]
 class ReportTest extends AbstractTestCase
