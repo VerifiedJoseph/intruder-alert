@@ -1,6 +1,5 @@
 <?php
 
-
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use IntruderAlert\Database\Country;
