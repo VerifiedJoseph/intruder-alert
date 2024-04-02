@@ -1,7 +1,9 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use IntruderAlert\Database\Updater\Url;
 
+#[CoversClass(Url::class)]
 class UrlTest extends AbstractTestCase
 {
     /**
