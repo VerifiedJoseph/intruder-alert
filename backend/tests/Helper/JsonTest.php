@@ -1,8 +1,12 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use IntruderAlert\Helper\Json;
 use IntruderAlert\Exception\AppException;
 
+#[CoversClass(Json::class)]
+#[UsesClass(AppException::class)]
 class JsonTest extends AbstractTestCase
 {
     public function testEncodeValid(): void
