@@ -7,7 +7,9 @@
          beStrictAboutOutputDuringTests="true"
          failOnRisky="true"
          failOnWarning="true"
-         displayDetailsOnTestsThatTriggerWarnings="true">
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         beStrictAboutCoverageMetadata="true"
+         requireCoverageMetadata="true">
     <testsuites>
         <testsuite name="default">
             <directory>./backend/tests/</directory>
