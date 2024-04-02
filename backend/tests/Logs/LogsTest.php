@@ -1,5 +1,7 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Logger;
@@ -7,6 +9,9 @@ use IntruderAlert\Logs\Logs;
 use IntruderAlert\Exception\AppException;
 use IntruderAlert\Exception\LogsException;
 
+#[CoversClass(Logs::class)]
+#[UsesClass(Config::class)]
+#[UsesClass(Logger::class)]
 class LogsTest extends AbstractTestCase
 {
     /** @var array<int, array<string, string>> $lines Test log lines */
