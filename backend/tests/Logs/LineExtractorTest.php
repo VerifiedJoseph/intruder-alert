@@ -1,7 +1,9 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use IntruderAlert\Logs\LineExtractor;
 
+#[CoversClass(LineExtractor::class)]
 class LineExtractorTest extends AbstractTestCase
 {
     /** @var array<int, array<string, string>> $lines Test log lines */
