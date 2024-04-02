@@ -1,8 +1,10 @@
 <?php
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use IntruderAlert\Fetch;
 use IntruderAlert\Exception\FetchException;
 
+#[CoversClass(Fetch::class)]
 class FetchTest extends AbstractTestCase
 {
     /** @var string $useragent HTTP useragent */
