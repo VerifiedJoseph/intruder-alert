@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.14.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.14.2) - 2024-04-05
+
+- Dockerfile: Updated node from 20.12.0-alpine3.19 to 20.12.1-alpine3.19 ([#470](https://github.com/VerifiedJoseph/intruder-alert/pull/470), [`2867372`](https://github.com/VerifiedJoseph/intruder-alert/commit/28673724aa1f7e3fddad6ee608a933b0f8b45b54))
+- Dockerfile: Updated node from 20.11.1-alpine3.19 to 20.12.0-alpine3.19 ([#464](https://github.com/VerifiedJoseph/intruder-alert/pull/464), [`aa4e5a7`](https://github.com/VerifiedJoseph/intruder-alert/commit/aa4e5a798b57812bb58341da402852773451715e))
+- Backend: Removed permissions `0660` from `mkdir()` in class `Config\Check`. ([#456](https://github.com/VerifiedJoseph/intruder-alert/pull/456), [`7b072f8`](https://github.com/VerifiedJoseph/intruder-alert/commit/7b072f8c714fed8d107a8bf901ddae4c05c84366))
+- Frontend: Updated filter method `remove()` to use unique filter identifiers. ([#460](https://github.com/VerifiedJoseph/intruder-alert/pull/460), [`7eaa189`](https://github.com/VerifiedJoseph/intruder-alert/commit/7eaa1897cf533dbc9be103f6b4149d8d02801b53))
+
 ## [1.14.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.14.1) - 2024-03-20
 
 - Fixed checking environment variable `IA_MAXMIND_LICENSE_KEY`. ([#453](https://github.com/VerifiedJoseph/intruder-alert/pull/453), [`65184b0`](https://github.com/VerifiedJoseph/intruder-alert/commit/65184b07ab9039753951af72fe8c16779074d3be))
