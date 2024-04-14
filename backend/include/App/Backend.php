@@ -77,7 +77,7 @@ class Backend extends App
         $report = new Report(
             $this->lists->get(),
             $this->lists->getCounts(),
-            $this->config->getDataFilePath(),
+            $this->config,
             $this->logger
         );
 
