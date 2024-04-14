@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\Attributes\CoversClass;
 use IntruderAlert\Helper\Convert;
 
