@@ -182,7 +182,8 @@ class Config extends Base
         }
 
         $this->check->dashboard();
-        $this->check->timezones();
+        $this->check->timezone();
+        $this->check->systemLogTimezone();
         $this->config = $this->check->getConfig();
     }
 
