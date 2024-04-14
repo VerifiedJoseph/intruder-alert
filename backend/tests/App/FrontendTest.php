@@ -91,7 +91,7 @@ class FrontendTest extends AbstractTestCase
         $config->method('getDashDaemonLogStatus')->willReturn(false);
         $config->method('getDataFilePath')->willReturn('backend/tests/files/expected-report.json');
 
-        $_POST['hash'] = '34a8ef343acd57421de902ab305aef0b69ebe296';
+        $_POST['hash'] = '7ab39063e802dca401ea7d40190301f3a0338f70';
 
         $app = new Frontend($config);
         $actual = json_decode($app->getJsonReport(), associative: true);
