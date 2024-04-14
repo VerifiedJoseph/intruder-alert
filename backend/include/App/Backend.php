@@ -2,6 +2,8 @@
 
 namespace IntruderAlert\App;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use IntruderAlert\Ip;
 use IntruderAlert\Cache;
 use IntruderAlert\Fetch;
@@ -91,10 +93,15 @@ class Backend extends App
      */
     private function generateErrorReport(string $message): void
     {
+        $date = new DateTimeImmutable(
+            'now',
+            new DateTimeZone($this->config->getTimezone())
+        );
+
         $data = [
             'error' => true,
             'message' => $message,
-            'updated' => date('Y-m-d H:i:s')
+            'updated' => $date->format('Y-m-d H:i:s')
         ];
 
         File::write(
