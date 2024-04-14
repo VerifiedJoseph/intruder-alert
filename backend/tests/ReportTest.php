@@ -6,8 +6,10 @@ use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Report;
 use IntruderAlert\Lists;
 use IntruderAlert\Logger;
+use IntruderAlert\Config;
 
 #[CoversClass(Report::class)]
+#[UsesClass(IntruderAlert\Config::class)]
 #[UsesClass(IntruderAlert\Helper\File::class)]
 #[UsesClass(IntruderAlert\Helper\Json::class)]
 #[UsesClass(IntruderAlert\Helper\Output::class)]
@@ -39,17 +41,21 @@ class ReportTest extends AbstractTestCase
     {
         $this->expectOutputRegex('/Created report JSON file/');
 
+        $config = $this->createStub(Config::class);
+        $config->method('getTimezone')->willReturn('UTC');
+        $config->method('getDataFilePath')->willReturn(mockfs::getUrl('/report.json'));
+
         $report = new Report(
             self::$lists->get(),
             self::$lists->getCounts(),
-            mockfs::getUrl('/report.json'),
+            $config,
             new Logger()
         );
 
         $reflection = new ReflectionClass($report);
         $property = $reflection->getProperty('date');
         $property->setAccessible(true);
-        $property->setValue($report, new DateTime('2024-03-13 00:00:00'));
+        $property->setValue($report, new DateTimeImmutable('2024-03-13 00:00:00'));
 
         $report->generate();
 
