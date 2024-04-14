@@ -16,7 +16,7 @@ use IntruderAlert\Exception\LogsException;
 #[UsesClass(LogsException::class)]
 #[UsesClass(IntruderAlert\Helper\Output::class)]
 #[UsesClass(IntruderAlert\Helper\Timer::class)]
-#[UsesClass(IntruderAlert\Helper\Timer::class)]
+#[UsesClass(IntruderAlert\Helper\Convert::class)]
 #[UsesClass(IntruderAlert\Logs\LineExtractor::class)]
 class LogsTest extends AbstractTestCase
 {
