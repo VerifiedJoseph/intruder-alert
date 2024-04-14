@@ -277,7 +277,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_CHARTS=false');
 
         $check = new Check(self::$defaults);
-        $check->dashboard();
+        $check->dashboardCharts();
         $config = $check->getConfig();
 
         $this->assertFalse($config['dash_charts']);
@@ -294,7 +294,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_CHARTS=string');
 
         $check = new Check(self::$defaults);
-        $check->dashboard();
+        $check->dashboardCharts();
     }
 
     /**
@@ -305,7 +305,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_UPDATES=false');
 
         $check = new Check(self::$defaults);
-        $check->dashboard();
+        $check->dashboardUpdates();
         $config = $check->getConfig();
 
         $this->assertFalse($config['dash_updates']);
@@ -322,7 +322,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_UPDATES=string');
 
         $check = new Check(self::$defaults);
-        $check->dashboard();
+        $check->dashboardUpdates();
     }
 
     /**
@@ -333,7 +333,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_DAEMON_LOG=false');
 
         $check = new Check(self::$defaults);
-        $check->dashboard();
+        $check->dashboardDaemonLog();
         $config = $check->getConfig();
 
         $this->assertFalse($config['dash_daemon_log']);
@@ -350,7 +350,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_DAEMON_LOG=string');
 
         $check = new Check(self::$defaults);
-        $check->dashboard();
+        $check->dashboardDaemonLog();
     }
 
     /**
