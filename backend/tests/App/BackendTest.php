@@ -12,6 +12,7 @@ use IntruderAlert\App\Backend;
 #[UsesClass(IntruderAlert\Lists::class)]
 #[UsesClass(IntruderAlert\Helper\Json::class)]
 #[UsesClass(IntruderAlert\Helper\File::class)]
+#[UsesClass(IntruderAlert\Helper\Convert::class)]
 #[UsesClass(IntruderAlert\Cache::class)]
 #[UsesClass(IntruderAlert\Database\Country::class)]
 #[UsesClass(IntruderAlert\Database\Database::class)]
