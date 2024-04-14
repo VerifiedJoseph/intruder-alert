@@ -277,7 +277,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_CHARTS=false');
 
         $check = new Check(self::$defaults);
-        $check->dashboard();
+        $check->dashboardCharts();
         $config = $check->getConfig();
 
         $this->assertFalse($config['dash_charts']);
@@ -294,7 +294,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_CHARTS=string');
 
         $check = new Check(self::$defaults);
-        $check->dashboard();
+        $check->dashboardCharts();
     }
 
     /**
@@ -305,7 +305,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_UPDATES=false');
 
         $check = new Check(self::$defaults);
-        $check->dashboard();
+        $check->dashboardUpdates();
         $config = $check->getConfig();
 
         $this->assertFalse($config['dash_updates']);
@@ -322,7 +322,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_UPDATES=string');
 
         $check = new Check(self::$defaults);
-        $check->dashboard();
+        $check->dashboardUpdates();
     }
 
     /**
@@ -333,7 +333,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_DAEMON_LOG=false');
 
         $check = new Check(self::$defaults);
-        $check->dashboard();
+        $check->dashboardDaemonLog();
         $config = $check->getConfig();
 
         $this->assertFalse($config['dash_daemon_log']);
@@ -350,7 +350,21 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_DAEMON_LOG=string');
 
         $check = new Check(self::$defaults);
-        $check->dashboard();
+        $check->dashboardDaemonLog();
+    }
+
+    /**
+     * Test `IA_TIMEZONE` variable
+     */
+    public function testTimezone(): void
+    {
+        putenv('IA_TIMEZONE=Europe/London');
+
+        $check = new Check(self::$defaults);
+        $check->timezone();
+        $config = $check->getConfig();
+
+        $this->assertEquals('Europe/London', $config['timezone']);
     }
 
     /**
@@ -362,7 +376,7 @@ class CheckTest extends AbstractTestCase
         $this->expectExceptionMessage('Timezone environment variable must be set');
 
         $check = new Check(self::$defaults);
-        $check->timezones();
+        $check->timezone();
     }
 
     /**
@@ -376,7 +390,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_TIMEZONE=Europe/Coventry');
 
         $check = new Check(self::$defaults);
-        $check->timezones();
+        $check->timezone();
     }
 
     /**
@@ -384,11 +398,10 @@ class CheckTest extends AbstractTestCase
      */
     public function testSystemLogTimezone(): void
     {
-        putenv('IA_TIMEZONE=Europe/London');
         putenv('IA_SYSTEM_LOG_TIMEZONE=UTC');
 
         $check = new Check(self::$defaults);
-        $check->timezones();
+        $check->systemLogTimezone();
         $config = $check->getConfig();
 
         $this->assertEquals('UTC', $config['log_timezone']);
@@ -402,11 +415,10 @@ class CheckTest extends AbstractTestCase
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Timezone can not be empty [IA_SYSTEM_LOG_TIMEZONE]');
 
-        putenv('IA_TIMEZONE=Europe/London');
         putenv('IA_SYSTEM_LOG_TIMEZONE=');
 
         $check = new Check(self::$defaults);
-        $check->timezones();
+        $check->systemLogTimezone();
     }
 
     /**
@@ -417,11 +429,10 @@ class CheckTest extends AbstractTestCase
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Unknown timezone given [IA_SYSTEM_LOG_TIMEZONE]');
 
-        putenv('IA_TIMEZONE=Europe/London');
         putenv('IA_SYSTEM_LOG_TIMEZONE=Europe/Coventry');
 
         $check = new Check(self::$defaults);
-        $check->timezones();
+        $check->systemLogTimezone();
     }
 
     /**
@@ -429,12 +440,10 @@ class CheckTest extends AbstractTestCase
      */
     public function testNotSettingSystemLogTimezone(): void
     {
-        putenv('IA_TIMEZONE=Europe/London');
-
         $tz = date_default_timezone_get();
 
         $check = new Check(self::$defaults);
-        $check->timezones();
+        $check->systemLogTimezone();
         $config = $check->getConfig();
 
         $this->assertEquals($tz, $config['log_timezone']);

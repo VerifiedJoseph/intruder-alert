@@ -181,8 +181,12 @@ class Config extends Base
             require $this->getPath('config.php');
         }
 
-        $this->check->dashboard();
-        $this->check->timezones();
+        $this->check->timezone();
+        $this->check->systemLogTimezone();
+        $this->check->dashboardCharts();
+        $this->check->dashboardUpdates();
+        $this->check->dashboardDaemonLog();
+
         $this->config = $this->check->getConfig();
     }
 
