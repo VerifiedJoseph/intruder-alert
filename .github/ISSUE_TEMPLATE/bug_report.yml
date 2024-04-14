@@ -14,8 +14,8 @@ body:
     attributes:
       label: Configuration
       description: >-
-        Provide a complete `docker-compose.yaml` and\or `config.php`
-        configuration file
+        Provide a complete `docker-compose` and\or `config.php`
+        configuration file.
   - type: input
     attributes:
       label: Version
