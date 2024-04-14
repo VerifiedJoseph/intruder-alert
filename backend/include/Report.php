@@ -2,7 +2,8 @@
 
 namespace IntruderAlert;
 
-use DateTime;
+use DateTimeZone;
+use DateTimeImmutable;
 use IntruderAlert\Logger;
 use IntruderAlert\Helper\File;
 use IntruderAlert\Helper\Json;
@@ -13,6 +14,9 @@ use IntruderAlert\Helper\Output;
  */
 class Report
 {
+    /** @var Config $config */
+    private Config $config;
+
     /** @var Logger $logger */
     private Logger $logger;
 
@@ -22,28 +26,29 @@ class Report
     /** @var array<string, int> $counts List item counts */
     private array $counts = [];
 
-    /** @var string $path Path to save the generated report */
-    private string $path = '';
-
     /** @var DateTime $data */
-    private DateTime $date;
+    private DateTimeImmutable $date;
 
     /**
      * @param array<string, mixed> $lists
      * @param array<string, mixed> $counts
+     * @param Config $config Config class instance
      * @param Logger $logger Logger class instance
      */
     public function __construct(
         array $lists,
         array $counts,
-        string $path,
+        Config $config,
         Logger $logger
     ) {
         $this->lists = $lists;
         $this->counts = $counts;
-        $this->path = $path;
+        $this->config = $config;
         $this->logger = $logger;
-        $this->date = new DateTime();
+        $this->date = new DateTimeImmutable(
+            'now',
+            new DateTimeZone($this->config->getTimezone())
+        );
     }
 
     /**
@@ -60,11 +65,11 @@ class Report
         $data['log'][] = 'Last run: ' . $data['updated'];
 
         File::write(
-            $this->path,
+            $this->config->getDataFilePath(),
             Json::encode($data)
         );
 
-        Output::text('Created report JSON file: ' . $this->path);
+        Output::text('Created report JSON file: ' . $this->config->getDataFilePath());
     }
 
     /**
