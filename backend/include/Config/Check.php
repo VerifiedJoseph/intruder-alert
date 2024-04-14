@@ -211,13 +211,11 @@ class Check extends Base
     }
 
     /**
-     * Check dashboard variables
+     * Check dashboard charts variable (`IA_DISABLE_CHARTS`)
      *
      * @throws ConfigException if environment variable `IA_DISABLE_CHARTS` is not a boolean.
-     * @throws ConfigException if environment variable `IA_DISABLE_DASH_UPDATES` is not a boolean.
-     * @throws ConfigException if environment variable `IA_DASH_DAEMON_LOG` is not a boolean.
      */
-    public function dashboard(): void
+    public function dashboardCharts(): void
     {
         if ($this->hasEnv('DASH_CHARTS') === true) {
             if ($this->isEnvBoolean('DASH_CHARTS') === false) {
@@ -226,7 +224,15 @@ class Check extends Base
 
             $this->config['dash_charts'] = filter_var($this->getEnv('DASH_CHARTS'), FILTER_VALIDATE_BOOLEAN);
         }
+    }
 
+    /**
+     * Check dashboard updates variable (`IA_DISABLE_DASH_UPDATES`)
+     *
+     * @throws ConfigException if environment variable `IA_DISABLE_DASH_UPDATES` is not a boolean.
+     */
+    public function dashboardUpdates(): void
+    {
         if ($this->hasEnv('DASH_UPDATES') === true) {
             if ($this->isEnvBoolean('DASH_UPDATES') === false) {
                 throw new ConfigException(
@@ -236,7 +242,15 @@ class Check extends Base
 
             $this->config['dash_updates'] = filter_var($this->getEnv('DASH_UPDATES'), FILTER_VALIDATE_BOOLEAN);
         }
+    }
 
+    /**
+     * Check dashboard daemon log variable (`IA_DISABLE_DASH_UPDATES`)
+     *
+     * @throws ConfigException if environment variable `IA_DASH_DAEMON_LOG` is not a boolean.
+     */
+    public function dashboardDaemonLog(): void
+    {
         if ($this->hasEnv('DASH_DAEMON_LOG') === true) {
             if ($this->isEnvBoolean('DASH_DAEMON_LOG') === false) {
                 throw new ConfigException(
