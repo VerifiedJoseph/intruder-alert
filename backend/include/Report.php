@@ -62,7 +62,7 @@ class Report
         $data['hash'] = sha1($data['updated']);
         $data['dataSince'] = $this->getDataSinceDate();
         $data['log'] = $this->logger->getEntries();
-        $data['log'][] = 'Last run: ' . $data['updated'];
+        $data['log'][] = 'Last run: ' . $this->date->format('Y-m-d H:i:s e');
 
         File::write(
             $this->config->getDataFilePath(),
