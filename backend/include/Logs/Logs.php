@@ -5,14 +5,13 @@ namespace IntruderAlert\Logs;
 use IntruderAlert\Config;
 use IntruderAlert\Logger;
 use IntruderAlert\Helper\Timer;
+use IntruderAlert\Helper\Convert;
 use IntruderAlert\Exception\AppException;
 use IntruderAlert\Exception\LogsException;
 use SplFileInfo;
 use RegexIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use DateTime;
-use DateTimeZone;
 
 /**
  * Class for processing Fail2ban logs
@@ -74,12 +73,18 @@ class Logs
                 $line = new LineExtractor($current);
                 $lineCount += 1;
 
+                $timestamp = Convert::timezone(
+                    $line->getTimestamp(),
+                    $this->config->getSystemLogTimezone(),
+                    $this->config->getTimezone()
+                );
+
                 if ($line->hasBan() === true) {
                     $banCount += 1;
                     $rows[] = [
                         'ip' => $line->getIp(),
                         'jail' => $line->getJail(),
-                        'timestamp' => $this->formatTimestamp($line->getTimestamp())
+                        'timestamp' => $timestamp
                     ];
                 }
             }
@@ -134,22 +139,5 @@ class Logs
         }
 
         return $files;
-    }
-
-    /**
-     * Format timestamp (convert from system to local time zone)
-     *
-     * @param string $timestamp
-     */
-    private function formatTimestamp(string $timestamp): string
-    {
-        $date = new DateTime(
-            $timestamp,
-            new DateTimeZone($this->config->getSystemLogTimezone())
-        );
-
-        $date->setTimezone(new DateTimeZone($this->config->getTimezone()));
-
-        return $date->format('Y-m-d H:i:s');
     }
 }
