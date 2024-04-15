@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.15.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.15.0) - 2024-04-15
+
+- Added backend class `Convert` ([#483](https://github.com/VerifiedJoseph/intruder-alert/pull/483), [`36c7ccf`](https://github.com/VerifiedJoseph/intruder-alert/commit/36c7ccfffd5f2d27534a4d14ac7e2717777cf451))
+- Reworked date and time handling. ([#494](https://github.com/VerifiedJoseph/intruder-alert/pull/494), [`efb4172`](https://github.com/VerifiedJoseph/intruder-alert/commit/efb41725d0e71da36e94c47071c00155b3fc4180), [#495](https://github.com/VerifiedJoseph/intruder-alert/pull/495), [`20d99e1`](https://github.com/VerifiedJoseph/intruder-alert/commit/20d99e1632492673715b89e60beafa4e9ea2a57c))
+- Split methods `timezones()` & `dashboard()` into multiple methods in backend class `Config\Check`. ([#484](https://github.com/VerifiedJoseph/intruder-alert/pull/484), [`36f51ca`](https://github.com/VerifiedJoseph/intruder-alert/commit/36f51cad9a4d81d28bd8b47db59ffe04c80cc6ec))
+
 ## [1.14.3](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.14.3) - 2024-04-13
 
 - Dockerfile: Updated php from 8.2.17-fpm-alpine3.19 to 8.2.18-fpm3.19 ([#479](https://github.com/VerifiedJoseph/intruder-alert/pull/479), [`61f62cd`](https://github.com/VerifiedJoseph/intruder-alert/commit/61f62cdeeca3a44492bbc0ea2982a3798d79a7ae))
