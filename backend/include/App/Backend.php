@@ -79,7 +79,8 @@ class Backend extends App
         $report = new Report(
             $this->lists->get(),
             $this->lists->getCounts(),
-            $this->config,
+            $this->config->getDataFilePath(),
+            $this->config->getTimezone(),
             $this->logger
         );
 
