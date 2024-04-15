@@ -9,9 +9,9 @@
 	},
 	{
 		"note": "Ipv6 ban",
-		"line": "2023-02-05 00:06:57,449 fail2ban.actions        [40619]: NOTICE  [nginx] Ban 2a02:d3c0::1",
+		"line": "2023-02-05 00:06:57,449 fail2ban.actions        [40619]: NOTICE  [nginx-https] Ban 2a02:d3c0::1",
 		"ip": "2a02:d3c0::1",
-		"jail": "nginx",
+		"jail": "nginx-https",
 		"type": "ban",
 		"timestamp": "2023-02-05 00:06:57"
 	},
@@ -25,9 +25,9 @@
 	},
 	{
 		"note": "Ipv6 found",
-		"line": "2023-02-05 00:28:13,052 fail2ban.filter         [40619]: INFO    [nginx] Found 2a02:d3c0::1 - 2023-02-05 00:28:13",
+		"line": "2023-02-05 00:28:13,052 fail2ban.filter         [40619]: INFO    [nginx-https] Found 2a02:d3c0::1 - 2023-02-05 00:28:13",
 		"ip": "2a02:d3c0::1",
-		"jail": "nginx",
+		"jail": "nginx-https",
 		"type": "found",
 		"timestamp": "2023-02-05 00:28:13"
 	}
