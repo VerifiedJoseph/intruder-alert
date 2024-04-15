@@ -32,15 +32,10 @@ body:
         - Other
     validations:
       required: true
-  - type: dropdown
+  - type: input
     attributes:
       label: PHP Version
       description: What version of php are you using to run Intruder Alert?
-      options:
-        - '8.3'
-        - '8.2'
-        - '8.1'
-        - Other
     validations:
       required: true
   - type: textarea
