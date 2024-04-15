@@ -41,14 +41,14 @@ class ReportTest extends AbstractTestCase
     {
         $this->expectOutputRegex('/Created report JSON file/');
 
-        $config = $this->createStub(Config::class);
-        $config->method('getTimezone')->willReturn('UTC');
-        $config->method('getDataFilePath')->willReturn(mockfs::getUrl('/report.json'));
+        $path = mockfs::getUrl('/report.json');
+        $timezone = 'UTC';
 
         $report = new Report(
             self::$lists->get(),
             self::$lists->getCounts(),
-            $config,
+            $path,
+            $timezone,
             new Logger()
         );
 
