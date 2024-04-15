@@ -26,28 +26,33 @@ class Report
     /** @var array<string, int> $counts List item counts */
     private array $counts = [];
 
+    /** @var string $path Path to save the generated report */
+    private string $path = '';
+
     /** @var DateTime $data */
     private DateTimeImmutable $date;
 
     /**
      * @param array<string, mixed> $lists
      * @param array<string, mixed> $counts
-     * @param Config $config Config class instance
+     * @param string $path Data file path
+     * @param string $timezone Dashboard timezone
      * @param Logger $logger Logger class instance
      */
     public function __construct(
         array $lists,
         array $counts,
-        Config $config,
+        string $path,
+        string $timezone,
         Logger $logger
     ) {
         $this->lists = $lists;
         $this->counts = $counts;
-        $this->config = $config;
+        $this->path = $path;
         $this->logger = $logger;
         $this->date = new DateTimeImmutable(
             'now',
-            new DateTimeZone($this->config->getTimezone())
+            new DateTimeZone($timezone)
         );
     }
 
@@ -65,11 +70,11 @@ class Report
         $data['log'][] = 'Last run: ' . $this->date->format('Y-m-d H:i:s e');
 
         File::write(
-            $this->config->getDataFilePath(),
+            $this->path,
             Json::encode($data)
         );
 
-        Output::text('Created report JSON file: ' . $this->config->getDataFilePath());
+        Output::text('Created report JSON file: ' . $this->path);
     }
 
     /**
