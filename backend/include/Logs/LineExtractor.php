@@ -11,7 +11,7 @@ class LineExtractor
     private $regex = <<<REGEX
      /(?<timestamp>[0-9]{4}-[0-9]{2}-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2})
      ,[0-9]+\ fail2ban*.+
-     \[(?<jail>[\w]+)]\ 
+     \[(?<jail>.+)]\ 
      Ban\ (?<ip>[0-9a-z.:]+)
      /ix
     REGEX;
