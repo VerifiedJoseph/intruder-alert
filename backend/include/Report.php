@@ -14,9 +14,6 @@ use IntruderAlert\Helper\Output;
  */
 class Report
 {
-    /** @var Config $config */
-    private Config $config;
-
     /** @var Logger $logger */
     private Logger $logger;
 
