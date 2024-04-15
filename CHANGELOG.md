@@ -7,6 +7,7 @@ All notable changes to this project are documented in this file.
 - Added backend class `Convert` ([#483](https://github.com/VerifiedJoseph/intruder-alert/pull/483), [`36c7ccf`](https://github.com/VerifiedJoseph/intruder-alert/commit/36c7ccfffd5f2d27534a4d14ac7e2717777cf451))
 - Reworked backend date and time handling. ([#494](https://github.com/VerifiedJoseph/intruder-alert/pull/494), [`efb4172`](https://github.com/VerifiedJoseph/intruder-alert/commit/efb41725d0e71da36e94c47071c00155b3fc4180), [#495](https://github.com/VerifiedJoseph/intruder-alert/pull/495), [`20d99e1`](https://github.com/VerifiedJoseph/intruder-alert/commit/20d99e1632492673715b89e60beafa4e9ea2a57c))
 - Split methods `timezones()` and `dashboard()` into multiple methods in backend class `Config\Check`. ([#484](https://github.com/VerifiedJoseph/intruder-alert/pull/484), [`36f51ca`](https://github.com/VerifiedJoseph/intruder-alert/commit/36f51cad9a4d81d28bd8b47db59ffe04c80cc6ec))
+- Fixed log line regex failing on jails with non-alphameric characters. ([#493](https://github.com/VerifiedJoseph/intruder-alert/pull/493), [`6598bfc`](https://github.com/VerifiedJoseph/intruder-alert/commit/6598bfce3cce5cd4774af4574ae11974b1cfb480))
 
 ## [1.14.3](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.14.3) - 2024-04-13
 
