@@ -2,6 +2,7 @@
 
 namespace IntruderAlert\Config;
 
+use DateTimeZone;
 use IntruderAlert\Exception\ConfigException;
 use GeoIp2\Database\Reader;
 use MaxMind\Db\Reader\InvalidDatabaseException;
@@ -178,7 +179,7 @@ class Check extends Base
             throw new ConfigException('Timezone environment variable must be set [IA_TIMEZONE]');
         }
 
-        if (in_array($this->getEnv('TIMEZONE'), \DateTimeZone::listIdentifiers(\DateTimeZone::ALL)) === false) {
+        if ($this->isTimezoneValid($this->getEnv('TIMEZONE')) === false) {
             throw new ConfigException('Unknown timezone given [IA_TIMEZONE]');
         }
 
@@ -188,19 +189,24 @@ class Check extends Base
     /**
      * Check system log timezone (`IA_SYSTEM_LOG_TIMEZONE`)
      *
+     * @throws ConfigException if `IA_SYSTEM_LOG_TIMEZONE` is not given when running in a docker container.
      * @throws ConfigException if `IA_SYSTEM_LOG_TIMEZONE` environment variable is empty.
      * @throws ConfigException if an unknown timezone given in `IA_SYSTEM_LOG_TIMEZONE`.
      */
     public function systemLogTimezone(): void
     {
+        if ($this->isDocker() === true && $this->hasEnv('SYSTEM_LOG_TIMEZONE') === false) {
+            throw new ConfigException(
+                'Fail2ban log timezone is required when running in a docker container. [IA_SYSTEM_LOG_TIMEZONE]'
+            );
+        }
+
         if ($this->hasEnv('SYSTEM_LOG_TIMEZONE') === true) {
             if ($this->getEnv('SYSTEM_LOG_TIMEZONE') === '') {
                 throw new ConfigException('Timezone can not be empty [IA_SYSTEM_LOG_TIMEZONE]');
             }
 
-            $valid = in_array($this->getEnv('SYSTEM_LOG_TIMEZONE'), \DateTimeZone::listIdentifiers(\DateTimeZone::ALL));
-
-            if ($valid === false) {
+            if ($this->isTimezoneValid($this->getEnv('SYSTEM_LOG_TIMEZONE')) === false) {
                 throw new ConfigException('Unknown timezone given [IA_SYSTEM_LOG_TIMEZONE]');
             }
 
@@ -276,5 +282,28 @@ class Check extends Base
         } catch (InvalidDatabaseException) {
             throw new ConfigException('GeoLite2 database is invalid: ' . $path);
         }
+    }
+
+    /**
+     * Is intruder alert running in a docker container. Checks for `IA_DOCKER=true`.
+     * @return bool
+     */
+    protected function isDocker(): bool
+    {
+        if ($this->hasEnv('DOCKER') === true && $this->getEnv('DOCKER') === 'true') {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Is timezone valid. Checks timezone against `DateTimeZone::listIdentifiers`
+     * @param string $timezone
+     * @return bool 
+     */
+    protected function isTimezoneValid(string $timezone): bool
+    {
+        return in_array($timezone, DateTimeZone::listIdentifiers(DateTimeZone::ALL), true);
     }
 }
