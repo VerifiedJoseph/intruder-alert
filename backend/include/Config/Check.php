@@ -300,7 +300,7 @@ class Check extends Base
     /**
      * Is timezone valid. Checks timezone against `DateTimeZone::listIdentifiers`
      * @param string $timezone
-     * @return bool 
+     * @return bool
      */
     protected function isTimezoneValid(string $timezone): bool
     {
