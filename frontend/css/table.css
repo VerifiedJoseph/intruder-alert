@@ -62,7 +62,7 @@ table td.long {
 }
 
 table td.jail {
-	width: 110px;
+	width: 140px;
 }
 
 table td.view-btn {
@@ -89,7 +89,7 @@ table td:hover > span > .row-filter {
 	display: unset;
 }
 
-td.asn > span, td.long > span {
+td.asn > span, td.long > span, td.jail > span {
 	display: inherit;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -98,6 +98,10 @@ td.asn > span, td.long > span {
 
 td.asn > span {
 	max-width: 285px;
+}
+
+td.jail > span {
+	max-width: 125px;
 }
 
 td.long > span {
