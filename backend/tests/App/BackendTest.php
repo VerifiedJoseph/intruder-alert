@@ -7,7 +7,7 @@ use IntruderAlert\Config;
 use IntruderAlert\App\Backend;
 
 #[CoversClass(Backend::class)]
-#[CoversClass(IntruderAlert\App\App::class)]
+#[CoversClass(IntruderAlert\App\AbstractApp::class)]
 #[UsesClass(Config::class)]
 #[UsesClass(IntruderAlert\Lists::class)]
 #[UsesClass(IntruderAlert\Helper\Json::class)]

@@ -5,7 +5,7 @@ namespace IntruderAlert\App;
 use IntruderAlert\Helper\File;
 use IntruderAlert\Helper\Json;
 
-class Frontend extends App
+class Frontend extends AbstractApp
 {
     /**
      * Get report JSON

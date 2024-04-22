@@ -6,7 +6,7 @@ use IntruderAlert\Config;
 use IntruderAlert\Logger;
 use IntruderAlert\Lists;
 
-abstract class App
+abstract class AbstractApp
 {
     /** @var Config $config */
     protected Config $config;
