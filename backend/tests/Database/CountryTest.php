@@ -7,7 +7,7 @@ use IntruderAlert\Logger;
 
 #[CoversClass(Country::class)]
 #[UsesClass(Logger::class)]
-#[CoversClass(IntruderAlert\Database\Database::class)]
+#[UsesClass(IntruderAlert\Database\AbstractDatabase::class)]
 #[UsesClass(IntruderAlert\Helper\Output::class)]
 #[UsesClass(GeoIp2\Exception\AddressNotFoundException::class)]
 class CountryTest extends AbstractTestCase
