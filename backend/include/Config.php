@@ -36,6 +36,10 @@ class Config extends Base
     /** @var string $cacheFilepath Cache filepath */
     private string $cacheFilepath = 'data/cache.json';
 
+    private array $supportedCharts = [
+        'last24hours', 'last48hours', 'last14days', 'last30days'
+    ];
+
     /** @var array<string, mixed> $config Loaded config */
     private array $config = [
         'log_paths' => '',
@@ -47,7 +51,8 @@ class Config extends Base
         'log_timezone' => '',
         'dash_charts' => true,
         'dash_updates' => true,
-        'dash_daemon_log' => true
+        'dash_daemon_log' => true,
+        'dash_default_chart' => 'last24hours'
     ];
 
     /**
@@ -107,6 +112,11 @@ class Config extends Base
     public function getDashDaemonLogStatus(): bool
     {
         return $this->config['dash_daemon_log'];
+    }
+
+    public function getDashDefaultChart(): string
+    {
+        return $this->config['dash_default_chart'];
     }
 
     public function getLogFolder(): string
@@ -186,6 +196,7 @@ class Config extends Base
         $this->check->dashboardCharts();
         $this->check->dashboardUpdates();
         $this->check->dashboardDaemonLog();
+        $this->check->dashboardDefaultChart($this->supportedCharts);
 
         $this->config = $this->check->getConfig();
     }
