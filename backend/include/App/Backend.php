@@ -15,7 +15,7 @@ use IntruderAlert\Helper\Json;
 use IntruderAlert\Helper\Timer;
 use IntruderAlert\Exception\LogsException;
 
-class Backend extends App
+class Backend extends AbstractApp
 {
     /**
      * Run app

@@ -7,7 +7,7 @@ use GeoIp2\Exception\AddressNotFoundException;
 /**
  * Class for looking up IP address details in country GeoIP2 database
  */
-class Country extends Database
+class Country extends AbstractDatabase
 {
     /**
      * Lookup country details for an IP address

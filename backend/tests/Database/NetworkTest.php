@@ -7,7 +7,7 @@ use IntruderAlert\Logger;
 
 #[CoversClass(Network::class)]
 #[UsesClass(Logger::class)]
-#[UsesClass(IntruderAlert\Database\Database::class)]
+#[UsesClass(IntruderAlert\Database\AbstractDatabase::class)]
 #[UsesClass(IntruderAlert\Helper\Output::class)]
 #[UsesClass(GeoIp2\Exception\AddressNotFoundException::class)]
 class NetworkTest extends AbstractTestCase

@@ -2,7 +2,7 @@
 
 namespace IntruderAlert\Config;
 
-abstract class Base
+abstract class AbstractConfig
 {
     protected string $envPrefix = 'IA_';
 

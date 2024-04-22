@@ -7,7 +7,7 @@ use IntruderAlert\Config;
 use IntruderAlert\App\Backend;
 
 #[CoversClass(Backend::class)]
-#[CoversClass(IntruderAlert\App\App::class)]
+#[CoversClass(IntruderAlert\App\AbstractApp::class)]
 #[UsesClass(Config::class)]
 #[UsesClass(IntruderAlert\Lists::class)]
 #[UsesClass(IntruderAlert\Helper\Json::class)]
@@ -15,8 +15,8 @@ use IntruderAlert\App\Backend;
 #[UsesClass(IntruderAlert\Helper\Convert::class)]
 #[UsesClass(IntruderAlert\Cache::class)]
 #[UsesClass(IntruderAlert\Database\Country::class)]
-#[UsesClass(IntruderAlert\Database\Database::class)]
 #[UsesClass(IntruderAlert\Database\Network::class)]
+#[UsesClass(IntruderAlert\Database\AbstractDatabase::class)]
 #[UsesClass(IntruderAlert\Database\Updater\Downloader::class)]
 #[UsesClass(IntruderAlert\Database\Updater\Extractor::class)]
 #[UsesClass(IntruderAlert\Database\Updater\Updater::class)]

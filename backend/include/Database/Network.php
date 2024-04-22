@@ -7,7 +7,7 @@ use GeoIp2\Exception\AddressNotFoundException;
 /**
  * Class for looking up IP address details in ASN GeoIP2 database
  */
-class Network extends Database
+class Network extends AbstractDatabase
 {
     /**
      * Lookup network details for an IP address

@@ -7,7 +7,7 @@ use IntruderAlert\Exception\ConfigException;
 use GeoIp2\Database\Reader;
 use MaxMind\Db\Reader\InvalidDatabaseException;
 
-class Check extends Base
+class Check extends AbstractConfig
 {
     /** @var array<string, mixed> $config Config */
     private array $config = [];

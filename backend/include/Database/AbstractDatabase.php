@@ -5,7 +5,7 @@ namespace IntruderAlert\Database;
 use IntruderAlert\Logger;
 use GeoIp2\Database\Reader;
 
-abstract class Database
+abstract class AbstractDatabase
 {
     /** @var Reader $reader GeoIP2 database reader */
     protected Reader $reader;
