@@ -21,6 +21,9 @@ $settings = [
 		'updates' => false,
 		'daemonLog' => false
 	],
+	'defaults' => [
+		'chart' => 'last24hours'
+	],
 	'timezone' => 'Europe/London',
 	'version' => ''
 ];
