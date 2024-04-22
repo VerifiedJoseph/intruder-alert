@@ -36,6 +36,7 @@ class Config extends Base
     /** @var string $cacheFilepath Cache filepath */
     private string $cacheFilepath = 'data/cache.json';
 
+    /** @var array<int, string> $supportedCharts Supported dashboard charts  */
     private array $supportedCharts = [
         'last24hours', 'last48hours', 'last14days', 'last30days'
     ];
