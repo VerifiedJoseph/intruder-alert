@@ -120,6 +120,15 @@ class ConfigTest extends AbstractTestCase
     }
 
     /**
+     * Test `getDashDefaultChart()`
+     */
+    public function testGetDashDefaultChart(): void
+    {
+        $config = new Config();
+        $this->assertEquals(self::$defaults['dash_default_chart'], $config->getDashDefaultChart());
+    }
+
+    /**
      * Test `getLogFolder()`
      */
     public function testGetLogFolders(): void
