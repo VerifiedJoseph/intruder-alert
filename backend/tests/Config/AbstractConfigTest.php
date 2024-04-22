@@ -1,10 +1,10 @@
 <?php
 
 use PHPUnit\Framework\Attributes\CoversClass;
-use IntruderAlert\Config\Base;
+use IntruderAlert\Config\AbstractConfig;
 
-#[CoversClass(Base::class)]
-class BaseTest extends AbstractTestCase
+#[CoversClass(AbstractConfig::class)]
+class AbstractConfigTest extends AbstractTestCase
 {
     public function setUp(): void
     {
@@ -19,7 +19,7 @@ class BaseTest extends AbstractTestCase
     {
         putenv('IA_TEST=true');
 
-        $class = new class () extends Base {
+        $class = new class () extends AbstractConfig {
         };
         $this->assertTrue($class->isEnvBoolean('TEST'));
     }
@@ -31,7 +31,7 @@ class BaseTest extends AbstractTestCase
     {
         putenv('IA_TEST=Hello World');
 
-        $class = new class () extends Base {
+        $class = new class () extends AbstractConfig {
         };
         $this->assertEquals('Hello World', $class->getEnv('TEST'));
     }
@@ -41,7 +41,7 @@ class BaseTest extends AbstractTestCase
      */
     public function testGetEnvEmptyValue(): void
     {
-        $class = new class () extends Base {
+        $class = new class () extends AbstractConfig {
         };
         $this->assertEquals('', $class->getEnv('TEST_1'));
     }

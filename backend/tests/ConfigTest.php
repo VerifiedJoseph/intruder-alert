@@ -10,8 +10,8 @@ use IntruderAlert\Exception\ConfigException;
 #[CoversClass(Config::class)]
 #[UsesClass(Version::class)]
 #[UsesClass(ConfigException::class)]
-#[UsesClass(IntruderAlert\Config\Base::class)]
 #[UsesClass(IntruderAlert\Config\Check::class)]
+#[UsesClass(IntruderAlert\Config\AbstractConfig::class)]
 class ConfigTest extends AbstractTestCase
 {
     /** @var array<string, mixed> $defaults */

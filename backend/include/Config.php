@@ -2,11 +2,11 @@
 
 namespace IntruderAlert;
 
-use IntruderAlert\Config\Base;
 use IntruderAlert\Config\Check;
+use IntruderAlert\Config\AbstractConfig;
 use IntruderAlert\Exception\ConfigException;
 
-class Config extends Base
+class Config extends AbstractConfig
 {
     private Check $check;
 
