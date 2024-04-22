@@ -149,6 +149,13 @@ export class IaData {
   }
 
   /**
+   * Get default chart
+   */
+  getDefaultChart () {
+    return this.#data.settings.defaults.chart
+  }
+
+  /**
    * Get a network name
    * @param {int} number Network number (ASN)
    * @returns {string}

@@ -406,7 +406,7 @@ fetchData()
 
     if (iaData.isChartEnabled() === true) {
       chart.plot = new Plot()
-      chart.plot.newChart(chart.filter.getData('last24hours'))
+      chart.plot.newChart(chart.filter.getData(iaData.getDefaultChart()))
 
       document.getElementById('chart').classList.remove('hide')
     }
