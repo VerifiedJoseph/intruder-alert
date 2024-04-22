@@ -25,6 +25,7 @@ class CheckTest extends AbstractTestCase
     public function setUp(): void
     {
         // Unset environment variables before each test
+        putenv('IA_DOCKER');
         putenv('IA_LOG_PATHS');
         putenv('IA_LOG_FOLDER');
         putenv('IA_MAXMIND_LICENSE_KEY');
@@ -447,6 +448,20 @@ class CheckTest extends AbstractTestCase
         $config = $check->getConfig();
 
         $this->assertEquals($tz, $config['log_timezone']);
+    }
+
+    /**
+     * Test not setting `IA_SYSTEM_LOG_TIMEZONE` when running in a docker container
+     */
+    public function testNotSettingSystemLogTimezoneDocker(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Fail2ban log timezone is required when running in a docker container');
+
+        putenv('IA_DOCKER=true');
+
+        $check = new Check(self::$defaults);
+        $check->systemLogTimezone();
     }
 
     /**

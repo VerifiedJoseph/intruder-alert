@@ -22,9 +22,10 @@ RUN npm ci
 RUN npm run build
 
 FROM php:8.2.18-fpm-alpine3.19
+ENV IA_DOCKER=true
 
 # Install packages
- RUN apk add --no-cache \
+RUN apk add --no-cache \
   curl \
   nginx \
   supervisor
