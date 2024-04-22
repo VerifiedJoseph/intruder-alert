@@ -29,6 +29,9 @@ class FrontendTest extends AbstractTestCase
                 'updates' => true,
                 'daemonLog' => true
             ],
+            'defaults' => [
+                'chart' => 'last24hours'
+            ],
             'timezone' => 'Europe/London',
             'version' => 'v0.0.0'
         ];
@@ -36,6 +39,7 @@ class FrontendTest extends AbstractTestCase
         /** @var Config&\PHPUnit\Framework\MockObject\Stub */
         $config = $this->createConfigStub();
         $config->method('getDashDaemonLogStatus')->willReturn(true);
+        $config->method('getDashDefaultChart')->willReturn('last24hours');
         $config->method('getDataFilePath')->willReturn('backend/tests/files/expected-report.json');
 
         $app = new Frontend($config);

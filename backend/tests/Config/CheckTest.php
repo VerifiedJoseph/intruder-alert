@@ -36,6 +36,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_CHARTS');
         putenv('IA_DASH_UPDATES');
         putenv('IA_DASH_DAEMON_LOG');
+        putenv('IA_DASH_DEFAULT_CHART');
     }
 
     public function tearDown(): void
@@ -352,6 +353,34 @@ class CheckTest extends AbstractTestCase
 
         $check = new Check(self::$defaults);
         $check->dashboardDaemonLog();
+    }
+
+    /**
+     * Test `dashboardDefaultChart()` with valid `IA_DASH_DEFAULT_CHART` value
+     */
+    public function testDashboardDefaultChart(): void
+    {
+        putenv('IA_DASH_DEFAULT_CHART=24hours');
+
+        $check = new Check(self::$defaults);
+        $check->dashboardDefaultChart(['last24hours', 'last48hours']);
+        $config = $check->getConfig();
+
+        $this->assertEquals('last24hours', $config['dash_default_chart']);
+    }
+
+    /**
+     * Test `dashboardDefaultChart()` with unsupported `IA_DASH_DEFAULT_CHART` value
+     */
+    public function testDashboardDefaultChartUnsupported(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Unsupported value for dashboard default chart environment variable');
+
+        putenv('IA_DASH_DEFAULT_CHART=string');
+
+        $check = new Check(self::$defaults);
+        $check->dashboardDefaultChart(['last24hours', 'last48hours']);
     }
 
     /**

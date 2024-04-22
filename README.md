@@ -88,6 +88,7 @@ Environment variables are used to adjust the configuration.
 | `IA_DASH_CHARTS`        | `boolean` | Enable/disable dashboard charts. <br> (optional, charts are enabled by default)                          |
 | `IA_DASH_UPDATES`       | `boolean` | Enable/disable automatic dashboard updates. <br> (optional, updates are enabled by default)              |
 | `IA_DASH_DAEMON_LOG`    | `boolean` | Enable/disable displaying daemon log in the dashboard. <br> (optional, log viewer is enabled by default) |
+| `IA_DASH_DEFAULT_CHART` | `string`  | Override default chart displayed in the dashboard. Optional. <br> Supported values: `24hours`, `48hours`, `14days`, `30days`|
 
 ### GeoLite2 databases
 

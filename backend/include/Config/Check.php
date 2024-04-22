@@ -260,11 +260,33 @@ class Check extends Base
         if ($this->hasEnv('DASH_DAEMON_LOG') === true) {
             if ($this->isEnvBoolean('DASH_DAEMON_LOG') === false) {
                 throw new ConfigException(
-                    'Dashboard daemon log environment variable must be true or false [DASH_DAEMON_LOG]'
+                    'Dashboard daemon log environment variable must be true or false [IA_DASH_DAEMON_LOG]'
                 );
             }
 
             $this->config['dash_daemon_log'] = filter_var($this->getEnv('DASH_DAEMON_LOG'), FILTER_VALIDATE_BOOLEAN);
+        }
+    }
+
+    /**
+     * Check dashboard default chart variable (`IA_DASH_DEFAULT_CHART`)
+     *
+     * @param array<int, string> $supportedCharts Supported charts
+     *
+     * @throws ConfigException if environment `IA_DASH_DEFAULT_CHART` variable value is not supported.
+     */
+    public function dashboardDefaultChart(array $supportedCharts): void
+    {
+        $value = 'last' . strtolower($this->getEnv('DASH_DEFAULT_CHART'));
+
+        if ($this->hasEnv('DASH_DEFAULT_CHART') === true) {
+            if (in_array($value, $supportedCharts) === false) {
+                throw new ConfigException(
+                    'Unsupported value for dashboard default chart environment variable [IA_DASH_DEFAULT_CHART]'
+                );
+            }
+
+            $this->config['dash_default_chart'] = $value;
         }
     }
 

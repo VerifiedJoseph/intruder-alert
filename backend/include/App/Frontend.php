@@ -42,6 +42,9 @@ class Frontend extends App
                 'updates' => $this->config->getDashUpdatesStatus(),
                 'daemonLog' => $this->config->getDashDaemonLogStatus()
             ],
+            'defaults' => [
+                'chart' => $this->config->getDashDefaultChart()
+            ],
             'timezone' => $this->config->getTimezone(),
             'version' => $this->config->getVersion()
         ];
