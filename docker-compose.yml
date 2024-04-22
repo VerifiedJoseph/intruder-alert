@@ -6,6 +6,7 @@ services:
     container_name: intruder-alert
     environment:
       - IA_TIMEZONE=Europe/London
+      - IA_SYSTEM_LOG_TIMEZONE=UTC
       - IA_MAXMIND_LICENSE_KEY=
       - IA_LOG_FOLDER=/app/backend/data/logs
     volumes:
