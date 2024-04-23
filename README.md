@@ -76,19 +76,20 @@ The scheduled task needs to run as root or a user with permission to read the fa
 
 Environment variables are used to adjust the configuration.
 
-| Name                    | Type      | Description                                                                                              |
-| ------------------------| --------- | -------------------------------------------------------------------------------------------------------- |
-| `IA_LOG_PATHS`          | `string`  | Comma separated list of Fail2ban log files.                                                              |
-| `IA_LOG_FOLDER`         | `string`  | Path of the Fail2ban logs folder. <br> Ignored when `IA_LOG_PATHS` is set.                               |
-| `IA_MAXMIND_LICENSE_KEY`| `string`  | MaxMind license key for GeoLite2 database downloads.                                                     |
-| `IA_ASN_DATABASE`       | `string`  | Path of the GeoLite2 ASN database file. <br> Ignored when `IA_MAXMIND_LICENSE_KEY` is set.               |
-| `IA_COUNTRY_DATABASE`   | `string`  | Path of the GeoLite2 Country database file. <br> Ignored when `IA_MAXMIND_LICENSE_KEY` is set.           |
-| `IA_TIMEZONE`           | `string`  | Timezone to use in the dashboard. ([php docs](https://www.php.net/manual/en/timezones.php))              |
-| `IA_SYSTEM_LOG_TIMEZONE`| `string`  | Timezone of fail2ban logs. Required when using the docker image.<br>Use the timezone of the host system. |
-| `IA_DASH_CHARTS`        | `boolean` | Enable/disable dashboard charts. <br> (optional, charts are enabled by default)                          |
-| `IA_DASH_UPDATES`       | `boolean` | Enable/disable automatic dashboard updates. <br> (optional, updates are enabled by default)              |
-| `IA_DASH_DAEMON_LOG`    | `boolean` | Enable/disable displaying daemon log in the dashboard. <br> (optional, log viewer is enabled by default) |
-| `IA_DASH_DEFAULT_CHART` | `string`  | Override default chart displayed in the dashboard. Optional. <br> Supported values: `24hours`, `48hours`, `14days`, `30days`|
+| Name                     | Type      | Description                                                                                              |
+| ------------------------ | --------- | -------------------------------------------------------------------------------------------------------- |
+| `IA_LOG_PATHS`           | `string`  | Comma separated list of Fail2ban log files.                                                              |
+| `IA_LOG_FOLDER`          | `string`  | Path of the Fail2ban logs folder. <br> Ignored when `IA_LOG_PATHS` is set.                               |
+| `IA_MAXMIND_LICENSE_KEY` | `string`  | MaxMind license key for GeoLite2 database downloads.                                                     |
+| `IA_ASN_DATABASE`        | `string`  | Path of the GeoLite2 ASN database file. <br> Ignored when `IA_MAXMIND_LICENSE_KEY` is set.               |
+| `IA_COUNTRY_DATABASE`    | `string`  | Path of the GeoLite2 Country database file. <br> Ignored when `IA_MAXMIND_LICENSE_KEY` is set.           |
+| `IA_TIMEZONE`            | `string`  | Timezone to use in the dashboard. ([php docs](https://www.php.net/manual/en/timezones.php))              |
+| `IA_SYSTEM_LOG_TIMEZONE` | `string`  | Timezone of fail2ban logs. Required when using the docker image.<br>Use the timezone of the host system. |
+| `IA_DASH_CHARTS`         | `boolean` | Enable/disable dashboard charts. <br> (optional, charts are enabled by default)                          |
+| `IA_DASH_UPDATES`        | `boolean` | Enable/disable automatic dashboard updates. <br> (optional, updates are enabled by default)              |
+| `IA_DASH_DAEMON_LOG`     | `boolean` | Enable/disable displaying daemon log in the dashboard. <br> (optional, log viewer is enabled by default) |
+| `IA_DASH_DEFAULT_CHART`  | `string`  | Override default chart displayed in the dashboard. Optional. <br> Supported values: `24hours`, `48hours`, `14days`, `30days` |
+| `IA_DASH_PAGE_SIZE`      | `int`     | Override default table page size in the dashboard. Optional. <br> Supported values: `25`, `50`, `100`, `200`, `500` |
 
 ### GeoLite2 databases
 
