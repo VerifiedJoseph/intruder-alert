@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.16.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.16.0) - 2024-04-22
+
+- Require environment variable `IA_SYSTEM_LOG_TIMEZONE` when running in docker. ([#500](https://github.com/VerifiedJoseph/intruder-alert/pull/500), [`50f2776`](https://github.com/VerifiedJoseph/intruder-alert/commit/50f2776378ca8672d88e9e669c5b92d70df1eb4f))
+- Added dashboard chart environment variable `IA_DASH_DEFAULT_CHART`. ([#507](https://github.com/VerifiedJoseph/intruder-alert/pull/507), [`d655be4`](https://github.com/VerifiedJoseph/intruder-alert/commit/d655be46703997f859be58e11091ff7b51565c30))
+- Added dashboard table page size environment variable `IA_DASH_PAGE_SIZE`. ([#510](https://github.com/VerifiedJoseph/intruder-alert/pull/510), [`0260263`](https://github.com/VerifiedJoseph/intruder-alert/commit/02602633cffffe1b854f10d80b2c16421bf82080))
+- Added CSS text ellipsis to jail column in recent bans table. ([#499](https://github.com/VerifiedJoseph/intruder-alert/pull/499), [`dd0f5f5`](https://github.com/VerifiedJoseph/intruder-alert/commit/dd0f5f594fe3fb18a31aefe32580f8cb5a51ad3b))
+
 ## [1.15.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.15.0) - 2024-04-15
 
 - Added backend class `Convert` ([#483](https://github.com/VerifiedJoseph/intruder-alert/pull/483), [`36c7ccf`](https://github.com/VerifiedJoseph/intruder-alert/commit/36c7ccfffd5f2d27534a4d14ac7e2717777cf451))
