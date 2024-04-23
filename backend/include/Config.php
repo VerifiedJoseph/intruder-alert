@@ -41,6 +41,11 @@ class Config extends AbstractConfig
         'last24hours', 'last48hours', 'last14days', 'last30days'
     ];
 
+    /** @var array<int, int> $supportedPageSizes Supported dashboard table pages sizes  */
+    private array $supportedPageSizes = [
+        25, 50, 100, 200, 500
+    ];
+
     /** @var array<string, mixed> $config Loaded config */
     private array $config = [
         'log_paths' => '',
@@ -53,7 +58,8 @@ class Config extends AbstractConfig
         'dash_charts' => true,
         'dash_updates' => true,
         'dash_daemon_log' => true,
-        'dash_default_chart' => 'last24hours'
+        'dash_default_chart' => 'last24hours',
+        'dash_page_size' => 25
     ];
 
     /**
@@ -118,6 +124,11 @@ class Config extends AbstractConfig
     public function getDashDefaultChart(): string
     {
         return $this->config['dash_default_chart'];
+    }
+
+    public function getDashPageSize(): int
+    {
+        return $this->config['dash_page_size'];
     }
 
     public function getLogFolder(): string
@@ -198,6 +209,7 @@ class Config extends AbstractConfig
         $this->check->dashboardUpdates();
         $this->check->dashboardDaemonLog();
         $this->check->dashboardDefaultChart($this->supportedCharts);
+        $this->check->dashboardPageSize($this->supportedPageSizes);
 
         $this->config = $this->check->getConfig();
     }

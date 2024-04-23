@@ -43,7 +43,8 @@ class Frontend extends AbstractApp
                 'daemonLog' => $this->config->getDashDaemonLogStatus()
             ],
             'defaults' => [
-                'chart' => $this->config->getDashDefaultChart()
+                'chart' => $this->config->getDashDefaultChart(),
+                'pageSize' => $this->config->getDashPageSize()
             ],
             'timezone' => $this->config->getTimezone(),
             'version' => $this->config->getVersion()
