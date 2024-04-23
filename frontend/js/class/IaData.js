@@ -156,6 +156,13 @@ export class IaData {
   }
 
   /**
+   * Get default table page size
+   */
+  getDefaultPageSize () {
+    return this.#data.settings.defaults.pageSize
+  }
+
+  /**
    * Get a network name
    * @param {int} number Network number (ASN)
    * @returns {string}
