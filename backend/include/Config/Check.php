@@ -299,9 +299,9 @@ class Check extends AbstractConfig
      */
     public function dashboardPageSize(array $supportedPageSizes): void
     {
-        $value = (int) $this->getEnv('DASH_TPAGE_SIZE');
+        $value = (int) $this->getEnv('DASH_PAGE_SIZE');
 
-        if ($this->hasEnv('DASH_TPAGE_SIZE') === true) {
+        if ($this->hasEnv('DASH_PAGE_SIZE') === true) {
             if (in_array($value, $supportedPageSizes) === false) {
                 throw new ConfigException(
                     'Unsupported value for dashboard table page size environment variable [IA_DASH_PAGE_SIZE]'
