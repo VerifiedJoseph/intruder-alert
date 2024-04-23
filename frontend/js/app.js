@@ -403,6 +403,7 @@ fetchData()
 
     document.getElementById('loading').classList.add('hide')
     document.getElementById('content').classList.remove('hide')
+    document.getElementById('page-size').value = iaData.getDefaultPageSize()
 
     if (iaData.isChartEnabled() === true) {
       chart.plot = new Plot()

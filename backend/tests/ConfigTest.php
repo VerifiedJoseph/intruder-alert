@@ -129,6 +129,15 @@ class ConfigTest extends AbstractTestCase
     }
 
     /**
+     * Test `getDashPageSize()`
+     */
+    public function testGetDashPageSize(): void
+    {
+        $config = new Config();
+        $this->assertEquals(self::$defaults['dash_page_size'], $config->getDashPageSize());
+    }
+
+    /**
      * Test `getLogFolder()`
      */
     public function testGetLogFolders(): void

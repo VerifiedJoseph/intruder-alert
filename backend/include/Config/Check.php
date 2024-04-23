@@ -291,6 +291,28 @@ class Check extends AbstractConfig
     }
 
     /**
+     * Check dashboard page size variable (`IA_DASH_PAGE_SIZE`)
+     *
+     * @param array<int, int> $supportedPageSizes Supported pages sizes
+     *
+     * @throws ConfigException if environment `IA_DASH_PAGE_SIZE` variable value is not supported.
+     */
+    public function dashboardPageSize(array $supportedPageSizes): void
+    {
+        $value = (int) $this->getEnv('DASH_PAGE_SIZE');
+
+        if ($this->hasEnv('DASH_PAGE_SIZE') === true) {
+            if (in_array($value, $supportedPageSizes) === false) {
+                throw new ConfigException(
+                    'Unsupported value for dashboard table page size environment variable [IA_DASH_PAGE_SIZE]'
+                );
+            }
+
+            $this->config['dash_page_size'] = $value;
+        }
+    }
+
+    /**
      * Check GeoLite2 database is valid
      *
      * @param string $path Path of GeoLite2 database

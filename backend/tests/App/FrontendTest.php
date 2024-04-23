@@ -30,7 +30,8 @@ class FrontendTest extends AbstractTestCase
                 'daemonLog' => true
             ],
             'defaults' => [
-                'chart' => 'last24hours'
+                'chart' => 'last24hours',
+                'pageSize' => 50
             ],
             'timezone' => 'Europe/London',
             'version' => 'v0.0.0'
@@ -40,6 +41,7 @@ class FrontendTest extends AbstractTestCase
         $config = $this->createConfigStub();
         $config->method('getDashDaemonLogStatus')->willReturn(true);
         $config->method('getDashDefaultChart')->willReturn('last24hours');
+        $config->method('getDashPageSize')->willReturn(50);
         $config->method('getDataFilePath')->willReturn('backend/tests/files/expected-report.json');
 
         $app = new Frontend($config);
