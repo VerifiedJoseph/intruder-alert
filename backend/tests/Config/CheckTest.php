@@ -37,6 +37,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_UPDATES');
         putenv('IA_DASH_DAEMON_LOG');
         putenv('IA_DASH_DEFAULT_CHART');
+        putenv('IA_DASH_PAGE_SIZE');
     }
 
     public function tearDown(): void
@@ -381,6 +382,34 @@ class CheckTest extends AbstractTestCase
 
         $check = new Check(self::$defaults);
         $check->dashboardDefaultChart(['last24hours', 'last48hours']);
+    }
+
+    /**
+     * Test `dashboardPage()` with valid `IA_DASH_PAGE_SIZE` value
+     */
+    public function testDashboardPageSize(): void
+    {
+        putenv('IA_DASH_PAGE_SIZE=25');
+
+        $check = new Check(self::$defaults);
+        $check->dashboardPageSize(['25', '50']);
+        $config = $check->getConfig();
+
+        $this->assertEquals(25, $config['dash_page_size']);
+    }
+
+    /**
+     * Test `dashboardPage()` with unsupported `IA_DASH_PAGE_SIZE` value
+     */
+    public function testDashboardPageSizeUnsupported(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Unsupported value for dashboard table page size environment variable');
+
+        putenv('IA_DASH_PAGE_SIZE=10');
+
+        $check = new Check(self::$defaults);
+        $check->dashboardPageSize(['25', '50']);
     }
 
     /**
