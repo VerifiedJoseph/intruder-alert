@@ -22,7 +22,8 @@ $settings = [
 		'daemonLog' => false
 	],
 	'defaults' => [
-		'chart' => 'last24hours'
+		'chart' => 'last24hours',
+		'pageSize' => 25,
 	],
 	'timezone' => 'Europe/London',
 	'version' => ''
