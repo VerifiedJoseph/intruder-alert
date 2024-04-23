@@ -293,7 +293,7 @@ class Check extends AbstractConfig
     /**
      * Check dashboard page size variable (`IA_DASH_PAGE_SIZE`)
      *
-     * @param array<int, string> $supportedPageSizes Supported pages sizes
+     * @param array<int, int> $supportedPageSizes Supported pages sizes
      *
      * @throws ConfigException if environment `IA_DASH_PAGE_SIZE` variable value is not supported.
      */

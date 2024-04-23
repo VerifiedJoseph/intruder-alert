@@ -392,7 +392,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_PAGE_SIZE=25');
 
         $check = new Check(self::$defaults);
-        $check->dashboardPageSize(['25', '50']);
+        $check->dashboardPageSize([25, 50]);
         $config = $check->getConfig();
 
         $this->assertEquals(25, $config['dash_page_size']);
@@ -409,7 +409,7 @@ class CheckTest extends AbstractTestCase
         putenv('IA_DASH_PAGE_SIZE=10');
 
         $check = new Check(self::$defaults);
-        $check->dashboardPageSize(['25', '50']);
+        $check->dashboardPageSize([25, 50]);
     }
 
     /**
