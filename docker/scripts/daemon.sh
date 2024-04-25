@@ -1,5 +1,6 @@
 # /bin/bash
 
+sleep 2
 echo "Starting intruder alert daemon..."
 
 nextRun=$(bc <<< "`date '+%s'` - 600")
