@@ -19,5 +19,5 @@ do
 		nextRun=$(date '+%s')
 	fi
 
-	sleep 2
+	sleep 10
 done
