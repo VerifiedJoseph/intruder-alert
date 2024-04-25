@@ -26,6 +26,7 @@ ENV IA_DOCKER=true
 
 # Install packages
 RUN apk add --no-cache \
+  bash \
   curl \
   nginx \
   supervisor
@@ -41,6 +42,10 @@ COPY /docker/config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Copy code
 COPY --from=node /app/dist/ /app/
+
+# Copy daemon bash script
+COPY /docker/scripts/daemon.sh /app/backend/daemon.sh
+
 WORKDIR /app
 
 # Create needed folders
