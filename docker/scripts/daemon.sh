@@ -1,4 +1,4 @@
-# /bin/bash
+#!/bin/bash
 
 sleep 2
 echo "Starting intruder alert daemon..."
