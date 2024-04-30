@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## [1.19.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.0) - 2024-04-30
+## [1.17.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.17.0) - 2024-04-30
 
 - Docker: Replaced php daemon script with bash script. ([#521](https://github.com/VerifiedJoseph/intruder-alert/pull/521), [`9f97d04`](https://github.com/VerifiedJoseph/intruder-alert/commit/9f97d04f6e074efbbe348abd708cebc87dcf7d2c))
 - Dockerfile: Updated composer from 2.7.2 to 2.7.4 ([#513](https://github.com/VerifiedJoseph/intruder-alert/pull/513), [`c222b9d`](https://github.com/VerifiedJoseph/intruder-alert/commit/c222b9dc1da3e25e9c20f680af3bab3861231fcb))
