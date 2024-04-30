@@ -8,7 +8,7 @@ use IntruderAlert\Exception\AppException;
 
 require 'vendor/autoload.php';
 
-Output::text('Starting intruder alert cron task...');
+Output::text('Starting intruder alert task...');
 
 try {
     $config = new Config();
@@ -20,4 +20,5 @@ try {
     $app->run();
 } catch (ConfigException | AppException $err) {
     Output::text($err->getMessage());
+    exit(1);
 }
