@@ -263,16 +263,6 @@ export class FilterAddDialog extends ViewGroupDialogs {
   }
 
   /**
-   * Enable a filter type
-   * @param {string} name
-   */
-  #enableFilter (name) {
-    const element = document.querySelector(`#${this.#getId('filter-type')} [value="${name}"]`)
-    element.hidden = false
-    element.disabled = false
-  }
-
-  /**
    * Set selected filter type
    * @param {string} name
    */
