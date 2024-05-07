@@ -7,7 +7,7 @@ export class IaData {
   }
 
   /**
-   * Get recent bans
+   * Returns recent bans as an array
    * @returns {array}
    */
   getRecentBans () {
@@ -41,7 +41,7 @@ export class IaData {
   }
 
   /**
-   * Get data list
+   * Returns data list for a type
    * @param {string} type List type
    * @returns {array}
    */
@@ -50,7 +50,7 @@ export class IaData {
   }
 
   /**
-   * Get timezone
+   * Returns timezone
    * @returns {string}
    */
   getTimezone () {
@@ -58,7 +58,7 @@ export class IaData {
   }
 
   /**
-   * Get version
+   * Returns Intruder Alert version
    * @returns {string}
    */
   getVersion () {
@@ -66,7 +66,7 @@ export class IaData {
   }
 
   /**
-   * Get last updated date
+   * Returns last updated date
    * @returns {string}
    */
   getUpdatedDate () {
@@ -74,7 +74,7 @@ export class IaData {
   }
 
   /**
-   * Get hash
+   * Returns data version hash
    * @returns {string}
    */
   getHash () {
@@ -82,7 +82,7 @@ export class IaData {
   }
 
   /**
-   * Get data since date
+   * Returns data since date
    * @returns {string}
    */
   getSinceDate () {
@@ -114,7 +114,7 @@ export class IaData {
   }
 
   /**
-   * Get total count for a list
+   * Returns total count for a list
    * @param {string} type List type
    * @returns {int}
    */
@@ -123,7 +123,7 @@ export class IaData {
   }
 
   /**
-   * Get ban count for a list
+   * Returns ban count for a list
    * @param {string} type List type
    * @returns {int}
    */
@@ -132,7 +132,7 @@ export class IaData {
   }
 
   /**
-   * Get most banned for a list
+   * Returns most banned for a list
    * @param {string} type List type
    * @returns {mixed}
    */
@@ -141,7 +141,7 @@ export class IaData {
   }
 
   /**
-   * Get backend daemon log
+   * Returns backend daemon log
    * @returns {array}
    */
   getDaemonLog () {
@@ -149,14 +149,16 @@ export class IaData {
   }
 
   /**
-   * Get default chart
+   * Returns default chart
+   * @returns {string}
    */
   getDefaultChart () {
     return this.#data.settings.defaults.chart
   }
 
   /**
-   * Get default table page size
+   * Returns default table page size
+   * @returns {int}
    */
   getDefaultPageSize () {
     return this.#data.settings.defaults.pageSize
