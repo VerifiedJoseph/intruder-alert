@@ -19,12 +19,18 @@ export class Display {
     this.#daemonLog()
   }
 
+  /**
+   * Display last updated and since data in header
+   */
   #headerDates () {
     document.getElementById('last-updated').innerText = this.#iaData.getUpdatedDate()
     document.getElementById('date-since').innerText = ` ${this.#iaData.getSinceDate()} (${Helper.formatNumber(this.#iaData.getTotal('date'))} days)`
     document.getElementById('dates').classList.remove('hide')
   }
 
+  /**
+   * Display version details in header
+   */
   #headerVersion () {
     let version = this.#iaData.getVersion()
 
@@ -44,6 +50,9 @@ export class Display {
     }
   }
 
+  /**
+   * Display global stats
+   */
   #globalStats () {
     document.getElementById('total-bans').innerText = Helper.formatNumber(this.#iaData.getBans('total'))
     document.getElementById('bans-today').innerText = Helper.formatNumber(this.#iaData.getBans('today'))
@@ -55,6 +64,9 @@ export class Display {
     document.getElementById('total-jails').innerText = Helper.formatNumber(this.#iaData.getTotal('jail'))
   }
 
+  /**
+   * Display most banned details
+   */
   #mostBanned () {
     const ip = this.#iaData.getIp(this.#iaData.getMostBanned('address'))
     const network = this.#iaData.getNetwork(this.#iaData.getMostBanned('network'))
@@ -77,6 +89,9 @@ export class Display {
     document.getElementById('most-activated-jail-count').innerText = Helper.formatNumber(jail.bans)
   }
 
+  /**
+   * Display daemon log
+   */
   #daemonLog () {
     const div = document.getElementById('log-entries')
     div.innerText = ''
