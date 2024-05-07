@@ -9,6 +9,10 @@ export class Table {
     this.#body = document.createElement('tbody')
   }
 
+  /**
+   * Returns html table
+   * @returns {HTMLTableElement}
+   */
   get () {
     this.#html.appendChild(this.#header)
     this.#html.appendChild(this.#body)
@@ -73,6 +77,9 @@ export class Table {
 export class Row {
   #data = []
 
+  /**
+   * Get row details
+   */
   get () {
     return this.#data
   }
