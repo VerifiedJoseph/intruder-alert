@@ -4,7 +4,7 @@
     "eslint": "^9.2.0",
     "esbuild": "^0.21.0",
     "fs-extra": "^11.2.0",
-    "globals": "^15.1.0"
+    "globals": "^15.2.0"
   },
   "scripts": {
     "lint": "eslint ./frontend/js ./esbuild",
