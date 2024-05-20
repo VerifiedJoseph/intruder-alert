@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.17.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.17.1) - 2024-05-20
+
+- Improved code comments & minor code changes. ([#530](https://github.com/VerifiedJoseph/intruder-alert/pull/530), [`b9a54aa`](https://github.com/VerifiedJoseph/intruder-alert/commit/b9a54aabb676fde4a7db6ef487c75eddbb5d53c9))
+- Npm: Updated chart.js from 4.4.2 to 4.4.3 ([#545](https://github.com/VerifiedJoseph/intruder-alert/pull/545), [`8c4fe09`](https://github.com/VerifiedJoseph/intruder-alert/commit/8c4fe09582cf30201f91aaf59bd1b10f3d0ea41e))
+- Dockerfile: Updated composer from 2.7.4 to 2.7.6 ([#528](https://github.com/VerifiedJoseph/intruder-alert/pull/528), [`c354fb2`](https://github.com/VerifiedJoseph/intruder-alert/commit/c354fb233d2c366e641c08fdb88c179adf4d2147))
+- Dockerfile: Updated node from 20.12.2-alpine3.19 to 20.13.1-alpine3.19 ([#535](https://github.com/VerifiedJoseph/intruder-alert/pull/535), [`e22fad5`](https://github.com/VerifiedJoseph/intruder-alert/commit/e22fad50722ffbad22b04dfc1b85ea989f6d2bb5))
+- Dockerfile: Updated php from 8.2.18-fpm-alpine3.19 to 8.2.19-fpm3.19 ([#534](https://github.com/VerifiedJoseph/intruder-alert/pull/534), [`3e7fc45`](https://github.com/VerifiedJoseph/intruder-alert/commit/3e7fc45fdf6556b0c596fd1fc555282dc6850413))
+
 ## [1.17.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.17.0) - 2024-04-30
 
 - Docker: Replaced php daemon script with bash script. ([#521](https://github.com/VerifiedJoseph/intruder-alert/pull/521), [`9f97d04`](https://github.com/VerifiedJoseph/intruder-alert/commit/9f97d04f6e074efbbe348abd708cebc87dcf7d2c))
