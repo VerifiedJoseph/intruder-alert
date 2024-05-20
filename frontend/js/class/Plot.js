@@ -3,6 +3,14 @@ import Chart from 'chart.js/auto'
 export class Plot {
   #chart
 
+  /**
+   * Create new chart
+   * @param {object} data Chart data returned by `chart.filter.getData()`
+   * @param {boolean} data.hasData Data status
+   * @param {array} data.datasets Chart datasets
+   * @param {array} data.labels Chart labels
+   * @param {string} data.type Chart data type
+   */
   newChart (data) {
     if (this.#chart !== undefined) {
       this.#chart.destroy()

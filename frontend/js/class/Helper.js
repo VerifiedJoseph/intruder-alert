@@ -37,18 +37,34 @@ export class Helper {
     return button
   }
 
+  /**
+   * Set table type
+   * @param {string} value
+   */
   static setTableType (value) {
     document.getElementById('table-type').value = value
   }
 
+  /**
+   * Returns table type
+   * @returns {string}
+   */
   static getTableType () {
     return document.getElementById('table-type').value
   }
 
+  /**
+   * Set chart type
+   * @param {string} value
+   */
   static setChartType (value) {
     document.getElementById('chart-type').value = value
   }
 
+  /**
+   * Returns chart type
+   * @returns {string}
+   */
   static getChartType () {
     return document.getElementById('chart-type').value
   }

@@ -13,10 +13,18 @@ export class Pagination {
     this.#totalItems = data.length
   }
 
+  /**
+   * Set page number
+   * @param {int} number
+   */
   setPage (number = 0) {
     this.#pageNumber = number
   }
 
+  /**
+   * Returns page data
+   * @returns {object}
+   */
   getData () {
     if (this.#data.length === 0) {
       return { items: [] }
@@ -37,6 +45,9 @@ export class Pagination {
     }
   }
 
+  /**
+   * Set buttons
+   */
   setButtons () {
     let prev = null
     let next = null
@@ -109,15 +120,28 @@ export class Pagination {
     return this.#indexStart
   }
 
+  /**
+   * Update `data-page` attribute value of a button
+   * @param {string} id Element id
+   * @param {int} number Page number
+   */
   #updateButton (id, number) {
     const button = document.getElementById(id)
     button.setAttribute('data-page', number)
   }
 
+  /**
+   * Enable a button
+   * @param {string} id Element id
+   */
   #enableButton (id) {
     document.getElementById(id).disabled = false
   }
 
+  /**
+   * Disable a button
+   * @param {string} id Element id
+   */
   #disableButton (id) {
     document.getElementById(id).disabled = true
   }

@@ -13,8 +13,21 @@ import { CreateTable } from './class/CreateTable.js'
 
 let table = {}
 let chart = {}
-let display, iaData
 
+/** @type IaData */
+let iaData
+
+/** @type Display */
+let display
+
+/** @type Plot */
+let plot = new Plot()
+
+/**
+ * Fetch data
+ * @param {string} hash Data version hash
+ * @returns {Promise<Response>}
+ */
 function fetchData (hash = '') {
   let setting = {}
 
@@ -31,6 +44,7 @@ function fetchData (hash = '') {
 
 /**
  * Order table data by date or ip count
+ * @param {array} data
  */
 function orderTableData (data) {
   if (document.getElementById('data-order-by').disabled === true) {
@@ -53,6 +67,11 @@ function orderTableData (data) {
   return data
 }
 
+/**
+ * Display data
+ * @param {array<int, object[]>} data Data returned by `table.filter.getData()`
+ * @param {int} pageNumber Table page number
+ */
 function displayData (data, pageNumber = 0) {
   const pagination = new Pagination(orderTableData(data))
   pagination.setPage(pageNumber)
@@ -68,6 +87,12 @@ function displayData (data, pageNumber = 0) {
   pagination.setButtons()
 }
 
+/**
+ * On view button click
+ * @param {string} viewType Table type 
+ * @param {string} filterType Filter type
+ * @param {string} filterValue Filter value
+ */
 function onViewBtnClick (viewType, filterType, filterValue) {
   table.filter.reset()
   Helper.setTableType(viewType)
@@ -93,7 +118,7 @@ function onViewBtnClick (viewType, filterType, filterValue) {
 
     document.getElementById('chart-applied-filters').classList.remove('hide')
 
-    chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
+    plot.newChart(chart.filter.getData(Helper.getChartType()))
   }
 }
 
@@ -106,7 +131,7 @@ function onRemoveFilterBtnClick (event) {
       event.target.getAttribute('data-filter-value')
     )
 
-    chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
+    plot.newChart(chart.filter.getData(Helper.getChartType()))
   }
 
   if (viewGroup === 'table') {
@@ -125,6 +150,10 @@ function onRemoveFilterBtnClick (event) {
   }
 }
 
+/**
+ * Click event handler
+ * @param {Event} event
+ */
 function clickHandler (event) {
   switch (event.target.id || event.target.className) {
     case 'table-filter-add-dialog-open':
@@ -147,7 +176,7 @@ function clickHandler (event) {
       if (event.target.getAttribute('data-view-group') === 'chart') {
         chart.dialog.filterOptions.close()
         chart.filter.reverse()
-        chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
+        plot.newChart(chart.filter.getData(Helper.getChartType()))
       }
 
       if (event.target.getAttribute('data-view-group') === 'table') {
@@ -160,7 +189,7 @@ function clickHandler (event) {
       if (event.target.getAttribute('data-view-group') === 'chart') {
         chart.dialog.filterOptions.close()
         chart.filter.reset()
-        chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
+        plot.newChart(chart.filter.getData(Helper.getChartType()))
       }
 
       if (event.target.getAttribute('data-view-group') === 'table') {
@@ -182,7 +211,7 @@ function clickHandler (event) {
           document.getElementById('chart-filter-value').value
         )
 
-        chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
+        plot.newChart(chart.filter.getData(Helper.getChartType()))
       }
 
       if (event.target.getAttribute('data-view-group') === 'table') {
@@ -243,10 +272,14 @@ function clickHandler (event) {
   }
 }
 
+/**
+ * Change event handler
+ * @param {Event} event
+ */
 function changeHandler (event) {
   switch (event.target.id || event.target.className) {
     case 'chart-type':
-      chart.plot.newChart(chart.filter.getData(event.target.value))
+      plot.newChart(chart.filter.getData(event.target.value))
       break
     case 'table-type':
       table.dialog.filterAdd.close()
@@ -310,6 +343,10 @@ function changeHandler (event) {
   }
 }
 
+/**
+ * Update dashboard with new data
+ * @param {object} data 
+ */
 function updateDashboard (data) {
   document.getElementById('updating').classList.remove('hide')
 
@@ -324,7 +361,7 @@ function updateDashboard (data) {
   display.render()
 
   if (iaData.isChartEnabled() === true) {
-    chart.plot.newChart(chart.filter.getData(Helper.getChartType()))
+    plot.newChart(chart.filter.getData(Helper.getChartType()))
 
     document.getElementById('chart').classList.remove('hide')
   } else {
@@ -335,6 +372,9 @@ function updateDashboard (data) {
   displayData(table.filter.getData(Helper.getTableType()))
 }
 
+/**
+ * Check for an update
+ */
 function checkForUpdate () {
   fetchData(iaData.getHash())
     .then(response => {
@@ -406,8 +446,7 @@ fetchData()
     document.getElementById('page-size').value = iaData.getDefaultPageSize()
 
     if (iaData.isChartEnabled() === true) {
-      chart.plot = new Plot()
-      chart.plot.newChart(chart.filter.getData(iaData.getDefaultChart()))
+      plot.newChart(chart.filter.getData(iaData.getDefaultChart()))
 
       document.getElementById('chart').classList.remove('hide')
     }
