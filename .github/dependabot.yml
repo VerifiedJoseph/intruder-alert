@@ -10,11 +10,6 @@ updates:
     schedule:
       interval: "weekly"
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
@@ -25,11 +20,16 @@ updates:
       - dependency-name: "php"
         update-types: ["version-update:semver-minor"]
 
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+
   # dev container
   - package-ecosystem: "docker"
     directory: "/.devcontainer/workspace/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     ignore:
       - dependency-name: "php"
         update-types: ["version-update:semver-minor"]
@@ -37,4 +37,4 @@ updates:
   - package-ecosystem: "docker"
     directory: "/.devcontainer/nginx/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
