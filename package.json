@@ -1,9 +1,9 @@
 {
   "devDependencies": {
-    "esbuild": "^0.21.4",
-    "eslint": "^9.4.0",
+    "eslint": "^9.5.0",
+    "esbuild": "^0.21.5",
     "fs-extra": "^11.2.0",
-    "globals": "^15.4.0"
+    "globals": "^15.6.0"
   },
   "scripts": {
     "lint": "eslint ./frontend/js ./esbuild",
