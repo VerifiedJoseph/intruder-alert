@@ -86,7 +86,7 @@ Environment variables are used to adjust the configuration.
 | `IA_TIMEZONE`            | `string`  | Timezone to use in the dashboard. ([php docs](https://www.php.net/manual/en/timezones.php))              |
 | `IA_SYSTEM_LOG_TIMEZONE` | `string`  | Timezone of fail2ban logs. Required when using the docker image.<br>Use the timezone of the host system. |
 | `IA_DASH_CHARTS`         | `boolean` | Enable/disable dashboard charts. <br> (optional, charts are enabled by default)                          |
-| `IA_DASH_UPDATES`        | `boolean` | Enable/disable automatic dashboard updates. <br> (optional, updates are enabled by default)              |
+| `IA_DASH_UPDATES`        | `boolean` | Enable/disable automatically updating the dashboard with new events. (optional, updates are enabled by default) |
 | `IA_DASH_DAEMON_LOG`     | `boolean` | Enable/disable displaying daemon log in the dashboard. <br> (optional, log viewer is enabled by default) |
 | `IA_DASH_DEFAULT_CHART`  | `string`  | Override default chart displayed in the dashboard. Optional. <br> Supported values: `24hours`, `48hours`, `14days`, `30days` |
 | `IA_DASH_PAGE_SIZE`      | `int`     | Override default table page size in the dashboard. Optional. <br> Supported values: `25`, `50`, `100`, `200`, `500` |
