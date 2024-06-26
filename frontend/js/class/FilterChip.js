@@ -47,7 +47,6 @@ export class FilterChip {
     div.appendChild(this.#createSpan(this.#typeTexts[type]))
     div.appendChild(this.#createSpan(` ${actionText} `, 'action'))
     div.appendChild(this.#createSpan(valueText, 'ellipsis'))
-    div.setAttribute('title', `${this.#typeTexts[type]} ${actionText} ${valueText}`)
 
     const item = document.createElement('div')
     item.appendChild(div)
@@ -60,20 +59,16 @@ export class FilterChip {
 
   /**
    * Update filter chip
-   * @param {string} type Filter type
-   * @param {string} action Filter action
-   * @param {string} value Filter value
    * @param {string} uuid Filter UUID
+   * @param {string} action Filter action
    */
-  update (type, action, value, uuid) {
-    const valueText = this.#getValueText(type, value)
+  update (uuid, action) {
     const actionText = this.#getActionText(action)
 
-    const div = document.querySelector(`div[data-label-id="${uuid}"]`)
-    div.setAttribute('title', `${this.#typeTexts[type]} ${actionText} ${valueText}`)
-
-    const divInner = div.childNodes[0]
-    divInner.childNodes[1].innerText = ` ${actionText} `
+    document.querySelectorAll(`div[data-label-id="${uuid}"]`).forEach(div => {
+      const divInner = div.childNodes[0]
+      divInner.childNodes[1].innerText = ` ${actionText} `
+    });
   }
 
   /**
