@@ -149,10 +149,7 @@ export class Filter {
         newAction = 'exclude'
       }
 
-      filter.values.forEach(value => {
-        this.chip.update(filter.type, newAction, value, filter.id)
-      })
-
+      this.chip.update(filter.id, newAction)
       this.settings[index].action = newAction
     })
   }
