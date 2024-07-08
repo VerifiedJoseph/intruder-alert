@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.18.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.18.0) - 2024-07-08
+
+- Fixed action text on filter chips not changing when filters are reversed. ([#575](https://github.com/VerifiedJoseph/intruder-alert/pull/575), [`41cc278`](https://github.com/VerifiedJoseph/intruder-alert/commit/41cc27898bdb75c05dcc5d985f884dbb15f24869))
+- Moved checking GeoIP archive file integrity to database downloader class. ([#590](https://github.com/VerifiedJoseph/intruder-alert/pull/590), [`987478d`](https://github.com/VerifiedJoseph/intruder-alert/commit/987478de6f0587a23852649a0376b8ae06191279))
+- Dockerfile: Updated node from 20.14.0-alpine3.19 to 20.15.0-alpine3.19 ([#584](https://github.com/VerifiedJoseph/intruder-alert/pull/584), [`6529e61`](https://github.com/VerifiedJoseph/intruder-alert/commit/6529e61924a29baade966eb2131b391b711cd164))
+- Dockerfile: Updated php from 8.2.20-fpm-alpine3.19 to 8.2.21-fpm-alpine3.19 ([#585](https://github.com/VerifiedJoseph/intruder-alert/pull/585), [`faff4c2`](https://github.com/VerifiedJoseph/intruder-alert/commit/faff4c242606d01431f05ea5b494442de66305bf))
+
 ## [1.17.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.17.2) - 2024-06-18
 
 - Dockerfile: Updated composer from 2.7.6 to 2.7.7 ([#563](https://github.com/VerifiedJoseph/intruder-alert/pull/563), [`c0935c2`](https://github.com/VerifiedJoseph/intruder-alert/commit/c0935c2dce7995a0a8c7f5af708cebcade4cdcbf))
