@@ -44,7 +44,7 @@ class Extractor
      * @param string $edition Database edition
      * @param string $path Path to save the database
      *
-     * @throws Exception if database not found archive.
+     * @throws Exception if database not found in archive.
      * @throws Exception if moving database failed.
      */
     public function archive(string $archivePath, string $edition, string $path): void

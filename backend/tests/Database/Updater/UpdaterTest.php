@@ -18,7 +18,6 @@ use IntruderAlert\Exception\AppException;
 #[UsesClass(IntruderAlert\Database\Updater\Url::class)]
 #[UsesClass(IntruderAlert\Database\Updater\Downloader::class)]
 #[UsesClass(IntruderAlert\Database\Updater\Extractor::class)]
-#[UsesClass(IntruderAlert\Database\Updater\Helper::class)]
 #[UsesClass(IntruderAlert\Database\Updater\TimestampFile::class)]
 #[UsesClass(IntruderAlert\Config\Check::class)]
 #[UsesClass(IntruderAlert\Helper\File::class)]
