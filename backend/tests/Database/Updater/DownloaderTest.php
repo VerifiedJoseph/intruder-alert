@@ -102,7 +102,7 @@ class DownloaderTest extends AbstractTestCase
         file_put_contents($file, uniqid());
         $checksum = (string) hash_file('sha256', $file);
 
-        $downloader = new Downloader($this->createStub(Fetch::class), $this->createConfigStub(), new Logger());
+        $downloader = new Downloader(new Fetch('qwerty-useragent'), $this->createConfigStub(), new Logger());
         $downloader->checkArchiveIntegrity($checksum, mockfs::getUrl('/test.file'));
     }
 
