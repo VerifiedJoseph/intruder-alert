@@ -6,7 +6,6 @@ use IntruderAlert\Config;
 use IntruderAlert\Fetch;
 use IntruderAlert\Logger;
 use IntruderAlert\Helper\File;
-use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\FetchException;
 use Exception;
 
@@ -30,6 +29,7 @@ class Downloader
      * Download checksum file for an edition
      *
      * @param string $edition Database edition
+     * @return string Contents of downloaded checksum file
      */
     public function getChecksum(string $edition): string
     {
@@ -50,9 +50,10 @@ class Downloader
     }
 
     /**
-     * Download database archive
+     * Download database archive and save to given path
      *
      * @param string $edition Database edition
+     * @param string $path Path to save downloaded database
      */
     public function getArchive(string $edition, string $path): void
     {
@@ -60,11 +61,9 @@ class Downloader
             $this->logger->addEntry('Downloading database...');
 
             $url = $this->url->get($edition, 'tar.gz');
-
             $data = $this->fetch->get($url);
-            File::write($path, $data);
 
-            //return $this->fetch->get($url);
+            File::write($path, $data);
         } catch (FetchException $err) {
             $this->logger->addEntry($err->getMessage());
 
@@ -72,6 +71,23 @@ class Downloader
                 'Failed to download database file: %s',
                 $url
             ));
+        }
+    }
+
+    /**
+     * Check integrity of the downloaded archive using a sha256 hash
+     *
+     * @param string $hash Hash checksum from the downloaded checksum file
+     * @param string $path Path of archive file
+     *
+     * @throws Exception if hashes do not match.
+     */
+    public static function checkArchiveIntegrity(string $hash, string $path): void
+    {
+        $fileHash = hash_file('sha256', $path);
+
+        if ($fileHash !== $hash) {
+            throw new Exception('Integrity check failed: ' . $path);
         }
     }
 }

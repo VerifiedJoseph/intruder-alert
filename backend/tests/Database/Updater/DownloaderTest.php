@@ -91,6 +91,37 @@ class DownloaderTest extends AbstractTestCase
         $downloader->getArchive('GeoLite2-ASN', './backend/tests/files');
     }
 
+    /**
+     * Test checkArchiveIntegrity()
+     */
+    public function testCheckArchiveIntegrity(): void
+    {
+        $this->expectNotToPerformAssertions();
+
+        $file = mockfs::getUrl('/test.file');
+        file_put_contents($file, uniqid());
+        $checksum = hash_file('sha256', $file);
+
+        $downloader = new Downloader($this->createStub(Fetch::class), $this->createConfigStub(), new Logger());
+        $downloader->checkArchiveIntegrity($checksum, mockfs::getUrl('/test.file'));
+    }
+
+    /**
+     * Test checkArchiveIntegrity() failure
+     */
+    public function testCheckArchiveIntegrityFailure(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Integrity check failed');
+
+        $file = mockfs::getUrl('/test.file');
+        file_put_contents($file, uniqid());
+        $checksum = hash_file('sha1', $file);
+
+        $downloader = new Downloader(new Fetch('qwerty-useragent'), $this->createConfigStub(), new Logger());
+        $downloader->checkArchiveIntegrity($checksum, mockfs::getUrl('/test.file'));
+    }
+
     private function createConfigStub(): Config
     {
         $config = $this->createStub(Config::class);
