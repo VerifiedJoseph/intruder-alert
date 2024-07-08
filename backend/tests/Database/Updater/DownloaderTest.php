@@ -100,7 +100,7 @@ class DownloaderTest extends AbstractTestCase
 
         $file = mockfs::getUrl('/test.file');
         file_put_contents($file, uniqid());
-        $checksum = hash_file('sha256', $file);
+        $checksum = (string) hash_file('sha256', $file);
 
         $downloader = new Downloader($this->createStub(Fetch::class), $this->createConfigStub(), new Logger());
         $downloader->checkArchiveIntegrity($checksum, mockfs::getUrl('/test.file'));
@@ -116,7 +116,7 @@ class DownloaderTest extends AbstractTestCase
 
         $file = mockfs::getUrl('/test.file');
         file_put_contents($file, uniqid());
-        $checksum = hash_file('sha1', $file);
+        $checksum = (string) hash_file('sha1', $file);
 
         $downloader = new Downloader(new Fetch('qwerty-useragent'), $this->createConfigStub(), new Logger());
         $downloader->checkArchiveIntegrity($checksum, mockfs::getUrl('/test.file'));
