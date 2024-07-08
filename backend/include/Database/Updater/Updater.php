@@ -44,7 +44,7 @@ class Updater
                         $checksum = $extractor->checksum($checksumFile);
 
                         $downloader->getArchive($edition, $archivePath);
-                        Helper::checkIntegrity($checksum['hash'], $archivePath);
+                        $downloader->checkArchiveIntegrity($checksum['hash'], $archivePath);
 
                         $extractor->archive($archivePath, $edition, $path);
                         $tsFile->update();
