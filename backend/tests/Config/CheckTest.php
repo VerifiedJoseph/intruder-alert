@@ -66,10 +66,10 @@ class CheckTest extends AbstractTestCase
     public function testVersion(): void
     {
         $this->expectException(ConfigException::class);
-        $this->expectExceptionMessage('Intruder Alert requires at least PHP version 8.1.0');
+        $this->expectExceptionMessage('Intruder Alert requires at least PHP version 8.2.0');
 
         $check = new Check(self::$defaults);
-        $check->version('8.0.0', '8.1.0');
+        $check->version('8.0.0', '8.2.0');
     }
 
     /**
