@@ -1,6 +1,8 @@
 <?php
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Depends;
 use IntruderAlert\List\Networks;
 
 #[CoversClass(Networks::class)]
@@ -35,10 +37,9 @@ class NetworksTest extends AbstractTestCase
     /**
      * Test `addIp()`
      */
+    #[DoesNotPerformAssertions]
     public function testAddIp(): void
     {
-        $this->expectNotToPerformAssertions();
-
         foreach (self::$data['events'] as $item) {
             self::$listClass->addIp($item);
         }
@@ -46,9 +47,8 @@ class NetworksTest extends AbstractTestCase
 
     /**
      * Test `get()`
-     *
-     * @depends testAddIp
      */
+    #[Depends('testAddIp')]
     public function testGet(): void
     {
         $this->assertEquals(self::$listClass->get(), self::$expected);

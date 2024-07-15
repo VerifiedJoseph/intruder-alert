@@ -1,6 +1,8 @@
 <?php
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\UsesClass;
 use IntruderAlert\Lists;
 
@@ -32,10 +34,9 @@ class ListsTest extends AbstractTestCase
     /**
      * Test `addIp()`
      */
+    #[DoesNotPerformAssertions]
     public function testAddIp(): void
     {
-        $this->expectNotToPerformAssertions();
-
         self::$lists = new Lists();
 
         foreach (self::$data['events'] as $item) {
@@ -45,9 +46,8 @@ class ListsTest extends AbstractTestCase
 
     /**
      * Test `get()`
-     *
-     * @depends testAddIp
      */
+    #[Depends('testAddIp')]
     public function testGet(): void
     {
         $listNames = ['address', 'date', 'jail', 'network', 'subnet', 'country', 'continent'];
@@ -68,9 +68,8 @@ class ListsTest extends AbstractTestCase
 
     /**
      * Test `getCounts()`
-     *
-     * @depends testAddIp
      */
+    #[Depends('testAddIp')]
     public function testGetCounts(): void
     {
         $countNames = ['totalBans', 'address', 'date', 'jail', 'network', 'subnet', 'country', 'continent'];
