@@ -62,13 +62,13 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@2e947f1f6932d141d076ca441d0e1e881775e95b # v2.31.0
         with:
-          php-version: '8.1'
+          php-version: '8.2'
           coverage: none
 
       - name: Setup node
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
-          node-version: 20.12
+          node-version: 20.15
           cache: 'npm'
 
       - name: Run composer
