@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.19.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.0) - 2024-07-17
+
+- Dropped support for php 8.1 ([#598](https://github.com/VerifiedJoseph/intruder-alert/pull/598), [`5df5941`](https://github.com/VerifiedJoseph/intruder-alert/commit/5df59417f60ab12e9e97a9eb0a86a6d4480860f4))
+- Minor table css improvements. ([#599](https://github.com/VerifiedJoseph/intruder-alert/pull/599), [`ae70f4e`](https://github.com/VerifiedJoseph/intruder-alert/commit/ae70f4e1f71464bf8d6d938981bb80ee1c27e598))
+- Dockerfile: Updated node from 20.15.0-alpine3.19 to 20.15.1-alpine3.19 ([#595](https://github.com/VerifiedJoseph/intruder-alert/pull/595), [`79640dc`](https://github.com/VerifiedJoseph/intruder-alert/commit/79640dc4ad3e2d49235f7a0f234096a2999f76b2))
+
 ## [1.18.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.18.0) - 2024-07-08
 
 - Fixed action text on filter chips not changing when filters are reversed. ([#575](https://github.com/VerifiedJoseph/intruder-alert/pull/575), [`41cc278`](https://github.com/VerifiedJoseph/intruder-alert/commit/41cc27898bdb75c05dcc5d985f884dbb15f24869))
