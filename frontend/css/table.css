@@ -57,6 +57,10 @@ table td.asn {
 	width: 300px;
 }
 
+table td.address {
+	word-break: break-word;
+}
+
 table td.long {
 	width: 500px;
 }
