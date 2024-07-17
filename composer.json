@@ -1,6 +1,6 @@
 {
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "geoip2/geoip2": "^3.0"
     },
     "require-dev": {
