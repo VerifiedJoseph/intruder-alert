@@ -57,6 +57,10 @@ table td.asn {
 	width: 300px;
 }
 
+table td.address {
+	word-break: break-word;
+}
+
 table td.long {
 	width: 500px;
 }
@@ -110,8 +114,10 @@ td.long > span {
 
 td > span > .row-filter {
 	position: absolute;
-	top: 4px;
+	top: 0;
+	bottom: 0;
 	right: 10px;
+	margin: auto 0;
 	height: 23px;
 	display: none;
 }
