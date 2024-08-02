@@ -124,12 +124,12 @@ class BackendTest extends AbstractTestCase
 
         $this->assertFileExists(self::$dataFile);
 
-        $actual = json_decode((string) file_get_contents(self::$dataFile), associative: true);
+        $actual = json_decode((string) file_get_contents(self::$dataFile));
 
-        $this->assertArrayHasKey('error', $actual);
-        $this->assertArrayHasKey('message', $actual);
-        $this->assertTrue($actual['error']);
-        $this->assertEquals('No bans found', $actual['message']);
+        $this->assertObjectHasProperty('error', $actual);
+        $this->assertObjectHasProperty('message', $actual);
+        $this->assertTrue($actual->error);
+        $this->assertEquals('No bans found', $actual->message);
     }
 
     /**
