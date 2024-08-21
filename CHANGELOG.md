@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.19.3](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.3) - 2024-08-21
+
+- Updated chart.js from 4.4.3 to 4.4.4 ([#627](https://github.com/VerifiedJoseph/intruder-alert/pull/627), [`15e03e9`](https://github.com/VerifiedJoseph/intruder-alert/commit/15e03e98c82846a9b58f6690694ada6e31f51440))
+- Minor change to table css. ([#629](https://github.com/VerifiedJoseph/intruder-alert/pull/629), [`c83aa1f`](https://github.com/VerifiedJoseph/intruder-alert/commit/c83aa1fd6e5fc16c31be39bd0392d3c7a2a05c2e))
+
 ## [1.19.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.2) - 2024-08-02
 
 - Updated spacetime from 7.6.0 to 7.6.1 ([#614](https://github.com/VerifiedJoseph/intruder-alert/pull/614), [`62fb54f`](https://github.com/VerifiedJoseph/intruder-alert/commit/62fb54f55aefbb3c0d6a6d83bdca08e73c20d413))
