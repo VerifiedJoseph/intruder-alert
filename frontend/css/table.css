@@ -79,6 +79,7 @@ table td.view-bans-btn {
 
 table td.view-bans-btn > button {
 	height: 23px;
+	width: 76px;
 }
 
 table td.view-btn > span > button {
