@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.19.4](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.4) - 2024-09-03
+
+- Dockerfile: Updated composer from 2.7.7 to 2.7.8 ([#632](https://github.com/VerifiedJoseph/intruder-alert/pull/632), [`3e4d2cb`](https://github.com/VerifiedJoseph/intruder-alert/commit/3e4d2cb42264dc78dae6c7fb1831dd640f92a3ec))
+- Dockerfile: Updated node from 20.16.0-alpine3.19 to 20.17.0-alpine3.19 ([#631](https://github.com/VerifiedJoseph/intruder-alert/pull/631), [`6621f3f`](https://github.com/VerifiedJoseph/intruder-alert/commit/6621f3f5a0de11bc43fc49b8014febfa5935babf))
+- Dockerfile: Updated php from 8.2.22-fpm-alpine3.19 to 8.2.23-fpm-alpine3.19 ([#639](https://github.com/VerifiedJoseph/intruder-alert/pull/639), [`66db7f0`](https://github.com/VerifiedJoseph/intruder-alert/commit/66db7f03f222a3628330e9a165a46c8fec907abf))
+
 ## [1.19.3](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.3) - 2024-08-21
 
 - Updated chart.js from 4.4.3 to 4.4.4 ([#627](https://github.com/VerifiedJoseph/intruder-alert/pull/627), [`15e03e9`](https://github.com/VerifiedJoseph/intruder-alert/commit/15e03e98c82846a9b58f6690694ada6e31f51440))
