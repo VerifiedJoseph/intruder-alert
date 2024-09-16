@@ -74,6 +74,7 @@ export class Display {
     const jail = this.#iaData.getJail(this.#iaData.getMostBanned('jail'))
 
     document.getElementById('most-banned-ip').innerText = ip.address
+    document.getElementById('most-banned-ip').setAttribute('title', ip.address)
     document.getElementById('most-banned-ip-count').innerText = Helper.formatNumber(ip.bans)
 
     document.getElementById('most-seen-network').innerText = network.name
