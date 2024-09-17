@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.19.5](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.5) - 2024-09-17
+
+- Added ellipsis to text in most banned IP address box. ([#649](https://github.com/VerifiedJoseph/intruder-alert/pull/649), [`912df63`](https://github.com/VerifiedJoseph/intruder-alert/commit/912df6378eccccc317f6991e28484657deb249b1))
+- Dockerfile: Updated composer from 2.7.8 to 2.7.9 ([#643](https://github.com/VerifiedJoseph/intruder-alert/pull/643), [`d58fe93`](https://github.com/VerifiedJoseph/intruder-alert/commit/d58fe93864a340af2b5adaf2bbf9ef0bafa982dc))
+
 ## [1.19.4](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.4) - 2024-09-03
 
 - css: Sticky table header ([#642](https://github.com/VerifiedJoseph/intruder-alert/pull/642), [`38e3b97`](https://github.com/VerifiedJoseph/intruder-alert/commit/38e3b97b234832964142109cef62316f54ce2d37))
