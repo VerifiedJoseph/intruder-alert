@@ -7,7 +7,7 @@ class Version
     /**
      * @var string $version Intruder Alert version
      */
-    private static string $version = '1.19.5';
+    private static string $version = '1.19.6';
 
     /**
      * Returns version number

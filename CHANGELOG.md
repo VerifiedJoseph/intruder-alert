@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.19.6](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.6) - 2024-09-20
+
+- css: Fixed sticky table header ([#653](https://github.com/VerifiedJoseph/intruder-alert/pull/653), [`24bda04`](https://github.com/VerifiedJoseph/intruder-alert/commit/24bda04e21dca848caaf77de0e17be81c6eb20bc))
+
 ## [1.19.5](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.5) - 2024-09-17
 
 - Added ellipsis to text in most banned IP address box. ([#649](https://github.com/VerifiedJoseph/intruder-alert/pull/649), [`912df63`](https://github.com/VerifiedJoseph/intruder-alert/commit/912df6378eccccc317f6991e28484657deb249b1))
