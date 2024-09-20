@@ -8,6 +8,7 @@ table {
 table th {
 	text-align: left;
 	position: sticky;
+	z-index: 100;
 	top: 0;
 }
 
