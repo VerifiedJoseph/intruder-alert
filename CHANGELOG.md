@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.19.7](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.7) - 2024-10-08
+
+- Dockerfile: Updated php from 8.2.23-fpm-alpine3.19 to 8.2.24-fpm-alpine3.19 ([#662](https://github.com/VerifiedJoseph/intruder-alert/pull/662), [`200185d`](https://github.com/VerifiedJoseph/intruder-alert/commit/200185dd71db774e9271f51e9e68cdc5febccfc3))
+- Dockerfile: Updated node from 20.17.0-alpine3.19 to 20.18.0-alpine3.19 ([#670](https://github.com/VerifiedJoseph/intruder-alert/pull/670), [`01b7a26`](https://github.com/VerifiedJoseph/intruder-alert/commit/01b7a2670a6e26f4d91234fb4cc0d620859e8a19))
+- Dockerfile: Updated composer from 2.7.9 to 2.8.0 ([#671](https://github.com/VerifiedJoseph/intruder-alert/pull/671), [`3480baa`](https://github.com/VerifiedJoseph/intruder-alert/commit/3480baa50c01c52eca56779c803caf802be09eee))
+- Dockerfile: Updated composer from 2.8.0 to 2.8.1 ([#674](https://github.com/VerifiedJoseph/intruder-alert/pull/674), [`978a4ad`](https://github.com/VerifiedJoseph/intruder-alert/commit/978a4adef2f489258863b42cfaf9f160d6fbca94))
+
 ## [1.19.6](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.6) - 2024-09-20
 
 - css: Fixed sticky table header ([#653](https://github.com/VerifiedJoseph/intruder-alert/pull/653), [`24bda04`](https://github.com/VerifiedJoseph/intruder-alert/commit/24bda04e21dca848caaf77de0e17be81c6eb20bc))
