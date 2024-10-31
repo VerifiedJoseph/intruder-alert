@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.19.8](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.8) - 2024-10-31
+
+- Updated spacetime from 7.6.1 to 7.6.2 ([#679](https://github.com/VerifiedJoseph/intruder-alert/pull/679), [`aab8a3b`](https://github.com/VerifiedJoseph/intruder-alert/commit/aab8a3b1f558fddda94d816c655c3346776c1548))
+- Updated chart.js from 4.4.4 to 4.4.5 ([#680](https://github.com/VerifiedJoseph/intruder-alert/pull/680), [`74a5b6d`](https://github.com/VerifiedJoseph/intruder-alert/commit/74a5b6d18b5625c29f3a73e92dbeb772ed720c09))
+- Updated chart.js from 4.4.5 to 4.4.6 ([#686](https://github.com/VerifiedJoseph/intruder-alert/pull/686), [`f1adf74`](https://github.com/VerifiedJoseph/intruder-alert/commit/f1adf741e1de56c4f41d978043baa8b2a07f8e1f))
+- Dockerfile: Updated composer from 2.8.1 to 2.8.2 ([#687](https://github.com/VerifiedJoseph/intruder-alert/pull/687), [`c343a1a`](https://github.com/VerifiedJoseph/intruder-alert/commit/c343a1a13cebfa2e87cd0a8c52e560efd0387ce7))
+- Dockerfile: Updated php from 8.2.24-fpm-alpine3.19 to 8.2.25-fpm-alpine3.19 ([#684](https://github.com/VerifiedJoseph/intruder-alert/pull/684), [`2229e5d`](https://github.com/VerifiedJoseph/intruder-alert/commit/2229e5de31ed50f815ffb75d6eaec2dcba5e09fb))
+
 ## [1.19.7](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.7) - 2024-10-08
 
 - Dockerfile: Updated php from 8.2.23-fpm-alpine3.19 to 8.2.24-fpm-alpine3.19 ([#662](https://github.com/VerifiedJoseph/intruder-alert/pull/662), [`200185d`](https://github.com/VerifiedJoseph/intruder-alert/commit/200185dd71db774e9271f51e9e68cdc5febccfc3))
