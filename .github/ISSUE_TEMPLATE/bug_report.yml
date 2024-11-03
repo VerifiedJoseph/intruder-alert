@@ -15,7 +15,7 @@ body:
       label: Configuration
       description: >-
         Provide a complete `docker-compose` and\or `config.php`
-        configuration file.
+        configuration file. Redact or remove sensitive information such as API keys.
   - type: input
     attributes:
       label: Version
@@ -27,7 +27,7 @@ body:
       label: ' Deployment Method'
       description: How have you deployed Intruder Alert?
       options:
-        - docker-compose
+        - docker/docker-compose
         - Bare-metal
         - Other
     validations:
@@ -37,7 +37,7 @@ body:
       label: PHP Version
       description: What version of php are you using to run Intruder Alert?
     validations:
-      required: true
+      required: false
   - type: textarea
     attributes:
       label: Additional context
