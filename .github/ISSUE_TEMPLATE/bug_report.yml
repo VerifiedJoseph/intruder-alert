@@ -15,7 +15,7 @@ body:
       label: Configuration
       description: >-
         Provide a complete `docker-compose` and\or `config.php`
-        configuration file. Redacte or remove sensitive information such as API keys.
+        configuration file. Redact or remove sensitive information such as API keys.
   - type: input
     attributes:
       label: Version
