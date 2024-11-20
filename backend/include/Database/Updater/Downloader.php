@@ -33,11 +33,10 @@ class Downloader
      */
     public function getChecksum(string $edition): string
     {
+        $this->logger->addEntry('Downloading checksum...');
+        $url = $this->url->get($edition, 'tar.gz.sha256');
+
         try {
-            $this->logger->addEntry('Downloading checksum...');
-
-            $url = $this->url->get($edition, 'tar.gz.sha256');
-
             return $this->fetch->get($url);
         } catch (FetchException $err) {
             $this->logger->addEntry($err->getMessage());
