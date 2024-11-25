@@ -1,8 +1,7 @@
 <?php
 
-
 use PHPUnit\Framework\TestCase as TestCase;
-use IntruderAlert\LOgger;
+use IntruderAlert\Logger;
 
 abstract class AbstractTestCase extends TestCase
 {

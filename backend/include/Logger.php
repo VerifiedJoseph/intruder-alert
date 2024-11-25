@@ -24,7 +24,7 @@ class Logger
     private int $logLevel = 1;
 
     /**
-     * 
+     *
      * @param string $timezone Timezone
      * @param int $level Logging level (`1` - Normal, `2` - Debug)
      */
@@ -57,7 +57,7 @@ class Logger
      *
      * @param string $message Message text
      */
-    public function info(string $message)
+    public function info(string $message): void
     {
         $this->log($message, 1);
     }
@@ -67,7 +67,7 @@ class Logger
      *
      * @param string $message Message text
      */
-    public function debug(string $message)
+    public function debug(string $message): void
     {
         if ($this->logLevel === 2) {
             $this->log($message, 2);
@@ -80,7 +80,7 @@ class Logger
      * @param string $message Message text
      * @param int $level Message log level
      */
-    private function log(string $message, int $level)
+    private function log(string $message, int $level): void
     {
         Output::text($message);
 

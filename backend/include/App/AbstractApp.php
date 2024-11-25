@@ -27,7 +27,7 @@ abstract class AbstractApp
             $this->config->getTimezone(),
             $this->config->getLoggingLevel()
         );
-        
+
         $this->lists = new Lists();
     }
 }
