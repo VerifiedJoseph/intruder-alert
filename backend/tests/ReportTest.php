@@ -5,6 +5,7 @@ use PHPUnit\Framework\Attributes\UsesClass;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Report;
 use IntruderAlert\Lists;
+use IntruderAlert\Logger;
 
 #[CoversClass(Report::class)]
 #[UsesClass(IntruderAlert\Config::class)]
@@ -37,7 +38,7 @@ class ReportTest extends AbstractTestCase
      */
     public function testGenerate(): void
     {
-        //$this->expectOutputRegex('/Created report JSON file/');
+        $this->expectOutputRegex('/Created report JSON file/');
 
         $path = mockfs::getUrl('/report.json');
         $timezone = 'UTC';
@@ -47,7 +48,7 @@ class ReportTest extends AbstractTestCase
             self::$lists->getCounts(),
             $path,
             $timezone,
-            self::$logger
+            new Logger('UTC')
         );
 
         $reflection = new ReflectionClass($report);
@@ -59,8 +60,6 @@ class ReportTest extends AbstractTestCase
 
         $expected = self::getJsonFile('./backend/tests/files/expected-report.json');
         $actual = self::getJsonFile(mockfs::getUrl('/report.json'));
-
-        var_dump($actual['log']);
 
         $this->assertGreaterThan(0, strtotime($actual['updated']));
         $this->assertMatchesRegularExpression(

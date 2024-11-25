@@ -66,6 +66,8 @@ class Report
         $data['log'] = $this->logger->getEntries();
         $data['log'][] = 'Last run: ' . $this->date->format('Y-m-d H:i:s e');
 
+        var_dump($data);
+
         File::write(
             $this->path,
             Json::encode($data)
