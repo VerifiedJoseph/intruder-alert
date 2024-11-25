@@ -9,12 +9,15 @@ class Fetch
     /** @var string $username HTTP request useragent */
     private string $useragent = '';
 
+    private Logger $logger;
+
     /**
      * @param string $useragent HTTP request useragent
      */
-    public function __construct(string $useragent)
+    public function __construct(string $useragent, Logger $logger)
     {
         $this->useragent = $useragent;
+        $this->logger = $logger;
     }
 
     /**
@@ -36,6 +39,8 @@ class Fetch
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_USERAGENT => $this->useragent
         ]);
+
+        $this->logger->debug('GET request: ' . $url);
 
         $response = curl_exec($ch);
         $error = curl_error($ch);

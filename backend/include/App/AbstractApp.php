@@ -23,7 +23,11 @@ abstract class AbstractApp
     public function __construct(Config $config)
     {
         $this->config = $config;
-        $this->logger = new Logger();
+        $this->logger = new Logger(
+            $this->config->getTimezone(),
+            $this->config->getLoggingLevel()
+        );
+        
         $this->lists = new Lists();
     }
 }

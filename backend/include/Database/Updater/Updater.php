@@ -36,7 +36,7 @@ class Updater
                     $tsFile = new TimestampFile($path);
 
                     if ($tsFile->isOutdated() === true) {
-                        $this->logger->addEntry('Updating Geoip2 database: ' . $edition);
+                        $this->logger->info('Updating Geoip2 database: ' . $edition);
 
                         $archivePath = $path . '.tar.gz';
 
@@ -49,7 +49,7 @@ class Updater
                         $extractor->archive($archivePath, $edition, $path);
                         $tsFile->update();
 
-                        $this->logger->addEntry('Updated Geoip2 database: ' . $edition);
+                        $this->logger->info('Updated Geoip2 database: ' . $edition);
                     }
                 }
             } catch (\Exception $err) {

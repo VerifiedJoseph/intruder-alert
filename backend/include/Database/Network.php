@@ -29,7 +29,7 @@ class Network extends AbstractDatabase
             $data['number'] = (int) $record->autonomousSystemNumber;
             $data['subnet'] = (string) $record->network;
         } catch (AddressNotFoundException) {
-            $this->logger->addEntry('Address not found in GeoIP2 ASN database: ' . $address);
+            $this->logger->info('Address not found in GeoIP2 ASN database: ' . $address);
         } finally {
             return $data;
         }

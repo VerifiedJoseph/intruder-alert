@@ -49,14 +49,14 @@ class Logs
             $timer = new Timer();
             $timer->start();
 
-            $this->logger->addEntry('Processing ' . $file->getPathname());
+            $this->logger->info('Processing ' . $file->getPathname());
 
             if ($file->isReadable() === false) {
                 throw new AppException('Failed to read file: ' . $file->getPathname());
             }
 
             if ($file->getSize() === 0) {
-                $this->logger->addEntry('File is empty. Skipping ' . $file->getPathname());
+                $this->logger->info('File is empty. Skipping ' . $file->getPathname());
                 continue;
             }
 
@@ -99,7 +99,7 @@ class Logs
                 $timer->getTime()
             );
 
-            $this->logger->addEntry($message);
+            $this->logger->info($message);
         }
 
         if (count($rows) === 0) {
@@ -107,7 +107,7 @@ class Logs
         }
 
         $totalBans = number_format(count($rows));
-        $this->logger->addEntry(sprintf('Found %s bans in all files.', $totalBans));
+        $this->logger->info(sprintf('Found %s bans in all files.', $totalBans));
 
         return $rows;
     }
