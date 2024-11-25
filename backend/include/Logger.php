@@ -2,35 +2,113 @@
 
 namespace IntruderAlert;
 
+use DateTime;
+use DateTimeZone;
 use IntruderAlert\Helper\Output;
 
 class Logger
 {
-    /** @var array<int, string> $entries */
+    private DateTimeZone $timezone;
+
+    /** @var array<int, array<string, mixed>> $entries Logger entries  */
     private array $entries = [];
 
     /**
-     * Add entry
+     * Logging level
      *
-     * @param string $message Entry message
-     * @param bool $display Toggle displaying the message
+     * - `1` - Normal
+     * - `2` - Debug
+     *
+     * @var int
      */
-    public function addEntry(string $message, bool $display = true): void
-    {
-        if ($display === true) {
-            Output::text($message);
-        }
+    private int $logLevel = 1;
 
-        $this->entries[] = $message;
+    /**
+     * 
+     * @param string $timezone Timezone
+     * @param int $level Logging level (`1` - Normal, `2` - Debug)
+     */
+    public function __construct(string $timezone, int $level = 1)
+    {
+        $this->setLevel($level);
+        $this->timezone = new DateTimeZone($timezone);
     }
 
     /**
-     * Get Entries
+     * Return info level entries
      *
      * @return array<int, string>
      */
     public function getEntries(): array
     {
-        return $this->entries;
+        $data = [];
+
+        foreach ($this->entries as $entry) {
+            if ($entry['level'] === 1) {
+                $data[] = $entry['message'];
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Add info message
+     *
+     * @param string $message Message text
+     */
+    public function info(string $message)
+    {
+        $this->log($message, 1);
+    }
+
+    /**
+     * Add debug message
+     *
+     * @param string $message Message text
+     */
+    public function debug(string $message)
+    {
+        if ($this->logLevel === 2) {
+            $this->log($message, 2);
+        }
+    }
+
+    /**
+     * Add message to logger and display in terminal
+     *
+     * @param string $message Message text
+     * @param int $level Message log level
+     */
+    private function log(string $message, int $level)
+    {
+        Output::text($message);
+
+        $date = new DateTime('now', $this->timezone);
+
+        $this->entries[] = [
+            'timestamp' => $date->format('Y-m-d H:i:s P'),
+            'message' => $message,
+            'level' => $level
+        ];
+    }
+
+    /**
+     * Set logging level
+     *
+     * - `1` - Normal
+     * - `2` - Verbose
+     *
+     * @param int $level Logging level
+     */
+    private function setLevel(int $level): void
+    {
+        if ($level < 1) {
+            $this->logLevel = 1;
+        } elseif ($level > 2) {
+            $this->logLevel = 2;
+        } else {
+            $this->logLevel = $level;
+        }
     }
 }
