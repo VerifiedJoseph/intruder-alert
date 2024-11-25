@@ -1,13 +1,17 @@
 <?php
 
+
 use PHPUnit\Framework\TestCase as TestCase;
+use IntruderAlert\LOgger;
 
 abstract class AbstractTestCase extends TestCase
 {
     protected static string $tempPath = '';
+    protected static Logger $logger;
 
     public static function setUpBeforeClass(): void
     {
+        self::$logger = new Logger('UTC');
         self::$tempPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'intruder-alert-tests' . DIRECTORY_SEPARATOR;
 
         if (file_exists(self::$tempPath) === false) {

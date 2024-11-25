@@ -62,7 +62,7 @@ class LogsTest extends AbstractTestCase
         $config = $this->createConfigStub();
         $config->method('getLogFolder')->willReturn('./backend/tests/files/logs/has-bans');
 
-        $logs = new Logs($config, new Logger());
+        $logs = new Logs($config, self::$logger);
         $rows = $logs->process();
 
         $this->assertCount(2, $rows);
@@ -84,7 +84,7 @@ class LogsTest extends AbstractTestCase
         $config = $this->createConfigStub();
         $config->method('getLogPaths')->willReturn('./backend/tests/files/logs/has-bans/fail2ban.log');
 
-        $logs = new Logs($config, new Logger());
+        $logs = new Logs($config, self::$logger);
         $rows = $logs->process();
 
         $this->assertCount(2, $rows);
@@ -108,7 +108,7 @@ class LogsTest extends AbstractTestCase
         $this->expectException(LogsException::class);
         $this->expectExceptionMessage('No bans found');
 
-        $logs = new Logs($config, new Logger());
+        $logs = new Logs($config, self::$logger);
         $logs->process();
     }
 
@@ -124,7 +124,7 @@ class LogsTest extends AbstractTestCase
         $this->expectException(AppException::class);
         $this->expectExceptionMessage('App error: Failed to read file');
 
-        $logs = new Logs($config, new Logger());
+        $logs = new Logs($config, self::$logger);
         $logs->process();
     }
 
@@ -143,7 +143,7 @@ class LogsTest extends AbstractTestCase
 
         $this->expectOutputRegex('/File is empty. Skipping/');
 
-        $logs = new Logs($config, new Logger());
+        $logs = new Logs($config, self::$logger);
         $logs->process();
     }
 
@@ -171,7 +171,7 @@ class LogsTest extends AbstractTestCase
         $this->expectExceptionMessage('App error: Failed to open file: ' . $file);
         $this->expectOutputRegex('/Processing/');
 
-        $logs = new Logs($config, new Logger());
+        $logs = new Logs($config, self::$logger);
         $logs->process();
     }
 }

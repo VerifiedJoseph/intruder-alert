@@ -3,10 +3,9 @@
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use IntruderAlert\Database\Network;
-use IntruderAlert\Logger;
 
 #[CoversClass(Network::class)]
-#[UsesClass(Logger::class)]
+#[UsesClass(IntruderAlert\Logger::class)]
 #[UsesClass(IntruderAlert\Database\AbstractDatabase::class)]
 #[UsesClass(IntruderAlert\Helper\Output::class)]
 #[UsesClass(GeoIp2\Exception\AddressNotFoundException::class)]
@@ -26,7 +25,7 @@ class NetworkTest extends AbstractTestCase
             'subnet' => '1.0.0.0/24'
         ];
 
-        $database = new Network($this->path, new Logger());
+        $database = new Network($this->path, self::$logger);
 
         $this->assertEquals(
             $expected,
@@ -47,7 +46,7 @@ class NetworkTest extends AbstractTestCase
             'subnet' => 'Unknown'
         ];
 
-        $database = new Network($this->path, new Logger());
+        $database = new Network($this->path, self::$logger);
 
         $this->assertEquals(
             $expected,
