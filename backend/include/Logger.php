@@ -63,7 +63,7 @@ class Logger
     }
 
     /**
-     * Add debug message
+     * Log debug message
      *
      * @param string $message Message text
      */
