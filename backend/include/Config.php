@@ -55,6 +55,7 @@ class Config extends AbstractConfig
         'country_database_path' => '',
         'timezone' => '',
         'log_timezone' => '',
+        'verbose' => false,
         'dash_charts' => true,
         'dash_updates' => true,
         'dash_daemon_log' => true,
@@ -71,6 +72,7 @@ class Config extends AbstractConfig
         $this->check = new Check($this->config);
         $this->check->version(PHP_VERSION, $this->minPhpVersion);
         $this->check->extensions($this->extensions);
+        $this->check->verbose();
     }
 
     /**
@@ -192,6 +194,11 @@ class Config extends AbstractConfig
     public function getDataFilePath(): string
     {
         return $this->getPath($this->dataFilepath);
+    }
+
+    public function getLoggingLevel(): int
+    {
+        return ($this->config['verbose'] === true) ? 2 : 1;
     }
 
     /**
