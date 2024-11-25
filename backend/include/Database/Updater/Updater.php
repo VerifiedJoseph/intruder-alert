@@ -27,7 +27,7 @@ class Updater
             $this->config,
             $this->logger
         );
-        $extractor = new Extractor($this->config);
+        $extractor = new Extractor($this->config, $this->logger);
         $databasePaths = $this->getDatabasePaths();
 
         if ($this->config->getMaxMindLicenseKey() !== '') {
