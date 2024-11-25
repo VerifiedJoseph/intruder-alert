@@ -3,6 +3,7 @@
 namespace IntruderAlert\Database\Updater;
 
 use IntruderAlert\Config;
+use IntruderAlert\Logger;
 use Exception;
 
 class Extractor
@@ -11,10 +12,12 @@ class Extractor
     private string $checksumRegex = '/^([A-Za-z0-9]+)\ \ (GeoLite2-(?:[A-Za-z]+)_(?:[0-9]{8})\.tar\.gz)$/';
 
     private Config $config;
+    private Logger $logger;
 
-    public function __construct(Config $config)
+    public function __construct(Config $config, Logger $logger)
     {
         $this->config = $config;
+        $this->logger = $logger;
     }
 
     /**
@@ -67,6 +70,12 @@ class Extractor
                     ));
                 }
 
+                $this->logger->debug(sprintf(
+                    'Moving database file from %s to %s',
+                    $filepath,
+                    $path
+                ));
+
                 if (rename($filepath, $path) === false) {
                     throw new Exception(sprintf(
                         'Failed to move database from %s to %s',
@@ -88,9 +97,11 @@ class Extractor
      *
      * @param string $path Directory path
      */
-    private function removeDir($path): void
+    private function removeDir(string $path): void
     {
         if (is_dir($path) === true) {
+            $this->logger->debug('Removing directory: ' . $path);
+
             $directory = new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS);
             $items = new \RecursiveIteratorIterator($directory, \RecursiveIteratorIterator::CHILD_FIRST);
 
