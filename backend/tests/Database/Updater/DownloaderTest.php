@@ -31,7 +31,7 @@ class DownloaderTest extends AbstractTestCase
         $fetch = $this->createStub(Fetch::class);
         $fetch->method('get')->willReturn($expected);
 
-        $downloader = new Downloader($fetch, $this->createConfigStub(), new Logger());
+        $downloader = new Downloader($fetch, $this->createConfigStub(), self::$logger);
         $actual = $downloader->getChecksum('GeoLite2-ASN');
 
         $this->assertEquals($expected, $actual);
@@ -49,7 +49,7 @@ class DownloaderTest extends AbstractTestCase
         $fetch = $this->createStub(Fetch::class);
         $fetch->method('get')->willThrowException(new FetchException('Request failed'));
 
-        $downloader = new Downloader($fetch, $this->createConfigStub(), new Logger());
+        $downloader = new Downloader($fetch, $this->createConfigStub(), self::$logger);
         $downloader->getChecksum('GeoLite2-ASN');
     }
 
@@ -68,7 +68,7 @@ class DownloaderTest extends AbstractTestCase
         $fetch = $this->createStub(Fetch::class);
         $fetch->method('get')->willReturn($expected);
 
-        $downloader = new Downloader($fetch, $this->createConfigStub(), new Logger());
+        $downloader = new Downloader($fetch, $this->createConfigStub(), self::$logger);
         $downloader->getArchive('GeoLite2-ASN', $file);
 
         $this->assertFileExists($file);
@@ -87,7 +87,7 @@ class DownloaderTest extends AbstractTestCase
         $fetch = $this->createStub(Fetch::class);
         $fetch->method('get')->willThrowException(new FetchException('Request failed'));
 
-        $downloader = new Downloader($fetch, $this->createConfigStub(), new Logger());
+        $downloader = new Downloader($fetch, $this->createConfigStub(), self::$logger);
         $downloader->getArchive('GeoLite2-ASN', './backend/tests/files');
     }
 
@@ -102,7 +102,7 @@ class DownloaderTest extends AbstractTestCase
         file_put_contents($file, uniqid());
         $checksum = (string) hash_file('sha256', $file);
 
-        $downloader = new Downloader(new Fetch('qwerty-useragent'), $this->createConfigStub(), new Logger());
+        $downloader = new Downloader($this->createStub(Fetch::class), $this->createConfigStub(), self::$logger);
         $downloader->checkArchiveIntegrity($checksum, mockfs::getUrl('/test.file'));
     }
 
@@ -118,7 +118,7 @@ class DownloaderTest extends AbstractTestCase
         file_put_contents($file, uniqid());
         $checksum = (string) hash_file('sha1', $file);
 
-        $downloader = new Downloader(new Fetch('qwerty-useragent'), $this->createConfigStub(), new Logger());
+        $downloader = new Downloader($this->createStub(Fetch::class), $this->createConfigStub(), self::$logger);
         $downloader->checkArchiveIntegrity($checksum, mockfs::getUrl('/test.file'));
     }
 

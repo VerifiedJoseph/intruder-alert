@@ -3,11 +3,10 @@
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use IntruderAlert\Database\Country;
-use IntruderAlert\Logger;
 
 #[CoversClass(Country::class)]
 #[CoversClass(IntruderAlert\Database\AbstractDatabase::class)]
-#[UsesClass(Logger::class)]
+#[UsesClass(IntruderAlert\Logger::class)]
 #[UsesClass(IntruderAlert\Helper\Output::class)]
 #[UsesClass(GeoIp2\Exception\AddressNotFoundException::class)]
 class CountryTest extends AbstractTestCase
@@ -31,7 +30,7 @@ class CountryTest extends AbstractTestCase
             ]
         ];
 
-        $database = new Country($this->path, new Logger());
+        $database = new Country($this->path, self::$logger);
 
         $this->assertEquals(
             $expected,
@@ -57,7 +56,7 @@ class CountryTest extends AbstractTestCase
             ]
         ];
 
-        $database = new Country($this->path, new Logger());
+        $database = new Country($this->path, self::$logger);
 
         $this->assertEquals(
             $expected,

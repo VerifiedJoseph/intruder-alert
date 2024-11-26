@@ -217,6 +217,23 @@ class Check extends AbstractConfig
     }
 
     /**
+     * Check verbose logging (`IA_VERBOSE`)
+     *
+     * @throws ConfigException if environment variable `IA_VERBOSE` is not a boolean.
+     */
+    public function verbose(): void
+    {
+        if ($this->hasEnv('VERBOSE') === true) {
+            if ($this->isEnvBoolean('VERBOSE') === false) {
+                throw new ConfigException('Verbose logging environment variable must be true or false [IA_VERBOSE]');
+            }
+
+            $this->config['verbose'] = filter_var($this->getEnv('VERBOSE'), FILTER_VALIDATE_BOOLEAN);
+        }
+    }
+
+
+    /**
      * Check dashboard charts variable (`IA_DISABLE_CHARTS`)
      *
      * @throws ConfigException if environment variable `IA_DISABLE_CHARTS` is not a boolean.

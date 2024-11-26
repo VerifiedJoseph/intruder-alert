@@ -26,6 +26,7 @@ class CheckTest extends AbstractTestCase
     {
         // Unset environment variables before each test
         putenv('IA_DOCKER');
+        putenv('IA_VERBOSE');
         putenv('IA_LOG_PATHS');
         putenv('IA_LOG_FOLDER');
         putenv('IA_MAXMIND_LICENSE_KEY');
@@ -520,6 +521,35 @@ class CheckTest extends AbstractTestCase
 
         $check = new Check(self::$defaults);
         $check->systemLogTimezone();
+    }
+
+    /**
+     * Test setting `IA_VERBOSE`
+     */
+    public function testVerbose(): void
+    {
+        putenv('IA_VERBOSE=true');
+
+        $check = new Check(self::$defaults);
+        $check->verbose();
+
+        $config = $check->getConfig();
+
+        $this->assertTrue($config['verbose']);
+    }
+
+    /**
+     * Test setting `IA_VERBOSE` is non-boolean value
+     */
+    public function testVerboseNotBoolean(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Verbose logging environment variable must be true or false');
+
+        putenv('IA_VERBOSE=string');
+
+        $check = new Check(self::$defaults);
+        $check->verbose();
     }
 
     /**

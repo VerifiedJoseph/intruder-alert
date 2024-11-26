@@ -8,6 +8,7 @@ use IntruderAlert\Config;
 #[CoversClass(Frontend::class)]
 #[UsesClass(Config::class)]
 #[UsesClass(IntruderAlert\App\AbstractApp::class)]
+#[UsesClass(IntruderAlert\Logger::class)]
 #[UsesClass(IntruderAlert\Lists::class)]
 #[UsesClass(IntruderAlert\Helper\Json::class)]
 #[UsesClass(IntruderAlert\Helper\File::class)]

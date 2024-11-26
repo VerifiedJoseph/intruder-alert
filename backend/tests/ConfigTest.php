@@ -33,6 +33,7 @@ class ConfigTest extends AbstractTestCase
     public function setUp(): void
     {
         // Unset environment variables before each test
+        putenv('IA_VERBOSE');
         putenv('IA_LOG_PATHS');
         putenv('IA_LOG_FOLDER');
         putenv('IA_MAXMIND_LICENSE_KEY');
@@ -261,6 +262,15 @@ class ConfigTest extends AbstractTestCase
     {
         $config = new Config();
         $this->assertEquals(self::$defaults['log_timezone'], $config->getSystemLogTimezone());
+    }
+
+    /**
+     * Test `getLoggingLevel()`
+     */
+    public function testGetLoggingLevel(): void
+    {
+        $config = new Config();
+        $this->assertEquals(1, $config->getLoggingLevel());
     }
 
     /**

@@ -33,14 +33,13 @@ class Downloader
      */
     public function getChecksum(string $edition): string
     {
+        $this->logger->info('Downloading checksum...');
+        $url = $this->url->get($edition, 'tar.gz.sha256');
+
         try {
-            $this->logger->addEntry('Downloading checksum...');
-
-            $url = $this->url->get($edition, 'tar.gz.sha256');
-
             return $this->fetch->get($url);
         } catch (FetchException $err) {
-            $this->logger->addEntry($err->getMessage());
+            $this->logger->info($err->getMessage());
 
             throw new Exception(sprintf(
                 'Failed to download checksum file: %s',
@@ -58,14 +57,14 @@ class Downloader
     public function getArchive(string $edition, string $path): void
     {
         try {
-            $this->logger->addEntry('Downloading database...');
+            $this->logger->info('Downloading database...');
 
             $url = $this->url->get($edition, 'tar.gz');
             $data = $this->fetch->get($url);
 
             File::write($path, $data);
         } catch (FetchException $err) {
-            $this->logger->addEntry($err->getMessage());
+            $this->logger->info($err->getMessage());
 
             throw new Exception(sprintf(
                 'Failed to download database file: %s',

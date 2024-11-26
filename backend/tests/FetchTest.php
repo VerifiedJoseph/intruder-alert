@@ -1,10 +1,13 @@
 <?php
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use IntruderAlert\Fetch;
+use IntruderAlert\Logger;
 use IntruderAlert\Exception\FetchException;
 
 #[CoversClass(Fetch::class)]
+#[UsesClass(Logger::class)]
 class FetchTest extends AbstractTestCase
 {
     /** @var string $useragent HTTP useragent */
@@ -15,7 +18,7 @@ class FetchTest extends AbstractTestCase
      */
     public function testGet(): void
     {
-        $fetch = new Fetch($this->useragent);
+        $fetch = new Fetch($this->useragent, self::$logger);
         $data = $fetch->get('https://httpbingo.org/get');
 
         /** @var stdClass $response */
@@ -34,7 +37,7 @@ class FetchTest extends AbstractTestCase
         $this->expectException(FetchException::class);
         $this->expectExceptionMessage('Request failed. Returned HTTP 404');
 
-        $fetch = new Fetch($this->useragent);
+        $fetch = new Fetch($this->useragent, self::$logger);
         $data = $fetch->get('https://httpbingo.org/status/404');
     }
 
@@ -46,7 +49,7 @@ class FetchTest extends AbstractTestCase
         $this->expectException(FetchException::class);
         $this->expectExceptionMessage('Could not resolve host: example.invalid');
 
-        $fetch = new Fetch($this->useragent);
+        $fetch = new Fetch($this->useragent, self::$logger);
         $fetch->get('https://example.invalid');
     }
 }

@@ -68,7 +68,7 @@ class Backend extends AbstractApp
 
         $cache->save();
         $timer->stop();
-        $this->logger->addEntry(sprintf('Time taken: %ss', $timer->getTime()));
+        $this->logger->info(sprintf('Time taken: %ss', $timer->getTime()));
     }
 
     /**
@@ -116,7 +116,7 @@ class Backend extends AbstractApp
      */
     private function databaseUpdate(): void
     {
-        $fetch = new Fetch($this->config->getUseragent());
+        $fetch = new Fetch($this->config->getUseragent(), $this->logger);
         $updater = new Database\Updater\Updater($this->config, $fetch, $this->logger);
         $updater->run();
     }

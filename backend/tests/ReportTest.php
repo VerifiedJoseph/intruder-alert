@@ -6,7 +6,6 @@ use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Report;
 use IntruderAlert\Lists;
 use IntruderAlert\Logger;
-use IntruderAlert\Config;
 
 #[CoversClass(Report::class)]
 #[UsesClass(IntruderAlert\Config::class)]
@@ -49,7 +48,7 @@ class ReportTest extends AbstractTestCase
             self::$lists->getCounts(),
             $path,
             $timezone,
-            new Logger()
+            new Logger('UTC')
         );
 
         $reflection = new ReflectionClass($report);

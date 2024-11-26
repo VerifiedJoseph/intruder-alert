@@ -8,6 +8,7 @@ use IntruderAlert\Config;
 
 #[CoversClass(Extractor::class)]
 #[UsesClass(Config::class)]
+#[UsesClass(IntruderAlert\Logger::class)]
 #[UsesClass(IntruderAlert\Config\Check::class)]
 class ExtractorTest extends AbstractTestCase
 {
@@ -48,7 +49,7 @@ class ExtractorTest extends AbstractTestCase
             'filename' => 'GeoLite2-ASN_19700101.tar.gz'
         ];
 
-        $extractor = new Extractor(new Config());
+        $extractor = new Extractor(new Config(), self::$logger);
         $actual = $extractor->checksum('d8578edf8458ce06fbc5bb76a58c5ca4  GeoLite2-ASN_19700101.tar.gz');
 
         $this->assertEquals($expected, $actual);
@@ -62,7 +63,7 @@ class ExtractorTest extends AbstractTestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Checksum extraction failed');
 
-        $extractor = new Extractor(new Config());
+        $extractor = new Extractor(new Config(), self::$logger);
         $extractor->checksum('GeoLite2-ANS_19700101.tar.gz');
     }
 
@@ -81,7 +82,7 @@ class ExtractorTest extends AbstractTestCase
         // Copy archive to test folder
         copy('./backend/tests/files/tar/has-mmdb/GeoLite2-ASN_19700101.tar.gz', $archivePath);
 
-        $extractor = new Extractor(self::$config);
+        $extractor = new Extractor(self::$config, self::$logger);
         $extractor->archive($archivePath, 'GeoLite2-ASN', $extractedDatabasePath);
 
         $this->assertFileExists($extractedDatabasePath);
@@ -111,7 +112,7 @@ class ExtractorTest extends AbstractTestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Failed to move database');
 
-        $extractor = new Extractor(self::$config);
+        $extractor = new Extractor(self::$config, self::$logger);
         @$extractor->archive($archivePath, 'GeoLite2-ASN', $file);
     }
 
@@ -131,7 +132,7 @@ class ExtractorTest extends AbstractTestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('GeoLite2-ASN database not found archive');
 
-        $extractor = new Extractor(self::$config);
+        $extractor = new Extractor(self::$config, self::$logger);
         $extractor->archive($archivePath, 'GeoLite2-ASN', $extractedDatabasePath);
     }
 }

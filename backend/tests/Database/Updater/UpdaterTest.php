@@ -56,7 +56,7 @@ class UpdaterTest extends AbstractTestCase
             file_get_contents('backend/tests/files/tar/has-mmdb/GeoLite2-Country_19700101.tar.gz'),
         );
 
-        $updater = new Updater($config, $fetch, new Logger());
+        $updater = new Updater($config, $fetch, self::$logger);
         $updater->run();
 
         $this->assertFileExists($geoIpFolder . '/GeoLite2-ASN.mmdb');
@@ -74,8 +74,8 @@ class UpdaterTest extends AbstractTestCase
         $this->expectNotToPerformAssertions();
 
         $config = new Config();
-        $fetch = new Fetch($config->getUseragent());
-        $updater = new Updater($config, $fetch, new Logger());
+        $fetch = new Fetch($config->getUseragent(), self::$logger);
+        $updater = new Updater($config, $fetch, self::$logger);
         $updater->run();
     }
 
@@ -93,7 +93,7 @@ class UpdaterTest extends AbstractTestCase
         $fetch = $this->createStub(Fetch::class);
         $fetch->method('get')->willThrowException(new FetchException('Request failed'));
 
-        $updater = new Updater($config, $fetch, new Logger());
+        $updater = new Updater($config, $fetch, self::$logger);
         $updater->run();
     }
 }
