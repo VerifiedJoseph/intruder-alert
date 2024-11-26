@@ -6,7 +6,6 @@
 
 include('../../backend/vendor/autoload.php');
 
-use IntruderAlert\Config;
 use IntruderAlert\Ip;
 use IntruderAlert\Lists;
 use IntruderAlert\Report;
@@ -70,7 +69,7 @@ function createReport(Lists $lists, string $path, string $timezone) {
 		$lists->getCounts(),
 		$path,
 		$timezone,
-		new Logger()
+		new Logger('Europe/London')
 	);
 
 	$report->generate();
