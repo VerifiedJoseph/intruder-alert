@@ -13,12 +13,14 @@ use IntruderAlert\Logs\Logs;
 
 $config = new Config();
 $config->check();
-$config->checkCli();
+$config->checkCli((string) php_sapi_name());
 
-$networkDatabase = new IntruderAlert\Database\Network($config->getAsnDatabasePath(), new Logger());
-$countryDatabase = new IntruderAlert\Database\Country($config->getCountryDatabasePath(), new Logger());
+$timezone = 'Europe/London';
 
-$logs = new Logs($config, new Logger());
+$networkDatabase = new IntruderAlert\Database\Network($config->getAsnDatabasePath(), new Logger($timezone));
+$countryDatabase = new IntruderAlert\Database\Country($config->getCountryDatabasePath(), new Logger($timezone));
+
+$logs = new Logs($config, new Logger($timezone));
 $events = $logs->process();
 
 $number = 0;
