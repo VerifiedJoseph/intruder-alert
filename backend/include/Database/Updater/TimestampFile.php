@@ -33,7 +33,7 @@ class TimestampFile
     }
 
     /**
-     * Check if the timestamp is 24 ore more hour ago
+     * Check if the timestamp is 24 or more hours old
      */
     public function isOutdated(): bool
     {
