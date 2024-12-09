@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.20.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.20.0) - 2024-12-09
+
+- Added verbose logging option ([#707](https://github.com/VerifiedJoseph/intruder-alert/pull/707), [`b5ee53e`](https://github.com/VerifiedJoseph/intruder-alert/commit/b5ee53e1b606d98e46db66ad32d91fdd296d5df3))
+- Updated chart.js from 4.4.6 to 4.4.7 ([#717](https://github.com/VerifiedJoseph/intruder-alert/pull/717), [`585703f`](https://github.com/VerifiedJoseph/intruder-alert/commit/585703f4ca2cf23c52194b1e1ffac6f6a437a578))
+- Updated spacetime from 7.6.2 to 7.7.0 ([#716](https://github.com/VerifiedJoseph/intruder-alert/pull/716), [`ac19eb4`](https://github.com/VerifiedJoseph/intruder-alert/commit/ac19eb44deb9cf18db391a0a5103a92ef15364e8))
+
 ## [1.19.8](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.8) - 2024-10-31
 
 - Updated spacetime from 7.6.1 to 7.6.2 ([#679](https://github.com/VerifiedJoseph/intruder-alert/pull/679), [`aab8a3b`](https://github.com/VerifiedJoseph/intruder-alert/commit/aab8a3b1f558fddda94d816c655c3346776c1548))
