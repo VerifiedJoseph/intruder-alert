@@ -2,11 +2,17 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.20.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.20.1) - 2024-12-30
+
+- Dockerfile: Updated composer from 2.8.3 to 2.8.4 ([#723](https://github.com/VerifiedJoseph/intruder-alert/pull/723), [`fa0ab4d`](https://github.com/VerifiedJoseph/intruder-alert/commit/fa0ab4d50eddcdd9f7bb1a43d6c16f505dfd9111))
+- Dockerfile: Updated php from 8.2.26-fpm-alpine3.20 to 8.2.27-fpm-alpine3.20 ([#727](https://github.com/VerifiedJoseph/intruder-alert/pull/727), [`6fb7497`](https://github.com/VerifiedJoseph/intruder-alert/commit/6fb749785dd9f3f7bb0ab1b200a4a922bf24ccd4))
+
 ## [1.20.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.20.0) - 2024-12-09
 
 - Added verbose logging option ([#707](https://github.com/VerifiedJoseph/intruder-alert/pull/707), [`b5ee53e`](https://github.com/VerifiedJoseph/intruder-alert/commit/b5ee53e1b606d98e46db66ad32d91fdd296d5df3))
 - Updated chart.js from 4.4.6 to 4.4.7 ([#717](https://github.com/VerifiedJoseph/intruder-alert/pull/717), [`585703f`](https://github.com/VerifiedJoseph/intruder-alert/commit/585703f4ca2cf23c52194b1e1ffac6f6a437a578))
 - Updated spacetime from 7.6.2 to 7.7.0 ([#716](https://github.com/VerifiedJoseph/intruder-alert/pull/716), [`ac19eb4`](https://github.com/VerifiedJoseph/intruder-alert/commit/ac19eb44deb9cf18db391a0a5103a92ef15364e8))
+- Dockerfile: Updated composer from 2.8.2 to 2.8.3 ([#706](https://github.com/VerifiedJoseph/intruder-alert/pull/706), [`391fc56`](https://github.com/VerifiedJoseph/intruder-alert/commit/391fc56acddf1e9a07f7e476ede725135a996a32))
 
 ## [1.19.8](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.19.8) - 2024-10-31
 
