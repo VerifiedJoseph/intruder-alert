@@ -4,7 +4,7 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Codecov](https://img.shields.io/codecov/c/github/VerifiedJoseph/intruder-alert?style=flat-square)](https://app.codecov.io/gh/VerifiedJoseph/intruder-alert/)
 
-Intruder Alert is self-hosted event dashboard for [Fail2ban](https://github.com/fail2ban/fail2ban).
+Intruder Alert is a self-hosted event dashboard for [Fail2ban](https://github.com/fail2ban/fail2ban).
 
 ![screenshot](screenshots/screenshot_readme.png)
 
