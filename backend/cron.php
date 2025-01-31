@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use IntruderAlert\Config;
 use IntruderAlert\App\Backend;
 use IntruderAlert\Helper\Output;
