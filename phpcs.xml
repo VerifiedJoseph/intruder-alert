@@ -6,7 +6,6 @@
 
   <rule ref="PSR12"/>
   <rule ref="Generic.PHP.RequireStrictTypes">
-    <exclude-pattern>./backend/tests/*</exclude-pattern>
     <exclude-pattern>./backend/config.php</exclude-pattern>
     <exclude-pattern>./backend/config.example.php</exclude-pattern>
   </rule>

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use PHPUnit\Framework\TestCase as TestCase;
 use IntruderAlert\Logger;
 
@@ -29,11 +31,12 @@ abstract class AbstractTestCase extends TestCase
             $directory = new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS);
             $items = new \RecursiveIteratorIterator($directory, \RecursiveIteratorIterator::CHILD_FIRST);
 
+            /** @var SplFileInfo $item */
             foreach ($items as $item) {
                 if ($item->isDir() === true) {
-                    rmdir($item);
+                    rmdir($item->getPathname());
                 } else {
-                    unlink($item);
+                    unlink($item->getPathname());
                 }
             }
 
