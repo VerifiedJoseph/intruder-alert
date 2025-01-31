@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IntruderAlert\Database\Updater;
 
 use IntruderAlert\Config;
@@ -105,9 +107,10 @@ class Extractor
             $directory = new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS);
             $items = new \RecursiveIteratorIterator($directory, \RecursiveIteratorIterator::CHILD_FIRST);
 
+            /** @var \SplFileInfo $item */
             foreach ($items as $item) {
                 if ($item->isDir() === false) {
-                    unlink($item);
+                    unlink($item->getPathname());
                 }
             }
 

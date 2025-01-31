@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IntruderAlert\App;
 
 use IntruderAlert\Helper\File;

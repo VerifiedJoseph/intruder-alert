@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IntruderAlert\List;
 
 class Jails extends AbstractList
