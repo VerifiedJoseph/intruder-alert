@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.20.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.20.2) - 2025-02-17
+
+- Dockerfile: Updated composer from 2.8.4 to 2.8.5 ([#741](https://github.com/VerifiedJoseph/intruder-alert/pull/741), [`31fdecb`](https://github.com/VerifiedJoseph/intruder-alert/commit/31fdecb309ed85a96dedb61081af4e0e7d5e65af))
+- Dockerfile: Update node from 20.18.2-alpine3.20 to 20.18.3-alpine3.20 ([#759](https://github.com/VerifiedJoseph/intruder-alert/pull/759), [`c81771c`](https://github.com/VerifiedJoseph/intruder-alert/commit/c81771c6c4ed5fb5bade877c877e7466827e1b6b))
+- Dockerfile: Update node from 20.18.1-alpine3.20 to 20.18.2-alpine3.20 ([#742](https://github.com/VerifiedJoseph/intruder-alert/pull/742), [`57dbd13`](https://github.com/VerifiedJoseph/intruder-alert/commit/57dbd134dc4b5cf99f5fa23896dd06970a70db48))
+
 ## [1.20.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.20.1) - 2024-12-30
 
 - Dockerfile: Updated composer from 2.8.3 to 2.8.4 ([#723](https://github.com/VerifiedJoseph/intruder-alert/pull/723), [`fa0ab4d`](https://github.com/VerifiedJoseph/intruder-alert/commit/fa0ab4d50eddcdd9f7bb1a43d6c16f505dfd9111))
