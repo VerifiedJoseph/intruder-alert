@@ -12,7 +12,7 @@
     "watch": "node ./esbuild/watch.js"
   },
   "dependencies": {
-    "chart.js": "^4.4.7",
+    "chart.js": "^4.4.8",
     "spacetime": "^7.7.0"
   }
 }
