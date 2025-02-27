@@ -34,7 +34,8 @@ updates:
       - dependency-name: "php"
         update-types: ["version-update:semver-minor"]
 
-  - package-ecosystem: "docker"
-    directory: "/.devcontainer/nginx/"
+  - package-ecosystem: "docker-compose"
+    directories:
+      - "/.devcontainer/"
     schedule:
       interval: "monthly"
