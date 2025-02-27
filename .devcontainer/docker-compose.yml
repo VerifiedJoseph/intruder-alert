@@ -25,6 +25,7 @@ services:
     volumes:
       - ../:/intruder-alert:ro
       - vendor:/intruder-alert/backend/vendor:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     working_dir: /intruder-alert
 
 volumes:
