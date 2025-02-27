@@ -14,6 +14,7 @@ services:
       - node_modules:/intruder-alert/node_modules
       - geoip2:/intruder-alert/backend/data/geoip2
       - ./fail2ban-logs:/intruder-alert/backend/data/logs:ro
+      - ./workspace/php.ini:/usr/local/etc/php/php.ini:ro
     working_dir: /intruder-alert
 
   nginx:
