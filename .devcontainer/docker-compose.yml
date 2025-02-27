@@ -18,13 +18,13 @@ services:
     working_dir: /intruder-alert
 
   nginx:
-    build:
-      context: ./nginx
+    image: nginx:1.27-alpine3.20-slim
     ports:
       - 8080:8080
     volumes:
       - ../:/intruder-alert:ro
       - vendor:/intruder-alert/backend/vendor:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     working_dir: /intruder-alert
 
 volumes:
