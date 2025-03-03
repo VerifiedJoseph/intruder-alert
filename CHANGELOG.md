@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.20.3](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.20.3) - 2025-03-03
+
+- Updated chart.js from 4.4.7 to 4.4.8 ([#763](https://github.com/VerifiedJoseph/intruder-alert/pull/763), [`225abaa`](https://github.com/VerifiedJoseph/intruder-alert/commit/225abaa68f78e2324e08feb9d200f4482b8ddfdb))
+- Updated node from 20.18 to 22.14 ([#772](https://github.com/VerifiedJoseph/intruder-alert/pull/772), [`31fdecb`](https://github.com/VerifiedJoseph/intruder-alert/commit/6f1ae08c0e68f168213ad09f7037f1109a99c8e1))
+
 ## [1.20.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.20.2) - 2025-02-17
 
 - Dockerfile: Updated composer from 2.8.4 to 2.8.5 ([#741](https://github.com/VerifiedJoseph/intruder-alert/pull/741), [`31fdecb`](https://github.com/VerifiedJoseph/intruder-alert/commit/31fdecb309ed85a96dedb61081af4e0e7d5e65af))
