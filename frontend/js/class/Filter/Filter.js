@@ -2,6 +2,7 @@ export class Filter {
   iaData
   settings = []
   chip
+  indexCount = 0
 
   constructor (iaData) {
     this.iaData = iaData
@@ -67,7 +68,7 @@ export class Filter {
       this.settings[index].values.push(value)
       this.chip.create(type, action, value, this.settings[index].id)
     } else {
-      const id = crypto.randomUUID()
+      const id = this.indexCount + 1
 
       this.settings.push({
         id,
@@ -77,16 +78,17 @@ export class Filter {
       })
 
       this.chip.create(type, action, value, id)
+      this.indexCount++
     }
   }
 
   /**
-   * Remove filter by unique identifier
-   * @param {string} uuid filter unique identifier
+   * Remove filter by identifier
+   * @param {int} uuid Filter identifier
    */
-  remove (uuid) {
+  remove (id) {
     this.settings = this.settings.filter(filter => {
-      if (filter.id === uuid) {
+      if (filter.id === id) {
         this.chip.remove(filter.id)
 
         return false
@@ -114,11 +116,11 @@ export class Filter {
 
   /**
    * Remove value from a filter
-   * @param {string} filterId filter UUID
+   * @param {string} filterId filter Id
    * @param {value} value filter value
    */
   removeValue (filterId, value) {
-    const index = this.findFilterByUUID(filterId)
+    const index = this.findFilterById(parseInt(filterId))
     const filter = this.settings[index]
 
     this.settings[index].values = filter.values.filter(
@@ -185,15 +187,15 @@ export class Filter {
   }
 
   /**
-   * Find filter array index by a filter's unique identifier
-   * @param {string} uuid Unique identifier
+   * Find filter array index by filter identifier
+   * @param {int} id Filter identifier
    * @returns Array index of filter
    */
-  findFilterByUUID (uuid) {
+  findFilterById (id) {
     let key = null
 
     this.settings.forEach((filter, index) => {
-      if (filter.id === uuid) {
+      if (filter.id === id) {
         key = index
       }
     })
