@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.20.4](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.20.4) - 2025-03-04
+
+- Reworked front-end to remove use of `crypto.randomUUID()` ([#778](https://github.com/VerifiedJoseph/intruder-alert/pull/778), [`8028bb9`](https://github.com/VerifiedJoseph/intruder-alert/commit/8028bb9f0a1cc322fb806607864445a912c01666))
+
 ## [1.20.3](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.20.3) - 2025-03-03
 
 - Updated chart.js from 4.4.7 to 4.4.8 ([#763](https://github.com/VerifiedJoseph/intruder-alert/pull/763), [`225abaa`](https://github.com/VerifiedJoseph/intruder-alert/commit/225abaa68f78e2324e08feb9d200f4482b8ddfdb))
