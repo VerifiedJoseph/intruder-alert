@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "eslint": "^9.22.0",
-    "esbuild": "^0.25.0",
+    "esbuild": "^0.25.1",
     "fs-extra": "^11.3.0",
     "globals": "^16.0.0"
   },
