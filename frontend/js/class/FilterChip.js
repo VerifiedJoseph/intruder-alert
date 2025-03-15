@@ -37,9 +37,9 @@ export class FilterChip {
    * @param {string} type Filter type
    * @param {string} action Filter action
    * @param {string} value Filter value
-   * @param {string} uuid Filter UUID
+   * @param {string} id Filter id
    */
-  create (type, action, value, uuid) {
+  create (type, action, value, id) {
     const valueText = this.#getValueText(type, value)
     const actionText = this.#getActionText(action)
 
@@ -50,8 +50,8 @@ export class FilterChip {
 
     const item = document.createElement('div')
     item.appendChild(div)
-    item.appendChild(this.#createButton(uuid, value))
-    item.setAttribute('data-label-id', uuid)
+    item.appendChild(this.#createButton(id, value))
+    item.setAttribute('data-label-id', `${this.#viewGroup}-${id}`)
     item.classList.add('item')
 
     this.#container.appendChild(item)
@@ -59,13 +59,13 @@ export class FilterChip {
 
   /**
    * Update filter chip
-   * @param {string} uuid Filter UUID
+   * @param {string} id Filter id
    * @param {string} action Filter action
    */
-  update (uuid, action) {
+  update (id, action) {
     const actionText = this.#getActionText(action)
 
-    document.querySelectorAll(`div[data-label-id="${uuid}"]`).forEach(div => {
+    document.querySelectorAll(`div[data-label-id="${this.#viewGroup}-${id}"]`).forEach(div => {
       const divInner = div.childNodes[0]
       divInner.childNodes[1].innerText = ` ${actionText} `
     });
@@ -73,11 +73,11 @@ export class FilterChip {
 
   /**
    * Remove filter chip
-   * @param {string} uuid Filter UUID
+   * @param {string} id Filter id
    */
-  remove (uuid) {
-    if (document.querySelector(`div[data-label-id="${uuid}"]`)) {
-      document.querySelector(`div[data-label-id="${uuid}"]`).remove()
+  remove (id) {
+    if (document.querySelector(`div[data-label-id="${this.#viewGroup}-${id}"]`)) {
+      document.querySelector(`div[data-label-id="${this.#viewGroup}-${id}"]`).remove()
     }
   }
 
@@ -91,16 +91,16 @@ export class FilterChip {
 
   /**
    * Create chip button
-   * @param {string} uuid Unique filter identifier
+   * @param {string} id filter id
    * @param {string} value filter value
    * @returns HTMLButtonElement
    */
-  #createButton (uuid, value) {
+  #createButton (id, value) {
     const button = document.createElement('button')
     button.classList.add('filter-remove')
     button.setAttribute('aria-label', 'Remove filter')
     button.setAttribute('title', 'Remove filter')
-    button.setAttribute('data-filter-id', uuid)
+    button.setAttribute('data-filter-id', id)
     button.setAttribute('data-filter-value', value)
     button.setAttribute('data-view-group', this.#viewGroup)
 
