@@ -297,10 +297,6 @@ function changeHandler (event) {
         table.filter.reset()
       }
 
-      if (document.getElementById('table-applied-filters').hasChildNodes() === false) {
-        document.getElementById('table-applied-filters').classList.add('hide')
-      }
-
       displayData(table.filter.getData(event.target.value))
       break
     case 'data-order-by':
