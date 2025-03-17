@@ -183,10 +183,6 @@ function clickHandler (event) {
       }
       break
     case 'dialog-filter-apply':
-      document.getElementById(
-        `${event.target.getAttribute('data-view-group')}-applied-filters`
-      ).classList.remove('hide')
-
       if (event.target.getAttribute('data-view-group') === 'chart') {
         chart.dialog.filterAdd.close()
         chart.filter.add(
@@ -236,8 +232,6 @@ function clickHandler (event) {
         'include',
         event.target.getAttribute('data-value')
       )
-
-      document.getElementById('table-applied-filters').classList.remove('hide')
 
       displayData(table.filter.getData(Helper.getTableType()))
       break
