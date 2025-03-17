@@ -37,7 +37,7 @@ export class FilterChip {
    * @param {string} type Filter type
    * @param {string} action Filter action
    * @param {string} value Filter value
-   * @param {string} id Filter id
+   * @param {string} id Filter identifier
    */
   create (type, action, value, id) {
     const valueText = this.#getValueText(type, value)
@@ -61,7 +61,7 @@ export class FilterChip {
 
   /**
    * Update filter chip
-   * @param {string} id Filter id
+   * @param {string} id Filter identifier
    * @param {string} action Filter action
    */
   update (id, action) {
@@ -73,7 +73,7 @@ export class FilterChip {
 
   /**
    * Remove filter chip
-   * @param {string} uuid Filter UUID
+   * @param {string} id Filter identifier
    */
   remove (id) {
     if (document.querySelector(`div[data-${this.#viewGroup}-chip-id="${id}"]`)) {
@@ -96,16 +96,16 @@ export class FilterChip {
 
   /**
    * Create chip button
-   * @param {string} uuid Unique filter identifier
+   * @param {string} id Filter identifier
    * @param {string} value filter value
    * @returns HTMLButtonElement
    */
-  #createButton (uuid, value) {
+  #createButton (id, value) {
     const button = document.createElement('button')
     button.classList.add('filter-remove')
     button.setAttribute('aria-label', 'Remove filter')
     button.setAttribute('title', 'Remove filter')
-    button.setAttribute('data-filter-id', uuid)
+    button.setAttribute('data-filter-id', id)
     button.setAttribute('data-filter-value', value)
     button.setAttribute('data-view-group', this.#viewGroup)
 
