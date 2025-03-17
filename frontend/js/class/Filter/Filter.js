@@ -111,25 +111,6 @@ export class Filter {
   }
 
   /**
-   * Remove value from a filter
-   * @param {string} filterId filter Id
-   * @param {value} value filter value
-   */
-  /*removeValue (filterId, value) {
-    const index = this.findFilterById(parseInt(filterId))
-    const filter = this.filters[index]
-
-    this.filters[index].values = filter.values.filter(
-      item => item !== value
-    )
-
-    // Remove filter if values array is now empty
-    if (this.filters[index].values.length === 0) {
-      this.remove(this.filters[index].id)
-    }
-  }*/
-
-  /**
    * Reset filters
    */
   reset () {
@@ -177,27 +158,6 @@ export class Filter {
   hasFilters () {
     if (this.filters.length > 0) {
       return true
-    }
-
-    return false
-  }
-
-  /**
-   * Find filter array index by filter identifier
-   * @param {int} id Filter identifier
-   * @returns Array index of filter
-   */
-  findFilterById (id) {
-    let key = null
-
-    this.filters.forEach((filter, index) => {
-      if (filter.id === id) {
-        key = index
-      }
-    })
-
-    if (key !== null) {
-      return key
     }
 
     return false
