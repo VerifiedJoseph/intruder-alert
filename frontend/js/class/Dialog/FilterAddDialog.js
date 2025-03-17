@@ -285,7 +285,7 @@ export class FilterAddDialog extends ViewGroupDialogs {
    */
   #getTimeList (type) {
     const items = []
-    let itemCount = 60
+    let itemCount = 59
 
     if (type === 'hour') {
       itemCount = 23
