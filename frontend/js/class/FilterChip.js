@@ -56,6 +56,7 @@ export class FilterChip {
     item.classList.add('item')
 
     this.#container.appendChild(item)
+    this.#container.classList.remove('hide')
   }
 
   /**
@@ -77,6 +78,11 @@ export class FilterChip {
   remove (id) {
     if (document.querySelector(`div[data-${this.#viewGroup}-chip-id="${id}"]`)) {
       document.querySelector(`div[data-${this.#viewGroup}-chip-id="${id}"]`).remove()
+    }
+
+    // Hide filter chip container if has no child nodes
+    if (this.#container.hasChildNodes() === false) {
+      this.#container.classList.add('hide')
     }
   }
 

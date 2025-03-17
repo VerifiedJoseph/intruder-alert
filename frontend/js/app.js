@@ -103,8 +103,6 @@ function onViewBtnClick (viewType, filterType, filterValue) {
 
   if (table.filter.hasFilter(filterType, filterValue) === false) {
     table.filter.add(filterType, 'include', filterValue)
-
-    document.getElementById('table-applied-filters').classList.remove('hide')
     table.dialog.filterAdd.enableBtn()
 
     displayData(table.filter.getData(viewType))
@@ -115,8 +113,6 @@ function onViewBtnClick (viewType, filterType, filterValue) {
     Helper.setChartType('last30days')
 
     chart.filter.add(filterType, 'include', filterValue)
-
-    document.getElementById('chart-applied-filters').classList.remove('hide')
 
     plot.newChart(chart.filter.getData(Helper.getChartType()))
   }
@@ -135,10 +131,6 @@ function onRemoveFilterBtnClick (event) {
     table.filter.remove(event.target.getAttribute('data-filter-id'))
 
     displayData(table.filter.getData(Helper.getTableType()))
-  }
-
-  if (document.getElementById(`${viewGroup}-applied-filters`).hasChildNodes() === false) {
-    document.getElementById(`${viewGroup}-applied-filters`).classList.add('hide')
   }
 }
 
