@@ -163,22 +163,6 @@ export class Filter {
     return false
   }
 
-  findFilter (type, action) {
-    let key = null
-
-    this.filters.forEach((filter, index) => {
-      if (filter.type === type && filter.action === action) {
-        key = index
-      }
-    })
-
-    if (key !== null) {
-      return key
-    }
-
-    return false
-  }
-
   /**
    * Merges filters into format using by `_getFilteredData`
    * @param {array} filters Filters to merge
