@@ -279,13 +279,13 @@ export class FilterAddDialog extends ViewGroupDialogs {
   }
 
   /**
-   * Get list of times in 24 hour format
+   * Get list of times
    * @param {string} type Time type (hour, minute, second)
    * @returns {array}
    */
   #getTimeList (type) {
     const items = []
-    let itemCount = 60
+    let itemCount = 59
 
     if (type === 'hour') {
       itemCount = 23
