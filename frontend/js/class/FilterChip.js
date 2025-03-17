@@ -37,9 +37,9 @@ export class FilterChip {
    * @param {string} type Filter type
    * @param {string} action Filter action
    * @param {string} value Filter value
-   * @param {string} uuid Filter UUID
+   * @param {string} id Filter id
    */
-  create (type, action, value, uuid) {
+  create (type, action, value, id) {
     const valueText = this.#getValueText(type, value)
     const actionText = this.#getActionText(action)
 
@@ -50,8 +50,9 @@ export class FilterChip {
 
     const item = document.createElement('div')
     item.appendChild(div)
-    item.appendChild(this.#createButton(uuid, value))
-    item.setAttribute('data-label-id', uuid)
+    item.appendChild(this.#createButton(id, value))
+    item.setAttribute(`data-${this.#viewGroup}-chip-id`, id)
+
     item.classList.add('item')
 
     this.#container.appendChild(item)
@@ -59,25 +60,23 @@ export class FilterChip {
 
   /**
    * Update filter chip
-   * @param {string} uuid Filter UUID
+   * @param {string} id Filter id
    * @param {string} action Filter action
    */
-  update (uuid, action) {
-    const actionText = this.#getActionText(action)
+  update (id, action) {
+    var chip = document.querySelector(`div[data-${this.#viewGroup}-chip-id="${id}"]`);
 
-    document.querySelectorAll(`div[data-label-id="${uuid}"]`).forEach(div => {
-      const divInner = div.childNodes[0]
-      divInner.childNodes[1].innerText = ` ${actionText} `
-    });
+    // Change text of div > span.action
+    chip.childNodes[0].childNodes[1].innerText = ` ${this.#getActionText(action)} `
   }
 
   /**
    * Remove filter chip
    * @param {string} uuid Filter UUID
    */
-  remove (uuid) {
-    if (document.querySelector(`div[data-label-id="${uuid}"]`)) {
-      document.querySelector(`div[data-label-id="${uuid}"]`).remove()
+  remove (id) {
+    if (document.querySelector(`div[data-${this.#viewGroup}-chip-id="${id}"]`)) {
+      document.querySelector(`div[data-${this.#viewGroup}-chip-id="${id}"]`).remove()
     }
   }
 

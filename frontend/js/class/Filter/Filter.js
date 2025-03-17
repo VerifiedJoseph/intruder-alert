@@ -1,12 +1,16 @@
 export class Filter {
   iaData
-  settings = []
+
+  /**
+   * @var array filters Array of filters
+   */
+  filters = []
   chip
-  indexCount = 0
+  count = 0
 
   constructor (iaData) {
     this.iaData = iaData
-    this.settings = []
+    this.filters = []
   }
 
   updateIaData (iaData) {
@@ -17,11 +21,12 @@ export class Filter {
     const filtered = []
     const timestampFilterTypes = ['date', 'hour', 'minute', 'second']
 
-    data.forEach(item => {
-      const addStatus = []
+    const filters = this.mergeFilters(this.filters)
 
-      for (let index = 0; index < this.settings.length; index++) {
-        const filter = this.settings[index]
+    data.forEach(item => {
+      const status = [];
+
+      filters.forEach(filter => {
         let value
 
         if (timestampFilterTypes.includes(filter.type) === true) {
@@ -32,22 +37,22 @@ export class Filter {
 
         if (filter.action === 'include' && filter.values.length > 0) {
           if (filter.values.includes(value) === true) {
-            addStatus.push(1)
+            status.push(1)
           } else {
-            addStatus.push(0)
+            status.push(0)
           }
         }
 
         if (filter.action === 'exclude' && filter.values.length > 0) {
           if (filter.values.includes(value) === true) {
-            addStatus.push(0)
+            status.push(0)
           } else {
-            addStatus.push(1)
+            status.push(1)
           }
         }
-      }
+      });
 
-      if (addStatus.includes(0) === false) {
+      if (status.includes(0) === false) {
         filtered.push(item)
       }
     })
@@ -56,39 +61,30 @@ export class Filter {
   }
 
   /**
-   * Add filter
-   * @param {string} type Filter type
+   * Adds a filter
+   * @param {string} type Filter type (address, jail, network etc)
    * @param {string} action Filter action (include or exclude)
    * @param {string} value Filter value
    */
   add (type, action, value) {
-    const index = this.findFilter(type, action)
+    this.filters.push({
+      "id": this.count,
+      "type": type,
+      "action": action,
+      "value": value
+    })
 
-    if (index !== false) {
-      this.settings[index].values.push(value)
-      this.chip.create(type, action, value, this.settings[index].id)
-    } else {
-      const id = this.indexCount + 1
-
-      this.settings.push({
-        id,
-        type,
-        action,
-        values: [value]
-      })
-
-      this.chip.create(type, action, value, id)
-      this.indexCount++
-    }
+    this.chip.create(type, action, value, this.count)
+    this.count++
   }
 
   /**
-   * Remove filter by identifier
-   * @param {int} uuid Filter identifier
+   * Removes a filter by identifier
+   * @param {int} id Filter identifier
    */
   remove (id) {
-    this.settings = this.settings.filter(filter => {
-      if (filter.id === id) {
+    this.filters = this.filters.filter(filter => {
+      if (filter.id === Number(id)) {
         this.chip.remove(filter.id)
 
         return false
@@ -103,7 +99,7 @@ export class Filter {
    * @param {array} types filter types to keep
    */
   removeAllExcept (types) {
-    this.settings = this.settings.filter(filter => {
+    this.filters = this.filters.filter(filter => {
       if (types.includes(filter.type) === false) {
         this.chip.remove(filter.id)
 
@@ -119,25 +115,25 @@ export class Filter {
    * @param {string} filterId filter Id
    * @param {value} value filter value
    */
-  removeValue (filterId, value) {
+  /*removeValue (filterId, value) {
     const index = this.findFilterById(parseInt(filterId))
-    const filter = this.settings[index]
+    const filter = this.filters[index]
 
-    this.settings[index].values = filter.values.filter(
+    this.filters[index].values = filter.values.filter(
       item => item !== value
     )
 
     // Remove filter if values array is now empty
-    if (this.settings[index].values.length === 0) {
-      this.remove(this.settings[index].id)
+    if (this.filters[index].values.length === 0) {
+      this.remove(this.filters[index].id)
     }
-  }
+  }*/
 
   /**
    * Reset filters
    */
   reset () {
-    this.settings = []
+    this.filters = []
     this.chip.removeAll()
   }
 
@@ -145,14 +141,14 @@ export class Filter {
    * Reverse action value of applied filters
    */
   reverse () {
-    this.settings.forEach((filter, index) => {
+    this.filters.forEach((filter, index) => {
       let newAction = 'include'
       if (filter.action === 'include') {
         newAction = 'exclude'
       }
 
+      this.filters[index].action = newAction
       this.chip.update(filter.id, newAction)
-      this.settings[index].action = newAction
     })
   }
 
@@ -165,8 +161,8 @@ export class Filter {
   hasFilter (type, value) {
     let status = false
 
-    this.settings.forEach(filter => {
-      if (filter.type === type && filter.values.includes(value.toString()) === true) {
+    this.filters.forEach(filter => {
+      if (filter.type === type && filter.value === value.toString() === true) {
         status = true
       }
     })
@@ -179,7 +175,7 @@ export class Filter {
    * @returns {boolean}
    */
   hasFilters () {
-    if (this.settings.length > 0) {
+    if (this.filters.length > 0) {
       return true
     }
 
@@ -194,7 +190,7 @@ export class Filter {
   findFilterById (id) {
     let key = null
 
-    this.settings.forEach((filter, index) => {
+    this.filters.forEach((filter, index) => {
       if (filter.id === id) {
         key = index
       }
@@ -210,7 +206,7 @@ export class Filter {
   findFilter (type, action) {
     let key = null
 
-    this.settings.forEach((filter, index) => {
+    this.filters.forEach((filter, index) => {
       if (filter.type === type && filter.action === action) {
         key = index
       }
@@ -221,6 +217,31 @@ export class Filter {
     }
 
     return false
+  }
+
+  /**
+   * Merges filters into format using by `_getFilteredData`
+   * @param {array} filters Filters to merge
+   * @returns Array of merged filters
+   */
+  mergeFilters (filters) {
+    var merged = [];
+
+    filters.forEach(filter => {
+      let index = merged.findIndex((e) => e.type === filter.type && e.action === filter.action);
+
+			if (index === -1) {
+				merged.push({
+					"action": filter.action,
+					"type": filter.type,
+					"values": [filter.value]
+				})
+			} else if (merged[index].values.includes(filter.value) === false) {
+				merged[index].values.push(filter.value)
+			}
+    })
+
+    return merged
   }
 
   /**

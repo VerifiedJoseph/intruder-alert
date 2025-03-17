@@ -126,24 +126,16 @@ function onRemoveFilterBtnClick (event) {
   const viewGroup = event.target.getAttribute('data-view-group')
 
   if (viewGroup === 'chart') {
-    chart.filter.removeValue(
-      event.target.getAttribute('data-filter-id'),
-      event.target.getAttribute('data-filter-value')
-    )
+    chart.filter.remove(event.target.getAttribute('data-filter-id'))
 
     plot.newChart(chart.filter.getData(Helper.getChartType()))
   }
 
   if (viewGroup === 'table') {
-    table.filter.removeValue(
-      event.target.getAttribute('data-filter-id'),
-      event.target.getAttribute('data-filter-value')
-    )
+    table.filter.remove(event.target.getAttribute('data-filter-id'))
 
     displayData(table.filter.getData(Helper.getTableType()))
   }
-
-  event.target.parentElement.remove()
 
   if (document.getElementById(`${viewGroup}-applied-filters`).hasChildNodes() === false) {
     document.getElementById(`${viewGroup}-applied-filters`).classList.add('hide')
@@ -430,6 +422,10 @@ fetchData()
         filterOptions: new FilterOptionsDialog('table')
       }
     }
+
+    /**
+     * @var chart{filter: ChartFilter}
+     */
     chart = {
       filter: new ChartFilter(iaData),
       dialog: {
@@ -458,6 +454,8 @@ fetchData()
     Helper.createMostBannedButtons(data)
     displayData(table.filter.getData('recentBans'))
   }).catch(error => {
+    console.log(error)
+
     document.getElementById('loading').classList.add('hide')
     Helper.errorMessage(error.message)
   })
