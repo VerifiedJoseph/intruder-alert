@@ -279,7 +279,7 @@ export class FilterAddDialog extends ViewGroupDialogs {
   }
 
   /**
-   * Get list of times in 24 hour format
+   * Get list of times
    * @param {string} type Time type (hour, minute, second)
    * @returns {array}
    */
