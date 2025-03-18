@@ -103,8 +103,6 @@ function onViewBtnClick (viewType, filterType, filterValue) {
 
   if (table.filter.hasFilter(filterType, filterValue) === false) {
     table.filter.add(filterType, 'include', filterValue)
-
-    document.getElementById('table-applied-filters').classList.remove('hide')
     table.dialog.filterAdd.enableBtn()
 
     displayData(table.filter.getData(viewType))
@@ -116,8 +114,6 @@ function onViewBtnClick (viewType, filterType, filterValue) {
 
     chart.filter.add(filterType, 'include', filterValue)
 
-    document.getElementById('chart-applied-filters').classList.remove('hide')
-
     plot.newChart(chart.filter.getData(Helper.getChartType()))
   }
 }
@@ -126,27 +122,15 @@ function onRemoveFilterBtnClick (event) {
   const viewGroup = event.target.getAttribute('data-view-group')
 
   if (viewGroup === 'chart') {
-    chart.filter.removeValue(
-      event.target.getAttribute('data-filter-id'),
-      event.target.getAttribute('data-filter-value')
-    )
+    chart.filter.remove(event.target.getAttribute('data-filter-id'))
 
     plot.newChart(chart.filter.getData(Helper.getChartType()))
   }
 
   if (viewGroup === 'table') {
-    table.filter.removeValue(
-      event.target.getAttribute('data-filter-id'),
-      event.target.getAttribute('data-filter-value')
-    )
+    table.filter.remove(event.target.getAttribute('data-filter-id'))
 
     displayData(table.filter.getData(Helper.getTableType()))
-  }
-
-  event.target.parentElement.remove()
-
-  if (document.getElementById(`${viewGroup}-applied-filters`).hasChildNodes() === false) {
-    document.getElementById(`${viewGroup}-applied-filters`).classList.add('hide')
   }
 }
 
@@ -199,10 +183,6 @@ function clickHandler (event) {
       }
       break
     case 'dialog-filter-apply':
-      document.getElementById(
-        `${event.target.getAttribute('data-view-group')}-applied-filters`
-      ).classList.remove('hide')
-
       if (event.target.getAttribute('data-view-group') === 'chart') {
         chart.dialog.filterAdd.close()
         chart.filter.add(
@@ -252,8 +232,6 @@ function clickHandler (event) {
         'include',
         event.target.getAttribute('data-value')
       )
-
-      document.getElementById('table-applied-filters').classList.remove('hide')
 
       displayData(table.filter.getData(Helper.getTableType()))
       break
@@ -317,10 +295,6 @@ function changeHandler (event) {
         table.dialog.filterAdd.disableBtn()
         table.dialog.filterOptions.disableBtn()
         table.filter.reset()
-      }
-
-      if (document.getElementById('table-applied-filters').hasChildNodes() === false) {
-        document.getElementById('table-applied-filters').classList.add('hide')
       }
 
       displayData(table.filter.getData(event.target.value))
@@ -430,6 +404,10 @@ fetchData()
         filterOptions: new FilterOptionsDialog('table')
       }
     }
+
+    /**
+     * @var chart{filter: ChartFilter}
+     */
     chart = {
       filter: new ChartFilter(iaData),
       dialog: {

@@ -19,11 +19,11 @@ export class ChartFilter extends Filter {
   getData (chartType) {
     const data = this.iaData.getRecentBans()
 
-    if (this.settings.length > 0) {
+    if (this.filters.length > 0) {
       return this.#groupData(this._getFilteredData(data), chartType)
     }
 
-    if (this.settings.length === 0 && (chartType === 'last14days' || chartType === 'last30days')) {
+    if (this.filters.length === 0 && (chartType === 'last14days' || chartType === 'last30days')) {
       return this.#createDaysFromDateList(this.iaData.getList('date'), chartType)
     }
 

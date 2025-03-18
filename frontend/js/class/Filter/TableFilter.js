@@ -23,7 +23,7 @@ export class TableFilter extends Filter {
       data = this.iaData.getList(listType)
     }
 
-    if (this.settings.length > 0 && this.#supportedListTypes.includes(listType) === true) {
+    if (this.filters.length > 0 && this.#supportedListTypes.includes(listType) === true) {
       return this._getFilteredData(data)
     }
 
