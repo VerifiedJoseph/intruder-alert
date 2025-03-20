@@ -1,6 +1,7 @@
 'use strict'
 
-import { IaData } from './class/IaData.js'
+import { Dataset } from './class/Dataset.js'
+import { Settings } from './class/Settings.js'
 import { Plot } from './class/Plot.js'
 import { TableFilter } from './class/Filter/TableFilter.js'
 import { ChartFilter } from './class/Filter/ChartFilter.js'
@@ -14,9 +15,6 @@ import { CreateTable } from './class/CreateTable.js'
 let table = {}
 let chart = {}
 
-/** @type IaData */
-let iaData
-
 /** @type Display */
 let display
 
@@ -29,17 +27,17 @@ let plot = new Plot()
  * @returns {Promise<Response>}
  */
 function fetchData (hash = '') {
-  let setting = {}
+  let options = {}
 
   if (hash !== '') {
-    setting = {
+    options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: `hash=${hash}`
     }
   }
 
-  return fetch('data.php', setting)
+  return fetch('data.php', options)
 }
 
 /**
@@ -79,7 +77,6 @@ function displayData (data, pageNumber = 0) {
   const htmlTable = new CreateTable(
     pagination.getData(),
     Helper.getTableType(),
-    iaData,
     table.filter
   )
 
@@ -108,7 +105,7 @@ function onViewBtnClick (viewType, filterType, filterValue) {
     displayData(table.filter.getData(viewType))
   }
 
-  if (iaData.isChartEnabled() === true && filterType !== 'date' && chart.filter.hasFilter(filterType, filterValue) === false) {
+  if (Dataset.isChartEnabled() === true && filterType !== 'date' && chart.filter.hasFilter(filterType, filterValue) === false) {
     chart.filter.reset()
     Helper.setChartType('last30days')
 
@@ -321,20 +318,15 @@ function changeHandler (event) {
  * Update dashboard with new data
  * @param {object} data 
  */
-function updateDashboard (data) {
+function updateDashboard (response) {
   document.getElementById('updating').classList.remove('hide')
 
-  iaData = new IaData(data)
-  table.filter.updateIaData(iaData)
-  chart.filter.updateIaData(iaData)
+  Dataset.init(response.dataset)
+  Settings.init(response.settings)
 
-  table.dialog.filterAdd = new FilterAddDialog('table', iaData)
-  chart.dialog.filterAdd = new FilterAddDialog('chart', iaData)
-
-  display = new Display(iaData)
   display.render()
 
-  if (iaData.isChartEnabled() === true) {
+  if (Settings.isChartEnabled() === true) {
     plot.newChart(chart.filter.getData(Helper.getChartType()))
 
     document.getElementById('chart').classList.remove('hide')
@@ -342,7 +334,7 @@ function updateDashboard (data) {
     document.getElementById('chart').classList.add('hide')
   }
 
-  Helper.createMostBannedButtons(data)
+  Helper.createMostBannedButtons()
   displayData(table.filter.getData(Helper.getTableType()))
 }
 
@@ -350,20 +342,20 @@ function updateDashboard (data) {
  * Check for an update
  */
 function checkForUpdate () {
-  fetchData(iaData.getHash())
+  fetchData(Dataset.getHash())
     .then(response => {
       if (response.status !== 200) {
         throw new Error(`Failed to fetch data (${response.status} ${response.statusText})`)
       }
 
       return response.json()
-    }).then(data => {
-      if (data.error === true) {
-        throw new Error(data.message)
+    }).then(response => {
+      if (response.error === true) {
+        throw new Error(response.message)
       }
 
-      if (data.hasUpdates === true) {
-        updateDashboard(data)
+      if (response.hasUpdates === true) {
+        updateDashboard(response)
 
         setTimeout(() => {
           document.getElementById('updating').classList.add('hide')
@@ -391,49 +383,48 @@ fetchData()
     }
 
     return response.json()
-  }).then(data => {
-    if (data.error === true) {
-      throw new Error(data.message)
+  }).then(response => {
+    if (response.error === true) {
+      throw new Error(response.message)
     }
 
-    iaData = new IaData(data)
+    Dataset.init(response.dataset)
+    Settings.init(response.settings)
+
     table = {
-      filter: new TableFilter(iaData),
+      filter: new TableFilter(),
       dialog: {
-        filterAdd: new FilterAddDialog('table', iaData),
+        filterAdd: new FilterAddDialog('table'),
         filterOptions: new FilterOptionsDialog('table')
       }
     }
 
-    /**
-     * @var chart{filter: ChartFilter}
-     */
     chart = {
-      filter: new ChartFilter(iaData),
+      filter: new ChartFilter(),
       dialog: {
-        filterAdd: new FilterAddDialog('chart', iaData),
+        filterAdd: new FilterAddDialog('chart'),
         filterOptions: new FilterOptionsDialog('chart')
       }
     }
 
-    display = new Display(iaData)
+    display = new Display()
     display.render()
 
     document.getElementById('loading').classList.add('hide')
     document.getElementById('content').classList.remove('hide')
-    document.getElementById('page-size').value = iaData.getDefaultPageSize()
+    document.getElementById('page-size').value = Settings.getDefaultPageSize()
 
-    if (iaData.isChartEnabled() === true) {
-      plot.newChart(chart.filter.getData(iaData.getDefaultChart()))
+  if (Settings.isChartEnabled() === true) {
+      plot.newChart(chart.filter.getData(Settings.getDefaultChart()))
 
       document.getElementById('chart').classList.remove('hide')
     }
 
-    if (iaData.isUpdatingEnabled() === true) {
+    if (Settings.isUpdatingEnabled() === true) {
       setInterval(checkForUpdate, 60000)
     }
 
-    Helper.createMostBannedButtons(data)
+    Helper.createMostBannedButtons()
     displayData(table.filter.getData('recentBans'))
   }).catch(error => {
     document.getElementById('loading').classList.add('hide')
