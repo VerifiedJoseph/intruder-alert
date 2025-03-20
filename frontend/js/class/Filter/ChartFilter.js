@@ -185,7 +185,7 @@ export class ChartFilter extends Filter {
    * @param {int} hours Number of days
    */
   #createDayGroups (days) {
-    let date = spacetime.now(Dataset.getTimezone()).subtract(days, 'days')
+    let date = spacetime.now(Settings.getTimezone()).subtract(days, 'days')
     const groups = []
     const keys = []
 
