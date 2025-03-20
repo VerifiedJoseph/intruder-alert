@@ -75,16 +75,20 @@ function createReport(Lists $lists, string $path, string $timezone) {
 	$report->generate();
 }
 
-function addSettings(array $settings, string $path) {
-	$file = file_get_contents($path);
-	$data = json_decode($file, associative: true);
-
-	$data['settings'] = $settings;
-
-	$file = json_encode($data);
-	file_put_contents($path, $file);
-}
-
 $lists = createLists($eventsFilepath);
-createReport($lists, $dataFilepath, 'Europe/London');
-addSettings($settings, $dataFilepath);
+createReport($lists, '../temp.json', 'Europe/London');
+
+$file = file_get_contents('../temp.json');
+$report = json_decode($file, associative: true);
+
+$json = json_encode([
+	'dataset' => $report,
+	'settings' => $settings
+]);
+
+file_put_contents(
+	$dataFilepath,
+	$json
+);
+
+echo 'Created data file for demo: ' . $dataFilepath . PHP_EOL;
