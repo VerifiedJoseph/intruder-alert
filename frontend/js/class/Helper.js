@@ -1,10 +1,10 @@
+import { Dataset } from './Dataset.js'
+
 export class Helper {
   /**
    * Create most banned buttons
-   *
-   * @param {object} data Data
    */
-  static createMostBannedButtons (data) {
+  static createMostBannedButtons () {
     const types = ['address', 'network', 'country', 'jail']
 
     types.forEach(type => {
@@ -12,7 +12,7 @@ export class Helper {
 
       span.innerText = ''
       span.appendChild(
-        Helper.createViewBtn('recentBans', type, data[type].mostBanned, 'most-banned')
+        Helper.createViewBtn('recentBans', type, Dataset.getMostBanned(type), 'most-banned')
       )
     })
   }

@@ -1,3 +1,5 @@
+import { Settings } from '../Settings.js'
+import { Dataset } from '../Dataset.js'
 import { Filter } from './Filter.js'
 import { FilterChip } from '../FilterChip.js'
 import spacetime from 'spacetime'
@@ -6,9 +8,9 @@ export class ChartFilter extends Filter {
   #hourDisplayFormat = '{year}-{iso-month}-{date-pad} {hour-24-pad}:00'
   #dateDisplayFormat = '{year}-{iso-month}-{date-pad}'
 
-  constructor (iaData) {
-    super(iaData)
-    this.chip = new FilterChip('chart', iaData)
+  constructor () {
+    super()
+    this.chip = new FilterChip('chart')
   }
 
   /**
@@ -17,14 +19,14 @@ export class ChartFilter extends Filter {
    * @returns
    */
   getData (chartType) {
-    const data = this.iaData.getRecentBans()
+    const data = Dataset.getRecentBans()
 
     if (this.filters.length > 0) {
       return this.#groupData(this._getFilteredData(data), chartType)
     }
 
     if (this.filters.length === 0 && (chartType === 'last14days' || chartType === 'last30days')) {
-      return this.#createDaysFromDateList(this.iaData.getList('date'), chartType)
+      return this.#createDaysFromDateList(Dataset.getList('date'), chartType)
     }
 
     return this.#groupData(data, chartType)
@@ -42,8 +44,8 @@ export class ChartFilter extends Filter {
 
     if (chartType === 'last30days') {
       let days = 30
-      if (this.iaData.getTotal('date') < 30) {
-        days = this.iaData.getTotal('date')
+      if (Dataset.getTotal('date') < 30) {
+        days = Dataset.getTotal('date')
       }
 
       return this.#groupByDay(data, days, chartType)
@@ -155,7 +157,7 @@ export class ChartFilter extends Filter {
    * @param {int} hours Number of hours
    */
   #createHourGroups (hours) {
-    let hour = spacetime.now(this.iaData.getTimezone()).subtract(hours, 'hours')
+    let hour = spacetime.now(Settings.getTimezone()).subtract(hours, 'hours')
     const groups = []
     const keys = []
 
@@ -183,7 +185,7 @@ export class ChartFilter extends Filter {
    * @param {int} hours Number of days
    */
   #createDayGroups (days) {
-    let date = spacetime.now(this.iaData.getTimezone()).subtract(days, 'days')
+    let date = spacetime.now(Dataset.getTimezone()).subtract(days, 'days')
     const groups = []
     const keys = []
 

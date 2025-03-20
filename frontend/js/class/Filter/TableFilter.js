@@ -1,12 +1,13 @@
+import { Dataset } from '../Dataset.js'
 import { Filter } from './Filter.js'
 import { FilterChip } from '../FilterChip.js'
 
 export class TableFilter extends Filter {
   #supportedListTypes = ['address', 'recentBans', 'subnet']
 
-  constructor (iaData) {
-    super(iaData)
-    this.chip = new FilterChip('table', iaData)
+  constructor () {
+    super()
+    this.chip = new FilterChip('table')
   }
 
   /**
@@ -18,9 +19,9 @@ export class TableFilter extends Filter {
     let data
 
     if (listType === 'recentBans') {
-      data = this.iaData.getRecentBans()
+      data = Dataset.getRecentBans()
     } else {
-      data = this.iaData.getList(listType)
+      data = Dataset.getList(listType)
     }
 
     if (this.filters.length > 0 && this.#supportedListTypes.includes(listType) === true) {
