@@ -105,7 +105,7 @@ function onViewBtnClick (viewType, filterType, filterValue) {
     displayData(table.filter.getData(viewType))
   }
 
-  if (Dataset.isChartEnabled() === true && filterType !== 'date' && chart.filter.hasFilter(filterType, filterValue) === false) {
+  if (Settings.isChartEnabled() === true && filterType !== 'date' && chart.filter.hasFilter(filterType, filterValue) === false) {
     chart.filter.reset()
     Helper.setChartType('last30days')
 
