@@ -60,9 +60,8 @@ class Report
      */
     public function generate(): void
     {
-        $data = [];
-        $data['dataset'] = $this->lists;
-        $data['dataset']['stats'] = $this->createStats();
+        $data = $this->lists;
+        $data['stats'] = $this->createStats();
         $data['updated'] = $this->date->format('Y-m-d H:i:s');
         $data['hash'] = sha1($data['updated']);
         $data['dataSince'] = $this->getDataSinceDate();
