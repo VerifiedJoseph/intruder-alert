@@ -1,3 +1,4 @@
+import { Dataset } from './Dataset.js'
 import { Table, Row, Cell } from './Table.js'
 import { Helper } from './Helper.js'
 
@@ -15,19 +16,16 @@ export class CreateTable {
 
   #table
   #type = ''
-  #iaData
   #filter
 
   /**
   * Create table
   * @param {array} data Table data
   * @param {string} type Table type
-  * @param {IaData} iaData
   * @param {Filter} filter
   */
-  constructor (data = [], type, iaData, filter) {
+  constructor (data = [], type, filter) {
     this.#type = type
-    this.#iaData = iaData
     this.#filter = filter
 
     this.#build(data)
@@ -98,8 +96,8 @@ export class CreateTable {
    * @returns row
    */
   #createAddressRow (item, row) {
-    const network = this.#iaData.getNetwork(item.network)
-    const country = this.#iaData.getCountry(item.country)
+    const network = Dataset.getNetwork(item.network)
+    const country = Dataset.getCountry(item.country)
 
     const subnetFilterBtn = this.#createFilterBtn('subnet', item.subnet, item.subnet, this.#filter)
     const networkFilterBtn = this.#createFilterBtn('network', network.number, network.name, this.#filter)
@@ -122,8 +120,8 @@ export class CreateTable {
    * @returns row
    */
   #createRecentBansRow (item, row) {
-    const network = this.#iaData.getNetwork(item.network)
-    const country = this.#iaData.getCountry(item.country)
+    const network = Dataset.getNetwork(item.network)
+    const country = Dataset.getCountry(item.country)
 
     const addressFilterBtn = this.#createFilterBtn('address', item.address, item.address, this.#filter)
     const jailFilterBtn = this.#createFilterBtn('jail', item.jail, item.jail, this.#filter)
@@ -145,8 +143,8 @@ export class CreateTable {
    * @returns row
    */
   #createSubnetRow (item, row) {
-    const network = this.#iaData.getNetwork(item.network)
-    const country = this.#iaData.getCountry(item.country)
+    const network = Dataset.getNetwork(item.network)
+    const country = Dataset.getCountry(item.country)
 
     const networkFilterBtn = this.#createFilterBtn('network', network.number, network.name, this.#filter)
     const countryFilterBtn = this.#createFilterBtn('country', country.code, country.name, this.#filter)

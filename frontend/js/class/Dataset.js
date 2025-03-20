@@ -1,43 +1,22 @@
-export class IaData {
-  #data = []
-  #recentBans = []
+export class Dataset {
+  static #data = []
+  static #recentBans = []
 
-  constructor (data = []) {
+  /**
+   * Initialisation dataset
+   * @param {object} data
+   */
+  static init (data) {
     this.#data = data
+    this.#recentBans = this.#generateRecentBans()
   }
 
   /**
    * Returns recent bans as an array
    * @returns {array}
    */
-  getRecentBans () {
-    if (this.#recentBans.length > 0) {
-      return this.#recentBans
-    }
-
-    this.#data.address.list.forEach(ip => {
-      ip.events.forEach(event => {
-        this.#recentBans.push({
-          address: ip.address,
-          version: ip.version,
-          jail: event.jail,
-          subnet: ip.subnet,
-          network: ip.network,
-          country: ip.country,
-          continent: ip.continent,
-          timestamp: event.timestamp
-        })
-      })
-    })
-
-    this.#recentBans.sort(function (a, b) {
-      const da = new Date(a.timestamp).getTime()
-      const db = new Date(b.timestamp).getTime()
-
-      return da < db ? -1 : da > db ? 1 : 0
-    })
-
-    return this.#recentBans.reverse()
+  static getRecentBans () {
+    return this.#recentBans
   }
 
   /**
@@ -45,31 +24,15 @@ export class IaData {
    * @param {string} type List type
    * @returns {array}
    */
-  getList (type) {
+  static getList (type) {
     return this.#data[type].list
-  }
-
-  /**
-   * Returns timezone
-   * @returns {string}
-   */
-  getTimezone () {
-    return this.#data.settings.timezone
-  }
-
-  /**
-   * Returns Intruder Alert version
-   * @returns {string}
-   */
-  getVersion () {
-    return this.#data.settings.version
   }
 
   /**
    * Returns last updated date
    * @returns {string}
    */
-  getUpdatedDate () {
+  static getUpdatedDate () {
     return this.#data.updated
   }
 
@@ -77,40 +40,24 @@ export class IaData {
    * Returns data version hash
    * @returns {string}
    */
-  getHash () {
+  static getHash () {
     return this.#data.hash
+  }
+
+  /**
+   * Returns backend daemon log
+   * @returns {array}
+   */
+  static getDaemonLog () {
+    return this.#data.log
   }
 
   /**
    * Returns data since date
    * @returns {string}
    */
-  getSinceDate () {
+  static getSinceDate () {
     return this.#data.dataSince
-  }
-
-  /**
-   * Check if charts are enabled
-   * @returns {boolean}
-   */
-  isChartEnabled () {
-    return this.#data.settings.features.charts
-  }
-
-  /**
-   * Check if dashboard updating is enabled
-   * @returns {boolean}
-   */
-  isUpdatingEnabled () {
-    return this.#data.settings.features.updates
-  }
-
-  /**
-   * Check if displaying the daemon log is enabled
-   * @returns {boolean}
-   */
-  isDaemonLogEnabled () {
-    return this.#data.settings.features.daemonLog
   }
 
   /**
@@ -118,7 +65,7 @@ export class IaData {
    * @param {string} type List type
    * @returns {int}
    */
-  getTotal (type) {
+  static getTotal (type) {
     return this.#data.stats.totals[type]
   }
 
@@ -127,7 +74,7 @@ export class IaData {
    * @param {string} type List type
    * @returns {int}
    */
-  getBans (type) {
+  static getBans (type) {
     return this.#data.stats.bans[type]
   }
 
@@ -136,32 +83,8 @@ export class IaData {
    * @param {string} type List type
    * @returns {mixed}
    */
-  getMostBanned (type) {
+  static getMostBanned (type) {
     return this.#data[type].mostBanned
-  }
-
-  /**
-   * Returns backend daemon log
-   * @returns {array}
-   */
-  getDaemonLog () {
-    return this.#data.log
-  }
-
-  /**
-   * Returns default chart
-   * @returns {string}
-   */
-  getDefaultChart () {
-    return this.#data.settings.defaults.chart
-  }
-
-  /**
-   * Returns default table page size
-   * @returns {int}
-   */
-  getDefaultPageSize () {
-    return this.#data.settings.defaults.pageSize
   }
 
   /**
@@ -169,7 +92,7 @@ export class IaData {
    * @param {int} number Network number (ASN)
    * @returns {string}
    */
-  getNetworkName (number) {
+  static getNetworkName (number) {
     return this.getNetwork(number).name
   }
 
@@ -178,7 +101,7 @@ export class IaData {
    * @param {string} code Two letter country code
    * @returns {string}
    */
-  getCountryName (code) {
+  static getCountryName (code) {
     return this.getCountry(code).name
   }
 
@@ -187,7 +110,7 @@ export class IaData {
    * @param {string} code Two letter continent code
    * @returns {string}
    */
-  getContinentName (code) {
+  static getContinentName (code) {
     return this.getContinent(code).name
   }
 
@@ -196,7 +119,7 @@ export class IaData {
    * @param {string} address IP address
    * @returns {object}
    */
-  getIp (address) {
+  static getIp (address) {
     for (let i = 0; i < this.#data.address.list.length; i++) {
       if (this.#data.address.list[i].address === address) {
         return this.#data.address.list[i]
@@ -209,7 +132,7 @@ export class IaData {
    * @param {int} number Network number (ASN)
    * @returns {object}
    */
-  getNetwork (number) {
+  static getNetwork (number) {
     for (let i = 0; i < this.#data.network.list.length; i++) {
       if (this.#data.network.list[i].number.toString() === number.toString()) {
         return this.#data.network.list[i]
@@ -222,7 +145,7 @@ export class IaData {
    * @param {string} code Two letter country code
    * @returns {object}
    */
-  getCountry (code) {
+  static getCountry (code) {
     for (let i = 0; i < this.#data.country.list.length; i++) {
       if (this.#data.country.list[i].code === code) {
         return this.#data.country.list[i]
@@ -235,7 +158,7 @@ export class IaData {
    * @param {string} code Two letter continent code
    * @returns {object}
    */
-  getContinent (code) {
+  static getContinent (code) {
     for (let i = 0; i < this.#data.continent.list.length; i++) {
       if (this.#data.continent.list[i].code === code) {
         return this.#data.continent.list[i]
@@ -248,11 +171,43 @@ export class IaData {
    * @param {string} name Jail name
    * @returns {object}
    */
-  getJail (name) {
+  static getJail (name) {
     for (let i = 0; i < this.#data.jail.list.length; i++) {
       if (this.#data.jail.list[i].name === name) {
         return this.#data.jail.list[i]
       }
     }
+  }
+
+  /**
+   * Generates array of recent bans
+   * @returns {array}
+   */
+  static #generateRecentBans() {
+    var bans = []
+
+    this.#data.address.list.forEach(ip => {
+      ip.events.forEach(event => {
+        bans.push({
+          address: ip.address,
+          version: ip.version,
+          jail: event.jail,
+          subnet: ip.subnet,
+          network: ip.network,
+          country: ip.country,
+          continent: ip.continent,
+          timestamp: event.timestamp
+        })
+      })
+    })
+
+    bans.sort(function (a, b) {
+      const da = new Date(a.timestamp).getTime()
+      const db = new Date(b.timestamp).getTime()
+
+      return da < db ? -1 : da > db ? 1 : 0
+    })
+
+    return bans.reverse()
   }
 }

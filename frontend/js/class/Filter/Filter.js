@@ -1,5 +1,6 @@
 export class Filter {
-  iaData
+  dataset
+  settings
 
   /**
    * @var array filters Array of filters
@@ -8,13 +9,8 @@ export class Filter {
   chip
   count = 0
 
-  constructor (iaData) {
-    this.iaData = iaData
+  constructor () {
     this.filters = []
-  }
-
-  updateIaData (iaData) {
-    this.iaData = iaData
   }
 
   _getFilteredData (data) {

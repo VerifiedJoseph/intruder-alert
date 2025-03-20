@@ -1,16 +1,8 @@
+import { Dataset } from './Dataset.js'
+import { Settings } from './Settings.js'
 import { Helper } from './Helper.js'
 
 export class Display {
-  #iaData
-
-  /**
-   *
-   * @param {iaData} iaData iaData class instance
-   */
-  constructor (iaData) {
-    this.#iaData = iaData
-  }
-
   render () {
     this.#headerDates()
     this.#headerVersion()
@@ -23,8 +15,8 @@ export class Display {
    * Display last updated and since data in header
    */
   #headerDates () {
-    document.getElementById('last-updated').innerText = this.#iaData.getUpdatedDate()
-    document.getElementById('date-since').innerText = ` ${this.#iaData.getSinceDate()} (${Helper.formatNumber(this.#iaData.getTotal('date'))} days)`
+    document.getElementById('last-updated').innerText = Dataset.getUpdatedDate()
+    document.getElementById('date-since').innerText = ` ${Dataset.getSinceDate()} (${Helper.formatNumber(Dataset.getTotal('date'))} days)`
     document.getElementById('dates').classList.remove('hide')
   }
 
@@ -32,7 +24,7 @@ export class Display {
    * Display version details in header
    */
   #headerVersion () {
-    let version = this.#iaData.getVersion()
+    let version = Settings.getVersion()
 
     if (version !== '') {
       if (version.charAt(0) !== 'v') {
@@ -54,24 +46,24 @@ export class Display {
    * Display global stats
    */
   #globalStats () {
-    document.getElementById('total-bans').innerText = Helper.formatNumber(this.#iaData.getBans('total'))
-    document.getElementById('bans-today').innerText = Helper.formatNumber(this.#iaData.getBans('today'))
-    document.getElementById('bans-yesterday').innerText = Helper.formatNumber(this.#iaData.getBans('yesterday'))
-    document.getElementById('bans-per-day').innerText = Helper.formatNumber(this.#iaData.getBans('perDay'))
-    document.getElementById('total-ips').innerText = Helper.formatNumber(this.#iaData.getTotal('ip'))
-    document.getElementById('total-networks').innerText = Helper.formatNumber(this.#iaData.getTotal('network'))
-    document.getElementById('total-countries').innerText = Helper.formatNumber(this.#iaData.getTotal('country'))
-    document.getElementById('total-jails').innerText = Helper.formatNumber(this.#iaData.getTotal('jail'))
+    document.getElementById('total-bans').innerText = Helper.formatNumber(Dataset.getBans('total'))
+    document.getElementById('bans-today').innerText = Helper.formatNumber(Dataset.getBans('today'))
+    document.getElementById('bans-yesterday').innerText = Helper.formatNumber(Dataset.getBans('yesterday'))
+    document.getElementById('bans-per-day').innerText = Helper.formatNumber(Dataset.getBans('perDay'))
+    document.getElementById('total-ips').innerText = Helper.formatNumber(Dataset.getTotal('ip'))
+    document.getElementById('total-networks').innerText = Helper.formatNumber(Dataset.getTotal('network'))
+    document.getElementById('total-countries').innerText = Helper.formatNumber(Dataset.getTotal('country'))
+    document.getElementById('total-jails').innerText = Helper.formatNumber(Dataset.getTotal('jail'))
   }
 
   /**
    * Display most banned details
    */
   #mostBanned () {
-    const ip = this.#iaData.getIp(this.#iaData.getMostBanned('address'))
-    const network = this.#iaData.getNetwork(this.#iaData.getMostBanned('network'))
-    const country = this.#iaData.getCountry(this.#iaData.getMostBanned('country'))
-    const jail = this.#iaData.getJail(this.#iaData.getMostBanned('jail'))
+    const ip = Dataset.getIp(Dataset.getMostBanned('address'))
+    const network = Dataset.getNetwork(Dataset.getMostBanned('network'))
+    const country = Dataset.getCountry(Dataset.getMostBanned('country'))
+    const jail = Dataset.getJail(Dataset.getMostBanned('jail'))
 
     document.getElementById('most-banned-ip').innerText = ip.address
     document.getElementById('most-banned-ip').setAttribute('title', ip.address)
@@ -97,8 +89,8 @@ export class Display {
     const div = document.getElementById('log-entries')
     div.innerText = ''
 
-    if (this.#iaData.isDaemonLogEnabled() === true) {
-      this.#iaData.getDaemonLog().forEach(item => {
+    if (Settings.isDaemonLogEnabled() === true) {
+      Dataset.getDaemonLog().forEach(item => {
         const entry = document.createElement('div')
         entry.innerText = item
 

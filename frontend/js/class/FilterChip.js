@@ -1,6 +1,6 @@
-export class FilterChip {
-  #iaData
+import { Dataset } from './Dataset.js'
 
+export class FilterChip {
   /** @var {HTMLElement} */
   #container = null
 
@@ -22,14 +22,9 @@ export class FilterChip {
     second: 'Second'
   }
 
-  constructor (viewGroup, iaData) {
+  constructor (viewGroup) {
     this.#container = document.getElementById(`${viewGroup}-applied-filters`)
     this.#viewGroup = viewGroup
-    this.#iaData = iaData
-  }
-
-  updateIaData (iaData) {
-    this.iaData = iaData
   }
 
   /**
@@ -138,11 +133,11 @@ export class FilterChip {
   #getValueText (type, value) {
     switch (type) {
       case 'network':
-        return this.#iaData.getNetworkName(value)
+        return Dataset.getNetworkName(value)
       case 'country':
-        return this.#iaData.getCountryName(value)
+        return Dataset.getCountryName(value)
       case 'continent':
-        return this.#iaData.getContinentName(value)
+        return Dataset.getContinentName(value)
     }
 
     return value

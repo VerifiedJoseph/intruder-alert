@@ -23,11 +23,12 @@ class Frontend extends AbstractApp
             ]);
         }
 
-        $data = Json::decode(File::read($path));
+        $data = [];
+        $data['dataset'] = Json::decode(File::read($path));
 
         $hash = $_POST['hash'] ?? '';
         if ($hash !== '') {
-            if ($hash !== $data['hash']) {
+            if ($hash !== $data['dataset']['hash']) {
                 $data['hasUpdates'] = true;
             } else {
                 return Json::encode([]);
@@ -35,7 +36,7 @@ class Frontend extends AbstractApp
         }
 
         if ($this->config->getDashDaemonLogStatus() === false) {
-            unset($data['log']);
+            unset($data['dataset']['log']);
         }
 
         $data['settings'] = [

@@ -1,9 +1,9 @@
 import { ViewGroupDialogs } from './ViewGroupDialogs.js'
+import { Dataset } from '../Dataset.js'
 import { Helper } from '../Helper.js'
 
 export class FilterAddDialog extends ViewGroupDialogs {
   dialogId = 'filter-add'
-  #iaData
 
   #actionSelectOptions = [
     {
@@ -85,9 +85,8 @@ export class FilterAddDialog extends ViewGroupDialogs {
     }
   ]
 
-  constructor (viewGroup, iaData) {
+  constructor (viewGroup) {
     super(viewGroup)
-    this.#iaData = iaData
   }
 
   /**
@@ -234,7 +233,7 @@ export class FilterAddDialog extends ViewGroupDialogs {
     } else if (timeTypes.includes(type)) {
       data = this.#getTimeList(type)
     } else {
-      data = this.#iaData.getList(type)
+      data = Dataset.getList(type)
     }
 
     for (let index = 0; index < data.length; index++) {
