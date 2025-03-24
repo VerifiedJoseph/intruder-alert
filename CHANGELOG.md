@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.21.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.21.0) - 2025-03-23
+
+- Frontend: Reworked filtering ([#785](https://github.com/VerifiedJoseph/intruder-alert/pull/785), [`907db9d`](https://github.com/VerifiedJoseph/intruder-alert/commit/907db9d41b5d8d3fd0396eeafd4d7e78227c7015))
+- Frontend: Replaced IaData class with Dataset and Settings classes. ([#786](https://github.com/VerifiedJoseph/intruder-alert/pull/786), [`ebecd93`](https://github.com/VerifiedJoseph/intruder-alert/commit/ebecd939edb19efcba681fb323c79373b11db3e1))
+- Frontend: Fixed incorrect amount of minutes and seconds displayed in filter dialog. ([#784](https://github.com/VerifiedJoseph/intruder-alert/pull/784), [`1ab2ae3`](https://github.com/VerifiedJoseph/intruder-alert/commit/1ab2ae328100472e4865012b31f5684d2a400679))
+- Updated spacetime from 7.7.0 to 7.8.0 ([#780](https://github.com/VerifiedJoseph/intruder-alert/pull/780), [`5342972`](https://github.com/VerifiedJoseph/intruder-alert/commit/5342972426de90e75822850bfd5e662df3bb5357))
+- Dockerfile: Updated php from 8.2.27-fpm-alpine3.20 to 8.2.28-fpm-alpine3.20 ([#783](https://github.com/VerifiedJoseph/intruder-alert/pull/783), [`7287f77`](https://github.com/VerifiedJoseph/intruder-alert/commit/7287f7732fdf2eb5cf2d9550c2a9a54d9bc425d4))
+
 ## [1.20.4](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.20.4) - 2025-03-04
 
 - Reworked front-end to remove use of `crypto.randomUUID()` ([#778](https://github.com/VerifiedJoseph/intruder-alert/pull/778), [`8028bb9`](https://github.com/VerifiedJoseph/intruder-alert/commit/8028bb9f0a1cc322fb806607864445a912c01666))
