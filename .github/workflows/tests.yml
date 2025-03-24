@@ -38,10 +38,15 @@ jobs:
       run: composer install --prefer-dist
 
     - name: Run phpunit
-      run: ./backend/vendor/bin/phpunit --coverage-clover=coverage.xml
       run: ./backend/vendor/bin/phpunit --coverage-clover=coverage.xml --log-junit junit.xml
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # v5.4.0
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+
+    - name: Upload test results to Codecov
+      if: ${{ !cancelled() }}
+      uses: codecov/test-results-action@f2dba722c67b86c6caa034178c6e4d35335f6706 #v1.1.0
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
