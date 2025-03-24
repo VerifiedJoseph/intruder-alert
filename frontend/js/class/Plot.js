@@ -1,4 +1,5 @@
-import Chart from 'chart.js/auto'
+import {Chart, LineController, Legend, CategoryScale, LinearScale, LineElement, PointElement, Tooltip, Colors} from 'chart.js';
+Chart.register(LineController, Legend, CategoryScale, LinearScale, LineElement, PointElement, Tooltip, Colors);
 
 export class Plot {
   #chart
