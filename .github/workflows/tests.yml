@@ -39,6 +39,7 @@ jobs:
 
     - name: Run phpunit
       run: ./backend/vendor/bin/phpunit --coverage-clover=coverage.xml
+      run: ./backend/vendor/bin/phpunit --coverage-clover=coverage.xml --log-junit junit.xml
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # v5.4.0
