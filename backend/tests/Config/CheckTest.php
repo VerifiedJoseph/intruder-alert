@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
+use PHPUnit\Framework\Attributes\WithEnvironmentVariable;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Config\Check;
@@ -22,25 +23,6 @@ class CheckTest extends AbstractTestCase
     {
         $reflection = new ReflectionClass(new Config());
         self::$defaults = $reflection->getProperty('config')->getValue(new Config());
-    }
-
-    public function setUp(): void
-    {
-        // Unset environment variables before each test
-        putenv('IA_DOCKER');
-        putenv('IA_VERBOSE');
-        putenv('IA_LOG_PATHS');
-        putenv('IA_LOG_FOLDER');
-        putenv('IA_MAXMIND_LICENSE_KEY');
-        putenv('IA_ASN_DATABASE');
-        putenv('IA_COUNTRY_DATABASE');
-        putenv('IA_TIMEZONE');
-        putenv('IA_SYSTEM_LOG_TIMEZONE');
-        putenv('IA_DASH_CHARTS');
-        putenv('IA_DASH_UPDATES');
-        putenv('IA_DASH_DAEMON_LOG');
-        putenv('IA_DASH_DEFAULT_CHART');
-        putenv('IA_DASH_PAGE_SIZE');
     }
 
     public function tearDown(): void
@@ -90,10 +72,9 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `IA_LOG_FOLDER`
      */
+    #[WithEnvironmentVariable('IA_LOG_FOLDER', 'backend/tests/files/logs')]
     public function testLogFolder(): void
     {
-        putenv('IA_LOG_FOLDER=backend/tests/files/logs');
-
         $check = new Check(self::$defaults);
         $check->logFolder();
         $config = $check->getConfig();
@@ -104,12 +85,11 @@ class CheckTest extends AbstractTestCase
     /**
      * Test config with empty `IA_LOG_FOLDER`
      */
+    #[WithEnvironmentVariable('IA_LOG_FOLDER', '')]
     public function testEmptyLogFolder(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('fail2ban log folder variable can not be empty');
-
-        putenv('IA_LOG_FOLDER=');
 
         $check = new Check(self::$defaults);
         $check->logFolder();
@@ -118,12 +98,11 @@ class CheckTest extends AbstractTestCase
     /**
      * Test config with `IA_LOG_FOLDER` folder that does not exist
      */
+    #[WithEnvironmentVariable('IA_LOG_FOLDER', 'tests/fail2ban-logs')]
     public function testDoesNotExistLogFolder(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('fail2ban log folder does not exist');
-
-        putenv('IA_LOG_FOLDER=tests/fail2ban-logs');
 
         $check = new Check(self::$defaults);
         $check->logFolder();
@@ -132,10 +111,9 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `IA_LOG_PATHS`
      */
+    #[WithEnvironmentVariable('IA_LOG_PATHS', 'backend/tests/files/logs/has-bans/fail2ban.log')]
     public function testLogPaths(): void
     {
-        putenv('IA_LOG_PATHS=backend/tests/files/logs/has-bans/fail2ban.log');
-
         $check = new Check(self::$defaults);
         $check->logPaths();
         $config = $check->getConfig();
@@ -146,12 +124,11 @@ class CheckTest extends AbstractTestCase
     /**
      * Test empty `IA_LOG_PATHS`
      */
+    #[WithEnvironmentVariable('IA_LOG_PATHS', '')]
     public function testEmptyLogPaths(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('fail2ban log paths variable can not be empty');
-
-        putenv('IA_LOG_PATHS=');
 
         $check = new Check(self::$defaults);
         $check->logPaths();
@@ -160,10 +137,9 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `IA_MAXMIND_LICENSE_KEY`
      */
+    #[WithEnvironmentVariable('IA_MAXMIND_LICENSE_KEY', 'qwerty')]
     public function testMaxMindLicenseKey(): void
     {
-        putenv('IA_MAXMIND_LICENSE_KEY=qwerty');
-
         $check = new Check(self::$defaults);
         $check->maxMindLicenseKey();
         $config = $check->getConfig();
@@ -174,12 +150,11 @@ class CheckTest extends AbstractTestCase
     /**
      * Test empty `IA_MAXMIND_LICENSE_KEY`
      */
+    #[WithEnvironmentVariable('IA_MAXMIND_LICENSE_KEY', '')]
     public function testEmptyMaxMindLicenseKey(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('MaxMind license key can not be empty');
-
-        putenv('IA_MAXMIND_LICENSE_KEY=');
 
         $check = new Check(self::$defaults);
         $check->maxMindLicenseKey();
@@ -202,17 +177,19 @@ class CheckTest extends AbstractTestCase
 
         $this->assertEquals($asn, $config['asn_database_path']);
         $this->assertEquals($country, $config['country_database_path']);
+
+        putenv('IA_ASN_DATABASE');
+        putenv('IA_COUNTRY_DATABASE');
     }
 
     /**
      * Test empty `IA_ASN_DATABASE`
      */
+    #[WithEnvironmentVariable('IA_ASN_DATABASE')]
     public function testEmptyAsnDatabasePath(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('GeoLite2 ASN database path must be set');
-
-        putenv('IA_ASN_DATABASE=');
 
         $check = new Check(self::$defaults);
         $check->databases();
@@ -231,6 +208,9 @@ class CheckTest extends AbstractTestCase
 
         $check = new Check(self::$defaults);
         $check->databases();
+
+        putenv('IA_ASN_DATABASE');
+        putenv('IA_COUNTRY_DATABASE');
     }
 
     /**
@@ -246,6 +226,9 @@ class CheckTest extends AbstractTestCase
 
         $check = new Check(self::$defaults);
         $check->databases();
+
+        putenv('IA_ASN_DATABASE');
+        putenv('IA_COUNTRY_DATABASE');
     }
 
     /**
@@ -261,6 +244,9 @@ class CheckTest extends AbstractTestCase
 
         $check = new Check(self::$defaults);
         $check->databases();
+
+        putenv('IA_ASN_DATABASE');
+        putenv('IA_COUNTRY_DATABASE');
     }
 
     /**
@@ -278,10 +264,9 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `IA_DASH_CHARTS`
      */
+    #[WithEnvironmentVariable('IA_DASH_CHARTS', 'false')]
     public function testDashCharts(): void
     {
-        putenv('IA_DASH_CHARTS=false');
-
         $check = new Check(self::$defaults);
         $check->dashboardCharts();
         $config = $check->getConfig();
@@ -292,12 +277,11 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `IA_DASH_CHARTS` variable type
      */
+    #[WithEnvironmentVariable('IA_DASH_CHARTS', 'string')]
     public function testDashChartVarType(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Charts environment variable must be true or false');
-
-        putenv('IA_DASH_CHARTS=string');
 
         $check = new Check(self::$defaults);
         $check->dashboardCharts();
@@ -306,10 +290,9 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `IA_DASH_UPDATES`
      */
+    #[WithEnvironmentVariable('IA_DASH_UPDATES', 'false')]
     public function testDashUpdates(): void
     {
-        putenv('IA_DASH_UPDATES=false');
-
         $check = new Check(self::$defaults);
         $check->dashboardUpdates();
         $config = $check->getConfig();
@@ -320,12 +303,11 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `IA_DASH_UPDATES` variable type
      */
+    #[WithEnvironmentVariable('IA_DASH_UPDATES', 'string')]
     public function testDashUpdatesVarType(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Dashboard updates environment variable must be true or false');
-
-        putenv('IA_DASH_UPDATES=string');
 
         $check = new Check(self::$defaults);
         $check->dashboardUpdates();
@@ -334,10 +316,9 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `IA_DASH_DAEMON_LOG`
      */
+    #[WithEnvironmentVariable('IA_DASH_DAEMON_LOG', 'false')]
     public function testDashDaemonLog(): void
     {
-        putenv('IA_DASH_DAEMON_LOG=false');
-
         $check = new Check(self::$defaults);
         $check->dashboardDaemonLog();
         $config = $check->getConfig();
@@ -348,12 +329,11 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `IA_DASH_DAEMON_LOG` variable type
      */
+    #[WithEnvironmentVariable('IA_DASH_DAEMON_LOG', 'string')]
     public function testDashDaemonLogVarType(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Dashboard daemon log environment variable must be true or false');
-
-        putenv('IA_DASH_DAEMON_LOG=string');
 
         $check = new Check(self::$defaults);
         $check->dashboardDaemonLog();
@@ -362,10 +342,9 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `dashboardDefaultChart()` with valid `IA_DASH_DEFAULT_CHART` value
      */
+    #[WithEnvironmentVariable('IA_DASH_DEFAULT_CHART', '24hours')]
     public function testDashboardDefaultChart(): void
     {
-        putenv('IA_DASH_DEFAULT_CHART=24hours');
-
         $check = new Check(self::$defaults);
         $check->dashboardDefaultChart(['last24hours', 'last48hours']);
         $config = $check->getConfig();
@@ -376,12 +355,11 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `dashboardDefaultChart()` with unsupported `IA_DASH_DEFAULT_CHART` value
      */
+    #[WithEnvironmentVariable('IA_DASH_DEFAULT_CHART', 'string')]
     public function testDashboardDefaultChartUnsupported(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Unsupported value for dashboard default chart environment variable');
-
-        putenv('IA_DASH_DEFAULT_CHART=string');
 
         $check = new Check(self::$defaults);
         $check->dashboardDefaultChart(['last24hours', 'last48hours']);
@@ -390,10 +368,9 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `dashboardPage()` with valid `IA_DASH_PAGE_SIZE` value
      */
+    #[WithEnvironmentVariable('IA_DASH_PAGE_SIZE', '25')]
     public function testDashboardPageSize(): void
     {
-        putenv('IA_DASH_PAGE_SIZE=25');
-
         $check = new Check(self::$defaults);
         $check->dashboardPageSize([25, 50]);
         $config = $check->getConfig();
@@ -404,12 +381,11 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `dashboardPage()` with unsupported `IA_DASH_PAGE_SIZE` value
      */
+    #[WithEnvironmentVariable('IA_DASH_PAGE_SIZE', '10')]
     public function testDashboardPageSizeUnsupported(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Unsupported value for dashboard table page size environment variable');
-
-        putenv('IA_DASH_PAGE_SIZE=10');
 
         $check = new Check(self::$defaults);
         $check->dashboardPageSize([25, 50]);
@@ -418,10 +394,9 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `IA_TIMEZONE` variable
      */
+    #[WithEnvironmentVariable('IA_TIMEZONE', 'Europe/London')]
     public function testTimezone(): void
     {
-        putenv('IA_TIMEZONE=Europe/London');
-
         $check = new Check(self::$defaults);
         $check->timezone();
         $config = $check->getConfig();
@@ -444,12 +419,11 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `IA_TIMEZONE` unknown timezone
      */
+    #[WithEnvironmentVariable('IA_TIMEZONE', 'Europe/Coventry')]
     public function testUnknownTimezone(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Unknown timezone given');
-
-        putenv('IA_TIMEZONE=Europe/Coventry');
 
         $check = new Check(self::$defaults);
         $check->timezone();
@@ -458,10 +432,9 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `IA_SYSTEM_LOG_TIMEZONE`
      */
+    #[WithEnvironmentVariable('IA_SYSTEM_LOG_TIMEZONE', 'UTC')]
     public function testSystemLogTimezone(): void
     {
-        putenv('IA_SYSTEM_LOG_TIMEZONE=UTC');
-
         $check = new Check(self::$defaults);
         $check->systemLogTimezone();
         $config = $check->getConfig();
@@ -472,12 +445,11 @@ class CheckTest extends AbstractTestCase
     /**
      * Test empty `IA_SYSTEM_LOG_TIMEZONE`
      */
+    #[WithEnvironmentVariable('IA_SYSTEM_LOG_TIMEZONE', '')]
     public function testEmptySystemLogTimezone(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Timezone can not be empty [IA_SYSTEM_LOG_TIMEZONE]');
-
-        putenv('IA_SYSTEM_LOG_TIMEZONE=');
 
         $check = new Check(self::$defaults);
         $check->systemLogTimezone();
@@ -486,12 +458,11 @@ class CheckTest extends AbstractTestCase
     /**
      * Test `IA_SYSTEM_LOG_TIMEZONE` with unknown timezone
      */
+    #[WithEnvironmentVariable('IA_SYSTEM_LOG_TIMEZONE', 'Europe/Coventry')]
     public function testUnknownSystemLogTimezone(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Unknown timezone given [IA_SYSTEM_LOG_TIMEZONE]');
-
-        putenv('IA_SYSTEM_LOG_TIMEZONE=Europe/Coventry');
 
         $check = new Check(self::$defaults);
         $check->systemLogTimezone();
@@ -514,12 +485,11 @@ class CheckTest extends AbstractTestCase
     /**
      * Test not setting `IA_SYSTEM_LOG_TIMEZONE` when running in a docker container
      */
+    #[WithEnvironmentVariable('IA_DOCKER', 'true')]
     public function testNotSettingSystemLogTimezoneDocker(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Fail2ban log timezone is required when running in a docker container');
-
-        putenv('IA_DOCKER=true');
 
         $check = new Check(self::$defaults);
         $check->systemLogTimezone();
@@ -528,10 +498,9 @@ class CheckTest extends AbstractTestCase
     /**
      * Test setting `IA_VERBOSE`
      */
+    #[WithEnvironmentVariable('IA_VERBOSE', 'true')]
     public function testVerbose(): void
     {
-        putenv('IA_VERBOSE=true');
-
         $check = new Check(self::$defaults);
         $check->verbose();
 
@@ -543,12 +512,11 @@ class CheckTest extends AbstractTestCase
     /**
      * Test setting `IA_VERBOSE` is non-boolean value
      */
+    #[WithEnvironmentVariable('IA_VERBOSE', 'string')]
     public function testVerboseNotBoolean(): void
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Verbose logging environment variable must be true or false');
-
-        putenv('IA_VERBOSE=string');
 
         $check = new Check(self::$defaults);
         $check->verbose();
