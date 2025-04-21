@@ -10,7 +10,6 @@ use IntruderAlert\Database\Country;
 #[CoversClass(IntruderAlert\Database\AbstractDatabase::class)]
 #[UsesClass(IntruderAlert\Logger::class)]
 #[UsesClass(IntruderAlert\Helper\Output::class)]
-#[UsesClass(GeoIp2\Exception\AddressNotFoundException::class)]
 class CountryTest extends AbstractTestCase
 {
     /** @var string $path Database path */

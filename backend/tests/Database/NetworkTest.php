@@ -10,7 +10,6 @@ use IntruderAlert\Database\Network;
 #[UsesClass(IntruderAlert\Logger::class)]
 #[UsesClass(IntruderAlert\Database\AbstractDatabase::class)]
 #[UsesClass(IntruderAlert\Helper\Output::class)]
-#[UsesClass(GeoIp2\Exception\AddressNotFoundException::class)]
 class NetworkTest extends AbstractTestCase
 {
     /** @var string $path Database path */
