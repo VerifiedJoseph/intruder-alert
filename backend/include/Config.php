@@ -13,7 +13,7 @@ class Config extends AbstractConfig
     private Check $check;
 
     /** @var string $minPhpVersion Minimum PHP version */
-    private string $minPhpVersion = '8.2.0';
+    private string $minPhpVersion = '8.3.0';
 
     /** @var array<int, string> $extensions Required PHP extensions */
     private array $extensions = ['curl', 'json', 'phar', 'pcre'];
