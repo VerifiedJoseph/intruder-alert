@@ -8,7 +8,8 @@
   failOnRisky="true" failOnWarning="true"
   displayDetailsOnTestsThatTriggerWarnings="true"
   beStrictAboutCoverageMetadata="true"
-  requireCoverageMetadata="true">
+  requireCoverageMetadata="true"
+  displayDetailsOnSkippedTests="true">
   <testsuites>
     <testsuite name="default">
       <directory>./backend/tests/</directory>
