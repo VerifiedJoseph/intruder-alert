@@ -169,7 +169,7 @@ composer test
 
 ## Requirements
 
-- PHP >= 8.2
+- PHP >= 8.3
 - Composer
 - Node.js >= 18.0 (development only)
 
