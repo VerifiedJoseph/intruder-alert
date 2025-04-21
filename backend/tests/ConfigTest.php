@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
+use PHPUnit\Framework\Attributes\WithEnvironmentVariable;
 use MockFileSystem\MockFileSystem as mockfs;
 use IntruderAlert\Config;
 use IntruderAlert\Version;
@@ -30,19 +31,6 @@ class ConfigTest extends AbstractTestCase
     public static function tearDownAfterClass(): void
     {
         self::removeDir(self::$tempPath);
-    }
-
-    public function setUp(): void
-    {
-        // Unset environment variables before each test
-        putenv('IA_VERBOSE');
-        putenv('IA_LOG_PATHS');
-        putenv('IA_LOG_FOLDER');
-        putenv('IA_MAXMIND_LICENSE_KEY');
-        putenv('IA_ASN_DATABASE');
-        putenv('IA_COUNTRY_DATABASE');
-        putenv('IA_TIMEZONE');
-        putenv('IA_DASH_CHARTS');
     }
 
     /**
@@ -314,6 +302,9 @@ class ConfigTest extends AbstractTestCase
 
         $this->assertEquals('Europe/London', $config->getTimezone());
         $this->assertTrue($config->getChartsStatus());
+
+        putenv('IA_TIMEZONE');
+        putenv('IA_DASH_CHARTS');
     }
 
     /**
@@ -335,6 +326,9 @@ class ConfigTest extends AbstractTestCase
 
         $this->assertEquals('Europe/London', $config->getTimezone());
         $this->assertFalse($config->getChartsStatus());
+
+        putenv('IA_TIMEZONE');
+        putenv('IA_DASH_CHARTS');
     }
 
     /**
@@ -355,6 +349,9 @@ class ConfigTest extends AbstractTestCase
 
         $this->assertEquals($log, $config->getLogPaths());
         $this->assertEquals('qwerty', $config->getMaxMindLicenseKey());
+
+        putenv('IA_LOG_PATHS');
+        putenv('IA_MAXMIND_LICENSE_KEY');
     }
 
     /**
@@ -362,6 +359,12 @@ class ConfigTest extends AbstractTestCase
      */
     public function testNoLogPathsOrLogFolder(): void
     {
+        //var_dump(getenv('IA_LOG_PATHS'));
+        var_dump(getenv('IA_LOG_FOLDER'));
+
+        putenv('IA_LOG_PATHS');
+        putenv('IA_LOG_FOLDER');
+
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
 
