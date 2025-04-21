@@ -357,14 +357,9 @@ class ConfigTest extends AbstractTestCase
     /**
      * Test config with no `IA_LOG_FOLDER` or `IA_LOG_PATHS`
      */
+    #[WithEnvironmentVariable('IA_LOG_FOLDER')]
     public function testNoLogPathsOrLogFolder(): void
     {
-        //var_dump(getenv('IA_LOG_PATHS'));
-        var_dump(getenv('IA_LOG_FOLDER'));
-
-        putenv('IA_LOG_PATHS');
-        putenv('IA_LOG_FOLDER');
-
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Environment variable IA_LOG_FOLDER or IA_LOG_PATHS must be set');
 
