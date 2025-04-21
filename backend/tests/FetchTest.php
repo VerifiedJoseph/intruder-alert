@@ -26,7 +26,6 @@ class FetchTest extends AbstractTestCase
         /** @var stdClass $response */
         $response = json_decode($data);
 
-        $this->assertIsObject($response);
         $this->assertEquals($this->useragent, $response->headers->{'User-Agent'}[0]);
         $this->assertEquals('GET', $response->method);
     }

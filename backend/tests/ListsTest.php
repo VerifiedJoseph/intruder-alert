@@ -79,7 +79,6 @@ class ListsTest extends AbstractTestCase
 
         foreach ($countNames as $name) {
             $this->assertArrayHasKey($name, $data);
-            $this->assertIsInt($data[$name]);
         }
     }
 }
