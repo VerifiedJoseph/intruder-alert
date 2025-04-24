@@ -58,7 +58,7 @@ final class Cache
     }
 
     /**
-     * Returns a boolean indicating if the cache has an IP address
+     * Returns a boolean indicating cache status of an IP address
      *
      * @param string $ipAddress IP address
      */
