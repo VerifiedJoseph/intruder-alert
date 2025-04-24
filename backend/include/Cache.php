@@ -64,11 +64,7 @@ final class Cache
      */
     public function hasItem(string $ipAddress): bool
     {
-        if (array_key_exists($ipAddress, $this->data['items']) === true) {
-            return true;
-        }
-
-        return false;
+        return array_key_exists($ipAddress, $this->data['items']);
     }
 
     /**
