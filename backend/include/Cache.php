@@ -58,17 +58,13 @@ final class Cache
     }
 
     /**
-     * Check cache for IP address
+     * Returns a boolean indicating cache status of an IP address
      *
      * @param string $ipAddress IP address
      */
     public function hasItem(string $ipAddress): bool
     {
-        if (array_key_exists($ipAddress, $this->data['items']) === true) {
-            return true;
-        }
-
-        return false;
+        return array_key_exists($ipAddress, $this->data['items']);
     }
 
     /**
