@@ -4,7 +4,7 @@ All notable changes to this project are documented in this file.
 
 ## [1.22.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.0) - 2025-05-12
 
-- Dropped support for php 8.2 ([#804](https://github.com/VerifiedJoseph/intruder-alert/pull/804), [`dbbc464`](https://github.com/VerifiedJoseph/intruder-alert/commit/d43490ad7b45d5414308fc275802199d2e628b69))
+- Dropped support for php 8.2 ([#804](https://github.com/VerifiedJoseph/intruder-alert/pull/804), [`dbbc464`](https://github.com/VerifiedJoseph/intruder-alert/commit/dbbc46434e363866b939998e1d5d27900b229251))
 - Docker: Reduced interval between backend tasks from 600 to 300 seconds. ([#827](https://github.com/VerifiedJoseph/intruder-alert/pull/827), [`d43490a`](https://github.com/VerifiedJoseph/intruder-alert/commit/d43490ad7b45d5414308fc275802199d2e628b69))
 - Updated geoip2/geoip2 from 3.1.0 to 3.2.0 ([#823](https://github.com/VerifiedJoseph/intruder-alert/pull/823), [`cac8611`](https://github.com/VerifiedJoseph/intruder-alert/commit/cac86113a2193ca1e2ab6b9011cf59f162b1e636))
 - Dockerfile: Updated php from 8.3.20-fpm-alpine3.20 to 8.3.21-fpm-alpine3.20 ([#821](https://github.com/VerifiedJoseph/intruder-alert/pull/821), [`dfa7ad6`](https://github.com/VerifiedJoseph/intruder-alert/commit/dfa7ad67ee2cc1e3136351e94765b4a4893e1189))
