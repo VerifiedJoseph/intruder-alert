@@ -63,7 +63,7 @@ services:
 3) Create a scheduled task with cron (below) or similar that runs `backend\cron.php` at least once an hour.
 
 	```
-	1 * * * * php path/to/intruder-alert/backend/cron.php
+	0 1 * * * php path/to/intruder-alert/backend/cron.php
 	```
 
 **Notes**
