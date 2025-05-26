@@ -3,7 +3,7 @@
     "eslint": "^9.27.0",
     "esbuild": "^0.25.4",
     "fs-extra": "^11.3.0",
-    "globals": "^16.1.0"
+    "globals": "^16.2.0"
   },
   "scripts": {
     "lint": "eslint ./frontend/js ./esbuild",
