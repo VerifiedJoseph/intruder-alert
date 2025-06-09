@@ -21,7 +21,7 @@ RUN npm ci
 # Build (esbuild)
 RUN npm run build
 
-FROM php:8.3.21-fpm-alpine3.20
+FROM php:8.3.22-fpm-alpine3.20
 ENV IA_DOCKER=true
 
 # Install packages
