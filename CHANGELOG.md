@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.22.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.1) - 2025-06-11
+
+- Dockerfile: Updated from 8.3.21-fpm-alpine3.20 to 8.3.22-fpm-alpine3.20 ([#843](https://github.com/VerifiedJoseph/intruder-alert/pull/843), [`43e7f44`](https://github.com/VerifiedJoseph/intruder-alert/commit/43e7f447281d84eabbb86eae95bdc749b65d0701))
+- Dockerfile: Updated node from 22.15-alpine3.20 to 22.16-alpine3.20 ([#835](https://github.com/VerifiedJoseph/intruder-alert/pull/835), [`b388178`](https://github.com/VerifiedJoseph/intruder-alert/commit/b388178a5c872af0626f74e171ee1a17403b1730))
+
 ## [1.22.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.0) - 2025-05-12
 
 - Dropped support for php 8.2 ([#804](https://github.com/VerifiedJoseph/intruder-alert/pull/804), [`dbbc464`](https://github.com/VerifiedJoseph/intruder-alert/commit/dbbc46434e363866b939998e1d5d27900b229251))
