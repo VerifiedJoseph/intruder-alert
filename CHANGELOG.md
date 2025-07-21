@@ -2,9 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.22.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.2) - 2025-07-21
+
+- Updated chart.js from 4.4.9 to 4.5.0 ([#847](https://github.com/VerifiedJoseph/intruder-alert/pull/847), [`01dbdcf`](https://github.com/VerifiedJoseph/intruder-alert/commit/01dbdcfe5e6d199dd7e55b8cd9a0f19796806912))
+- Dockerfile: Updated php from 8.3.22-fpm-alpine3.20 to 8.3.23-fpm-alpine3.22 ([#862](https://github.com/VerifiedJoseph/intruder-alert/pull/862), [`feb3a36`](https://github.com/VerifiedJoseph/intruder-alert/commit/feb3a364dde5059a32343d23ed7ac130fc8d245e))
+- Dockerfile: Updated node from 22.16-alpine3.22 to 22.17-alpine3.22 ([#864](https://github.com/VerifiedJoseph/intruder-alert/pull/864), [`95cc709`](https://github.com/VerifiedJoseph/intruder-alert/commit/95cc709e9f93e8558cb96d4416a4f4d54409b8ba))
+- Dockerfile: Update alpine version of node image from 3.20 to 3.22 ([#861](https://github.com/VerifiedJoseph/intruder-alert/pull/861), [`afff874`](https://github.com/VerifiedJoseph/intruder-alert/commit/afff874d3d94e68061773281ba54ad95e6671790))
+
 ## [1.22.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.1) - 2025-06-11
 
-- Dockerfile: Updated from 8.3.21-fpm-alpine3.20 to 8.3.22-fpm-alpine3.20 ([#843](https://github.com/VerifiedJoseph/intruder-alert/pull/843), [`43e7f44`](https://github.com/VerifiedJoseph/intruder-alert/commit/43e7f447281d84eabbb86eae95bdc749b65d0701))
+- Dockerfile: Updated php from 8.3.21-fpm-alpine3.20 to 8.3.22-fpm-alpine3.20 ([#843](https://github.com/VerifiedJoseph/intruder-alert/pull/843), [`43e7f44`](https://github.com/VerifiedJoseph/intruder-alert/commit/43e7f447281d84eabbb86eae95bdc749b65d0701))
 - Dockerfile: Updated node from 22.15-alpine3.20 to 22.16-alpine3.20 ([#835](https://github.com/VerifiedJoseph/intruder-alert/pull/835), [`b388178`](https://github.com/VerifiedJoseph/intruder-alert/commit/b388178a5c872af0626f74e171ee1a17403b1730))
 
 ## [1.22.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.0) - 2025-05-12
