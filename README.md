@@ -26,7 +26,7 @@ version: '3'
 
 services:
   app:
-    image: ghcr.io/verifiedjoseph/intruder-alert:1.22.1
+    image: ghcr.io/verifiedjoseph/intruder-alert:1.22.2
     container_name: intruder-alert
     environment:
       - IA_TIMEZONE=Europe/London
