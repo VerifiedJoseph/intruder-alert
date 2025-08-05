@@ -23,8 +23,7 @@ class Frontend extends AbstractApp
             ]);
         }
 
-        $data = [];
-        $data['dataset'] = Json::decode(File::read($path));
+        $data = Json::decode(File::read($path));
 
         $hash = $_POST['hash'] ?? '';
         if ($hash !== '') {

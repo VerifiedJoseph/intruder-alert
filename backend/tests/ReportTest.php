@@ -63,14 +63,14 @@ class ReportTest extends AbstractTestCase
         $expected = self::getJsonFile('./backend/tests/files/expected-report.json');
         $actual = self::getJsonFile(mockfs::getUrl('/report.json'));
 
-        $this->assertGreaterThan(0, strtotime($actual['updated']));
+        $this->assertGreaterThan(0, strtotime($actual['dataset']['updated']));
         $this->assertMatchesRegularExpression(
             '/Last run: ([\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}:[\d]{2})/',
-            $actual['log'][0]
+            $actual['dataset']['log'][0]
         );
 
-        $actual['updated'] = '2024-03-13 00:00:00';
-        $actual['log'] = [];
+        $actual['dataset']['updated'] = '2024-03-13 00:00:00';
+        $actual['dataset']['log'] = [];
 
         $this->assertEquals($expected, $actual);
     }

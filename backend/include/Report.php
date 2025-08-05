@@ -60,13 +60,14 @@ class Report
      */
     public function generate(): void
     {
-        $data = $this->lists;
-        $data['stats'] = $this->createStats();
-        $data['updated'] = $this->date->format('Y-m-d H:i:s');
-        $data['hash'] = sha1($data['updated']);
-        $data['dataSince'] = $this->getDataSinceDate();
-        $data['log'] = $this->logger->getEntries();
-        $data['log'][] = 'Last run: ' . $this->date->format('Y-m-d H:i:s e');
+        $data = [];
+        $data['dataset'] = $this->lists;
+        $data['dataset']['stats'] = $this->createStats();
+        $data['dataset']['updated'] = $this->date->format('Y-m-d H:i:s');
+        $data['dataset']['hash'] = sha1($data['dataset']['updated']);
+        $data['dataset']['dataSince'] = $this->getDataSinceDate();
+        $data['dataset']['log'] = $this->logger->getEntries();
+        $data['dataset']['log'][] = 'Last run: ' . $this->date->format('Y-m-d H:i:s e');
 
         File::write(
             $this->path,

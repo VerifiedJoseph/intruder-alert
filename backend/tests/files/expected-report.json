@@ -1,260 +1,262 @@
 {
-  "address": {
-    "mostBanned": "185.15.59.224",
-    "list": [
-      {
-        "address": "185.15.59.224",
-        "version": 4,
-        "bans": 2,
-        "country": "NL",
-        "continent": "EU",
-        "network": 14907,
-        "subnet": "185.15.59.0/24",
-        "events": [
-          {
-            "timestamp": "2024-03-11 01:03:48",
-            "jail": "http"
-          },
-          {
-            "timestamp": "2024-03-11 01:24:10",
-            "jail": "http"
-          }
-        ]
-      },
-      {
-        "address": "10.0.0.1",
-        "version": 4,
-        "bans": 1,
-        "country": "US",
-        "continent": "NA",
-        "network": 102,
-        "subnet": "10.0.0.0/8",
-        "events": [
-          {
-            "timestamp": "2024-03-13 10:40:48",
-            "jail": "another-jail"
-          }
-        ]
-      },
-      {
-        "address": "10.0.0.2",
-        "version": 4,
-        "bans": 1,
-        "country": "US",
-        "continent": "NA",
-        "network": 102,
-        "subnet": "10.0.0.0/8",
-        "events": [
-          {
-            "timestamp": "2024-03-13 15:40:48",
-            "jail": "another-jail"
-          }
-        ]
-      },
-      {
-        "address": "127.0.0.1",
-        "version": 4,
-        "bans": 1,
-        "country": "GB",
-        "continent": "EU",
-        "network": 101,
-        "subnet": "127.0.0.0/8",
-        "events": [
-          {
-            "timestamp": "2024-03-12 13:40:48",
-            "jail": "sshd"
-          }
-        ]
-      },
-      {
-        "address": "127.0.0.2",
-        "version": 4,
-        "bans": 1,
-        "country": "GB",
-        "continent": "EU",
-        "network": 101,
-        "subnet": "127.0.0.0/8",
-        "events": [
-          {
-            "timestamp": "2024-03-12 13:40:48",
-            "jail": "sshd"
-          }
-        ]
-      },
-      {
-        "address": "2001:67c:930::1",
-        "version": 6,
-        "bans": 1,
-        "country": "NL",
-        "continent": "EU",
-        "network": 14907,
-        "subnet": "2001:67c:930::/48",
-        "events": [
-          {
-            "timestamp": "2024-03-11 01:40:48",
-            "jail": "http"
-          }
-        ]
-      }
-    ]
-  },
-  "date": {
-    "mostBanned": "2024-03-11",
-    "list": [
-      {
-        "date": "2024-03-13",
-        "bans": 2,
-        "ipCount": 2
-      },
-      {
-        "date": "2024-03-12",
-        "bans": 2,
-        "ipCount": 2
-      },
-      {
-        "date": "2024-03-11",
-        "bans": 3,
-        "ipCount": 2
-      }
-    ]
-  },
-  "jail": {
-    "mostBanned": "http",
-    "list": [
-      {
-        "name": "http",
-        "ipCount": 2,
-        "bans": 3
-      },
-      {
-        "name": "another-jail",
-        "ipCount": 2,
-        "bans": 2
-      },
-      {
-        "name": "sshd",
-        "ipCount": 2,
-        "bans": 2
-      }
-    ]
-  },
-  "network": {
-    "mostBanned": 14907,
-    "list": [
-      {
-        "name": "Wikimedia Foundation Inc",
-        "number": 14907,
-        "bans": 3,
-        "ipCount": 2
-      },
-      {
-        "name": "Home Sweet Home Inc",
-        "number": 102,
-        "bans": 2,
-        "ipCount": 2
-      },
-      {
-        "name": "Home Sweet Home Ltd",
-        "number": 101,
-        "bans": 2,
-        "ipCount": 2
-      }
-    ]
-  },
-  "subnet": {
-    "mostBanned": "185.15.59.0/24",
-    "list": [
-      {
-        "subnet": "10.0.0.0/8",
-        "version": 4,
-        "network": 102,
-        "country": "US",
-        "bans": 2,
-        "ipCount": 2
-      },
-      {
-        "subnet": "127.0.0.0/8",
-        "version": 4,
-        "network": 101,
-        "country": "GB",
-        "bans": 2,
-        "ipCount": 2
-      },
-      {
-        "subnet": "185.15.59.0/24",
-        "version": 4,
-        "network": 14907,
-        "country": "NL",
-        "bans": 2,
-        "ipCount": 1
-      },
-      {
-        "subnet": "2001:67c:930::/48",
-        "version": 6,
-        "network": 14907,
-        "country": "NL",
-        "bans": 1,
-        "ipCount": 1
-      }
-    ]
-  },
-  "country": {
-    "mostBanned": "NL",
-    "list": [
-      {
-        "code": "NL",
-        "name": "Netherlands",
-        "bans": 3,
-        "ipCount": 2
-      },
-      {
-        "code": "GB",
-        "name": "United Kingdom",
-        "bans": 2,
-        "ipCount": 2
-      },
-      {
-        "code": "US",
-        "name": "United States",
-        "bans": 2,
-        "ipCount": 2
-      }
-    ]
-  },
-  "continent": {
-    "mostBanned": "EU",
-    "list": [
-      {
-        "code": "EU",
-        "name": "Europe",
-        "bans": 5,
-        "ipCount": 4
-      },
-      {
-        "code": "NA",
-        "name": "North America",
-        "bans": 2,
-        "ipCount": 2
-      }
-    ]
-  },
-  "stats": {
-    "totals": {
-      "ip": 6,
-      "network": 3,
-      "country": 3,
-      "date": 3,
-      "jail": 3
+  "dataset": {
+    "address": {
+      "mostBanned": "185.15.59.224",
+      "list": [
+        {
+          "address": "185.15.59.224",
+          "version": 4,
+          "bans": 2,
+          "country": "NL",
+          "continent": "EU",
+          "network": 14907,
+          "subnet": "185.15.59.0/24",
+          "events": [
+            {
+              "timestamp": "2024-03-11 01:03:48",
+              "jail": "http"
+            },
+            {
+              "timestamp": "2024-03-11 01:24:10",
+              "jail": "http"
+            }
+          ]
+        },
+        {
+          "address": "10.0.0.1",
+          "version": 4,
+          "bans": 1,
+          "country": "US",
+          "continent": "NA",
+          "network": 102,
+          "subnet": "10.0.0.0/8",
+          "events": [
+            {
+              "timestamp": "2024-03-13 10:40:48",
+              "jail": "another-jail"
+            }
+          ]
+        },
+        {
+          "address": "10.0.0.2",
+          "version": 4,
+          "bans": 1,
+          "country": "US",
+          "continent": "NA",
+          "network": 102,
+          "subnet": "10.0.0.0/8",
+          "events": [
+            {
+              "timestamp": "2024-03-13 15:40:48",
+              "jail": "another-jail"
+            }
+          ]
+        },
+        {
+          "address": "127.0.0.1",
+          "version": 4,
+          "bans": 1,
+          "country": "GB",
+          "continent": "EU",
+          "network": 101,
+          "subnet": "127.0.0.0/8",
+          "events": [
+            {
+              "timestamp": "2024-03-12 13:40:48",
+              "jail": "sshd"
+            }
+          ]
+        },
+        {
+          "address": "127.0.0.2",
+          "version": 4,
+          "bans": 1,
+          "country": "GB",
+          "continent": "EU",
+          "network": 101,
+          "subnet": "127.0.0.0/8",
+          "events": [
+            {
+              "timestamp": "2024-03-12 13:40:48",
+              "jail": "sshd"
+            }
+          ]
+        },
+        {
+          "address": "2001:67c:930::1",
+          "version": 6,
+          "bans": 1,
+          "country": "NL",
+          "continent": "EU",
+          "network": 14907,
+          "subnet": "2001:67c:930::/48",
+          "events": [
+            {
+              "timestamp": "2024-03-11 01:40:48",
+              "jail": "http"
+            }
+          ]
+        }
+      ]
     },
-    "bans": {
-      "total": 7,
-      "today": 2,
-      "yesterday": 2,
-      "perDay": 2
-    }
-  },
-  "hash": "7ab39063e802dca401ea7d40190301f3a0338f70",
-  "updated": "2024-03-13 00:00:00",
-  "dataSince": "2024-03-11",
-  "log": []
+    "date": {
+      "mostBanned": "2024-03-11",
+      "list": [
+        {
+          "date": "2024-03-13",
+          "bans": 2,
+          "ipCount": 2
+        },
+        {
+          "date": "2024-03-12",
+          "bans": 2,
+          "ipCount": 2
+        },
+        {
+          "date": "2024-03-11",
+          "bans": 3,
+          "ipCount": 2
+        }
+      ]
+    },
+    "jail": {
+      "mostBanned": "http",
+      "list": [
+        {
+          "name": "http",
+          "ipCount": 2,
+          "bans": 3
+        },
+        {
+          "name": "another-jail",
+          "ipCount": 2,
+          "bans": 2
+        },
+        {
+          "name": "sshd",
+          "ipCount": 2,
+          "bans": 2
+        }
+      ]
+    },
+    "network": {
+      "mostBanned": 14907,
+      "list": [
+        {
+          "name": "Wikimedia Foundation Inc",
+          "number": 14907,
+          "bans": 3,
+          "ipCount": 2
+        },
+        {
+          "name": "Home Sweet Home Inc",
+          "number": 102,
+          "bans": 2,
+          "ipCount": 2
+        },
+        {
+          "name": "Home Sweet Home Ltd",
+          "number": 101,
+          "bans": 2,
+          "ipCount": 2
+        }
+      ]
+    },
+    "subnet": {
+      "mostBanned": "185.15.59.0/24",
+      "list": [
+        {
+          "subnet": "10.0.0.0/8",
+          "version": 4,
+          "network": 102,
+          "country": "US",
+          "bans": 2,
+          "ipCount": 2
+        },
+        {
+          "subnet": "127.0.0.0/8",
+          "version": 4,
+          "network": 101,
+          "country": "GB",
+          "bans": 2,
+          "ipCount": 2
+        },
+        {
+          "subnet": "185.15.59.0/24",
+          "version": 4,
+          "network": 14907,
+          "country": "NL",
+          "bans": 2,
+          "ipCount": 1
+        },
+        {
+          "subnet": "2001:67c:930::/48",
+          "version": 6,
+          "network": 14907,
+          "country": "NL",
+          "bans": 1,
+          "ipCount": 1
+        }
+      ]
+    },
+    "country": {
+      "mostBanned": "NL",
+      "list": [
+        {
+          "code": "NL",
+          "name": "Netherlands",
+          "bans": 3,
+          "ipCount": 2
+        },
+        {
+          "code": "GB",
+          "name": "United Kingdom",
+          "bans": 2,
+          "ipCount": 2
+        },
+        {
+          "code": "US",
+          "name": "United States",
+          "bans": 2,
+          "ipCount": 2
+        }
+      ]
+    },
+    "continent": {
+      "mostBanned": "EU",
+      "list": [
+        {
+          "code": "EU",
+          "name": "Europe",
+          "bans": 5,
+          "ipCount": 4
+        },
+        {
+          "code": "NA",
+          "name": "North America",
+          "bans": 2,
+          "ipCount": 2
+        }
+      ]
+    },
+    "stats": {
+      "totals": {
+        "ip": 6,
+        "network": 3,
+        "country": 3,
+        "date": 3,
+        "jail": 3
+      },
+      "bans": {
+        "total": 7,
+        "today": 2,
+        "yesterday": 2,
+        "perDay": 2
+      }
+    },
+    "hash": "7ab39063e802dca401ea7d40190301f3a0338f70",
+    "updated": "2024-03-13 00:00:00",
+    "dataSince": "2024-03-11",
+    "log": []
+  }
 }
