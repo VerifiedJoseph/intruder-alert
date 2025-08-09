@@ -81,14 +81,15 @@ createReport($lists, '../temp.json', 'Europe/London');
 $file = file_get_contents('../temp.json');
 $report = json_decode($file, associative: true);
 
-$json = json_encode([
-	'dataset' => $report,
-	'settings' => $settings
-]);
+$json = json_encode(
+	array_merge($report, ['settings' => $settings])
+);
 
 file_put_contents(
 	$dataFilepath,
 	$json
 );
+
+unlink('../temp.json');
 
 echo 'Created data file for demo: ' . $dataFilepath . PHP_EOL;
