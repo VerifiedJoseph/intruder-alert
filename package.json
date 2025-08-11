@@ -1,12 +1,15 @@
 {
   "devDependencies": {
+    "@biomejs/biome": "2.1.4",
     "esbuild": "^0.25.8",
     "eslint": "^9.33.0",
     "globals": "^16.3.0"
   },
   "scripts": {
-    "lint": "eslint ./frontend/js ./esbuild",
-    "fix": "eslint ./frontend/js ./esbuild --fix",
+    "lint": "biome lint ./frontend/js ./esbuild",
+    "format": "biome format ./frontend/js ./esbuild",
+    "fix": "biome check ./frontend/js ./esbuild --write",
+    "biome-ci": "biome ci ./frontend/js ./esbuild",
     "build": "node ./esbuild/build.js",
     "watch": "node ./esbuild/watch.js"
   },
