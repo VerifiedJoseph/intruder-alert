@@ -6,8 +6,9 @@
     "globals": "^16.3.0"
   },
   "scripts": {
-    "lint": "eslint ./frontend/js ./esbuild",
-    "fix": "eslint ./frontend/js ./esbuild --fix",
+    "lint": "biome lint ./frontend/js ./esbuild",
+    "format": "biome format ./frontend/js ./esbuild",
+    "fix": "biome check ./frontend/js ./esbuild ---write",
     "build": "node ./esbuild/build.js",
     "watch": "node ./esbuild/watch.js"
   },
