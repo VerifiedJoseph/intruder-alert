@@ -9,12 +9,12 @@ async function setup () {
   await helper.createFolder('./dist')
 
   console.log('Copying files...')
-  helper.copy('./frontend/index.html', './dist/index.html')
-  helper.copy('./frontend/data.php', './dist/data.php')
-  helper.copy('./README.md', './dist/README.md')
-  helper.copy('./CHANGELOG.md', './dist/CHANGELOG.md')
-  helper.copy('./LICENSE', './dist/LICENSE.md')
-  await helper.copy('./backend', './dist/backend')
+  helper.copyFile('./frontend/index.html', './dist/index.html')
+  helper.copyFile('./frontend/data.php', './dist/data.php')
+  helper.copyFile('./README.md', './dist/README.md')
+  helper.copyFile('./CHANGELOG.md', './dist/CHANGELOG.md')
+  helper.copyFile('./LICENSE', './dist/LICENSE.md')
+  await helper.copyFolder('./backend', './dist/backend')
 
   // Remove tests and data folders
   helper.removeFolder('./dist/backend/tests')
