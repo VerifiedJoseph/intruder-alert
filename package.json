@@ -1,8 +1,7 @@
 {
   "devDependencies": {
     "@biomejs/biome": "2.1.4",
-    "esbuild": "^0.25.8",
-    "globals": "^16.3.0"
+    "esbuild": "^0.25.8"
   },
   "scripts": {
     "lint": "biome lint ./frontend/js ./esbuild",
