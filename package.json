@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "biome lint ./frontend/js ./esbuild",
     "format": "biome format ./frontend/js ./esbuild",
-    "fix": "biome check ./frontend/js ./esbuild ---write",
+    "fix": "biome check ./frontend/js ./esbuild --write",
     "biome-ci": "biome ci ./frontend/js ./esbuild",
     "build": "node ./esbuild/build.js",
     "watch": "node ./esbuild/watch.js"
