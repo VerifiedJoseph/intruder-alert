@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.22.3](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.3) - 2025-08-15
+
+- Refactored JSON report generation to fix client-side error. ([#875](https://github.com/VerifiedJoseph/intruder-alert/pull/875), [`54780c6`](https://github.com/VerifiedJoseph/intruder-alert/commit/54780c63b70f8c159fb02487e334df4e98febc1e))
+- Dockerfile: Updated php from 8.3.23-fpm-alpine3.22 to 8.3.24-fpm-alpine3.22 ([#876](https://github.com/VerifiedJoseph/intruder-alert/pull/876), [`154dad8`](https://github.com/VerifiedJoseph/intruder-alert/commit/154dad831ce32cb661f276817c9c5772d9ce7e1d))
+- Dockerfile: Updated node from 22.17-alpine3.22 to 22.18-alpine3.22 ([#877](https://github.com/VerifiedJoseph/intruder-alert/pull/877), [`fa52ac6`](https://github.com/VerifiedJoseph/intruder-alert/commit/fa52ac64546f00e205f6813d64967bdb81e56de2))
+
 ## [1.22.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.2) - 2025-07-21
 
 - Updated chart.js from 4.4.9 to 4.5.0 ([#847](https://github.com/VerifiedJoseph/intruder-alert/pull/847), [`01dbdcf`](https://github.com/VerifiedJoseph/intruder-alert/commit/01dbdcfe5e6d199dd7e55b8cd9a0f19796806912))
