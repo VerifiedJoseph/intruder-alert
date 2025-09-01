@@ -37,7 +37,7 @@ jobs:
           cache: 'npm'
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@ccf2c627fe61b1b4d924adfcbd19d661a18133a0 # v2.35.2
+        uses: shivammathur/setup-php@ec406be512d7077f68eed36e63f4d91bc006edc4 # v2.35.4
         with:
           php-version: '8.3'
           coverage: none
