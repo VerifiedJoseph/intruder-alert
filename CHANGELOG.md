@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.22.5](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.5) - 2025-10-06
+
+- Fixed deprecation notices when running on php 8.4 ([#912](https://github.com/VerifiedJoseph/intruder-alert/pull/912), [`e9573c1`](https://github.com/VerifiedJoseph/intruder-alert/commit/e9573c1c7b5edd3f1eaf6e32175adf2fa8b04633))
+- Updated spacetime from 7.10.0 to 7.11.0 ([#926](https://github.com/VerifiedJoseph/intruder-alert/pull/926), [`fbc96ba`](https://github.com/VerifiedJoseph/intruder-alert/commit/fbc96bab8a40791c9e17e5f0c761d20235db90c2))
+- Dockerfile: Updated php from 8.3.25-fpm-alpine3.22 to 8.3.26-fpm-alpine3.22 ([#921](https://github.com/VerifiedJoseph/intruder-alert/pull/921), [`71ca1c2`](https://github.com/VerifiedJoseph/intruder-alert/commit/71ca1c2d7d7b08bfefe800bc3d5015a2b9ff3870))
+- Dockerfile: Updated node from 22.19-alpine3.22 to 22.20-alpine3.22 ([#919](https://github.com/VerifiedJoseph/intruder-alert/pull/919), [`baab0e4`](https://github.com/VerifiedJoseph/intruder-alert/commit/baab0e42bc4d157c8936fc0277e3540bde9ea348))
+
 ## [1.22.4](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.4) - 2025-09-09
 
 - Dockerfile: Updated php from 8.3.24-fpm-alpine3.22 to 8.3.25-fpm-alpine3.22 ([#899](https://github.com/VerifiedJoseph/intruder-alert/pull/899), [`4581698`](https://github.com/VerifiedJoseph/intruder-alert/commit/4581698dd72370d9bed00d15233d5349628c4444))
