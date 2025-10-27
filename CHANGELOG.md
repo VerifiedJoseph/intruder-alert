@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.22.6](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.6) - 2025-10-27
+
+- Updated chart.js from 4.5.0 to 4.5.1 ([#932](https://github.com/VerifiedJoseph/intruder-alert/pull/932), [`fdf4c23`](https://github.com/VerifiedJoseph/intruder-alert/commit/fdf4c236ba57905cf91813b552f0c86fffb730ac))
+- Dockerfile: Updated php from 8.3.26-fpm-alpine3.22 to 8.3.27-fpm-alpine3.22 ([#936](https://github.com/VerifiedJoseph/intruder-alert/pull/936), [`be3ed89`](https://github.com/VerifiedJoseph/intruder-alert/commit/be3ed89f37f0a5e99ace19d4f068207522db6b2e))
+- Dockerfile: Updated node from 22.20-alpine3.22 to 22.21-alpine3.22 ([#935](https://github.com/VerifiedJoseph/intruder-alert/pull/935), [`7b30907`](https://github.com/VerifiedJoseph/intruder-alert/commit/7b30907b1fd01457a12d380b5ad0ca99dd2438ae))
+
 ## [1.22.5](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.5) - 2025-10-06
 
 - Fixed deprecation notices when running on php 8.4 ([#912](https://github.com/VerifiedJoseph/intruder-alert/pull/912), [`e9573c1`](https://github.com/VerifiedJoseph/intruder-alert/commit/e9573c1c7b5edd3f1eaf6e32175adf2fa8b04633))
