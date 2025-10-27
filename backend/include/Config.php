@@ -102,6 +102,10 @@ class Config extends AbstractConfig
         return Version::get();
     }
 
+    /**
+     * Returns user agent
+     * @return non-empty-string
+     */
     public function getUseragent(): string
     {
         return sprintf(
