@@ -12,7 +12,7 @@ use IntruderAlert\Exception\FetchException;
 #[UsesClass(Logger::class)]
 class FetchTest extends AbstractTestCase
 {
-    /** @var string $useragent HTTP useragent */
+    /** @var non-empty-string $useragent HTTP useragent */
     private string $useragent = 'PHPUnit/FetchTest';
 
     /**
