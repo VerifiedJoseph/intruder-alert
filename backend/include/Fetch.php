@@ -8,13 +8,13 @@ use IntruderAlert\Exception\FetchException;
 
 class Fetch
 {
-    /** @var string $username HTTP request useragent */
-    private string $useragent = '';
+    /** @var non-empty-string $useragent HTTP request useragent */
+    private string $useragent;
 
     private Logger $logger;
 
     /**
-     * @param string $useragent HTTP request useragent
+     * @param non-empty-string $useragent HTTP request useragent
      */
     public function __construct(string $useragent, Logger $logger)
     {
@@ -26,17 +26,16 @@ class Fetch
      * Make a GET request
      *
      * @param string $url Request URL
-     * @return string $data Response body
+     * @return string Response body
      *
      * @throws FetchException if an CURL error occurs
      * @throws FetchException if request returns non-200 status code
      */
     public function get(string $url)
     {
-        $ch = curl_init();
+        $ch = curl_init($url);
 
         curl_setopt_array($ch, [
-            CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_USERAGENT => $this->useragent
