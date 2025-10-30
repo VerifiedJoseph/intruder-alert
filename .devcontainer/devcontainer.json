@@ -15,5 +15,5 @@
             ]
         }
     },
-    "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && npm install && composer install"
+    "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && npm install --ignore-scripts && composer install"
 }
