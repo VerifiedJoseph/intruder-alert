@@ -16,7 +16,7 @@ COPY --from=composer ./app /app/
 WORKDIR /app
 
 # Install dependencies with npm
-RUN npm ci
+RUN npm ci --ignore-scripts
 
 # Build (esbuild)
 RUN npm run build
