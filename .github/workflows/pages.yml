@@ -67,7 +67,7 @@ jobs:
         working-directory: ./.pages/scripts
 
       - name: Run npm
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Run Build demo (esbuild)
         run: node ./esbuild/build-demo.js
