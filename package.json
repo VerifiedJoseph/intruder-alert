@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "esbuild": "^0.25.12",
-    "eslint": "^9.38.0",
+    "eslint": "^9.39.1",
     "globals": "^16.5.0"
   },
   "scripts": {
