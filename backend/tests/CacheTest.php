@@ -111,7 +111,7 @@ class CacheTest extends AbstractTestCase
 
         $this->assertGreaterThan(0, $cacheData['expires']);
         $this->assertArrayHasKey($address, $cacheData['items']);
-        $this->assertCount(3, $cacheData['items']);
+        $this->assertEquals(3, count($cacheData['items']));
         $this->assertEquals($data[$address], $cacheData['items'][$address]);
     }
 
