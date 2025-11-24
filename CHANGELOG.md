@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.22.7](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.7) - 2025-11-24
+
+- Updated geoip2/geoip2 from 3.2.0 to 3.3.0 ([#955](https://github.com/VerifiedJoseph/intruder-alert/pull/955), [`e5838fc`](https://github.com/VerifiedJoseph/intruder-alert/commit/e5838fc0ace27cc146c4de3703ff0d2d3228ffc1))
+- Dockerfile: Updated composer from 2.8 to 2.9 ([#954](https://github.com/VerifiedJoseph/intruder-alert/pull/954), [`4903adf`](https://github.com/VerifiedJoseph/intruder-alert/commit/4903adf944bbe221730e499cf786355d0d8f5d63))
+- Dockerfile: Updated php from 8.3.27-fpm-alpine3.22 to 8.3.28-fpm-alpine3.22 ([#957](https://github.com/VerifiedJoseph/intruder-alert/pull/957), [`8daf912`](https://github.com/VerifiedJoseph/intruder-alert/commit/8daf912d56a8f6be8172279ae15abf5f9378c564))
+
 ## [1.22.6](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.6) - 2025-10-27
 
 - Updated chart.js from 4.5.0 to 4.5.1 ([#932](https://github.com/VerifiedJoseph/intruder-alert/pull/932), [`fdf4c23`](https://github.com/VerifiedJoseph/intruder-alert/commit/fdf4c236ba57905cf91813b552f0c86fffb730ac))
