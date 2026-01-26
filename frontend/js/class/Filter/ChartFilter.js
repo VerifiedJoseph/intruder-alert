@@ -2,12 +2,8 @@ import { Settings } from '../Settings.js'
 import { Dataset } from '../Dataset.js'
 import { Filter } from './Filter.js'
 import { FilterChip } from '../FilterChip.js'
-import spacetime from 'spacetime'
 
 export class ChartFilter extends Filter {
-  #hourDisplayFormat = '{year}-{iso-month}-{date-pad} {hour-24-pad}:00'
-  #dateDisplayFormat = '{year}-{iso-month}-{date-pad}'
-
   constructor () {
     super()
     this.chip = new FilterChip('chart')
@@ -157,16 +153,18 @@ export class ChartFilter extends Filter {
    * @param {int} hours Number of hours
    */
   #createHourGroups (hours) {
-    let hour = spacetime.now(Settings.getTimezone()).subtract(hours, 'hours')
+    let hour = Temporal.Now.plainDateTimeISO(Settings.getTimezone())
+    hour = hour.subtract({ hours: hours});
+
     const groups = []
     const keys = []
 
     for (let i = 1; i <= hours; i++) {
       if (i > 1) {
-        hour = hour.add('1', 'hours')
+        hour = hour.add({hours: 1})
       }
 
-      const hourFormatted = hour.format(this.#hourDisplayFormat)
+      const hourFormatted = this.#formatDateTimeTostring(hour, true)
 
       keys.push(hourFormatted)
       groups.push({
@@ -185,13 +183,15 @@ export class ChartFilter extends Filter {
    * @param {int} hours Number of days
    */
   #createDayGroups (days) {
-    let date = spacetime.now(Settings.getTimezone()).subtract(days, 'days')
+    let date = Temporal.Now.plainDateTimeISO(Settings.getTimezone())
+    date = date.subtract({ days: days});
+
     const groups = []
     const keys = []
 
     for (let i = 1; i <= days; i++) {
-      date = date.add(1, 'day')
-      const dateFormatted = date.format(this.#dateDisplayFormat)
+      date = date.add({days: 1})
+      const dateFormatted = this.#formatDateTimeTostring(date)
 
       keys.push(dateFormatted)
       groups.push({
@@ -234,5 +234,21 @@ export class ChartFilter extends Filter {
       type: chartType,
       hasData: true
     }
+  }
+
+  #formatDateTimeTostring (dateTime, includeHour = false)
+  {
+    var text = `${dateTime.year}-${this.#padNumber(dateTime.month)}-${this.#padNumber(dateTime.day)}`
+
+    if (includeHour === true) {
+      text += ` ${this.#padNumber(dateTime.hour)}:00`
+    }
+
+    return text;
+  }
+
+  #padNumber (number)
+  {
+    return String(number).padStart(2, '0');
   }
 }
