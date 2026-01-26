@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.22.9](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.9) - 2026-01-26
+
+- Dockerfile: Removed redundant PHP and PHP-FPM symlink creation ([#992](https://github.com/VerifiedJoseph/intruder-alert/pull/992), [`505816c`](https://github.com/VerifiedJoseph/intruder-alert/commit/505816c14fd1d79d66d1026f36a1b9d8bb351f49))
+- Dockerfile: Updated php from 8.3.29-fpm-alpine3.22 to 8.3.30-fpm-alpine3.22 ([#987](https://github.com/VerifiedJoseph/intruder-alert/pull/987), [`fb83209`](https://github.com/VerifiedJoseph/intruder-alert/commit/fb8320934b5bb3f3ed3189fb6e202774f8b06f69))
+- Dockerfile: Updated  node from 22.21-alpine3.22 to 22.22-alpine3.22 ([#986](https://github.com/VerifiedJoseph/intruder-alert/pull/986), [`8fe47ca`](https://github.com/VerifiedJoseph/intruder-alert/commit/8fe47ca2ddce041858f20d4af8649c939d466fcd))
+
 ## [1.22.8](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.8) - 2025-12-22
 
 - Updated spacetime from 7.11.0 to 7.12.0 ([#976](https://github.com/VerifiedJoseph/intruder-alert/pull/976), [`f523cf0`](https://github.com/VerifiedJoseph/intruder-alert/commit/f523cf0daf1596581d1ea99803eccd9f88c41754))
