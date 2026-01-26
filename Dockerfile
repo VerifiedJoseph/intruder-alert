@@ -54,12 +54,6 @@ RUN mkdir -p /app/backend/data/geoip2 /app/backend/data/logs
 # Set owner
 RUN chown www-data:www-data /app/data.php /app/index.html && chown -R www-data:www-data /app/static/
 
-# Create symlink for php
-RUN ln -s /usr/bin/php82 /usr/bin/php
-
-# Create symlink for php-fpm
-RUN ln -s /usr/sbin/php-fpm82 /usr/sbin/php-fpm
-
 # php-fpm hleath check
 HEALTHCHECK --interval=60s --timeout=10s CMD curl --silent --fail http://127.0.0.1:8080/fpm-ping
 
