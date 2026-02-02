@@ -50,14 +50,13 @@ export class Plot {
               callback: function (val, index) {
                 let x = 2
                 let value = this.getLabelForValue(val)
-                const time = new Date(value)
 
                 if (data.type === 'last14days') {
                   x = -1
                 }
 
                 if (data.type === 'last24hours' || data.type === 'last48hours') {
-                  value = time.toLocaleString(navigator.languages[0], { hour: 'numeric', minute: 'numeric', hour12: false })
+                  value = value.split(' ')[1]
 
                   if (data.type === 'last48hours') {
                     x = 6
