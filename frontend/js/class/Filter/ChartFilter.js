@@ -180,7 +180,7 @@ export class ChartFilter extends Filter {
 
   /**
    * Create day groups
-   * @param {int} hours Number of days
+   * @param {int} days Number of days
    */
   #createDayGroups (days) {
     let date = Temporal.Now.plainDateTimeISO(Settings.getTimezone())
