@@ -1,4 +1,4 @@
-FROM composer:2.9 AS composer
+FROM composer:2.9.5@sha256:743aebe48ca67097c36819040633ea77e44a561eca135e4fc84c002e63a1ba07 AS composer
 
 COPY ./ /app
 WORKDIR /app
@@ -10,7 +10,7 @@ RUN composer install \
   --no-progress \
   --no-dev
 
-FROM node:22.22-alpine3.22 AS node
+FROM node:22.22-alpine3.23@sha256:8094c002d08262dba12645a3b4a15cd6cd627d30bc782f53229a2ec13ee22a00 AS node
 
 COPY --from=composer ./app /app/
 WORKDIR /app
@@ -21,7 +21,7 @@ RUN npm ci --ignore-scripts
 # Build (esbuild)
 RUN npm run build
 
-FROM php:8.3.30-fpm-alpine3.22
+FROM php:8.3.30-fpm-alpine3.23@sha256:2127b967ef53d95fd84b3ccb15361d638c3c6dc72079123cce5467c642020a81
 ENV IA_DOCKER=true
 
 # Install packages
