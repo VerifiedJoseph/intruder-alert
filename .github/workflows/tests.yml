@@ -17,6 +17,7 @@ jobs:
   test:
     name: PHPUnit
     runs-on: ubuntu-22.04
+    environment: codecov
 
     steps:
     - name: Checkout code
