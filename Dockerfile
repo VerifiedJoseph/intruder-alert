@@ -21,7 +21,7 @@ RUN npm ci --ignore-scripts
 # Build (esbuild)
 RUN npm run build
 
-FROM php:8.3.30-fpm-alpine3.23@sha256:9158b5d619387f3aeb903281228edfce08cab963e1591158532cf0271d3e61cc
+FROM php:8.3.31-fpm-alpine3.23@sha256:1b440e9804209491713035c4859d434f55e5cf8b0fb8c88a58f2f73d8e18b420
 ENV IA_DOCKER=true
 
 # Install packages
