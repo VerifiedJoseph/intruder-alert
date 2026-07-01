@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.22.10](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.10) - 2026-07-01
+
+- Updated spacetime from 7.12.0 to 7.13.0 ([#1089](https://github.com/VerifiedJoseph/intruder-alert/pull/1089), [`8364c48`](https://github.com/VerifiedJoseph/intruder-alert/commit/8364c48cc6157a15af8718708c7d8cf65b0c1524))
+- Dockerfile: Updated composer from 2.9.5 to 2.10.1 ([`bdbbb85`](https://github.com/VerifiedJoseph/intruder-alert/commit/bdbbb857945ef46281bd2b8ab97fa132923d4a5a), [`98a9ab9`](https://github.com/VerifiedJoseph/intruder-alert/commit/98a9ab9683caf5083ec9e48585861f0d8db94694), [`92a1ea0`](https://github.com/VerifiedJoseph/intruder-alert/commit/92a1ea039f1fe69db1596dd72003b9166f40f47e))
+- Dockerfile: Updated node from 22.22.2-alpine3.23 to 22.23.1-alpine3.23 ([`b5200c6`](https://github.com/VerifiedJoseph/intruder-alert/commit/b5200c6a8bbe109df3767dd51efe59d148c01bda), [`c0c3949`](https://github.com/VerifiedJoseph/intruder-alert/commit/c0c3949542bb85381f729b991a6ebcb96c814b04))
+- Dockerfile: Updated php from 8.3.30-fpm-alpine3.23 to 8.3.31-fpm-alpine3.23 ([#1078](https://github.com/VerifiedJoseph/intruder-alert/pull/1078) [`9885fb6`](https://github.com/VerifiedJoseph/intruder-alert/commit/9885fb6703e01bfd5ffb9b6461ffc64e93d2ac71))
+
 ## [1.22.9](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.9) - 2026-01-26
 
 - Dockerfile: Removed redundant PHP and PHP-FPM symlink creation ([#992](https://github.com/VerifiedJoseph/intruder-alert/pull/992), [`505816c`](https://github.com/VerifiedJoseph/intruder-alert/commit/505816c14fd1d79d66d1026f36a1b9d8bb351f49))
