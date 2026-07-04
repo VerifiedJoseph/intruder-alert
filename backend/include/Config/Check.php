@@ -347,14 +347,14 @@ class Check extends AbstractConfig
      * Is intruder alert running in a docker container. Checks for `IA_DOCKER=true`.
      * @return bool
      */
-    protected function isDocker(): bool
+    /*protected function isDocker(): bool
     {
         if ($this->hasEnv('DOCKER') === true && $this->getEnv('DOCKER') === 'true') {
             return true;
         }
 
         return false;
-    }
+    }*/
 
     /**
      * Is timezone valid. Checks timezone against `DateTimeZone::listIdentifiers`
