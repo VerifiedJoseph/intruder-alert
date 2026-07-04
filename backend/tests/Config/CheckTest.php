@@ -443,6 +443,18 @@ class CheckTest extends AbstractTestCase
     }
 
     /**
+     * Test `IA_SYSTEM_LOG_TIMEZONE` not set
+     */
+    public function testNoSystemLogTimezone(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage('Fail2ban log timezone is required');
+
+        $check = new Check(self::$defaults);
+        $check->systemLogTimezone();
+    }
+
+    /**
      * Test empty `IA_SYSTEM_LOG_TIMEZONE`
      */
     #[WithEnvironmentVariable('IA_SYSTEM_LOG_TIMEZONE', '')]
@@ -463,33 +475,6 @@ class CheckTest extends AbstractTestCase
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage('Unknown timezone given [IA_SYSTEM_LOG_TIMEZONE]');
-
-        $check = new Check(self::$defaults);
-        $check->systemLogTimezone();
-    }
-
-    /**
-     * Test not setting `IA_SYSTEM_LOG_TIMEZONE`
-     */
-    public function testNotSettingSystemLogTimezone(): void
-    {
-        $tz = date_default_timezone_get();
-
-        $check = new Check(self::$defaults);
-        $check->systemLogTimezone();
-        $config = $check->getConfig();
-
-        $this->assertEquals($tz, $config['log_timezone']);
-    }
-
-    /**
-     * Test not setting `IA_SYSTEM_LOG_TIMEZONE` when running in a docker container
-     */
-    #[WithEnvironmentVariable('IA_DOCKER', 'true')]
-    public function testNotSettingSystemLogTimezoneDocker(): void
-    {
-        $this->expectException(ConfigException::class);
-        $this->expectExceptionMessage('Fail2ban log timezone is required when running in a docker container');
 
         $check = new Check(self::$defaults);
         $check->systemLogTimezone();
