@@ -191,31 +191,27 @@ class Check extends AbstractConfig
     /**
      * Check system log timezone (`IA_SYSTEM_LOG_TIMEZONE`)
      *
-     * @throws ConfigException if `IA_SYSTEM_LOG_TIMEZONE` is not given when running in a docker container.
+     * @throws ConfigException if `IA_SYSTEM_LOG_TIMEZONE` is not given.
      * @throws ConfigException if `IA_SYSTEM_LOG_TIMEZONE` environment variable is empty.
      * @throws ConfigException if an unknown timezone given in `IA_SYSTEM_LOG_TIMEZONE`.
      */
     public function systemLogTimezone(): void
     {
-        if ($this->isDocker() === true && $this->hasEnv('SYSTEM_LOG_TIMEZONE') === false) {
+        if ($this->hasEnv('SYSTEM_LOG_TIMEZONE') === false) {
             throw new ConfigException(
-                'Fail2ban log timezone is required when running in a docker container. [IA_SYSTEM_LOG_TIMEZONE]'
+                'Fail2ban log timezone is required [IA_SYSTEM_LOG_TIMEZONE]'
             );
         }
 
-        if ($this->hasEnv('SYSTEM_LOG_TIMEZONE') === true) {
-            if ($this->getEnv('SYSTEM_LOG_TIMEZONE') === '') {
-                throw new ConfigException('Timezone can not be empty [IA_SYSTEM_LOG_TIMEZONE]');
-            }
-
-            if ($this->isTimezoneValid($this->getEnv('SYSTEM_LOG_TIMEZONE')) === false) {
-                throw new ConfigException('Unknown timezone given [IA_SYSTEM_LOG_TIMEZONE]');
-            }
-
-            $this->config['log_timezone'] = $this->getEnv('SYSTEM_LOG_TIMEZONE');
-        } else {
-            $this->config['log_timezone'] = date_default_timezone_get();
+        if ($this->getEnv('SYSTEM_LOG_TIMEZONE') === '') {
+            throw new ConfigException('Timezone can not be empty [IA_SYSTEM_LOG_TIMEZONE]');
         }
+
+        if ($this->isTimezoneValid($this->getEnv('SYSTEM_LOG_TIMEZONE')) === false) {
+            throw new ConfigException('Unknown timezone given [IA_SYSTEM_LOG_TIMEZONE]');
+        }
+
+        $this->config['log_timezone'] = $this->getEnv('SYSTEM_LOG_TIMEZONE');
     }
 
     /**
@@ -351,14 +347,14 @@ class Check extends AbstractConfig
      * Is intruder alert running in a docker container. Checks for `IA_DOCKER=true`.
      * @return bool
      */
-    protected function isDocker(): bool
+    /*protected function isDocker(): bool
     {
         if ($this->hasEnv('DOCKER') === true && $this->getEnv('DOCKER') === 'true') {
             return true;
         }
 
         return false;
-    }
+    }*/
 
     /**
      * Is timezone valid. Checks timezone against `DateTimeZone::listIdentifiers`

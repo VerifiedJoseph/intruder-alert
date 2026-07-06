@@ -295,15 +295,18 @@ class ConfigTest extends AbstractTestCase
     public function testCheck(): void
     {
         putenv('IA_TIMEZONE=Europe/London');
+        putenv('IA_SYSTEM_LOG_TIMEZONE=UTC');
         putenv('IA_DASH_CHARTS=true');
 
         $config = new Config();
         $config->check();
 
         $this->assertEquals('Europe/London', $config->getTimezone());
+        $this->assertEquals('UTC', $config->getSystemLogTimezone());
         $this->assertTrue($config->getChartsStatus());
 
         putenv('IA_TIMEZONE');
+        putenv('IA_SYSTEM_LOG_TIMEZONE');
         putenv('IA_DASH_CHARTS');
     }
 
@@ -314,6 +317,7 @@ class ConfigTest extends AbstractTestCase
     {
         $contents = "<?php
             putenv('IA_TIMEZONE=Europe/London');
+            putenv('IA_SYSTEM_LOG_TIMEZONE=UTC');
             putenv('IA_DASH_CHARTS=false');
         ?>";
 
@@ -325,9 +329,11 @@ class ConfigTest extends AbstractTestCase
         $config->check();
 
         $this->assertEquals('Europe/London', $config->getTimezone());
+        $this->assertEquals('UTC', $config->getSystemLogTimezone());
         $this->assertFalse($config->getChartsStatus());
 
         putenv('IA_TIMEZONE');
+        putenv('IA_SYSTEM_LOG_TIMEZONE');
         putenv('IA_DASH_CHARTS');
     }
 
