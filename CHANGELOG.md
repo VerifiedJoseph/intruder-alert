@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.23.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.23.0) - 2026-07-06
+
+- Config: Require IA_SYSTEM_LOG_TIMEZONE environment variable ([#1097](https://github.com/VerifiedJoseph/intruder-alert/pull/1097) [`586a64a`](https://github.com/VerifiedJoseph/intruder-alert/commit/586a64a06b4e46fa7ccc22a7ee9b14b6fe7e1db5))
+- Dockerfile: Updated php from 8.3.31-fpm-alpine3.23 to 8.3.32-fpm-alpine3.23 ([#1101](https://github.com/VerifiedJoseph/intruder-alert/pull/1101) [`c590e81`](https://github.com/VerifiedJoseph/intruder-alert/commit/c590e819c5754f02ec0a19c5a590fccd7506074b))
+
 ## [1.22.10](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.22.10) - 2026-07-01
 
 - Updated spacetime from 7.12.0 to 7.13.0 ([#1089](https://github.com/VerifiedJoseph/intruder-alert/pull/1089), [`8364c48`](https://github.com/VerifiedJoseph/intruder-alert/commit/8364c48cc6157a15af8718708c7d8cf65b0c1524))
