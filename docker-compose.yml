@@ -15,5 +15,9 @@ services:
       - path/to/fail2ban.log.2.gz:/app/backend/data/logs/fail2ban.log.2.gz:ro
       - path/to/fail2ban.log.3.gz:/app/backend/data/logs/fail2ban.log.3.gz:ro
       - path/to/fail2ban.log.4.gz:/app/backend/data/logs/fail2ban.log.4.gz:ro
+      - geoip2:/app/backend/data/geoip2
     ports:
       - '127.0.0.1:8080:8080'
+
+volumes:
+  geoip2:
