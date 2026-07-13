@@ -192,8 +192,8 @@ export class FilterAddDialog extends ViewGroupDialogs {
     const select = document.getElementById(this.#getId('filter-value'))
     select.innerText = ''
 
-    let valueName = ''
-    let textValueName = ''
+    let valueName
+    let textValueName
     switch (type) {
       case 'address':
         valueName = 'address'
@@ -227,7 +227,7 @@ export class FilterAddDialog extends ViewGroupDialogs {
 
     const timeTypes = ['hour', 'minute', 'second']
 
-    let data = []
+    let data
     if (type === 'version') {
       data = [{ number: 4 }, { number: 6 }]
     } else if (timeTypes.includes(type)) {
