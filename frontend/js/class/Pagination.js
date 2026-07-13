@@ -49,8 +49,8 @@ export class Pagination {
    * Set buttons
    */
   setButtons () {
-    let prev = null
-    let next = null
+    let prev
+    let next
     const last = this.#pageCount
 
     if (this.#pageCount > 0) {

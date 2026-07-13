@@ -10,7 +10,7 @@
             "extensions": [
                 "EditorConfig.EditorConfig",
                 "bmewburn.vscode-intelephense-client",
-                "dbaeumer.vscode-eslint",
+                "oxc.oxc-vscode",
                 "streetsidesoftware.code-spell-checker"
             ]
         }
