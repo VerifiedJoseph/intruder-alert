@@ -2,7 +2,7 @@
   "devDependencies": {
     "esbuild": "^0.28.2",
     "globals": "^17.11.0",
-    "oxlint": "^1.75.0"
+    "oxlint": "^1.80.0"
   },
   "scripts": {
     "lint": "oxlint ./frontend/js ./esbuild",
