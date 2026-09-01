@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.23.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.23.1) - 2026-09-01
+
+- Updated geoip2/geoip2 from 3.3.0 to 3.4.0 ([#1109](https://github.com/VerifiedJoseph/intruder-alert/pull/1109) [`b950a8d`](https://github.com/VerifiedJoseph/intruder-alert/commit/b950a8d647498c4e9c144ecd3fd2adf401cab483))
+- Dockerfile: Updated composer from 2.10.1 to 2.10.2 ([#1128](https://github.com/VerifiedJoseph/intruder-alert/pull/1128) [`c3553c1`](https://github.com/VerifiedJoseph/intruder-alert/commit/c3553c1820f78dd4da8bd1e9ef66e1202fddc0a1))
+- Dockerfile: Updated node from 22.23.1-alpine3.23 to 22.23.2-alpine3.23 ([#1129](https://github.com/VerifiedJoseph/intruder-alert/pull/1129) [`9e6232b`](https://github.com/VerifiedJoseph/intruder-alert/commit/9e6232b52a997a44d7eddea8bd27901d462d4b6d))
+- Dockerfile: Updated php from 8.3.32-fpm-alpine3.23 to 8.3.33-fpm-alpine3.23 ([#1127](https://github.com/VerifiedJoseph/intruder-alert/pull/1127) [`15c9ff8`](https://github.com/VerifiedJoseph/intruder-alert/commit/15c9ff849bedbf7a74b246a2da3d8cef5b9e1329))
+
 ## [1.23.0](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.23.0) - 2026-07-06
 
 - Config: Require IA_SYSTEM_LOG_TIMEZONE environment variable ([#1097](https://github.com/VerifiedJoseph/intruder-alert/pull/1097) [`586a64a`](https://github.com/VerifiedJoseph/intruder-alert/commit/586a64a06b4e46fa7ccc22a7ee9b14b6fe7e1db5))
