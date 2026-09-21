@@ -8,7 +8,7 @@ use IntruderAlert\Helper\Output;
 use IntruderAlert\Exception\ConfigException;
 use IntruderAlert\Exception\AppException;
 
-require 'vendor/autoload.php';
+require(__DIR__ . '/vendor/autoload.php');
 
 Output::text('Starting intruder alert task...');
 
