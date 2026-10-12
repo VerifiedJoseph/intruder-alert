@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.23.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.23.2) - 2026-10-12
+
+- Updated spacetime from 7.13.0 to 7.15.0 ([#1137](https://github.com/VerifiedJoseph/intruder-alert/pull/1137) [`eaed694`](https://github.com/VerifiedJoseph/intruder-alert/commit/eaed6945ebf2cb3517dbeef7446b3cb124b3b9f3))
+- Dockerfile: Updated composer from 2.10.2 to 2.10.3 ([#1145](https://github.com/VerifiedJoseph/intruder-alert/pull/1145) [`29d7199`](https://github.com/VerifiedJoseph/intruder-alert/commit/29d71990f535058eefe9f4598132e7250d75e7a1))
+- Dockerfile: Updated node from 22.23.2-alpine3.23 to 22.23.3-alpine3.23 ([#1143](https://github.com/VerifiedJoseph/intruder-alert/pull/1143) [`a5b9ed2`](https://github.com/VerifiedJoseph/intruder-alert/commit/a5b9ed2b018ec8a4d9d482455f7f91b8163e7dc7))
+- Dockerfile: Updated php from 8.3.33-fpm-alpine3.23 to 8.3.35-fpm-alpine3.23 ([#1144](https://github.com/VerifiedJoseph/intruder-alert/pull/1144) [`ef17e76`](https://github.com/VerifiedJoseph/intruder-alert/commit/ef17e76afa4b55e5dfc2d8d4f8442e5dddd57183))
+
+
 ## [1.23.1](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.23.1) - 2026-09-01
 
 - Updated geoip2/geoip2 from 3.3.0 to 3.4.0 ([#1109](https://github.com/VerifiedJoseph/intruder-alert/pull/1109) [`b950a8d`](https://github.com/VerifiedJoseph/intruder-alert/commit/b950a8d647498c4e9c144ecd3fd2adf401cab483))
