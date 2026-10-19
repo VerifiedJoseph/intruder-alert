@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.23.3](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.23.3) - 2026-10-19
+
+- Fixed fatal require path error in data.php ([#1148](https://github.com/VerifiedJoseph/intruder-alert/pull/1148) [`1f410ca`](https://github.com/VerifiedJoseph/intruder-alert/commit/1f410caf0ba5b2b9f090758d2a91c7d9634b9372))
+
 ## [1.23.2](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.23.2) - 2026-10-12
 
 - Updated spacetime from 7.13.0 to 7.15.0 ([#1137](https://github.com/VerifiedJoseph/intruder-alert/pull/1137) [`eaed694`](https://github.com/VerifiedJoseph/intruder-alert/commit/eaed6945ebf2cb3517dbeef7446b3cb124b3b9f3))
