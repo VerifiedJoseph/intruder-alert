@@ -6,7 +6,7 @@ use IntruderAlert\Exception\AppException;
 use IntruderAlert\Exception\ConfigException;
 use IntruderAlert\Helper\Json;
 
-require(__DIR__ . '/backend/vendor/autoload.php');
+require('backend/vendor/autoload.php');
 
 $data = '';
 
