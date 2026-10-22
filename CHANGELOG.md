@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.23.4](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.23.4) - 2026-10-22
+
+- Updated spacetime from 7.15.0 to 7.16.0 ([#1155](https://github.com/VerifiedJoseph/intruder-alert/pull/1155) [`06d8c9a`](https://github.com/VerifiedJoseph/intruder-alert/commit/06d8c9a4c2e66fedb93c947181abcb5e4c33f3a8))
+- Updated composer/ca-bundle from 1.5.13 to 1.6.0 ([#1159](https://github.com/VerifiedJoseph/intruder-alert/pull/1159) [`6864810`](https://github.com/VerifiedJoseph/intruder-alert/commit/686481059bb9e30a72e687a450a2864c518973fe))
+- Dockerfile: Updated node from 22.23.3-alpine3.23 to 22.23.4-alpine3.24 ([#1152](https://github.com/VerifiedJoseph/intruder-alert/pull/1152) [`6d2ea65`](https://github.com/VerifiedJoseph/intruder-alert/commit/6d2ea65e979cf2caed387b35b18b7afd242d046b))
+- Dockerfile: Updated php from 8.3.35-fpm-alpine3.23 to 8.3.36-fpm-alpine3.24 ([#1151](https://github.com/VerifiedJoseph/intruder-alert/pull/1151) [`0d5f00e`](https://github.com/VerifiedJoseph/intruder-alert/commit/0d5f00e409c6d1d1dd2daccc52a90756436b04ab))
+
 ## [1.23.3](https://github.com/VerifiedJoseph/intruder-alert/releases/tag/v1.23.3) - 2026-10-19
 
 - Fixed fatal require path error in data.php ([#1148](https://github.com/VerifiedJoseph/intruder-alert/pull/1148) [`1f410ca`](https://github.com/VerifiedJoseph/intruder-alert/commit/1f410caf0ba5b2b9f090758d2a91c7d9634b9372))
