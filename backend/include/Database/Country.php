@@ -36,8 +36,8 @@ class Country extends AbstractDatabase
             }
         } catch (AddressNotFoundException) {
             $this->logger->info('Address not found in GeoIP2 country database: ' . $address);
-        } finally {
-            return $data;
         }
+
+        return $data;
     }
 }

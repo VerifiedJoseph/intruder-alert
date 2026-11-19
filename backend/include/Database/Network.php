@@ -32,8 +32,8 @@ class Network extends AbstractDatabase
             $data['subnet'] = (string) $record->network;
         } catch (AddressNotFoundException) {
             $this->logger->info('Address not found in GeoIP2 ASN database: ' . $address);
-        } finally {
-            return $data;
         }
+
+        return $data;
     }
 }
